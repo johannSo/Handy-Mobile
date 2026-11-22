@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "Umum",
     "models": "Model",
+    "mobile": "Seluler",
     "advanced": "Lanjutan",
     "postProcessing": "Pascaproses",
     "history": "Riwayat",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "Pindai Ulang",
         "tooltip": "Pindai ulang model yang ditambahkan ke folder model atau cache Hugging Face dari luar Handy"
+      }
+    },
+    "mobile": {
+      "intro": "Gunakan ponsel Anda sebagai mikrofon untuk komputer ini. Ponsel merekam, komputer ini mentranskripsi.",
+      "groups": {
+        "connection": "Koneksi",
+        "devices": "Ponsel Tersanding",
+        "dictation": "Dikte"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "Izinkan ponsel tersanding mendikte melalui komputer ini. Selama fitur ini aktif, Handy menunggu ponsel tersebut di jaringan lokal Anda."
+      },
+      "status": {
+        "title": "Status",
+        "description": "Alamat yang dituju ponsel tersanding untuk terhubung. Ponsel dan komputer ini harus berada di jaringan yang sama.",
+        "off": "Nonaktif",
+        "starting": "Memulai…",
+        "listening": "Menunggu koneksi di {{address}}",
+        "noNetwork": "Tidak terhubung ke jaringan",
+        "failed": "Gagal memulai: {{error}}"
+      },
+      "port": {
+        "title": "Port",
+        "description": "Port jaringan yang dituju ponsel untuk terhubung. Izinkan port ini di firewall jika ponsel tidak dapat terhubung. Ponsel harus disandingkan lagi setelah Anda mengubahnya."
+      },
+      "pair": {
+        "button": "Sandingkan Ponsel",
+        "hint": "Penyandingan menampilkan kode untuk dipindai dengan Handy Mobile.",
+        "turnOnFirst": "Aktifkan Handy Mobile untuk menyandingkan ponsel.",
+        "title": "Sandingkan Ponsel",
+        "description": "Buka Handy Mobile di ponsel Anda dan pindai kode ini. Ponsel harus berada di jaringan yang sama dengan komputer ini.",
+        "qrAlt": "Kode penyandingan",
+        "expires": "Kode ini kedaluwarsa dalam {{time}}",
+        "expired": "Kode ini sudah kedaluwarsa.",
+        "newCode": "Kode Baru",
+        "manual": "Tidak bisa memindai? Salin kodenya dan tempelkan ke Handy Mobile.",
+        "copy": "Salin Kode",
+        "copied": "Kode penyandingan disalin",
+        "copyFailed": "Gagal menyalin kode penyandingan",
+        "done": "{{name}} telah disandingkan",
+        "failed": "Gagal Membuat Kode Penyandingan"
+      },
+      "devices": {
+        "empty": "Belum ada ponsel yang disandingkan.",
+        "connected": "Terhubung",
+        "dictating": "Mendikte…",
+        "lastSeen": "Terakhir terlihat {{time}}",
+        "never": "Belum pernah terhubung",
+        "rename": "Ganti Nama",
+        "nameLabel": "Nama ponsel",
+        "renameFailed": "Gagal Mengganti Nama Ponsel",
+        "remove": "Lepas Sandingan",
+        "removeConfirmTitle": "Lepas sandingan {{name}}?",
+        "removeConfirm": "Ponsel ini tidak akan dapat mendikte melalui komputer ini sampai Anda menyandingkannya lagi.",
+        "removeFailed": "Gagal Melepas Sandingan Ponsel",
+        "cancel": "Batal"
+      },
+      "outputMode": {
+        "title": "Kirim Teks Ke",
+        "description": "Tujuan teks saat ponsel mendikte. Ponsel juga selalu menampilkannya.",
+        "options": {
+          "desktop": "Komputer Ini",
+          "phone": "Hanya Ponsel"
+        }
+      },
+      "postProcess": {
+        "label": "Pascaproses",
+        "description": "Jalankan Pascaproses pada hasil dikte ponsel."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "Ditranskripsi Tanpa Pascaproses",
     "filePostProcessFailed": "Pascaproses tidak selesai, jadi transkrip disimpan apa adanya.",
     "fileTranscriptionFailedTitle": "Transkripsi File Gagal",
+    "mobileServerFailedTitle": "Handy Mobile Gagal Dimulai",
+    "mobileServerFailed": "Ponsel tidak dapat terhubung. Aplikasi lain mungkin sedang memakai port tersebut; pilih port lain di pengaturan Seluler.",
+    "mobileTranscriptionFailedTitle": "Dikte Ponsel Gagal",
     "transcriptionFailedTitle": "Transkripsi Gagal"
   },
   "notices": {

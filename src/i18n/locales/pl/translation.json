@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "Ogólne",
     "models": "Modele",
+    "mobile": "Telefon",
     "advanced": "Zaawansowane",
     "postProcessing": "Postproces",
     "history": "Historia",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "Skanuj ponownie",
         "tooltip": "Skanuj ponownie w poszukiwaniu modeli dodanych do folderu modeli lub pamięci podręcznej Hugging Face poza Handy"
+      }
+    },
+    "mobile": {
+      "intro": "Używaj telefonu jako mikrofonu dla tego komputera. Telefon nagrywa, a ten komputer transkrybuje.",
+      "groups": {
+        "connection": "Połączenie",
+        "devices": "Sparowane telefony",
+        "dictation": "Dyktowanie"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "Pozwól sparowanym telefonom dyktować przez ten komputer. Gdy ta opcja jest włączona, Handy nasłuchuje ich w sieci lokalnej."
+      },
+      "status": {
+        "title": "Stan",
+        "description": "Adres, z którym łączą się sparowane telefony. Telefon i ten komputer muszą być w tej samej sieci.",
+        "off": "Wyłączone",
+        "starting": "Uruchamianie…",
+        "listening": "Nasłuchuje pod adresem {{address}}",
+        "noNetwork": "Brak połączenia z siecią",
+        "failed": "Nie udało się uruchomić: {{error}}"
+      },
+      "port": {
+        "title": "Port",
+        "description": "Port sieciowy, z którym łączą się telefony. Odblokuj go w zaporze, jeśli telefony nie mogą się połączyć. Po jego zmianie telefony trzeba sparować ponownie."
+      },
+      "pair": {
+        "button": "Sparuj telefon",
+        "hint": "Podczas parowania pojawi się kod do zeskanowania w Handy Mobile.",
+        "turnOnFirst": "Włącz Handy Mobile, aby sparować telefon.",
+        "title": "Sparuj telefon",
+        "description": "Otwórz Handy Mobile na telefonie i zeskanuj ten kod. Telefon musi być w tej samej sieci co ten komputer.",
+        "qrAlt": "Kod parowania",
+        "expires": "Ten kod wygaśnie za {{time}}",
+        "expired": "Ten kod wygasł.",
+        "newCode": "Nowy kod",
+        "manual": "Nie możesz zeskanować? Skopiuj kod i wklej go w Handy Mobile.",
+        "copy": "Kopiuj kod",
+        "copied": "Skopiowano kod parowania",
+        "copyFailed": "Nie udało się skopiować kodu parowania",
+        "done": "Sparowano: {{name}}",
+        "failed": "Nie udało się utworzyć kodu parowania"
+      },
+      "devices": {
+        "empty": "Nie sparowano jeszcze żadnego telefonu.",
+        "connected": "Połączono",
+        "dictating": "Dyktowanie…",
+        "lastSeen": "Ostatnio widziany {{time}}",
+        "never": "Jeszcze nie połączono",
+        "rename": "Zmień nazwę",
+        "nameLabel": "Nazwa telefonu",
+        "renameFailed": "Nie udało się zmienić nazwy telefonu",
+        "remove": "Usuń parowanie",
+        "removeConfirmTitle": "Usunąć parowanie z {{name}}?",
+        "removeConfirm": "Ten telefon nie będzie mógł dyktować przez ten komputer, dopóki nie sparujesz go ponownie.",
+        "removeFailed": "Nie udało się usunąć parowania telefonu",
+        "cancel": "Anuluj"
+      },
+      "outputMode": {
+        "title": "Wyślij tekst do",
+        "description": "Dokąd trafia tekst, gdy telefon dyktuje. Telefon zawsze też go pokazuje.",
+        "options": {
+          "desktop": "Ten komputer",
+          "phone": "Tylko telefon"
+        }
+      },
+      "postProcess": {
+        "label": "Postproces",
+        "description": "Stosuj Postproces do tego, co dyktują telefony."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "Przetranskrybowano bez postprocesu",
     "filePostProcessFailed": "Postproces nie został ukończony, więc transkrypcja została zapisana bez zmian.",
     "fileTranscriptionFailedTitle": "Transkrypcja pliku nie powiodła się",
+    "mobileServerFailedTitle": "Nie udało się uruchomić Handy Mobile",
+    "mobileServerFailed": "Telefony nie mogą się połączyć. Być może portu używa inna aplikacja; wybierz inny w ustawieniach zakładki Telefon.",
+    "mobileTranscriptionFailedTitle": "Dyktowanie z telefonu nie powiodło się",
     "transcriptionFailedTitle": "Transkrypcja nie powiodła się"
   },
   "notices": {

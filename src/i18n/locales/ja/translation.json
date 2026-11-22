@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "一般",
     "models": "モデル",
+    "mobile": "モバイル",
     "advanced": "詳細設定",
     "postProcessing": "後処理",
     "history": "履歴",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "再スキャン",
         "tooltip": "Handy を使わずに models フォルダーまたは Hugging Face キャッシュに追加されたモデルを再スキャンします"
+      }
+    },
+    "mobile": {
+      "intro": "スマートフォンをこのコンピューターのマイクとして使います。スマートフォンが録音し、このコンピューターが文字起こしします。",
+      "groups": {
+        "connection": "接続",
+        "devices": "ペアリング済みのスマートフォン",
+        "dictation": "音声入力"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "ペアリング済みのスマートフォンから、このコンピューターを使って音声入力できるようにします。オンの間、Handy はローカルネットワークで接続を待ち受けます。"
+      },
+      "status": {
+        "title": "状態",
+        "description": "ペアリング済みのスマートフォンが接続するアドレスです。スマートフォンとこのコンピューターは同じネットワーク上にある必要があります。",
+        "off": "オフ",
+        "starting": "起動中…",
+        "listening": "{{address}} で待機中",
+        "noNetwork": "ネットワークに接続されていません",
+        "failed": "起動できませんでした: {{error}}"
+      },
+      "port": {
+        "title": "ポート",
+        "description": "スマートフォンが接続するネットワークポートです。スマートフォンが接続できない場合は、ファイアウォールで許可してください。変更後はスマートフォンを再度ペアリングする必要があります。"
+      },
+      "pair": {
+        "button": "スマートフォンをペアリング",
+        "hint": "ペアリングでは、Handy Mobile でスキャンするコードが表示されます。",
+        "turnOnFirst": "スマートフォンをペアリングするには、Handy Mobile をオンにしてください。",
+        "title": "スマートフォンをペアリング",
+        "description": "スマートフォンで Handy Mobile を開き、このコードをスキャンしてください。スマートフォンはこのコンピューターと同じネットワーク上にある必要があります。",
+        "qrAlt": "ペアリングコード",
+        "expires": "このコードの有効期限はあと {{time}} です",
+        "expired": "このコードは有効期限が切れました。",
+        "newCode": "新しいコード",
+        "manual": "スキャンできない場合は、コードをコピーして Handy Mobile に貼り付けてください。",
+        "copy": "コードをコピー",
+        "copied": "ペアリングコードをコピーしました",
+        "copyFailed": "ペアリングコードをコピーできませんでした",
+        "done": "{{name}} をペアリングしました",
+        "failed": "ペアリングコードを作成できませんでした"
+      },
+      "devices": {
+        "empty": "ペアリング済みのスマートフォンはまだありません。",
+        "connected": "接続済み",
+        "dictating": "音声入力中…",
+        "lastSeen": "最終接続: {{time}}",
+        "never": "未接続",
+        "rename": "名前を変更",
+        "nameLabel": "スマートフォンの名前",
+        "renameFailed": "スマートフォンの名前を変更できませんでした",
+        "remove": "ペアリングを解除",
+        "removeConfirmTitle": "{{name}} のペアリングを解除しますか？",
+        "removeConfirm": "再度ペアリングするまで、このスマートフォンはこのコンピューターを使って音声入力できなくなります。",
+        "removeFailed": "スマートフォンのペアリングを解除できませんでした",
+        "cancel": "キャンセル"
+      },
+      "outputMode": {
+        "title": "テキストの送信先",
+        "description": "スマートフォンで音声入力したテキストの送り先です。スマートフォンには常に表示されます。",
+        "options": {
+          "desktop": "このコンピューター",
+          "phone": "スマートフォンのみ"
+        }
+      },
+      "postProcess": {
+        "label": "後処理",
+        "description": "スマートフォンで音声入力した内容に後処理を実行します。"
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "後処理なしで文字起こししました",
     "filePostProcessFailed": "後処理が完了しなかったため、文字起こしをそのまま保存しました。",
     "fileTranscriptionFailedTitle": "ファイルの文字起こしに失敗しました",
+    "mobileServerFailedTitle": "Handy Mobile を起動できませんでした",
+    "mobileServerFailed": "スマートフォンが接続できません。別のアプリがポートを使用している可能性があります。モバイル設定で別のポートを選んでください。",
+    "mobileTranscriptionFailedTitle": "スマートフォンの音声入力に失敗しました",
     "transcriptionFailedTitle": "文字起こしに失敗しました"
   },
   "notices": {

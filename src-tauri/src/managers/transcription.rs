@@ -275,6 +275,9 @@ pub struct TranscriptionManager {
     /// True while a background job is queued or running. It holds the model,
     /// so one transcript is never written by two models.
     job_active: Arc<AtomicBool>,
+    /// True while a paired phone is recording or being transcribed. Holds
+    /// the model the same way a job does.
+    mobile_active: Arc<AtomicBool>,
     /// Handy's spoken-language detector, loaded in this process on first
     /// use and unloaded with the model.
     language_detector: Arc<LanguageDetector>,
@@ -298,6 +301,7 @@ impl TranscriptionManager {
             next_stream_worker_id: Arc::new(AtomicU64::new(1)),
             active_stream_worker: Arc::new(AtomicU64::new(0)),
             job_active: Arc::new(AtomicBool::new(false)),
+            mobile_active: Arc::new(AtomicBool::new(false)),
             language_detector: Arc::new(LanguageDetector::default()),
         };
 
@@ -778,9 +782,15 @@ impl TranscriptionManager {
         self.engine.loaded().map(|info| info.backend)
     }
 
-    /// Whether a file job is queued or running, which holds the model.
+    /// Whether a file job is queued or running, or a paired phone is
+    /// dictating; either holds the model.
     pub fn job_active(&self) -> bool {
-        self.job_active.load(Ordering::Acquire)
+        self.job_active.load(Ordering::Acquire) || self.mobile_active.load(Ordering::Acquire)
+    }
+
+    /// Set while a paired phone is recording or being transcribed.
+    pub fn set_mobile_active(&self, active: bool) {
+        self.mobile_active.store(active, Ordering::Release);
     }
 
     pub fn set_job_active(&self, active: bool) {
@@ -791,7 +801,10 @@ impl TranscriptionManager {
     /// model.
     pub fn ensure_model_unlocked(&self) -> std::result::Result<(), String> {
         if self.job_active() {
-            return Err("The model can't change while a file is transcribing".to_string());
+            return Err(
+                "The model can't change while a file or a phone's dictation is transcribing"
+                    .to_string(),
+            );
         }
         Ok(())
     }

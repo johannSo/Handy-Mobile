@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "כללי",
     "models": "מודלים",
+    "mobile": "נייד",
     "advanced": "מתקדם",
     "postProcessing": "עיבוד משלים",
     "history": "היסטוריה",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "סריקה מחדש",
         "tooltip": "סריקה מחדש לאיתור מודלים שנוספו לתיקיית המודלים או למטמון של Hugging Face מחוץ ל-Handy"
+      }
+    },
+    "mobile": {
+      "intro": "השתמש בטלפון כמיקרופון למחשב הזה. הטלפון מקליט, והמחשב הזה מתמלל.",
+      "groups": {
+        "connection": "חיבור",
+        "devices": "טלפונים מצומדים",
+        "dictation": "הכתבה"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "אפשר לטלפונים מצומדים להכתיב דרך המחשב הזה. כל עוד האפשרות פועלת, Handy ממתין להם ברשת המקומית שלך."
+      },
+      "status": {
+        "title": "מצב",
+        "description": "הכתובת שאליה מתחברים הטלפונים המצומדים. הטלפון והמחשב הזה חייבים להיות באותה רשת.",
+        "off": "כבוי",
+        "starting": "מתחיל…",
+        "listening": "מאזין בכתובת {{address}}",
+        "noNetwork": "אין חיבור לרשת",
+        "failed": "ההפעלה נכשלה: {{error}}"
+      },
+      "port": {
+        "title": "פורט",
+        "description": "פורט הרשת שאליו מתחברים הטלפונים. אם הטלפונים לא מצליחים להתחבר, אפשר אותו בחומת האש. אחרי שינוי הפורט צריך לצמד את הטלפונים מחדש."
+      },
+      "pair": {
+        "button": "צמד טלפון",
+        "hint": "בצימוד מוצג קוד לסריקה באמצעות Handy Mobile.",
+        "turnOnFirst": "הפעל את Handy Mobile כדי לצמד טלפון.",
+        "title": "צמד טלפון",
+        "description": "פתח את Handy Mobile בטלפון וסרוק את הקוד הזה. הטלפון חייב להיות באותה רשת כמו המחשב הזה.",
+        "qrAlt": "קוד צימוד",
+        "expires": "הקוד יפוג בעוד {{time}}",
+        "expired": "תוקף הקוד פג.",
+        "newCode": "קוד חדש",
+        "manual": "לא מצליח לסרוק? העתק את הקוד והדבק אותו ב-Handy Mobile.",
+        "copy": "העתק קוד",
+        "copied": "קוד הצימוד הועתק",
+        "copyFailed": "העתקת קוד הצימוד נכשלה",
+        "done": "{{name}} צומד",
+        "failed": "יצירת קוד הצימוד נכשלה"
+      },
+      "devices": {
+        "empty": "עדיין אין טלפונים מצומדים.",
+        "connected": "מחובר",
+        "dictating": "מכתיב…",
+        "lastSeen": "נראה לאחרונה {{time}}",
+        "never": "עדיין לא התחבר",
+        "rename": "שנה שם",
+        "nameLabel": "שם הטלפון",
+        "renameFailed": "שינוי שם הטלפון נכשל",
+        "remove": "בטל צימוד",
+        "removeConfirmTitle": "לבטל את הצימוד של {{name}}?",
+        "removeConfirm": "הטלפון הזה לא יוכל להכתיב דרך המחשב הזה עד שתצמד אותו מחדש.",
+        "removeFailed": "ביטול צימוד הטלפון נכשל",
+        "cancel": "ביטול"
+      },
+      "outputMode": {
+        "title": "שלח טקסט אל",
+        "description": "לאן הטקסט נשלח כשטלפון מכתיב. הטלפון תמיד מציג אותו גם כן.",
+        "options": {
+          "desktop": "המחשב הזה",
+          "phone": "הטלפון בלבד"
+        }
+      },
+      "postProcess": {
+        "label": "עיבוד משלים",
+        "description": "הפעל עיבוד משלים על מה שהטלפונים מכתיבים."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "תומלל ללא עיבוד משלים",
     "filePostProcessFailed": "העיבוד המשלים לא הסתיים, ולכן התמלול נשמר כפי שהוא.",
     "fileTranscriptionFailedTitle": "תמלול הקובץ נכשל",
+    "mobileServerFailedTitle": "הפעלת Handy Mobile נכשלה",
+    "mobileServerFailed": "הטלפונים לא מצליחים להתחבר. ייתכן שאפליקציה אחרת משתמשת בפורט; בחר פורט אחר בהגדרות נייד.",
+    "mobileTranscriptionFailedTitle": "ההכתבה מהטלפון נכשלה",
     "transcriptionFailedTitle": "התמלול נכשל"
   },
   "notices": {

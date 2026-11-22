@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "一般",
     "models": "模型",
+    "mobile": "行動裝置",
     "advanced": "進階",
     "postProcessing": "後處理",
     "history": "歷史紀錄",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "重新掃描",
         "tooltip": "重新掃描在 Handy 之外新增到模型資料夾或 Hugging Face 快取中的模型"
+      }
+    },
+    "mobile": {
+      "intro": "把手機當作這台電腦的麥克風。手機負責錄音，這台電腦負責轉錄。",
+      "groups": {
+        "connection": "連線",
+        "devices": "已配對的手機",
+        "dictation": "聽寫"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "允許已配對的手機透過這台電腦聽寫。開啟後，Handy 會在區域網路中等待它們連線。"
+      },
+      "status": {
+        "title": "狀態",
+        "description": "已配對手機連線的位址。手機和這台電腦必須在同一個網路中。",
+        "off": "關閉",
+        "starting": "正在啟動…",
+        "listening": "正在監聽 {{address}}",
+        "noNetwork": "未連線到網路",
+        "failed": "無法啟動：{{error}}"
+      },
+      "port": {
+        "title": "連接埠",
+        "description": "手機連線所用的網路連接埠。如果手機無法連線，請在防火牆中允許此連接埠。變更連接埠後，需要重新配對手機。"
+      },
+      "pair": {
+        "button": "配對手機",
+        "hint": "配對時會顯示一個 QR 碼，用 Handy Mobile 掃描即可。",
+        "turnOnFirst": "請先開啟 Handy Mobile，再配對手機。",
+        "title": "配對手機",
+        "description": "在手機上開啟 Handy Mobile 並掃描此 QR 碼。手機必須與這台電腦在同一個網路中。",
+        "qrAlt": "配對碼",
+        "expires": "此配對碼將在 {{time}} 後過期",
+        "expired": "此配對碼已過期。",
+        "newCode": "新配對碼",
+        "manual": "無法掃描？複製配對碼並貼到 Handy Mobile 中。",
+        "copy": "複製配對碼",
+        "copied": "配對碼已複製",
+        "copyFailed": "無法複製配對碼",
+        "done": "{{name}} 已配對",
+        "failed": "無法建立配對碼"
+      },
+      "devices": {
+        "empty": "尚未配對任何手機。",
+        "connected": "已連線",
+        "dictating": "正在聽寫…",
+        "lastSeen": "上次上線：{{time}}",
+        "never": "尚未連線過",
+        "rename": "重新命名",
+        "nameLabel": "手機名稱",
+        "renameFailed": "無法重新命名手機",
+        "remove": "取消配對",
+        "removeConfirmTitle": "要取消與 {{name}} 的配對嗎？",
+        "removeConfirm": "在重新配對之前，這支手機將無法透過這台電腦聽寫。",
+        "removeFailed": "無法取消手機配對",
+        "cancel": "取消"
+      },
+      "outputMode": {
+        "title": "文字傳送到",
+        "description": "手機聽寫時文字的去向。手機上一律也會顯示文字。",
+        "options": {
+          "desktop": "這台電腦",
+          "phone": "僅手機"
+        }
+      },
+      "postProcess": {
+        "label": "後處理",
+        "description": "對手機聽寫的內容進行後處理。"
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "已轉錄，未經後處理",
     "filePostProcessFailed": "後處理未完成，因此按原樣儲存轉錄內容。",
     "fileTranscriptionFailedTitle": "檔案轉錄失敗",
+    "mobileServerFailedTitle": "Handy Mobile 無法啟動",
+    "mobileServerFailed": "手機無法連線。連接埠可能被其他應用程式佔用；請在行動裝置設定中選擇其他連接埠。",
+    "mobileTranscriptionFailedTitle": "手機聽寫失敗",
     "transcriptionFailedTitle": "轉錄失敗"
   },
   "notices": {

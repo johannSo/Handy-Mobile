@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "Geral",
     "models": "Modelos",
+    "mobile": "Celular",
     "advanced": "Avançado",
     "postProcessing": "Pós-Processamento",
     "history": "Histórico",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "Reescanear",
         "tooltip": "Reescaneia em busca de modelos adicionados à pasta de modelos ou ao cache do Hugging Face fora do Handy"
+      }
+    },
+    "mobile": {
+      "intro": "Use seu celular como microfone para este computador. O celular grava, este computador transcreve.",
+      "groups": {
+        "connection": "Conexão",
+        "devices": "Celulares Pareados",
+        "dictation": "Ditado"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "Permite que celulares pareados ditem por este computador. Enquanto estiver ativado, o Handy fica à espera deles na sua rede local."
+      },
+      "status": {
+        "title": "Status",
+        "description": "O endereço ao qual os celulares pareados se conectam. O celular e este computador precisam estar na mesma rede.",
+        "off": "Desativado",
+        "starting": "Iniciando…",
+        "listening": "Escutando em {{address}}",
+        "noNetwork": "Sem conexão com uma rede",
+        "failed": "Não foi possível iniciar: {{error}}"
+      },
+      "port": {
+        "title": "Porta",
+        "description": "A porta de rede à qual os celulares se conectam. Libere-a no firewall se os celulares não conseguirem se conectar. Os celulares precisam ser pareados de novo depois que você a altera."
+      },
+      "pair": {
+        "button": "Parear um Celular",
+        "hint": "O pareamento mostra um código para escanear com o Handy Mobile.",
+        "turnOnFirst": "Ative o Handy Mobile para parear um celular.",
+        "title": "Parear um Celular",
+        "description": "Abra o Handy Mobile no celular e escaneie este código. O celular precisa estar na mesma rede que este computador.",
+        "qrAlt": "Código de pareamento",
+        "expires": "Este código expira em {{time}}",
+        "expired": "Este código expirou.",
+        "newCode": "Novo Código",
+        "manual": "Não consegue escanear? Copie o código e cole no Handy Mobile.",
+        "copy": "Copiar Código",
+        "copied": "Código de pareamento copiado",
+        "copyFailed": "Não foi possível copiar o código de pareamento",
+        "done": "{{name}} foi pareado",
+        "failed": "Não foi possível criar um código de pareamento"
+      },
+      "devices": {
+        "empty": "Nenhum celular pareado ainda.",
+        "connected": "Conectado",
+        "dictating": "Ditando…",
+        "lastSeen": "Visto pela última vez {{time}}",
+        "never": "Ainda não se conectou",
+        "rename": "Renomear",
+        "nameLabel": "Nome do celular",
+        "renameFailed": "Não foi possível renomear o celular",
+        "remove": "Desparear",
+        "removeConfirmTitle": "Desparear {{name}}?",
+        "removeConfirm": "Este celular não poderá ditar por este computador até você pareá-lo de novo.",
+        "removeFailed": "Não foi possível desparear o celular",
+        "cancel": "Cancelar"
+      },
+      "outputMode": {
+        "title": "Enviar Texto Para",
+        "description": "Para onde o texto vai quando um celular dita. O celular sempre o mostra também.",
+        "options": {
+          "desktop": "Este Computador",
+          "phone": "Só no Celular"
+        }
+      },
+      "postProcess": {
+        "label": "Pós-Processamento",
+        "description": "Aplica o Pós-Processamento ao que os celulares ditam."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "Transcrito sem pós-processamento",
     "filePostProcessFailed": "O pós-processamento não terminou, então a transcrição foi salva como está.",
     "fileTranscriptionFailedTitle": "Falha na transcrição do arquivo",
+    "mobileServerFailedTitle": "Falha ao iniciar o Handy Mobile",
+    "mobileServerFailed": "Os celulares não conseguem se conectar. Outro app pode estar usando a porta; escolha outra nas configurações de Celular.",
+    "mobileTranscriptionFailedTitle": "Falha no ditado pelo celular",
     "transcriptionFailedTitle": "Falha na transcrição"
   },
   "notices": {

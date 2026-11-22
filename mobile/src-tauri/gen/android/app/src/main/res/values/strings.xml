@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">"Handy Mobile"</string>
+    <string name="main_activity_title">"Handy Mobile"</string>
+
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_name">"Handy Mobile"</string>
+    <string name="keyboard_subtype">"Dictation"</string>
+    <string name="keyboard_tap_to_dictate">"Tap to dictate"</string>
+    <string name="keyboard_listening">"Listening… tap to finish"</string>
+    <string name="keyboard_transcribing">"Transcribing…"</string>
+    <string name="keyboard_connecting">"Connecting to %1$s…"</string>
+    <string name="keyboard_offline">"Can\'t reach %1$s. Tap to try again."</string>
+    <string name="keyboard_your_computer">"your computer"</string>
+    <string name="keyboard_unpaired">"Tap to pair with your computer"</string>
+    <string name="keyboard_rejected">"No longer paired. Tap to pair again."</string>
+    <string name="keyboard_incompatible">"Update Handy on your phone and computer"</string>
+    <string name="keyboard_needs_microphone">"Tap to allow the microphone"</string>
+    <string name="keyboard_microphone_failed">"The microphone couldn\'t be started"</string>
+    <string name="keyboard_nothing_heard">"Nothing was heard"</string>
+    <string name="keyboard_connection_lost">"The connection dropped. Try again."</string>
+    <string name="keyboard_busy">"Your computer is busy with another dictation"</string>
+    <string name="keyboard_no_model">"Handy on your computer has no model selected"</string>
+    <string name="keyboard_too_long">"That reached the length limit"</string>
+    <string name="keyboard_failed">"Your computer couldn\'t transcribe that"</string>
+    <string name="keyboard_dictate">"Start dictating"</string>
+    <string name="keyboard_finish">"Finish dictating"</string>
+    <string name="keyboard_cancel">"Cancel"</string>
+    <string name="keyboard_switch">"Switch keyboard"</string>
+    <string name="keyboard_space">"space"</string>
+    <string name="keyboard_backspace">"Delete"</string>
+    <string name="keyboard_enter">"Enter"</string>
+</resources>

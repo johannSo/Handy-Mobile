@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "Obecné",
     "models": "Modely",
+    "mobile": "Mobil",
     "advanced": "Pokročilé",
     "postProcessing": "Následné zpracování",
     "history": "Historie",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "Znovu prohledat",
         "tooltip": "Znovu prohledat modely přidané do složky modelů nebo mezipaměti Hugging Face mimo Handy"
+      }
+    },
+    "mobile": {
+      "intro": "Používejte telefon jako mikrofon pro tento počítač. Telefon nahrává, tento počítač přepisuje.",
+      "groups": {
+        "connection": "Připojení",
+        "devices": "Spárované telefony",
+        "dictation": "Diktování"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "Umožní spárovaným telefonům diktovat přes tento počítač. Dokud je tato možnost zapnutá, Handy na ně čeká ve vaší místní síti."
+      },
+      "status": {
+        "title": "Stav",
+        "description": "Adresa, ke které se připojují spárované telefony. Telefon a tento počítač musí být ve stejné síti.",
+        "off": "Vypnuto",
+        "starting": "Spouštění…",
+        "listening": "Naslouchá na {{address}}",
+        "noNetwork": "Bez připojení k síti",
+        "failed": "Nepodařilo se spustit: {{error}}"
+      },
+      "port": {
+        "title": "Port",
+        "description": "Síťový port, ke kterému se telefony připojují. Pokud se telefony nemohou připojit, povolte ho ve firewallu. Po jeho změně je potřeba telefony spárovat znovu."
+      },
+      "pair": {
+        "button": "Spárovat telefon",
+        "hint": "Při párování se zobrazí kód, který naskenujete v Handy Mobile.",
+        "turnOnFirst": "Chcete-li spárovat telefon, zapněte Handy Mobile.",
+        "title": "Spárovat telefon",
+        "description": "Otevřete v telefonu Handy Mobile a naskenujte tento kód. Telefon musí být ve stejné síti jako tento počítač.",
+        "qrAlt": "Párovací kód",
+        "expires": "Platnost kódu vyprší za {{time}}",
+        "expired": "Platnost kódu vypršela.",
+        "newCode": "Nový kód",
+        "manual": "Nejde naskenovat? Zkopírujte kód a vložte ho do Handy Mobile.",
+        "copy": "Kopírovat kód",
+        "copied": "Párovací kód zkopírován",
+        "copyFailed": "Párovací kód se nepodařilo zkopírovat",
+        "done": "Zařízení {{name}} je spárováno",
+        "failed": "Párovací kód se nepodařilo vytvořit"
+      },
+      "devices": {
+        "empty": "Zatím nejsou spárovány žádné telefony.",
+        "connected": "Připojeno",
+        "dictating": "Diktuje…",
+        "lastSeen": "Naposledy viděn {{time}}",
+        "never": "Zatím nepřipojeno",
+        "rename": "Přejmenovat",
+        "nameLabel": "Název telefonu",
+        "renameFailed": "Telefon se nepodařilo přejmenovat",
+        "remove": "Zrušit spárování",
+        "removeConfirmTitle": "Zrušit spárování s {{name}}?",
+        "removeConfirm": "Tento telefon nebude moci diktovat přes tento počítač, dokud ho znovu nespárujete.",
+        "removeFailed": "Spárování telefonu se nepodařilo zrušit",
+        "cancel": "Zrušit"
+      },
+      "outputMode": {
+        "title": "Odesílat text do",
+        "description": "Kam se text odešle, když diktuje telefon. Telefon ho zobrazí vždy.",
+        "options": {
+          "desktop": "Tento počítač",
+          "phone": "Pouze telefon"
+        }
+      },
+      "postProcess": {
+        "label": "Následné zpracování",
+        "description": "Použije následné zpracování na to, co telefony nadiktují."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "Přepsáno bez následného zpracování",
     "filePostProcessFailed": "Následné zpracování se nedokončilo, takže byl přepis uložen beze změn.",
     "fileTranscriptionFailedTitle": "Přepis souboru selhal",
+    "mobileServerFailedTitle": "Handy Mobile se nepodařilo spustit",
+    "mobileServerFailed": "Telefony se nemohou připojit. Port možná používá jiná aplikace; v nastavení Mobil zvolte jiný.",
+    "mobileTranscriptionFailedTitle": "Diktování z telefonu selhalo",
     "transcriptionFailedTitle": "Přepis selhal"
   },
   "notices": {

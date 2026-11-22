@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "Generale",
     "models": "Modelli",
+    "mobile": "Mobile",
     "advanced": "Avanzate",
     "postProcessing": "Post-Elaborazione",
     "history": "Cronologia",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "Riscansiona",
         "tooltip": "Riscansiona per trovare modelli aggiunti alla cartella dei modelli o alla cache di Hugging Face al di fuori di Handy"
+      }
+    },
+    "mobile": {
+      "intro": "Usa il telefono come microfono per questo computer. Il telefono registra, questo computer trascrive.",
+      "groups": {
+        "connection": "Connessione",
+        "devices": "Telefoni associati",
+        "dictation": "Dettatura"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "Consenti ai telefoni associati di dettare tramite questo computer. Finché è attivo, Handy resta in ascolto sulla tua rete locale."
+      },
+      "status": {
+        "title": "Stato",
+        "description": "L'indirizzo a cui si connettono i telefoni associati. Il telefono e questo computer devono essere sulla stessa rete.",
+        "off": "Disattivato",
+        "starting": "Avvio in corso…",
+        "listening": "In ascolto su {{address}}",
+        "noNetwork": "Nessuna connessione di rete",
+        "failed": "Impossibile avviare: {{error}}"
+      },
+      "port": {
+        "title": "Porta",
+        "description": "La porta di rete a cui si connettono i telefoni. Consentila nel firewall se i telefoni non riescono a connettersi. Dopo averla cambiata, i telefoni vanno associati di nuovo."
+      },
+      "pair": {
+        "button": "Associa un telefono",
+        "hint": "L'associazione mostra un codice da scansionare con Handy Mobile.",
+        "turnOnFirst": "Attiva Handy Mobile per associare un telefono.",
+        "title": "Associa un telefono",
+        "description": "Apri Handy Mobile sul telefono e scansiona questo codice. Il telefono deve essere sulla stessa rete di questo computer.",
+        "qrAlt": "Codice di associazione",
+        "expires": "Questo codice scade tra {{time}}",
+        "expired": "Questo codice è scaduto.",
+        "newCode": "Nuovo codice",
+        "manual": "Non riesci a scansionarlo? Copia il codice e incollalo in Handy Mobile.",
+        "copy": "Copia codice",
+        "copied": "Codice di associazione copiato",
+        "copyFailed": "Impossibile copiare il codice di associazione",
+        "done": "{{name}} è associato",
+        "failed": "Impossibile creare un codice di associazione"
+      },
+      "devices": {
+        "empty": "Nessun telefono associato.",
+        "connected": "Connesso",
+        "dictating": "Dettatura in corso…",
+        "lastSeen": "Ultima connessione: {{time}}",
+        "never": "Non ancora connesso",
+        "rename": "Rinomina",
+        "nameLabel": "Nome del telefono",
+        "renameFailed": "Impossibile rinominare il telefono",
+        "remove": "Dissocia",
+        "removeConfirmTitle": "Dissociare {{name}}?",
+        "removeConfirm": "Questo telefono non potrà più dettare tramite questo computer finché non lo associ di nuovo.",
+        "removeFailed": "Impossibile dissociare il telefono",
+        "cancel": "Annulla"
+      },
+      "outputMode": {
+        "title": "Invia il testo a",
+        "description": "Dove finisce il testo quando un telefono detta. Il telefono lo mostra sempre comunque.",
+        "options": {
+          "desktop": "Questo computer",
+          "phone": "Solo telefono"
+        }
+      },
+      "postProcess": {
+        "label": "Post-Elaborazione",
+        "description": "Applica la post-elaborazione a ciò che dettano i telefoni."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "Trascritto senza post-elaborazione",
     "filePostProcessFailed": "La post-elaborazione non è terminata, quindi la trascrizione è stata salvata così com'è.",
     "fileTranscriptionFailedTitle": "Trascrizione del file non riuscita",
+    "mobileServerFailedTitle": "Impossibile avviare Handy Mobile",
+    "mobileServerFailed": "I telefoni non riescono a connettersi. Un'altra app potrebbe usare la porta; scegline un'altra nelle impostazioni Mobile.",
+    "mobileTranscriptionFailedTitle": "Dettatura dal telefono non riuscita",
     "transcriptionFailedTitle": "Trascrizione non riuscita"
   },
   "notices": {

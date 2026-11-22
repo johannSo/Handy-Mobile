@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "Chung",
     "models": "Mô hình",
+    "mobile": "Di động",
     "advanced": "Nâng cao",
     "postProcessing": "Xử lý sau",
     "history": "Lịch sử",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "Quét lại",
         "tooltip": "Quét lại các mô hình được thêm vào thư mục mô hình hoặc bộ nhớ đệm Hugging Face bên ngoài Handy"
+      }
+    },
+    "mobile": {
+      "intro": "Dùng điện thoại làm micro cho máy tính này. Điện thoại ghi âm, máy tính này phiên âm.",
+      "groups": {
+        "connection": "Kết nối",
+        "devices": "Điện thoại đã ghép nối",
+        "dictation": "Đọc chính tả"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "Cho phép điện thoại đã ghép nối đọc chính tả qua máy tính này. Khi bật, Handy chờ kết nối từ chúng trên mạng cục bộ của bạn."
+      },
+      "status": {
+        "title": "Trạng thái",
+        "description": "Địa chỉ mà điện thoại đã ghép nối kết nối tới. Điện thoại và máy tính này phải ở cùng một mạng.",
+        "off": "Tắt",
+        "starting": "Đang khởi động…",
+        "listening": "Đang lắng nghe tại {{address}}",
+        "noNetwork": "Chưa kết nối mạng",
+        "failed": "Không thể khởi động: {{error}}"
+      },
+      "port": {
+        "title": "Cổng",
+        "description": "Cổng mạng mà điện thoại kết nối tới. Hãy cho phép cổng này qua tường lửa nếu điện thoại không kết nối được. Sau khi đổi cổng, bạn phải ghép nối lại các điện thoại."
+      },
+      "pair": {
+        "button": "Ghép nối điện thoại",
+        "hint": "Khi ghép nối, một mã sẽ hiện ra để quét bằng Handy Mobile.",
+        "turnOnFirst": "Bật Handy Mobile để ghép nối điện thoại.",
+        "title": "Ghép nối điện thoại",
+        "description": "Mở Handy Mobile trên điện thoại và quét mã này. Điện thoại phải ở cùng mạng với máy tính này.",
+        "qrAlt": "Mã ghép nối",
+        "expires": "Mã này hết hạn sau {{time}}",
+        "expired": "Mã này đã hết hạn.",
+        "newCode": "Mã mới",
+        "manual": "Không quét được? Hãy sao chép mã và dán vào Handy Mobile.",
+        "copy": "Sao chép mã",
+        "copied": "Đã sao chép mã ghép nối",
+        "copyFailed": "Không thể sao chép mã ghép nối",
+        "done": "Đã ghép nối {{name}}",
+        "failed": "Không thể tạo mã ghép nối"
+      },
+      "devices": {
+        "empty": "Chưa có điện thoại nào được ghép nối.",
+        "connected": "Đã kết nối",
+        "dictating": "Đang đọc chính tả…",
+        "lastSeen": "Hoạt động lần cuối {{time}}",
+        "never": "Chưa từng kết nối",
+        "rename": "Đổi tên",
+        "nameLabel": "Tên điện thoại",
+        "renameFailed": "Không thể đổi tên điện thoại",
+        "remove": "Hủy ghép nối",
+        "removeConfirmTitle": "Hủy ghép nối {{name}}?",
+        "removeConfirm": "Điện thoại này sẽ không thể đọc chính tả qua máy tính này cho đến khi bạn ghép nối lại.",
+        "removeFailed": "Không thể hủy ghép nối điện thoại",
+        "cancel": "Hủy"
+      },
+      "outputMode": {
+        "title": "Gửi văn bản tới",
+        "description": "Nơi văn bản được gửi tới khi điện thoại đọc chính tả. Điện thoại cũng luôn hiển thị văn bản đó.",
+        "options": {
+          "desktop": "Máy tính này",
+          "phone": "Chỉ điện thoại"
+        }
+      },
+      "postProcess": {
+        "label": "Xử lý sau",
+        "description": "Áp dụng Xử lý sau cho nội dung điện thoại đọc chính tả."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "Đã chép lời không qua xử lý sau",
     "filePostProcessFailed": "Xử lý sau chưa hoàn tất nên bản chép lời được lưu nguyên trạng.",
     "fileTranscriptionFailedTitle": "Phiên âm tệp thất bại",
+    "mobileServerFailedTitle": "Không thể khởi động Handy Mobile",
+    "mobileServerFailed": "Điện thoại không kết nối được. Có thể ứng dụng khác đang dùng cổng này; hãy chọn cổng khác trong cài đặt Di động.",
+    "mobileTranscriptionFailedTitle": "Đọc chính tả từ điện thoại thất bại",
     "transcriptionFailedTitle": "Phiên âm thất bại"
   },
   "notices": {

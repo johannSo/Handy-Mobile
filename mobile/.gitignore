@@ -1,0 +1,7 @@
+node_modules
+dist
+src-tauri/target
+# Signing keys never belong in the repository.
+*.jks
+*.keystore
+keystore.properties

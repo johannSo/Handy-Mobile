@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "Genel",
     "models": "Modeller",
+    "mobile": "Mobil",
     "advanced": "Gelişmiş",
     "postProcessing": "Son İşlem",
     "history": "Geçmiş",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "Yeniden Tara",
         "tooltip": "Handy dışında modeller klasörüne veya Hugging Face önbelleğine eklenen modelleri yeniden tara"
+      }
+    },
+    "mobile": {
+      "intro": "Telefonunuzu bu bilgisayar için mikrofon olarak kullanın. Telefon kaydeder, bu bilgisayar metne dönüştürür.",
+      "groups": {
+        "connection": "Bağlantı",
+        "devices": "Eşleştirilmiş Telefonlar",
+        "dictation": "Dikte"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "Eşleştirilmiş telefonların bu bilgisayar üzerinden dikte etmesine izin verir. Bu açıkken Handy, yerel ağınızda onları bekler."
+      },
+      "status": {
+        "title": "Durum",
+        "description": "Eşleştirilmiş telefonların bağlandığı adres. Telefon ve bu bilgisayar aynı ağda olmalıdır.",
+        "off": "Kapalı",
+        "starting": "Başlatılıyor…",
+        "listening": "{{address}} adresinde dinleniyor",
+        "noNetwork": "Bir ağa bağlı değil",
+        "failed": "Başlatılamadı: {{error}}"
+      },
+      "port": {
+        "title": "Port",
+        "description": "Telefonların bağlandığı ağ portu. Telefonlar bağlanamıyorsa güvenlik duvarınızda bu porta izin verin. Portu değiştirdikten sonra telefonların yeniden eşleştirilmesi gerekir."
+      },
+      "pair": {
+        "button": "Telefon Eşleştir",
+        "hint": "Eşleştirme sırasında Handy Mobile ile taranacak bir kod gösterilir.",
+        "turnOnFirst": "Telefon eşleştirmek için Handy Mobile'ı açın.",
+        "title": "Telefon Eşleştir",
+        "description": "Telefonunuzda Handy Mobile'ı açın ve bu kodu tarayın. Telefon, bu bilgisayarla aynı ağda olmalıdır.",
+        "qrAlt": "Eşleştirme kodu",
+        "expires": "Bu kodun süresi {{time}} sonra doluyor",
+        "expired": "Bu kodun süresi doldu.",
+        "newCode": "Yeni Kod",
+        "manual": "Tarayamıyor musunuz? Kodu kopyalayıp Handy Mobile'a yapıştırın.",
+        "copy": "Kodu Kopyala",
+        "copied": "Eşleştirme kodu kopyalandı",
+        "copyFailed": "Eşleştirme kodu kopyalanamadı",
+        "done": "{{name}} eşleştirildi",
+        "failed": "Eşleştirme kodu oluşturulamadı"
+      },
+      "devices": {
+        "empty": "Henüz eşleştirilmiş telefon yok.",
+        "connected": "Bağlı",
+        "dictating": "Dikte ediliyor…",
+        "lastSeen": "Son görülme: {{time}}",
+        "never": "Henüz bağlanmadı",
+        "rename": "Yeniden Adlandır",
+        "nameLabel": "Telefon adı",
+        "renameFailed": "Telefon yeniden adlandırılamadı",
+        "remove": "Eşleştirmeyi Kaldır",
+        "removeConfirmTitle": "{{name}} eşleştirmesi kaldırılsın mı?",
+        "removeConfirm": "Bu telefon, yeniden eşleştirene kadar bu bilgisayar üzerinden dikte edemez.",
+        "removeFailed": "Telefonun eşleştirmesi kaldırılamadı",
+        "cancel": "İptal"
+      },
+      "outputMode": {
+        "title": "Metni Şuraya Gönder",
+        "description": "Bir telefon dikte ettiğinde metnin gideceği yer. Telefon metni her zaman ayrıca gösterir.",
+        "options": {
+          "desktop": "Bu Bilgisayar",
+          "phone": "Yalnızca Telefon"
+        }
+      },
+      "postProcess": {
+        "label": "Son İşlem",
+        "description": "Telefonların dikte ettiği metne Son İşlem uygular."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "Son işlem olmadan yazıya döküldü",
     "filePostProcessFailed": "Son işlem tamamlanmadı, bu yüzden metin olduğu gibi kaydedildi.",
     "fileTranscriptionFailedTitle": "Dosya transkripsiyonu başarısız oldu",
+    "mobileServerFailedTitle": "Handy Mobile başlatılamadı",
+    "mobileServerFailed": "Telefonlar bağlanamıyor. Portu başka bir uygulama kullanıyor olabilir; Mobil ayarlarından farklı bir port seçin.",
+    "mobileTranscriptionFailedTitle": "Telefon diktesi başarısız oldu",
     "transcriptionFailedTitle": "Transkripsiyon başarısız oldu"
   },
   "notices": {

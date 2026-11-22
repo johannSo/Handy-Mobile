@@ -1,0 +1,40 @@
+[package]
+name = "handy-link"
+version = "0.1.0"
+description = "The link between Handy on a desktop and Handy Mobile: protocol, pairing, server and client"
+edition = "2021"
+license = "MIT"
+publish = false
+
+[features]
+default = []
+# The desktop side: accepts paired phones and hands their audio to a `Host`.
+server = ["dep:rcgen"]
+# The phone side: pairs, connects and streams audio.
+client = []
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+getrandom = "0.3"
+log = "0.4"
+futures-util = { version = "0.3", default-features = false, features = ["sink", "std"] }
+tokio = { version = "1.43.0", features = ["net", "sync", "time", "rt", "macros", "io-util"] }
+tokio-tungstenite = { version = "0.30", default-features = false, features = ["handshake"] }
+# ring, not aws-lc: it cross-compiles to Android with nothing but the NDK.
+rustls = { version = "0.23", default-features = false, features = ["ring", "std", "tls12", "logging"] }
+tokio-rustls = { version = "0.26", default-features = false, features = ["ring", "tls12", "logging"] }
+rcgen = { version = "0.14", default-features = false, features = ["crypto", "ring"], optional = true }
+
+[dev-dependencies]
+tokio = { version = "1.43.0", features = ["rt-multi-thread", "macros", "time"] }
+hound = "3.5.1"
+
+[[example]]
+name = "link-cli"
+required-features = ["client"]
+
+[[test]]
+name = "roundtrip"
+required-features = ["client", "server"]

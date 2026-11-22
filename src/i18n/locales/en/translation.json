@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "General",
     "models": "Models",
+    "mobile": "Mobile",
     "advanced": "Advanced",
     "postProcessing": "Post Process",
     "history": "History",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "Rescan",
         "tooltip": "Rescan for models added to the models folder or Hugging Face cache outside Handy"
+      }
+    },
+    "mobile": {
+      "intro": "Use your phone as a microphone for this computer. The phone records, this computer transcribes.",
+      "groups": {
+        "connection": "Connection",
+        "devices": "Paired Phones",
+        "dictation": "Dictation"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "Let paired phones dictate through this computer. While this is on, Handy listens for them on your local network."
+      },
+      "status": {
+        "title": "Status",
+        "description": "The address paired phones connect to. The phone and this computer must be on the same network.",
+        "off": "Off",
+        "starting": "Starting…",
+        "listening": "Listening on {{address}}",
+        "noNetwork": "Not connected to a network",
+        "failed": "Couldn't start: {{error}}"
+      },
+      "port": {
+        "title": "Port",
+        "description": "The network port phones connect to. Allow it through your firewall if phones can't connect. Phones have to be paired again after you change it."
+      },
+      "pair": {
+        "button": "Pair a Phone",
+        "hint": "Pairing shows a code to scan with Handy Mobile.",
+        "turnOnFirst": "Turn on Handy Mobile to pair a phone.",
+        "title": "Pair a Phone",
+        "description": "Open Handy Mobile on your phone and scan this code. The phone must be on the same network as this computer.",
+        "qrAlt": "Pairing code",
+        "expires": "This code expires in {{time}}",
+        "expired": "This code has expired.",
+        "newCode": "New Code",
+        "manual": "Can't scan it? Copy the code and paste it into Handy Mobile.",
+        "copy": "Copy Code",
+        "copied": "Pairing code copied",
+        "copyFailed": "Couldn't copy the pairing code",
+        "done": "{{name}} is paired",
+        "failed": "Couldn't Create a Pairing Code"
+      },
+      "devices": {
+        "empty": "No phones are paired yet.",
+        "connected": "Connected",
+        "dictating": "Dictating…",
+        "lastSeen": "Last seen {{time}}",
+        "never": "Not connected yet",
+        "rename": "Rename",
+        "nameLabel": "Phone name",
+        "renameFailed": "Couldn't Rename the Phone",
+        "remove": "Unpair",
+        "removeConfirmTitle": "Unpair {{name}}?",
+        "removeConfirm": "This phone won't be able to dictate through this computer until you pair it again.",
+        "removeFailed": "Couldn't Unpair the Phone",
+        "cancel": "Cancel"
+      },
+      "outputMode": {
+        "title": "Send Text To",
+        "description": "Where the text goes when a phone dictates. The phone always shows it too.",
+        "options": {
+          "desktop": "This Computer",
+          "phone": "Phone Only"
+        }
+      },
+      "postProcess": {
+        "label": "Post Process",
+        "description": "Run Post Process on what phones dictate."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "Transcribed Without Post-Processing",
     "filePostProcessFailed": "Post Process didn't finish, so the transcript was saved as is.",
     "fileTranscriptionFailedTitle": "File Transcription Failed",
+    "mobileServerFailedTitle": "Handy Mobile Couldn't Start",
+    "mobileServerFailed": "Phones can't connect. Another app may be using the port; choose a different one in Mobile settings.",
+    "mobileTranscriptionFailedTitle": "Phone Dictation Failed",
     "transcriptionFailedTitle": "Transcription Failed"
   },
   "notices": {

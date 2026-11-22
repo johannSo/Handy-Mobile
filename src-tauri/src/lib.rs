@@ -227,6 +227,10 @@ fn initialize_core_logic(app_handle: &AppHandle) {
     app_handle.manage(history_manager.clone());
     app_handle.manage(tray::TrayState::new());
     app_handle.manage(TranscriptionJobManager::new(app_handle));
+    // Handy Mobile: listens for paired phones if the user turned it on.
+    let mobile_link = managers::mobile::MobileLinkManager::new(app_handle);
+    app_handle.manage(mobile_link.clone());
+    mobile_link.apply_settings();
 
     // Note: Shortcuts are NOT initialized here.
     // The frontend is responsible for calling the `initialize_shortcuts` command
@@ -818,6 +822,15 @@ pub fn run(cli_args: CliArgs) {
             commands::history::transcribe_file,
             commands::history::update_history_limit,
             commands::history::update_recording_retention_period,
+            commands::mobile::get_mobile_status,
+            commands::mobile::change_mobile_enabled_setting,
+            commands::mobile::change_mobile_port_setting,
+            commands::mobile::change_mobile_output_mode_setting,
+            commands::mobile::change_mobile_post_process_setting,
+            commands::mobile::start_mobile_pairing,
+            commands::mobile::cancel_mobile_pairing,
+            commands::mobile::rename_mobile_device,
+            commands::mobile::remove_mobile_device,
             helpers::clamshell::is_laptop,
             notices::get_active_notices,
             notices::dismiss_notice,
@@ -826,6 +839,7 @@ pub fn run(cli_args: CliArgs) {
         .events(collect_events![
             managers::history::HistoryUpdatePayload,
             managers::transcription_jobs::TranscriptionJob,
+            managers::mobile::MobileLinkChanged,
             managers::transcription::StreamTextEvent,
             managers::transcription::StreamPhaseEvent,
             transcription_coordinator::RecordingStateEvent,

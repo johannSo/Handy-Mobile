@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "Generelt",
     "models": "Modeller",
+    "mobile": "Mobil",
     "advanced": "Avanceret",
     "postProcessing": "Efterbehandling",
     "history": "Historik",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "Søg igen",
         "tooltip": "Søg igen efter modeller, der er tilføjet til modelmappen eller Hugging Face-cachen uden for Handy"
+      }
+    },
+    "mobile": {
+      "intro": "Brug din telefon som mikrofon til denne computer. Telefonen optager, denne computer transskriberer.",
+      "groups": {
+        "connection": "Forbindelse",
+        "devices": "Parrede telefoner",
+        "dictation": "Diktering"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "Lad parrede telefoner diktere via denne computer. Mens dette er slået til, lytter Handy efter dem på dit lokale netværk."
+      },
+      "status": {
+        "title": "Status",
+        "description": "Adressen, som parrede telefoner opretter forbindelse til. Telefonen og denne computer skal være på samme netværk.",
+        "off": "Fra",
+        "starting": "Starter…",
+        "listening": "Lytter på {{address}}",
+        "noNetwork": "Ikke forbundet til et netværk",
+        "failed": "Kunne ikke starte: {{error}}"
+      },
+      "port": {
+        "title": "Port",
+        "description": "Netværksporten, som telefoner opretter forbindelse til. Tillad den i din firewall, hvis telefoner ikke kan oprette forbindelse. Telefoner skal parres igen, når du har ændret den."
+      },
+      "pair": {
+        "button": "Par en telefon",
+        "hint": "Ved parring vises en kode, som du scanner med Handy Mobile.",
+        "turnOnFirst": "Slå Handy Mobile til for at parre en telefon.",
+        "title": "Par en telefon",
+        "description": "Åbn Handy Mobile på din telefon, og scan denne kode. Telefonen skal være på samme netværk som denne computer.",
+        "qrAlt": "Parringskode",
+        "expires": "Koden udløber om {{time}}",
+        "expired": "Koden er udløbet.",
+        "newCode": "Ny kode",
+        "manual": "Kan du ikke scanne den? Kopiér koden, og indsæt den i Handy Mobile.",
+        "copy": "Kopiér kode",
+        "copied": "Parringskoden er kopieret",
+        "copyFailed": "Kunne ikke kopiere parringskoden",
+        "done": "{{name}} er parret",
+        "failed": "Kunne ikke oprette en parringskode"
+      },
+      "devices": {
+        "empty": "Ingen telefoner er parret endnu.",
+        "connected": "Forbundet",
+        "dictating": "Dikterer…",
+        "lastSeen": "Sidst set {{time}}",
+        "never": "Ikke forbundet endnu",
+        "rename": "Omdøb",
+        "nameLabel": "Telefonens navn",
+        "renameFailed": "Kunne ikke omdøbe telefonen",
+        "remove": "Fjern parring",
+        "removeConfirmTitle": "Fjern parringen med {{name}}?",
+        "removeConfirm": "Denne telefon kan ikke diktere via denne computer, før du parrer den igen.",
+        "removeFailed": "Kunne ikke fjerne parringen",
+        "cancel": "Annuller"
+      },
+      "outputMode": {
+        "title": "Send tekst til",
+        "description": "Hvor teksten ender, når en telefon dikterer. Telefonen viser den også altid.",
+        "options": {
+          "desktop": "Denne computer",
+          "phone": "Kun telefonen"
+        }
+      },
+      "postProcess": {
+        "label": "Efterbehandling",
+        "description": "Kør efterbehandling på det, telefoner dikterer."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "Transskriberet uden efterbehandling",
     "filePostProcessFailed": "Efterbehandlingen blev ikke færdig, så transskriptionen blev gemt, som den er.",
     "fileTranscriptionFailedTitle": "Transskription af fil mislykkedes",
+    "mobileServerFailedTitle": "Handy Mobile kunne ikke starte",
+    "mobileServerFailed": "Telefoner kan ikke oprette forbindelse. En anden app bruger måske porten; vælg en anden i indstillingerne for Mobil.",
+    "mobileTranscriptionFailedTitle": "Diktering fra telefon mislykkedes",
     "transcriptionFailedTitle": "Transskription mislykkedes"
   },
   "notices": {

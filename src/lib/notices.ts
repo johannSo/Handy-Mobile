@@ -58,6 +58,13 @@ const NOTICE_DISPLAY: Record<NoticeCode, NoticeDisplay> = {
     title: "errors.filePostProcessFailedTitle",
     explanation: (t) => t("errors.filePostProcessFailed"),
   },
+  MobileServerFailed: {
+    title: "errors.mobileServerFailedTitle",
+    explanation: (t) => t("errors.mobileServerFailed"),
+  },
+  MobileTranscriptionFailed: {
+    title: "errors.mobileTranscriptionFailedTitle",
+  },
 };
 
 export const noticeDisplay = (code: NoticeCode) => NOTICE_DISPLAY[code];

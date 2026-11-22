@@ -10,6 +10,7 @@ import type {
   ShortcutActivation,
   VadBackend,
   LanguageDetectionMode,
+  MobileOutputMode,
 } from "@/bindings";
 import { commands } from "@/bindings";
 import { notify } from "@/stores/noticeStore";
@@ -162,6 +163,13 @@ const settingUpdaters: {
   auto_submit_key: (value) =>
     commands.changeAutoSubmitKeySetting(value as string),
   history_limit: (value) => commands.updateHistoryLimit(value as number),
+  mobile_enabled: (value) =>
+    commands.changeMobileEnabledSetting(value as boolean),
+  mobile_port: (value) => commands.changeMobilePortSetting(value as number),
+  mobile_output_mode: (value) =>
+    commands.changeMobileOutputModeSetting(value as MobileOutputMode),
+  mobile_post_process: (value) =>
+    commands.changeMobilePostProcessSetting(value as boolean),
   post_process_enabled: (value) =>
     commands.changePostProcessEnabledSetting(value as boolean),
   post_process_selected_prompt_id: (value) =>

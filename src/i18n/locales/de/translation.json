@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "Allgemein",
     "models": "Modelle",
+    "mobile": "Mobil",
     "advanced": "Erweitert",
     "postProcessing": "Nachbearbeitung",
     "history": "Verlauf",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "Neu scannen",
         "tooltip": "Erneut nach Modellen scannen, die außerhalb von Handy zum Modellordner oder Hugging-Face-Cache hinzugefügt wurden"
+      }
+    },
+    "mobile": {
+      "intro": "Nutze dein Smartphone als Mikrofon für diesen Computer. Das Smartphone nimmt auf, dieser Computer transkribiert.",
+      "groups": {
+        "connection": "Verbindung",
+        "devices": "Gekoppelte Smartphones",
+        "dictation": "Diktat"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "Gekoppelte Smartphones können über diesen Computer diktieren. Solange dies aktiviert ist, wartet Handy in deinem lokalen Netzwerk auf sie."
+      },
+      "status": {
+        "title": "Status",
+        "description": "Die Adresse, mit der sich gekoppelte Smartphones verbinden. Smartphone und Computer müssen im selben Netzwerk sein.",
+        "off": "Aus",
+        "starting": "Wird gestartet…",
+        "listening": "Erreichbar unter {{address}}",
+        "noNetwork": "Mit keinem Netzwerk verbunden",
+        "failed": "Start fehlgeschlagen: {{error}}"
+      },
+      "port": {
+        "title": "Port",
+        "description": "Der Netzwerkport, über den sich Smartphones verbinden. Gib ihn in deiner Firewall frei, falls Smartphones keine Verbindung herstellen können. Nach einer Änderung müssen Smartphones neu gekoppelt werden."
+      },
+      "pair": {
+        "button": "Smartphone koppeln",
+        "hint": "Beim Koppeln wird ein Code angezeigt, den du mit Handy Mobile scannst.",
+        "turnOnFirst": "Aktiviere Handy Mobile, um ein Smartphone zu koppeln.",
+        "title": "Smartphone koppeln",
+        "description": "Öffne Handy Mobile auf deinem Smartphone und scanne diesen Code. Das Smartphone muss im selben Netzwerk wie dieser Computer sein.",
+        "qrAlt": "Kopplungscode",
+        "expires": "Dieser Code läuft in {{time}} ab",
+        "expired": "Dieser Code ist abgelaufen.",
+        "newCode": "Neuer Code",
+        "manual": "Scannen klappt nicht? Kopiere den Code und füge ihn in Handy Mobile ein.",
+        "copy": "Code kopieren",
+        "copied": "Kopplungscode kopiert",
+        "copyFailed": "Kopplungscode konnte nicht kopiert werden",
+        "done": "{{name}} ist gekoppelt",
+        "failed": "Kopplungscode konnte nicht erstellt werden"
+      },
+      "devices": {
+        "empty": "Noch keine Smartphones gekoppelt.",
+        "connected": "Verbunden",
+        "dictating": "Diktiert…",
+        "lastSeen": "Zuletzt gesehen: {{time}}",
+        "never": "Noch nie verbunden",
+        "rename": "Umbenennen",
+        "nameLabel": "Name des Smartphones",
+        "renameFailed": "Smartphone konnte nicht umbenannt werden",
+        "remove": "Entkoppeln",
+        "removeConfirmTitle": "{{name}} entkoppeln?",
+        "removeConfirm": "Dieses Smartphone kann erst wieder über diesen Computer diktieren, wenn du es erneut koppelst.",
+        "removeFailed": "Smartphone konnte nicht entkoppelt werden",
+        "cancel": "Abbrechen"
+      },
+      "outputMode": {
+        "title": "Text senden an",
+        "description": "Wohin der Text geht, wenn ein Smartphone diktiert. Das Smartphone zeigt ihn immer zusätzlich an.",
+        "options": {
+          "desktop": "Dieser Computer",
+          "phone": "Nur Smartphone"
+        }
+      },
+      "postProcess": {
+        "label": "Nachbearbeitung",
+        "description": "Wendet die Nachbearbeitung auf das an, was Smartphones diktieren."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "Ohne Nachbearbeitung transkribiert",
     "filePostProcessFailed": "Die Nachbearbeitung wurde nicht abgeschlossen, daher wurde das Transkript unverändert gespeichert.",
     "fileTranscriptionFailedTitle": "Dateitranskription fehlgeschlagen",
+    "mobileServerFailedTitle": "Handy Mobile konnte nicht starten",
+    "mobileServerFailed": "Smartphones können sich nicht verbinden. Möglicherweise verwendet eine andere App den Port; wähle in den Mobil-Einstellungen einen anderen.",
+    "mobileTranscriptionFailedTitle": "Smartphone-Diktat fehlgeschlagen",
     "transcriptionFailedTitle": "Transkription fehlgeschlagen"
   },
   "notices": {

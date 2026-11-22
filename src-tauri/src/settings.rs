@@ -389,6 +389,18 @@ impl std::ops::DerefMut for SecretMap {
     }
 }
 
+/// Where the desktop sends what a paired phone dictates. The phone is sent
+/// the text either way.
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, Default, PartialEq, Eq, Type)]
+#[serde(rename_all = "snake_case")]
+pub enum MobileOutputMode {
+    /// Paste it into the focused app on this computer.
+    #[default]
+    Desktop,
+    /// Only send it back to the phone.
+    Phone,
+}
+
 /* still handy for composing the initial JSON in the store ------------- */
 /// The container-level `serde(default)` (backed by the `Default` impl below)
 /// guarantees every field — including ones added in the future — falls back to
@@ -485,6 +497,18 @@ pub struct AppSettings {
     pub auto_submit_key: AutoSubmitKey,
     #[serde(default = "default_post_process_enabled")]
     pub post_process_enabled: bool,
+    /// Whether paired phones can connect (Handy Mobile). Off until the user
+    /// turns it on: it opens a port on the local network.
+    #[serde(default)]
+    pub mobile_enabled: bool,
+    #[serde(default = "default_mobile_port")]
+    pub mobile_port: u16,
+    /// Where a phone's transcript goes unless the phone asks otherwise.
+    #[serde(default)]
+    pub mobile_output_mode: MobileOutputMode,
+    /// Run Post Process on what a phone dictates, when Post Process is on.
+    #[serde(default)]
+    pub mobile_post_process: bool,
     #[serde(default = "default_post_process_provider_id")]
     pub post_process_provider_id: String,
     #[serde(default = "default_post_process_providers")]
@@ -708,6 +732,10 @@ fn default_sound_theme() -> SoundTheme {
 
 fn default_theme() -> Theme {
     Theme::System
+}
+
+fn default_mobile_port() -> u16 {
+    handy_link::DEFAULT_PORT
 }
 
 fn default_post_process_enabled() -> bool {
@@ -1044,6 +1072,10 @@ pub fn get_default_settings() -> AppSettings {
         auto_submit: default_auto_submit(),
         auto_submit_key: AutoSubmitKey::default(),
         post_process_enabled: default_post_process_enabled(),
+        mobile_enabled: false,
+        mobile_port: default_mobile_port(),
+        mobile_output_mode: MobileOutputMode::default(),
+        mobile_post_process: false,
         post_process_provider_id: default_post_process_provider_id(),
         post_process_providers: default_post_process_providers(),
         post_process_api_keys: default_post_process_api_keys(),

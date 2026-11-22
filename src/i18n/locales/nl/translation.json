@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "Algemeen",
     "models": "Modellen",
+    "mobile": "Mobiel",
     "advanced": "Geavanceerd",
     "postProcessing": "Naverwerking",
     "history": "Geschiedenis",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "Opnieuw scannen",
         "tooltip": "Scannen naar modellen die buiten Handy om zijn toegevoegd aan de modellenmap of Hugging Face-cache"
+      }
+    },
+    "mobile": {
+      "intro": "Gebruik je telefoon als microfoon voor deze computer. De telefoon neemt op, deze computer transcribeert.",
+      "groups": {
+        "connection": "Verbinding",
+        "devices": "Gekoppelde telefoons",
+        "dictation": "Dicteren"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "Laat gekoppelde telefoons via deze computer dicteren. Zolang dit aanstaat, wacht Handy op ze in je lokale netwerk."
+      },
+      "status": {
+        "title": "Status",
+        "description": "Het adres waarmee gekoppelde telefoons verbinding maken. De telefoon en deze computer moeten op hetzelfde netwerk zitten.",
+        "off": "Uit",
+        "starting": "Starten…",
+        "listening": "Bereikbaar op {{address}}",
+        "noNetwork": "Niet verbonden met een netwerk",
+        "failed": "Starten mislukt: {{error}}"
+      },
+      "port": {
+        "title": "Poort",
+        "description": "De netwerkpoort waarmee telefoons verbinding maken. Sta deze toe in je firewall als telefoons geen verbinding kunnen maken. Na een wijziging moeten telefoons opnieuw worden gekoppeld."
+      },
+      "pair": {
+        "button": "Telefoon koppelen",
+        "hint": "Bij het koppelen verschijnt een code om te scannen met Handy Mobile.",
+        "turnOnFirst": "Zet Handy Mobile aan om een telefoon te koppelen.",
+        "title": "Telefoon koppelen",
+        "description": "Open Handy Mobile op je telefoon en scan deze code. De telefoon moet op hetzelfde netwerk zitten als deze computer.",
+        "qrAlt": "Koppelcode",
+        "expires": "Deze code verloopt over {{time}}",
+        "expired": "Deze code is verlopen.",
+        "newCode": "Nieuwe code",
+        "manual": "Lukt scannen niet? Kopieer de code en plak hem in Handy Mobile.",
+        "copy": "Code kopiëren",
+        "copied": "Koppelcode gekopieerd",
+        "copyFailed": "Koppelcode kopiëren mislukt",
+        "done": "{{name}} is gekoppeld",
+        "failed": "Koppelcode maken mislukt"
+      },
+      "devices": {
+        "empty": "Er zijn nog geen telefoons gekoppeld.",
+        "connected": "Verbonden",
+        "dictating": "Dicteert…",
+        "lastSeen": "Laatst gezien: {{time}}",
+        "never": "Nog niet verbonden",
+        "rename": "Naam wijzigen",
+        "nameLabel": "Naam van telefoon",
+        "renameFailed": "Naam van telefoon wijzigen mislukt",
+        "remove": "Ontkoppelen",
+        "removeConfirmTitle": "{{name}} ontkoppelen?",
+        "removeConfirm": "Deze telefoon kan niet meer via deze computer dicteren totdat je hem opnieuw koppelt.",
+        "removeFailed": "Telefoon ontkoppelen mislukt",
+        "cancel": "Annuleren"
+      },
+      "outputMode": {
+        "title": "Tekst sturen naar",
+        "description": "Waar de tekst naartoe gaat als een telefoon dicteert. De telefoon toont de tekst ook altijd.",
+        "options": {
+          "desktop": "Deze computer",
+          "phone": "Alleen telefoon"
+        }
+      },
+      "postProcess": {
+        "label": "Naverwerking",
+        "description": "Pas naverwerking toe op wat telefoons dicteren."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "Getranscribeerd zonder naverwerking",
     "filePostProcessFailed": "De naverwerking is niet voltooid, dus de transcriptie is ongewijzigd opgeslagen.",
     "fileTranscriptionFailedTitle": "Transcriptie van bestand mislukt",
+    "mobileServerFailedTitle": "Handy Mobile starten mislukt",
+    "mobileServerFailed": "Telefoons kunnen geen verbinding maken. Mogelijk gebruikt een andere app de poort; kies een andere in de instellingen voor Mobiel.",
+    "mobileTranscriptionFailedTitle": "Dicteren via telefoon mislukt",
     "transcriptionFailedTitle": "Transcriptie mislukt"
   },
   "notices": {

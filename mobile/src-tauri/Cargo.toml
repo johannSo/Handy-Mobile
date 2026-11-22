@@ -1,0 +1,34 @@
+[package]
+name = "handy-mobile"
+version = "0.1.0"
+description = "Handy Mobile: dictate on your phone, transcribe on your computer"
+edition = "2021"
+license = "MIT"
+publish = false
+
+[lib]
+name = "handy_mobile_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+handy-link = { path = "../../crates/handy-link", features = ["client"] }
+tauri = { version = "2.12", features = [] }
+tauri-plugin-barcode-scanner = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1.43.0", features = ["sync", "time", "macros"] }
+log = "0.4"
+
+# The keyboard is an Android service, called straight from Kotlin.
+[target.'cfg(target_os = "android")'.dependencies]
+jni = "0.21"
+tokio = { version = "1.43.0", features = ["rt-multi-thread"] }
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+opt-level = "s"

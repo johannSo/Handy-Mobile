@@ -1,0 +1,127 @@
+{
+  "app": {
+    "name": "Handy Mobile"
+  },
+  "pair": {
+    "title": "Pair With Your Computer",
+    "intro": "Your phone is the microphone. Handy on your computer does the transcribing.",
+    "step1": "Open Handy on your computer and go to Mobile.",
+    "step2": "Turn on Handy Mobile and choose Pair a Phone.",
+    "step3": "Scan the code it shows. Both devices must be on the same network.",
+    "scan": "Scan Pairing Code",
+    "manual": "Enter Code Instead",
+    "manualPlaceholder": "Paste the pairing code from your computer",
+    "manualSubmit": "Pair",
+    "pairing": "Pairing…",
+    "scanHint": "Point the camera at the code on your computer",
+    "cancelScan": "Cancel",
+    "errors": {
+      "invalid_code": "That isn't a Handy pairing code.",
+      "expired_code": "That code has expired or was already used. Create a new one on your computer.",
+      "incompatible": "This app and Handy on your computer are too far apart in version. Update both.",
+      "rate_limited": "Too many attempts. Wait a minute, then try again.",
+      "unreachable": "Your computer can't be reached. Make sure both devices are on the same network, that a firewall isn't blocking Handy, and that Handy Mobile is allowed to find nearby devices in your phone's settings.",
+      "untrusted": "Something answered that isn't your computer. Create a new code and try again.",
+      "failed": "Pairing didn't work. Try again.",
+      "camera_denied": "Handy Mobile needs the camera to scan the code. Allow it in your phone's settings, or enter the code instead.",
+      "scan_failed": "The camera couldn't be started. Enter the code instead."
+    }
+  },
+  "link": {
+    "connecting": "Connecting…",
+    "connected": "Connected",
+    "notPaired": "Not paired",
+    "updateNeeded": "Update needed",
+    "offline": "Can't reach your computer",
+    "offlineHint": "Make sure Handy is running on {{name}}, both devices are on the same network, and Handy Mobile is allowed to find nearby devices in your phone's settings.",
+    "retry": "Try Again",
+    "rejected": "This phone is no longer paired with {{name}}.",
+    "incompatible": "This app and Handy on {{name}} are too far apart in version. Update both.",
+    "pairAgain": "Pair Again",
+    "yourComputer": "your computer"
+  },
+  "record": {
+    "tapToStart": "Tap to dictate",
+    "starting": "Starting…",
+    "listening": "Listening… tap to finish",
+    "finishing": "Finishing…",
+    "transcribing": "Transcribing…",
+    "start": "Start dictating",
+    "stop": "Finish dictating",
+    "cancel": "Cancel"
+  },
+  "output": {
+    "label": "Send text to",
+    "desktop": "Computer",
+    "phone": "Phone only",
+    "desktopHint": "Typed where the cursor is on {{name}}.",
+    "phoneHint": "Shown here and copied to the clipboard."
+  },
+  "transcripts": {
+    "empty": "What you dictate appears here.",
+    "copy": "Copy",
+    "copied": "Copied",
+    "share": "Share",
+    "pasted": "Typed on your computer",
+    "notPasted": "Not typed on your computer",
+    "clear": "Clear"
+  },
+  "notices": {
+    "noSpeech": "Nothing was heard.",
+    "micDenied": "Handy Mobile needs the microphone. Allow it in your phone's settings.",
+    "micUnavailable": "The microphone couldn't be started.",
+    "connectionLost": "The connection dropped, so that recording wasn't transcribed.",
+    "busy": "Your computer is busy with another dictation.",
+    "no_model": "Handy on your computer has no model selected.",
+    "transcription_failed": "Your computer couldn't transcribe that.",
+    "paste_failed": "Your computer couldn't type the text, so it's only here.",
+    "too_long": "That reached the length limit, so it was finished for you.",
+    "generic": "Something went wrong on your computer."
+  },
+  "settings": {
+    "title": "Settings",
+    "computer": "Paired computer",
+    "version": "Handy {{version}}",
+    "unpair": "Unpair",
+    "unpairConfirm": "Unpair from {{name}}? You'll need to scan a new code to dictate again.",
+    "unpairNote": "To remove this phone from the list on your computer as well, unpair it there in Mobile settings.",
+    "confirm": "Unpair",
+    "cancel": "Cancel",
+    "close": "Close"
+  },
+  "keyboard": {
+    "title": "Dictate Into Any App",
+    "intro": "Handy Mobile is also a keyboard. Switch to it wherever you type, tap the microphone, and what you say is transcribed on your computer and typed into the text field on your phone.",
+    "steps": {
+      "microphone": {
+        "title": "Allow the Microphone",
+        "description": "So the keyboard can hear you. Choose \"While using the app\"; \"Only this time\" wears off.",
+        "action": "Allow"
+      },
+      "localNetwork": {
+        "title": "Allow Nearby Devices",
+        "description": "So your phone can reach your computer on your network.",
+        "action": "Allow"
+      },
+      "enable": {
+        "title": "Turn On the Handy Keyboard",
+        "description": "Switch on Handy Mobile in the list that opens and confirm both of Android's prompts, then come back here. Android warns that a keyboard can collect what you type. Handy's keyboard sends only your voice, and only to your own computer.",
+        "action": "Open Keyboard Settings"
+      },
+      "select": {
+        "title": "Switch to the Handy Keyboard",
+        "description": "Choose Handy Mobile in the list of keyboards.",
+        "action": "Choose Keyboard"
+      }
+    },
+    "tryLabel": "Try It",
+    "tryPlaceholder": "Tap here, then tap the microphone",
+    "switchHint": "The keyboard button on the Handy keyboard takes you back to your usual keyboard. To switch to Handy from another keyboard, use its keyboard or globe button.",
+    "done": "Done",
+    "later": "Not Now",
+    "back": "Back",
+    "settingsRow": "Handy Keyboard",
+    "settingsOn": "On",
+    "settingsOff": "Not set up"
+  }
+}

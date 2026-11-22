@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "Allmänt",
     "models": "Modeller",
+    "mobile": "Mobil",
     "advanced": "Avancerat",
     "postProcessing": "Efterbearbetning",
     "history": "Historik",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "Skanna om",
         "tooltip": "Skanna om efter modeller som lagts till i modellmappen eller Hugging Face-cachen utanför Handy"
+      }
+    },
+    "mobile": {
+      "intro": "Använd telefonen som mikrofon för den här datorn. Telefonen spelar in, den här datorn transkriberar.",
+      "groups": {
+        "connection": "Anslutning",
+        "devices": "Parkopplade telefoner",
+        "dictation": "Diktering"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "Låt parkopplade telefoner diktera via den här datorn. När detta är på lyssnar Handy efter dem på ditt lokala nätverk."
+      },
+      "status": {
+        "title": "Status",
+        "description": "Adressen som parkopplade telefoner ansluter till. Telefonen och den här datorn måste vara på samma nätverk.",
+        "off": "Av",
+        "starting": "Startar…",
+        "listening": "Lyssnar på {{address}}",
+        "noNetwork": "Inte ansluten till något nätverk",
+        "failed": "Det gick inte att starta: {{error}}"
+      },
+      "port": {
+        "title": "Port",
+        "description": "Nätverksporten som telefoner ansluter till. Tillåt den i din brandvägg om telefoner inte kan ansluta. Telefoner måste parkopplas igen när du har ändrat den."
+      },
+      "pair": {
+        "button": "Parkoppla en telefon",
+        "hint": "Vid parkoppling visas en kod att skanna med Handy Mobile.",
+        "turnOnFirst": "Slå på Handy Mobile för att parkoppla en telefon.",
+        "title": "Parkoppla en telefon",
+        "description": "Öppna Handy Mobile på telefonen och skanna den här koden. Telefonen måste vara på samma nätverk som den här datorn.",
+        "qrAlt": "Parkopplingskod",
+        "expires": "Koden går ut om {{time}}",
+        "expired": "Koden har gått ut.",
+        "newCode": "Ny kod",
+        "manual": "Går det inte att skanna? Kopiera koden och klistra in den i Handy Mobile.",
+        "copy": "Kopiera kod",
+        "copied": "Parkopplingskoden har kopierats",
+        "copyFailed": "Det gick inte att kopiera parkopplingskoden",
+        "done": "{{name}} är parkopplad",
+        "failed": "Det gick inte att skapa en parkopplingskod"
+      },
+      "devices": {
+        "empty": "Inga telefoner är parkopplade än.",
+        "connected": "Ansluten",
+        "dictating": "Dikterar…",
+        "lastSeen": "Sågs senast {{time}}",
+        "never": "Inte ansluten än",
+        "rename": "Byt namn",
+        "nameLabel": "Telefonens namn",
+        "renameFailed": "Det gick inte att byta namn på telefonen",
+        "remove": "Ta bort parkoppling",
+        "removeConfirmTitle": "Ta bort parkopplingen med {{name}}?",
+        "removeConfirm": "Den här telefonen kan inte diktera via den här datorn förrän du parkopplar den igen.",
+        "removeFailed": "Det gick inte att ta bort parkopplingen",
+        "cancel": "Avbryt"
+      },
+      "outputMode": {
+        "title": "Skicka text till",
+        "description": "Vart texten hamnar när en telefon dikterar. Telefonen visar den alltid också.",
+        "options": {
+          "desktop": "Den här datorn",
+          "phone": "Endast telefonen"
+        }
+      },
+      "postProcess": {
+        "label": "Efterbearbetning",
+        "description": "Kör efterbearbetning på det som telefoner dikterar."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "Transkriberat utan efterbearbetning",
     "filePostProcessFailed": "Efterbearbetningen slutfördes inte, så transkriptionen sparades som den är.",
     "fileTranscriptionFailedTitle": "Transkriptionen av filen misslyckades",
+    "mobileServerFailedTitle": "Handy Mobile kunde inte starta",
+    "mobileServerFailed": "Telefoner kan inte ansluta. En annan app kanske använder porten; välj en annan i inställningarna för Mobil.",
+    "mobileTranscriptionFailedTitle": "Dikteringen från telefonen misslyckades",
     "transcriptionFailedTitle": "Transkriptionen misslyckades"
   },
   "notices": {

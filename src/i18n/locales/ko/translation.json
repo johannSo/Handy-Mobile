@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "일반",
     "models": "모델",
+    "mobile": "모바일",
     "advanced": "고급",
     "postProcessing": "후처리",
     "history": "히스토리",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "다시 스캔",
         "tooltip": "Handy 외부에서 모델 폴더 또는 Hugging Face 캐시에 추가된 모델을 다시 스캔합니다"
+      }
+    },
+    "mobile": {
+      "intro": "휴대폰을 이 컴퓨터의 마이크로 사용하세요. 휴대폰이 녹음하고 이 컴퓨터가 텍스트로 변환합니다.",
+      "groups": {
+        "connection": "연결",
+        "devices": "페어링된 휴대폰",
+        "dictation": "받아쓰기"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "페어링된 휴대폰이 이 컴퓨터를 통해 받아쓰기할 수 있게 합니다. 켜져 있는 동안 Handy가 로컬 네트워크에서 휴대폰의 연결을 기다립니다."
+      },
+      "status": {
+        "title": "상태",
+        "description": "페어링된 휴대폰이 연결하는 주소입니다. 휴대폰과 이 컴퓨터가 같은 네트워크에 있어야 합니다.",
+        "off": "끄기",
+        "starting": "시작하는 중…",
+        "listening": "{{address}}에서 연결 대기 중",
+        "noNetwork": "네트워크에 연결되어 있지 않음",
+        "failed": "시작할 수 없음: {{error}}"
+      },
+      "port": {
+        "title": "포트",
+        "description": "휴대폰이 연결하는 네트워크 포트입니다. 휴대폰이 연결되지 않으면 방화벽에서 이 포트를 허용하세요. 포트를 변경하면 휴대폰을 다시 페어링해야 합니다."
+      },
+      "pair": {
+        "button": "휴대폰 페어링",
+        "hint": "페어링하면 Handy Mobile로 스캔할 코드가 표시됩니다.",
+        "turnOnFirst": "휴대폰을 페어링하려면 Handy Mobile을 켜세요.",
+        "title": "휴대폰 페어링",
+        "description": "휴대폰에서 Handy Mobile을 열고 이 코드를 스캔하세요. 휴대폰이 이 컴퓨터와 같은 네트워크에 있어야 합니다.",
+        "qrAlt": "페어링 코드",
+        "expires": "이 코드는 {{time}} 후에 만료됩니다",
+        "expired": "이 코드는 만료되었습니다.",
+        "newCode": "새 코드",
+        "manual": "스캔할 수 없나요? 코드를 복사해 Handy Mobile에 붙여넣으세요.",
+        "copy": "코드 복사",
+        "copied": "페어링 코드 복사됨",
+        "copyFailed": "페어링 코드를 복사할 수 없음",
+        "done": "{{name}} 페어링됨",
+        "failed": "페어링 코드를 만들 수 없음"
+      },
+      "devices": {
+        "empty": "아직 페어링된 휴대폰이 없습니다.",
+        "connected": "연결됨",
+        "dictating": "받아쓰는 중…",
+        "lastSeen": "마지막 접속: {{time}}",
+        "never": "아직 연결된 적 없음",
+        "rename": "이름 변경",
+        "nameLabel": "휴대폰 이름",
+        "renameFailed": "휴대폰 이름을 변경할 수 없음",
+        "remove": "페어링 해제",
+        "removeConfirmTitle": "{{name}} 페어링을 해제할까요?",
+        "removeConfirm": "다시 페어링하기 전까지 이 휴대폰은 이 컴퓨터를 통해 받아쓰기할 수 없습니다.",
+        "removeFailed": "휴대폰 페어링을 해제할 수 없음",
+        "cancel": "취소"
+      },
+      "outputMode": {
+        "title": "텍스트 보낼 곳",
+        "description": "휴대폰으로 받아쓰기할 때 텍스트가 전달되는 곳입니다. 휴대폰에는 항상 함께 표시됩니다.",
+        "options": {
+          "desktop": "이 컴퓨터",
+          "phone": "휴대폰만"
+        }
+      },
+      "postProcess": {
+        "label": "후처리",
+        "description": "휴대폰으로 받아쓴 내용에 후처리를 실행합니다."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "후처리 없이 받아씀",
     "filePostProcessFailed": "후처리가 완료되지 않아 받아쓰기 결과를 그대로 저장했습니다.",
     "fileTranscriptionFailedTitle": "파일 음성 인식 실패",
+    "mobileServerFailedTitle": "Handy Mobile 시작 실패",
+    "mobileServerFailed": "휴대폰이 연결할 수 없습니다. 다른 앱이 포트를 사용 중일 수 있습니다. 모바일 설정에서 다른 포트를 선택하세요.",
+    "mobileTranscriptionFailedTitle": "휴대폰 받아쓰기 실패",
     "transcriptionFailedTitle": "음성 인식 실패"
   },
   "notices": {

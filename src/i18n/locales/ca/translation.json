@@ -15,6 +15,7 @@
   "sidebar": {
     "general": "General",
     "models": "Models",
+    "mobile": "Mòbil",
     "advanced": "Avançat",
     "postProcessing": "Postprocessament",
     "history": "Historial",
@@ -431,6 +432,75 @@
       "rescan": {
         "label": "Torna a cercar",
         "tooltip": "Torna a cercar models afegits a la carpeta de models o a la memòria cau de Hugging Face des de fora del Handy"
+      }
+    },
+    "mobile": {
+      "intro": "Feu servir el telèfon com a micròfon d'aquest ordinador. El telèfon enregistra i aquest ordinador transcriu.",
+      "groups": {
+        "connection": "Connexió",
+        "devices": "Telèfons vinculats",
+        "dictation": "Dictat"
+      },
+      "enabled": {
+        "label": "Handy Mobile",
+        "description": "Permet que els telèfons vinculats dictin a través d'aquest ordinador. Mentre estigui activat, el Handy els espera a la xarxa local."
+      },
+      "status": {
+        "title": "Estat",
+        "description": "L'adreça a què es connecten els telèfons vinculats. El telèfon i aquest ordinador han de ser a la mateixa xarxa.",
+        "off": "Desactivat",
+        "starting": "S'està iniciant…",
+        "listening": "Escoltant a {{address}}",
+        "noNetwork": "Sense connexió a cap xarxa",
+        "failed": "No s'ha pogut iniciar: {{error}}"
+      },
+      "port": {
+        "title": "Port",
+        "description": "El port de xarxa a què es connecten els telèfons. Permeteu-lo al tallafoc si els telèfons no es poden connectar. Després de canviar-lo, caldrà tornar a vincular els telèfons."
+      },
+      "pair": {
+        "button": "Vincula un telèfon",
+        "hint": "En vincular es mostra un codi per escanejar amb el Handy Mobile.",
+        "turnOnFirst": "Activeu el Handy Mobile per vincular un telèfon.",
+        "title": "Vincula un telèfon",
+        "description": "Obriu el Handy Mobile al telèfon i escanegeu aquest codi. El telèfon ha de ser a la mateixa xarxa que aquest ordinador.",
+        "qrAlt": "Codi de vinculació",
+        "expires": "Aquest codi caduca d'aquí a {{time}}",
+        "expired": "Aquest codi ha caducat.",
+        "newCode": "Codi nou",
+        "manual": "No el podeu escanejar? Copieu el codi i enganxeu-lo al Handy Mobile.",
+        "copy": "Copia el codi",
+        "copied": "S'ha copiat el codi de vinculació",
+        "copyFailed": "No s'ha pogut copiar el codi de vinculació",
+        "done": "{{name}} s'ha vinculat",
+        "failed": "No s'ha pogut crear un codi de vinculació"
+      },
+      "devices": {
+        "empty": "Encara no hi ha cap telèfon vinculat.",
+        "connected": "Connectat",
+        "dictating": "S'està dictant…",
+        "lastSeen": "Última connexió: {{time}}",
+        "never": "Encara no s'ha connectat",
+        "rename": "Canvia el nom",
+        "nameLabel": "Nom del telèfon",
+        "renameFailed": "No s'ha pogut canviar el nom del telèfon",
+        "remove": "Desvincula",
+        "removeConfirmTitle": "Voleu desvincular {{name}}?",
+        "removeConfirm": "Aquest telèfon no podrà dictar a través d'aquest ordinador fins que el torneu a vincular.",
+        "removeFailed": "No s'ha pogut desvincular el telèfon",
+        "cancel": "Cancel·la"
+      },
+      "outputMode": {
+        "title": "Envia el text a",
+        "description": "On va el text quan un telèfon dicta. El telèfon també el mostra sempre.",
+        "options": {
+          "desktop": "Aquest ordinador",
+          "phone": "Només el telèfon"
+        }
+      },
+      "postProcess": {
+        "label": "Postprocessament",
+        "description": "Aplica el postprocessament al que dicten els telèfons."
       }
     },
     "languages": {
@@ -957,6 +1027,9 @@
     "filePostProcessFailedTitle": "Transcrit sense postprocessament",
     "filePostProcessFailed": "El postprocessament no ha acabat, així que la transcripció s'ha desat tal qual.",
     "fileTranscriptionFailedTitle": "La transcripció del fitxer ha fallat",
+    "mobileServerFailedTitle": "El Handy Mobile no s'ha pogut iniciar",
+    "mobileServerFailed": "Els telèfons no es poden connectar. Pot ser que una altra aplicació faci servir el port; trieu-ne un altre a la configuració de Mòbil.",
+    "mobileTranscriptionFailedTitle": "El dictat del telèfon ha fallat",
     "transcriptionFailedTitle": "La transcripció ha fallat"
   },
   "notices": {

@@ -27,13 +27,15 @@ pub enum NoticeLevel {
 
 /// Each source has one slot in the store. Only dictation notices use the
 /// overlay: a file job finishes while the user is doing something else, and
-/// `Model` is a switch the user made in Settings or the tray.
+/// `Model` is a switch the user made in Settings or the tray, and `Mobile`
+/// is a paired phone, whose user is looking at the phone.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize, Type)]
 #[serde(rename_all = "lowercase")]
 pub enum NoticeSource {
     Dictation,
     File,
     Model,
+    Mobile,
 }
 
 /// The frontend maps each code to its text in `src/lib/notices.ts`.
@@ -51,6 +53,9 @@ pub enum NoticeCode {
     PostProcessFailed,
     FileTranscriptionFailed,
     FilePostProcessFailed,
+    /// The server paired phones connect to couldn't start.
+    MobileServerFailed,
+    MobileTranscriptionFailed,
 }
 
 impl NoticeCode {
@@ -65,7 +70,9 @@ impl NoticeCode {
             | Self::RecordingFailed
             | Self::ModelLoadFailed
             | Self::NoModelSelected
-            | Self::FileTranscriptionFailed => NoticeLevel::Error,
+            | Self::FileTranscriptionFailed
+            | Self::MobileServerFailed
+            | Self::MobileTranscriptionFailed => NoticeLevel::Error,
             Self::PostProcessFailed | Self::FilePostProcessFailed => NoticeLevel::Warning,
         }
     }
@@ -85,6 +92,8 @@ impl NoticeCode {
             Self::PostProcessFailed => &strings.post_process_failed_title,
             Self::FileTranscriptionFailed => &strings.file_transcription_failed_title,
             Self::FilePostProcessFailed => &strings.file_post_process_failed_title,
+            Self::MobileServerFailed => &strings.mobile_server_failed_title,
+            Self::MobileTranscriptionFailed => &strings.mobile_transcription_failed_title,
         }
     }
 }

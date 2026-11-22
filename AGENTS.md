@@ -61,6 +61,7 @@ Handy is a cross-platform desktop speech-to-text application built with Tauri 2.
   - `model.rs` - Model downloading and management
   - `transcription.rs` - Speech-to-text processing pipeline
   - `history.rs` - Transcription history storage
+  - `mobile.rs` - Handy Mobile: the server paired phones dictate through (see [Handy Mobile](#handy-mobile))
 - `audio_toolkit/` - Low-level audio processing:
   - `audio/` - Recording sink (VAD, levels, live streaming feed), output devices, WAV I/O
   - `vad/` - Voice Activity Detection (Silero VAD)
@@ -132,6 +133,22 @@ Settings are stored using Tauri's store plugin with reactive updates:
 ### Single Instance Architecture
 
 The app enforces single instance behavior — launching when already running brings the settings window to front rather than creating a new process. Remote control flags (`--toggle-transcription`, etc.) work by launching a second instance that sends args to the running instance via `tauri_plugin_single_instance`, then exits.
+
+## Handy Mobile
+
+A phone is a remote microphone: it streams a recording to the desktop, which transcribes it and pastes the text or sends it back.
+
+- `crates/handy-link/` - Shared by both apps. `protocol.rs` (messages), `pairing.rs` (the QR payload and secrets), `tls.rs` (self-signed identity, fingerprint pinning), `discovery.rs` (finding the desktop after its address changed), `server.rs` (feature `server`, the desktop) and `client.rs` (feature `client`, the phone). `tests/roundtrip.rs` runs the whole exchange over a real socket; `examples/link-cli.rs` is a phone in a terminal for testing a desktop.
+- `src-tauri/src/managers/mobile.rs` - Implements `handy_link::server::Host`: owns the server, pairing codes and the paired phones, and runs a phone's recording through `transcribe_in_chunks` like a file job. Phones and the certificate are stored in `mobile_link.json` in the app data directory, not in settings.
+- `src-tauri/src/commands/mobile.rs` and `src/components/settings/mobile/MobileSettings.tsx` - The Mobile tab.
+- `mobile/` - The phone app, a separate Tauri 2 project (see `mobile/README.md`). Its Rust core holds the link; the WebView only captures audio and draws.
+- `mobile/src-tauri/gen/android/app/src/main/java/com/pais/handy/mobile/HandyKeyboardService.kt` - The Android keyboard: native, no WebView. It records and types; its link is `mobile/src-tauri/src/keyboard.rs`, called through `KeyboardLink.kt`, on its own connection (channel `keyboard`). `mobile/src/screens/KeyboardSetup.tsx` walks the user through the permissions, with `SetupBridge` in `MainActivity.kt` reporting where they stand.
+
+Rules:
+
+- A change either side could misread bumps `PROTOCOL_VERSION`. Unknown JSON messages are ignored by both sides, so adding one doesn't.
+- Dictation at the computer goes first; a phone's transcription waits for it, as file jobs do. One phone dictates at a time.
+- The server is off unless `mobile_enabled` is set, and nothing before authentication is trusted: keep it that way.
 
 ## Error notices
 

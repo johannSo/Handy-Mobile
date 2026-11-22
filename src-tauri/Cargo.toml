@@ -89,6 +89,13 @@ transcribe-cpp = { version = "0.4.2", default-features = false, features = [
 handy-keys = "0.3.5"
 ferrous-opencc = "0.2.3"
 clap = { version = "4", features = ["derive"] }
+# Handy Mobile: the server a paired phone streams its microphone to.
+handy-link = { path = "../crates/handy-link", features = ["server"] }
+# The pairing QR code, drawn as SVG for the Mobile settings tab.
+qrcode = { version = "0.15", default-features = false, features = ["svg"] }
+# The addresses a phone can reach this desktop at, for the pairing code.
+if-addrs = "0.15"
+gethostname = "1"
 specta = "=2.0.0-rc.22"
 specta-typescript = "0.0.9"
 tauri-specta = { version = "=2.0.0-rc.21", features = ["derive", "typescript"] }

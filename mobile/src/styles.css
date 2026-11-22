@@ -1,0 +1,124 @@
+@import "tailwindcss" source(".");
+
+/* The same palette as Handy on the desktop (src/styles/theme.css there). */
+:root {
+  --color-text: #0f0f0f;
+  --color-background: #fbfbfb;
+  --color-logo-primary: #faa2ca;
+  --color-background-ui: #da5893;
+  --color-error: #dc2626;
+  --color-warning: #d97706;
+  --color-moss: #2f7d5b;
+  --color-ink-2: color-mix(in srgb, var(--color-text) 70%, transparent);
+  --color-ink-3: color-mix(in srgb, var(--color-text) 50%, transparent);
+  --color-line: color-mix(in srgb, var(--color-text) 12%, transparent);
+  --color-line-strong: color-mix(in srgb, var(--color-text) 24%, transparent);
+  --color-wash: color-mix(in srgb, var(--color-text) 6%, transparent);
+  --color-error-wash: color-mix(
+    in srgb,
+    var(--color-error) 12%,
+    var(--color-background)
+  );
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: #fbfbfb;
+    --color-background: #2c2b29;
+    --color-logo-primary: #f28cbb;
+    --color-error: #f87171;
+    --color-warning: #fbbf24;
+    --color-moss: #86c9a4;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-text: var(--color-text);
+  --color-background: var(--color-background);
+  --color-background-ui: var(--color-background-ui);
+  --color-logo-primary: var(--color-logo-primary);
+  --color-error: var(--color-error);
+  --color-warning: var(--color-warning);
+  --color-moss: var(--color-moss);
+  --color-ink-2: var(--color-ink-2);
+  --color-ink-3: var(--color-ink-3);
+  --color-line: var(--color-line);
+  --color-line-strong: var(--color-line-strong);
+  --color-wash: var(--color-wash);
+  --color-error-wash: var(--color-error-wash);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Noto Sans",
+    sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+  user-select: none;
+}
+
+/* While the camera is scanning it shows through the page from behind. */
+html.scanning,
+html.scanning body {
+  background: transparent;
+}
+
+.safe-top {
+  padding-top: max(env(safe-area-inset-top), var(--inset-top, 0px));
+}
+
+.safe-bottom {
+  padding-bottom: max(env(safe-area-inset-bottom), var(--inset-bottom, 0px));
+}
+
+.status-bar-cover {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 10;
+  height: max(env(safe-area-inset-top), var(--inset-top, 0px));
+  background: var(--color-background);
+}
+
+html.scanning .status-bar-cover {
+  display: none;
+}
+
+.selectable {
+  user-select: text;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.pulse-ring {
+  animation: pulse-ring 1.6s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-ring {
+    animation: none;
+  }
+}
