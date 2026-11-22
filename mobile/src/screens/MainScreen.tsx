@@ -169,9 +169,17 @@ const SettingsSheet: React.FC<{
                 {t("keyboard.settingsRow")}
               </p>
               <p className="text-xs text-ink-3">
-                {setupStatus()?.keyboardEnabled
-                  ? t("keyboard.settingsOn")
-                  : t("keyboard.settingsOff")}
+                {t(
+                  setupStatus()?.bubbleEnabled
+                    ? "keyboard.settingsBubbleOn"
+                    : "keyboard.settingsBubbleOff",
+                )}
+                {" · "}
+                {t(
+                  setupStatus()?.keyboardEnabled
+                    ? "keyboard.settingsKeyboardOn"
+                    : "keyboard.settingsKeyboardOff",
+                )}
               </p>
             </div>
             <ChevronRight className="h-5 w-5 shrink-0 text-ink-3" />

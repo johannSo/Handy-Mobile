@@ -9,12 +9,25 @@ It is a separate Tauri 2 app. The Rust core (`src-tauri/src/lib.rs`) keeps the l
 On Android the app is also an input method, for dictating into other apps. It is native Kotlin, because Android runs a keyboard as a service with no WebView, often in a process where the app itself never started:
 
 - `gen/android/.../HandyKeyboardService.kt` draws the keyboard, records with `AudioRecord`, and types the transcript into the focused field.
-- `src-tauri/src/keyboard.rs` is its link to the desktop, with a runtime of its own, called over JNI through `KeyboardLink.kt`. It reads the pairing the app stored (`desktop.json`) and connects on the `keyboard` channel, so its connection and the app's don't replace each other. It is connected only while the keyboard is on screen.
-- `src/screens/KeyboardSetup.tsx` is the setup walkthrough. `SetupBridge` in `MainActivity.kt` tells it which permissions are granted and whether the keyboard is turned on and selected, and opens the system screens for each.
+- `src-tauri/src/keyboard.rs` is its link to the desktop, with a runtime of its own, called over JNI through `PhoneLink.kt`. It reads the pairing the app stored (`desktop.json`) and connects on the `keyboard` channel, so its connection and the app's don't replace each other. It is connected only while the keyboard is on screen.
+- `src/screens/KeyboardSetup.tsx` is the setup walkthrough. `SetupBridge` in `MainActivity.kt` tells it which permissions are granted and whether the keyboard and the bubble are turned on, and opens the system screens for each.
 
 A keyboard can't ask for permissions, so when the microphone isn't allowed or no computer is paired, tapping its microphone opens the app on the setup screen.
 
 To try it on the emulator: `adb shell ime enable com.pais.handy.mobile/.HandyKeyboardService`, then `adb shell ime set com.pais.handy.mobile/.HandyKeyboardService`.
+
+## The bubble
+
+A floating microphone at the side of the screen whenever a text field is in use, whatever the keyboard. Tap it to dictate and again to finish, or hold it and talk; holding it during a dictation cancels. It can be dragged anywhere and settles on the nearer side.
+
+- `gen/android/.../HandyBubbleService.kt` is an accessibility service: nothing else is told that a text field has focus, may draw over other apps without a further permission, or may type into them. It asks only for what that takes (`res/xml/bubble.xml`) and stays away from password fields and from Handy's own keyboard. It types through the input connection Android gives such a service from Android 13, and by setting the field's text before that.
+- `Blob.kt` is its body and how it moves: a ball joined to the wall by two fillets, which is what makes it stretch, let go and merge like water. It is drawn by windows touches pass through, a small one at rest and a full-screen one only while it is away from the wall; a third, the size of the ball, takes the touches.
+- Its link is the keyboard's code with its own instance and channel (`bubble`), open while the bubble is up and for a few seconds after. `Recorder.kt` is the microphone both share.
+- The setup has a version (`SETUP_VERSION` in `src/lib/setup.ts`). Raise it when the setup gains a step, and people who went through the old one are offered the new one once.
+
+Android greys out the accessibility switch for an app installed from an APK until "Allow restricted settings" is chosen on the app's info page; the setup step explains this.
+
+To try it on the emulator: `adb shell settings put secure enabled_accessibility_services com.pais.handy.mobile/com.pais.handy.mobile.HandyBubbleService`.
 
 ## Build (Android)
 

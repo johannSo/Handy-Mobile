@@ -1,4 +1,4 @@
-// What the keyboard setup needs from Android, provided by `SetupBridge` in
+// What the bubble and keyboard setup needs from Android, provided by `SetupBridge` in
 // MainActivity.kt. It doesn't exist anywhere else (a desktop browser, iOS),
 // and there the keyboard isn't offered.
 
@@ -11,6 +11,8 @@ export interface SetupStatus {
   keyboardEnabled: boolean;
   /** The keyboard in use right now. */
   keyboardSelected: boolean;
+  /** The floating bubble, turned on in the accessibility settings. */
+  bubbleEnabled: boolean;
 }
 
 interface Bridge {
@@ -18,6 +20,8 @@ interface Bridge {
   takeSetupRequest(): boolean;
   requestPermission(which: "microphone" | "localNetwork"): void;
   openKeyboardSettings(): void;
+  openBubbleSettings(): void;
+  openAppSettings(): void;
   showKeyboardPicker(): void;
 }
 
@@ -44,11 +48,28 @@ export const requestPermission = (which: "microphone" | "localNetwork") =>
 
 export const openKeyboardSettings = () => bridge()?.openKeyboardSettings();
 
+export const openBubbleSettings = () => bridge()?.openBubbleSettings();
+
+export const openAppSettings = () => bridge()?.openAppSettings();
+
 export const showKeyboardPicker = () => bridge()?.showKeyboardPicker();
 
-const SEEN_KEY = "handy-mobile.keyboard-setup-seen";
+// Which setup the user was last offered. It grows when the setup gains a
+// step, so that people who already went through it are shown the new one.
+const SETUP_VERSION = 2;
+const VERSION_KEY = "handy-mobile.setup-version";
+/** How version 1, the keyboard alone, recorded that it was offered. */
+const LEGACY_SEEN_KEY = "handy-mobile.keyboard-setup-seen";
 
-/** Whether the setup was offered already, so it is only offered once. */
-export const setupSeen = (): boolean => localStorage.getItem(SEEN_KEY) === "1";
+/** The setup last offered: 0 for none, 1 before the bubble existed. */
+export const setupVersionSeen = (): number => {
+  const version = Number(localStorage.getItem(VERSION_KEY));
+  if (version > 0) return version;
+  return localStorage.getItem(LEGACY_SEEN_KEY) === "1" ? 1 : 0;
+};
 
-export const markSetupSeen = () => localStorage.setItem(SEEN_KEY, "1");
+/** Whether the current setup was offered already, so it is only offered once. */
+export const setupSeen = (): boolean => setupVersionSeen() >= SETUP_VERSION;
+
+export const markSetupSeen = () =>
+  localStorage.setItem(VERSION_KEY, String(SETUP_VERSION));

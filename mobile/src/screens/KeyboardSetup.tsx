@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, Check } from "lucide-react";
 import {
+  openAppSettings,
+  openBubbleSettings,
   openKeyboardSettings,
   requestPermission,
   setupStatus,
@@ -30,7 +32,21 @@ const Step: React.FC<{
   onAction: () => void;
   /** An earlier step has to be done first. */
   waiting?: boolean;
-}> = ({ number, done, title, description, action, onAction, waiting }) => (
+  /** Marks a step added since the user last saw the setup. */
+  badge?: string;
+  /** What to do when the step's own button gets nowhere. */
+  help?: { title: string; text: string; action: string; onAction: () => void };
+}> = ({
+  number,
+  done,
+  title,
+  description,
+  action,
+  onAction,
+  waiting,
+  badge,
+  help,
+}) => (
   <li className="flex gap-3 rounded-2xl border border-line px-4 py-3">
     <span
       className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${
@@ -40,7 +56,14 @@ const Step: React.FC<{
       {done ? <Check className="h-4 w-4" /> : number}
     </span>
     <div className="min-w-0 flex-1">
-      <p className="text-base font-medium">{title}</p>
+      <p className="text-base font-medium">
+        {title}
+        {badge && !done && (
+          <span className="ms-2 rounded-full bg-background-ui px-2 py-0.5 align-middle text-xs font-semibold text-white">
+            {badge}
+          </span>
+        )}
+      </p>
       <p className="mt-0.5 text-sm text-ink-2">{description}</p>
       {!done && (
         <button
@@ -52,6 +75,19 @@ const Step: React.FC<{
           {action}
         </button>
       )}
+      {!done && help && (
+        <details className="mt-3 text-sm text-ink-2">
+          <summary className="font-medium">{help.title}</summary>
+          <p className="mt-1">{help.text}</p>
+          <button
+            type="button"
+            onClick={help.onAction}
+            className="mt-2 rounded-full border border-line-strong px-4 py-2 text-sm font-semibold active:bg-wash"
+          >
+            {help.action}
+          </button>
+        </details>
+      )}
     </div>
   </li>
 );
@@ -60,17 +96,27 @@ interface KeyboardSetupProps {
   onDone: () => void;
   /** Opened from settings, so there is somewhere to go back to. */
   fromSettings: boolean;
+  /** The user set the keyboard up before the bubble existed. */
+  highlightBubble?: boolean;
 }
 
 export const KeyboardSetup: React.FC<KeyboardSetupProps> = ({
   onDone,
   fromSettings,
+  highlightBubble,
 }) => {
   const { t } = useTranslation();
   const status = useSetupStatus();
   if (!status) return null;
 
-  const steps = [
+  const steps: {
+    key: string;
+    done: boolean;
+    onAction: () => void;
+    waiting?: boolean;
+    badge?: string;
+    help?: React.ComponentProps<typeof Step>["help"];
+  }[] = [
     {
       key: "microphone",
       done: status.microphone,
@@ -85,6 +131,18 @@ export const KeyboardSetup: React.FC<KeyboardSetupProps> = ({
           },
         ]
       : []),
+    {
+      key: "bubble",
+      done: status.bubbleEnabled,
+      onAction: () => openBubbleSettings(),
+      badge: highlightBubble ? t("keyboard.new") : undefined,
+      help: {
+        title: t("keyboard.steps.bubble.helpTitle"),
+        text: t("keyboard.steps.bubble.help"),
+        action: t("keyboard.steps.bubble.helpAction"),
+        onAction: () => openAppSettings(),
+      },
+    },
     {
       key: "enable",
       done: status.keyboardEnabled,
@@ -129,11 +187,13 @@ export const KeyboardSetup: React.FC<KeyboardSetupProps> = ({
               action={t(`keyboard.steps.${step.key}.action`)}
               onAction={step.onAction}
               waiting={step.waiting}
+              badge={step.badge}
+              help={step.help}
             />
           ))}
         </ol>
 
-        {status.keyboardEnabled && (
+        {(status.keyboardEnabled || status.bubbleEnabled) && (
           <div className="mt-6">
             <label htmlFor="keyboard-try" className="text-sm font-medium">
               {t("keyboard.tryLabel")}
@@ -144,9 +204,16 @@ export const KeyboardSetup: React.FC<KeyboardSetupProps> = ({
               placeholder={t("keyboard.tryPlaceholder")}
               className="selectable mt-2 w-full resize-none rounded-2xl border border-line-strong bg-transparent px-4 py-3 text-base outline-none focus:border-background-ui"
             />
-            <p className="mt-2 text-sm text-ink-3">
-              {t("keyboard.switchHint")}
-            </p>
+            {status.bubbleEnabled && (
+              <p className="mt-2 text-sm text-ink-3">
+                {t("keyboard.bubbleHint")}
+              </p>
+            )}
+            {status.keyboardEnabled && (
+              <p className="mt-2 text-sm text-ink-3">
+                {t("keyboard.switchHint")}
+              </p>
+            )}
           </div>
         )}
       </main>

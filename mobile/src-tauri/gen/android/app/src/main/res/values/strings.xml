@@ -29,4 +29,13 @@
     <string name="keyboard_space">"space"</string>
     <string name="keyboard_backspace">"Delete"</string>
     <string name="keyboard_enter">"Enter"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_name">"Handy Bubble"</string>
+    <string name="bubble_summary">"A floating microphone for dictating into any text field"</string>
+    <string name="bubble_description">"Shows a floating microphone at the side of the screen while you are in a text field. Tap it or hold it to dictate; what you say is transcribed on your computer and typed into the field.\n\nHandy uses this access only to notice that a text field is in use and to type your dictation into it. It does not read or send anything else on your screen."</string>
+    <string name="bubble_dictate">"Dictate with Handy"</string>
+    <string name="bubble_cancelled">"Cancelled"</string>
+    <string name="bubble_offline">"Can\'t reach %1$s"</string>
+    <string name="bubble_copied">"Copied. Paste it where you want it."</string>
 </resources>

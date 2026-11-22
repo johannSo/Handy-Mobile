@@ -1,6 +1,7 @@
 package com.pais.handy.mobile
 
 import android.Manifest
+import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -76,6 +77,15 @@ class MainActivity : TauriActivity() {
     if (denied && SystemClock.elapsedRealtime() - permissionAskedAt < 500) openAppSettings()
   }
 
+  /** Whether the floating bubble is switched on in the accessibility settings. */
+  private fun bubbleEnabled(): Boolean {
+    val on = Settings.Secure.getString(
+      contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES,
+    ) ?: return false
+    val bubble = ComponentName(this, HandyBubbleService::class.java)
+    return on.split(':').any { ComponentName.unflattenFromString(it) == bubble }
+  }
+
   private fun openAppSettings() {
     startActivity(
       Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName")),
@@ -100,6 +110,7 @@ class MainActivity : TauriActivity() {
         .put("localNetworkNeeded", Build.VERSION.SDK_INT >= 37)
         .put("keyboardEnabled", enabled)
         .put("keyboardSelected", enabled && current?.startsWith("$packageName/") == true)
+        .put("bubbleEnabled", bubbleEnabled())
         .toString()
     }
 
@@ -125,6 +136,31 @@ class MainActivity : TauriActivity() {
     @JavascriptInterface
     fun openKeyboardSettings() {
       runOnUiThread { startActivity(Intent(Settings.ACTION_INPUT_METHOD_SETTINGS)) }
+    }
+
+    /**
+     * Opens the system's accessibility settings, where the bubble is turned
+     * on, pointing at its entry where the settings app knows how.
+     */
+    @JavascriptInterface
+    fun openBubbleSettings() {
+      val bubble = ComponentName(this@MainActivity, HandyBubbleService::class.java).flattenToString()
+      val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+        .putExtra(":settings:fragment_args_key", bubble)
+        .putExtra(":settings:show_fragment_args", Bundle().apply {
+          putString(":settings:fragment_args_key", bubble)
+        })
+      runOnUiThread { startActivity(intent) }
+    }
+
+    /**
+     * Opens the app's page in the system settings. Android greys out the
+     * bubble's switch for an app installed from a file until "Allow
+     * restricted settings" is chosen there.
+     */
+    @JavascriptInterface
+    fun openAppSettings() {
+      runOnUiThread { this@MainActivity.openAppSettings() }
     }
 
     /** Shows the system's keyboard chooser. */

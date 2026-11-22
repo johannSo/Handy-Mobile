@@ -10,9 +10,6 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.inputmethodservice.InputMethodService
-import android.media.AudioFormat
-import android.media.AudioRecord
-import android.media.MediaRecorder
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -30,20 +27,20 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import org.json.JSONObject
 import kotlin.math.min
-import kotlin.math.sqrt
 
 /**
  * The Handy keyboard: a microphone where the keys would be. What it hears is
  * transcribed on the paired computer and typed into the focused text field.
  *
  * It is connected only while it's on screen. The link itself is in
- * [KeyboardLink]; the pairing it uses is the app's.
+ * [PhoneLink]; the pairing it uses is the app's.
  */
 class HandyKeyboardService : InputMethodService() {
   private enum class Phase { IDLE, RECORDING, TRANSCRIBING }
 
   private val main = Handler(Looper.getMainLooper())
-  private var link = "connecting"
+  private val link = PhoneLink.keyboard
+  private var linkState = "connecting"
   private var computer: String? = null
   private var phase = Phase.IDLE
   /** A passing message, shown in place of the status until it times out. */
@@ -230,18 +227,18 @@ class HandyKeyboardService : InputMethodService() {
     status?.text = notice ?: when {
       phase == Phase.RECORDING -> getString(R.string.keyboard_listening)
       phase == Phase.TRANSCRIBING -> getString(R.string.keyboard_transcribing)
-      link == "unpaired" -> getString(R.string.keyboard_unpaired)
-      link == "rejected" -> getString(R.string.keyboard_rejected)
-      link == "incompatible" -> getString(R.string.keyboard_incompatible)
+      linkState == "unpaired" -> getString(R.string.keyboard_unpaired)
+      linkState == "rejected" -> getString(R.string.keyboard_rejected)
+      linkState == "incompatible" -> getString(R.string.keyboard_incompatible)
       !microphoneAllowed -> getString(R.string.keyboard_needs_microphone)
-      link == "connecting" -> getString(R.string.keyboard_connecting, name)
-      link == "offline" -> getString(R.string.keyboard_offline, name)
+      linkState == "connecting" -> getString(R.string.keyboard_connecting, name)
+      linkState == "offline" -> getString(R.string.keyboard_offline, name)
       else -> getString(R.string.keyboard_tap_to_dictate)
     }
 
     val recording = phase == Phase.RECORDING
     val transcribing = phase == Phase.TRANSCRIBING
-    val ready = link == "connected" && microphoneAllowed
+    val ready = linkState == "connected" && microphoneAllowed
     mic.background = round(if (recording) palette.recording else palette.accent)
     mic.setImageResource(if (recording) R.drawable.ic_keyboard_stop else R.drawable.ic_keyboard_mic)
     mic.imageAlpha = if (transcribing) 0 else 255
@@ -267,25 +264,28 @@ class HandyKeyboardService : InputMethodService() {
 
   override fun onWindowShown() {
     super.onWindowShown()
-    KeyboardLink.listener = ::onLinkEvent
-    link = "connecting"
+    setOnScreen(true)
+    link.listener = ::onLinkEvent
+    linkState = "connecting"
     // Where the app keeps the pairing (`desktop_path` in src-tauri/src/lib.rs).
-    KeyboardLink.open(dataDir.resolve("desktop.json").absolutePath)
+    link.open(dataDir.resolve("desktop.json").absolutePath)
     render()
   }
 
   override fun onWindowHidden() {
     super.onWindowHidden()
+    setOnScreen(false)
     cancelDictation()
-    KeyboardLink.close()
+    link.close()
     notice = null
   }
 
   override fun onDestroy() {
     recorder?.stop(send = false)
     recorder = null
-    KeyboardLink.close()
-    if (KeyboardLink.listener == ::onLinkEvent) KeyboardLink.listener = null
+    link.close()
+    link.listener = null
+    setOnScreen(false)
     super.onDestroy()
   }
 
@@ -308,16 +308,16 @@ class HandyKeyboardService : InputMethodService() {
     when {
       phase == Phase.RECORDING -> finishDictation()
       phase == Phase.TRANSCRIBING -> {}
-      link == "unpaired" || link == "rejected" || link == "incompatible" -> openApp()
+      linkState == "unpaired" || linkState == "rejected" || linkState == "incompatible" -> openApp()
       // A keyboard can't ask for a permission; the app can.
       !microphoneAllowed() -> openApp()
-      link != "connected" -> KeyboardLink.retry()
+      linkState != "connected" -> link.retry()
       else -> startDictation()
     }
   }
 
   private fun startDictation() {
-    val started = Recorder { level -> main.post { showLevel(level) } }
+    val started = Recorder(link) { level -> main.post { showLevel(level) } }
     if (!started.start()) {
       say(R.string.keyboard_microphone_failed)
       return
@@ -343,7 +343,7 @@ class HandyKeyboardService : InputMethodService() {
     if (phase == Phase.IDLE) return
     recorder?.stop(send = false)
     recorder = null
-    KeyboardLink.cancel()
+    link.cancel()
     phase = Phase.IDLE
     render()
   }
@@ -357,9 +357,9 @@ class HandyKeyboardService : InputMethodService() {
   private fun onLinkEvent(event: JSONObject) {
     when (event.optString("type")) {
       "link" -> {
-        link = event.optString("state")
+        linkState = event.optString("state")
         if (!event.isNull("name")) computer = event.optString("name")
-        if (link != "connected" && phase != Phase.IDLE) {
+        if (linkState != "connected" && phase != Phase.IDLE) {
           // What was said went down with the connection.
           recorder?.stop(send = false)
           recorder = null
@@ -451,96 +451,16 @@ class HandyKeyboardService : InputMethodService() {
     )
   }
 
-  /**
-   * The microphone, as the computer wants it: 16 kHz mono 16-bit PCM, sent a
-   * tenth of a second at a time.
-   */
-  private class Recorder(private val onLevel: (Float) -> Unit) {
-    @Volatile private var running = false
-    private var sendStop = false
-    private var finished = false
-    private var record: AudioRecord? = null
+  private fun setOnScreen(shown: Boolean) {
+    if (onScreen == shown) return
+    onScreen = shown
+    onScreenChanged?.invoke()
+  }
 
-    @SuppressLint("MissingPermission")
-    fun start(): Boolean {
-      val smallest = AudioRecord.getMinBufferSize(
-        RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT,
-      )
-      if (smallest <= 0) return false
-      val record = try {
-        AudioRecord(
-          MediaRecorder.AudioSource.VOICE_RECOGNITION, RATE,
-          AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT,
-          maxOf(smallest, FRAME * 2 * 4),
-        )
-      } catch (_: Exception) {
-        return false
-      }
-      if (record.state != AudioRecord.STATE_INITIALIZED) {
-        record.release()
-        return false
-      }
-      try {
-        record.startRecording()
-      } catch (_: Exception) {
-        record.release()
-        return false
-      }
-      if (record.recordingState != AudioRecord.RECORDSTATE_RECORDING) {
-        record.release()
-        return false
-      }
-      this.record = record
-      running = true
-      KeyboardLink.start()
-      Thread({ pump(record) }, "handy-keyboard-mic").start()
-      return true
-    }
-
-    /** Stops recording. With [send], the computer is told to transcribe. */
-    fun stop(send: Boolean) {
-      synchronized(this) {
-        // If the microphone gave out early, nobody is left to say so.
-        if (finished) {
-          if (send) KeyboardLink.stop()
-          return
-        }
-        sendStop = send
-        running = false
-      }
-    }
-
-    private fun pump(record: AudioRecord) {
-      val samples = ShortArray(FRAME)
-      while (running) {
-        val read = record.read(samples, 0, FRAME)
-        if (read <= 0) break
-        val bytes = ByteArray(read * 2)
-        var energy = 0.0
-        for (i in 0 until read) {
-          val sample = samples[i].toInt()
-          bytes[i * 2] = sample.toByte()
-          bytes[i * 2 + 1] = (sample shr 8).toByte()
-          energy += sample.toDouble() * sample
-        }
-        KeyboardLink.sendAudio(bytes)
-        onLevel((sqrt(energy / read) / 32768.0).toFloat())
-      }
-      try {
-        record.stop()
-      } catch (_: Exception) {
-      }
-      record.release()
-      synchronized(this) {
-        finished = true
-        // After the last audio, so the computer has all of it.
-        if (sendStop) KeyboardLink.stop()
-      }
-    }
-
-    private companion object {
-      const val RATE = 16000
-      const val FRAME = RATE / 10
-    }
+  companion object {
+    /** Whether this keyboard is the one up. The bubble stays away while it is. */
+    @Volatile var onScreen = false
+      private set
+    var onScreenChanged: (() -> Unit)? = null
   }
 }

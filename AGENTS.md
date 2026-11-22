@@ -142,7 +142,8 @@ A phone is a remote microphone: it streams a recording to the desktop, which tra
 - `src-tauri/src/managers/mobile.rs` - Implements `handy_link::server::Host`: owns the server, pairing codes and the paired phones, and runs a phone's recording through `transcribe_in_chunks` like a file job. Phones and the certificate are stored in `mobile_link.json` in the app data directory, not in settings.
 - `src-tauri/src/commands/mobile.rs` and `src/components/settings/mobile/MobileSettings.tsx` - The Mobile tab.
 - `mobile/` - The phone app, a separate Tauri 2 project (see `mobile/README.md`). Its Rust core holds the link; the WebView only captures audio and draws.
-- `mobile/src-tauri/gen/android/app/src/main/java/com/pais/handy/mobile/HandyKeyboardService.kt` - The Android keyboard: native, no WebView. It records and types; its link is `mobile/src-tauri/src/keyboard.rs`, called through `KeyboardLink.kt`, on its own connection (channel `keyboard`). `mobile/src/screens/KeyboardSetup.tsx` walks the user through the permissions, with `SetupBridge` in `MainActivity.kt` reporting where they stand.
+- `mobile/src-tauri/gen/android/app/src/main/java/com/pais/handy/mobile/HandyKeyboardService.kt` - The Android keyboard: native, no WebView. It records and types; its link is `mobile/src-tauri/src/keyboard.rs`, called through `PhoneLink.kt`, on its own connection (channel `keyboard`). `mobile/src/screens/KeyboardSetup.tsx` walks the user through the permissions, with `SetupBridge` in `MainActivity.kt` reporting where they stand.
+- `mobile/src-tauri/gen/android/app/src/main/java/com/pais/handy/mobile/HandyBubbleService.kt` - The Android floating bubble: an accessibility service that shows a microphone beside any focused text field, drawn by `Blob.kt`. Same link code as the keyboard, on its own connection (channel `bubble`).
 
 Rules:
 

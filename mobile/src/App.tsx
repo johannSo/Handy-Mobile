@@ -5,6 +5,7 @@ import {
   markSetupSeen,
   setupSeen,
   setupStatus,
+  setupVersionSeen,
   takeSetupRequest,
 } from "./lib/setup";
 import { useLink } from "./lib/useLink";
@@ -37,9 +38,12 @@ const Screen: React.FC<{
   repairing: boolean;
   setRepairing: (repairing: boolean) => void;
 }> = ({ snapshot, repairing, setRepairing }) => {
-  // The keyboard setup: offered once after pairing, opened from settings, or
-  // asked for by the keyboard itself when it's missing something.
+  // The bubble and keyboard setup: offered once after pairing and once more
+  // when it gains a step, opened from settings, or asked for by the bubble or
+  // keyboard when it's missing something.
   const [setup, setSetup] = useState<"offered" | "opened" | null>(null);
+  // Offered before, without the bubble: that step is pointed out.
+  const [returning, setReturning] = useState(false);
   useEffect(() => {
     const check = () => {
       if (document.visibilityState === "visible" && takeSetupRequest()) {
@@ -54,14 +58,19 @@ const Screen: React.FC<{
   const paired = snapshot.link !== "unpaired" && !repairing;
   useEffect(() => {
     if (!paired || setupSeen() || !keyboardAvailable()) return;
+    const before = setupVersionSeen();
     markSetupSeen();
-    if (!setupStatus()?.keyboardSelected) setSetup("offered");
+    const status = setupStatus();
+    if (status?.bubbleEnabled && status.keyboardSelected) return;
+    setReturning(before > 0);
+    setSetup("offered");
   }, [paired]);
 
   if (setup && paired) {
     return (
       <KeyboardSetup
         fromSettings={setup === "opened"}
+        highlightBubble={returning && setup === "offered"}
         onDone={() => setSetup(null)}
       />
     );

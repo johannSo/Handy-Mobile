@@ -1,17 +1,18 @@
-//! The link behind the Handy keyboard (`HandyKeyboardService.kt`).
+//! The links behind the Handy keyboard (`HandyKeyboardService.kt`) and the
+//! floating bubble (`HandyBubbleService.kt`).
 //!
-//! Android runs a keyboard as a service, often in a process where the app's
-//! window, and so Tauri, never started. So the keyboard doesn't share the
-//! app's link: it has its own runtime here and its own connection (on its
-//! own channel, so neither replaces the other), up only while the keyboard is
-//! on screen. Kotlin records the microphone, calls
-//! these functions, and waits on [`next_event`] for what comes back.
+//! Android runs these as services, often in a process where the app's
+//! window, and so Tauri, never started. So they don't share the app's link:
+//! each has its own runtime here and its own connection (on its own channel,
+//! so none replaces another), up only while it is on screen. Kotlin records
+//! the microphone, calls these functions through `PhoneLink.kt`, and waits on
+//! [`next_event`] for what comes back.
 
 use crate::{read_desktop, write_desktop, RETRY_DELAYS};
 use handy_link::client::{self, LinkError, LinkSender};
 use handy_link::protocol::{ClientMessage, ErrorCode, OutputMode, ServerMessage, SessionState};
 use jni::objects::{JByteArray, JClass, JString};
-use jni::sys::jstring;
+use jni::sys::{jint, jstring};
 use jni::JNIEnv;
 use serde::Serialize;
 use std::path::PathBuf;
@@ -52,6 +53,7 @@ enum LinkState {
 }
 
 struct Keyboard {
+    channel: &'static str,
     runtime: Runtime,
     /// Counts openings. A connection task stops when this moves on.
     opened: watch::Sender<u64>,
@@ -61,9 +63,14 @@ struct Keyboard {
     retry_now: Notify,
 }
 
-fn keyboard() -> Option<&'static Keyboard> {
-    static KEYBOARD: OnceLock<Option<Keyboard>> = OnceLock::new();
-    KEYBOARD
+/// The channel each link connects on. `PhoneLink.kt` numbers them the same.
+const CHANNELS: [&str; 2] = ["keyboard", "bubble"];
+
+fn keyboard(id: jint) -> Option<&'static Keyboard> {
+    static LINKS: [OnceLock<Option<Keyboard>>; CHANNELS.len()] = [OnceLock::new(), OnceLock::new()];
+    let index = usize::try_from(id).ok()?;
+    LINKS
+        .get(index)?
         .get_or_init(|| {
             let runtime = tokio::runtime::Builder::new_multi_thread()
                 .worker_threads(1)
@@ -73,6 +80,7 @@ fn keyboard() -> Option<&'static Keyboard> {
                 .ok()?;
             let (events, waiting) = channel();
             Some(Keyboard {
+                channel: CHANNELS[index],
                 runtime,
                 opened: watch::channel(0).0,
                 sender: Mutex::new(None),
@@ -91,8 +99,8 @@ fn set_sender(keyboard: &Keyboard, sender: Option<LinkSender>) {
         .unwrap_or_else(PoisonError::into_inner) = sender;
 }
 
-fn send(message: ClientMessage) {
-    let Some(keyboard) = keyboard() else { return };
+fn send(id: jint, message: ClientMessage) {
+    let Some(keyboard) = keyboard(id) else { return };
     let sender = keyboard
         .sender
         .lock()
@@ -105,8 +113,8 @@ fn send(message: ClientMessage) {
 
 /// Connects to the desktop paired in `path` and stays connected, through
 /// drops, until [`close`] or the next `open`.
-fn open(path: PathBuf) {
-    let Some(keyboard) = keyboard() else { return };
+fn open(id: jint, path: PathBuf) {
+    let Some(keyboard) = keyboard(id) else { return };
     set_sender(keyboard, None);
     keyboard.opened.send_modify(|n| *n += 1);
     let mut moved_on = keyboard.opened.subscribe();
@@ -133,7 +141,7 @@ fn open(path: PathBuf) {
             }
 
             let connected = tokio::select! {
-                connected = client::connect(&mut desktop, "keyboard") => connected,
+                connected = client::connect(&mut desktop, keyboard.channel) => connected,
                 _ = moved_on.changed() => return,
             };
             match connected {
@@ -142,7 +150,11 @@ fn open(path: PathBuf) {
                     // Found at a new address: remember it, unless the app
                     // paired with something else in the meantime.
                     if desktop != known && read_desktop(&path).as_ref() == Some(&known) {
-                        let _ = write_desktop(&path, &desktop, "json.keyboard.tmp");
+                        let _ = write_desktop(
+                            &path,
+                            &desktop,
+                            &format!("json.{}.tmp", keyboard.channel),
+                        );
                     }
                     set_sender(keyboard, Some(link_up.sender()));
                     let name = Some(info.name);
@@ -193,15 +205,15 @@ fn open(path: PathBuf) {
 }
 
 /// Drops the link. Whatever was being recorded or transcribed is lost.
-fn close() {
-    let Some(keyboard) = keyboard() else { return };
+fn close(id: jint) {
+    let Some(keyboard) = keyboard(id) else { return };
     set_sender(keyboard, None);
     keyboard.opened.send_modify(|n| *n += 1);
 }
 
 /// Blocks until the link has something to say.
-fn next_event() -> Option<String> {
-    let keyboard = keyboard()?;
+fn next_event(id: jint) -> Option<String> {
+    let keyboard = keyboard(id)?;
     let event = keyboard
         .waiting
         .lock()
@@ -211,85 +223,96 @@ fn next_event() -> Option<String> {
     serde_json::to_string(&event).ok()
 }
 
-// Called from `KeyboardLink.kt`. None of these may panic: unwinding into the
+// Called from `PhoneLink.kt`, with the number of the link meant. None of these may panic: unwinding into the
 // Java runtime takes the whole app down.
 
 #[no_mangle]
-pub extern "system" fn Java_com_pais_handy_mobile_KeyboardLink_nativeOpen<'local>(
+pub extern "system" fn Java_com_pais_handy_mobile_PhoneLink_nativeOpen<'local>(
     mut env: JNIEnv<'local>,
     _class: JClass<'local>,
+    id: jint,
     path: JString<'local>,
 ) {
     if let Ok(path) = env.get_string(&path) {
-        open(PathBuf::from(String::from(path)));
+        open(id, PathBuf::from(String::from(path)));
     }
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_pais_handy_mobile_KeyboardLink_nativeClose<'local>(
+pub extern "system" fn Java_com_pais_handy_mobile_PhoneLink_nativeClose<'local>(
     _env: JNIEnv<'local>,
     _class: JClass<'local>,
+    id: jint,
 ) {
-    close();
+    close(id);
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_pais_handy_mobile_KeyboardLink_nativeRetry<'local>(
+pub extern "system" fn Java_com_pais_handy_mobile_PhoneLink_nativeRetry<'local>(
     _env: JNIEnv<'local>,
     _class: JClass<'local>,
+    id: jint,
 ) {
-    if let Some(keyboard) = keyboard() {
+    if let Some(keyboard) = keyboard(id) {
         keyboard.retry_now.notify_waiters();
     }
 }
 
 /// Returns null only if the link can never work, which ends Kotlin's loop.
 #[no_mangle]
-pub extern "system" fn Java_com_pais_handy_mobile_KeyboardLink_nativeNextEvent<'local>(
+pub extern "system" fn Java_com_pais_handy_mobile_PhoneLink_nativeNextEvent<'local>(
     env: JNIEnv<'local>,
     _class: JClass<'local>,
+    id: jint,
 ) -> jstring {
-    next_event()
+    next_event(id)
         .and_then(|json| env.new_string(json).ok())
         .map_or(std::ptr::null_mut(), |string| string.into_raw())
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_pais_handy_mobile_KeyboardLink_nativeStart<'local>(
+pub extern "system" fn Java_com_pais_handy_mobile_PhoneLink_nativeStart<'local>(
     _env: JNIEnv<'local>,
     _class: JClass<'local>,
+    id: jint,
 ) {
     // The text is typed on the phone, so the desktop must not paste it too.
-    send(ClientMessage::Start {
-        output: Some(OutputMode::Phone),
-        post_process: None,
-    });
+    send(
+        id,
+        ClientMessage::Start {
+            output: Some(OutputMode::Phone),
+            post_process: None,
+        },
+    );
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_pais_handy_mobile_KeyboardLink_nativeStop<'local>(
+pub extern "system" fn Java_com_pais_handy_mobile_PhoneLink_nativeStop<'local>(
     _env: JNIEnv<'local>,
     _class: JClass<'local>,
+    id: jint,
 ) {
-    send(ClientMessage::Stop);
+    send(id, ClientMessage::Stop);
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_pais_handy_mobile_KeyboardLink_nativeCancel<'local>(
+pub extern "system" fn Java_com_pais_handy_mobile_PhoneLink_nativeCancel<'local>(
     _env: JNIEnv<'local>,
     _class: JClass<'local>,
+    id: jint,
 ) {
-    send(ClientMessage::Cancel);
+    send(id, ClientMessage::Cancel);
 }
 
 /// 16 kHz mono signed 16-bit little-endian PCM.
 #[no_mangle]
-pub extern "system" fn Java_com_pais_handy_mobile_KeyboardLink_nativeSendAudio<'local>(
+pub extern "system" fn Java_com_pais_handy_mobile_PhoneLink_nativeSendAudio<'local>(
     env: JNIEnv<'local>,
     _class: JClass<'local>,
+    id: jint,
     pcm: JByteArray<'local>,
 ) {
-    let Some(keyboard) = keyboard() else { return };
+    let Some(keyboard) = keyboard(id) else { return };
     let Ok(pcm) = env.convert_byte_array(&pcm) else {
         return;
     };

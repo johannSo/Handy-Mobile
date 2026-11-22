@@ -91,11 +91,11 @@
   },
   "keyboard": {
     "title": "Dictate Into Any App",
-    "intro": "Handy Mobile is also a keyboard. Switch to it wherever you type, tap the microphone, and what you say is transcribed on your computer and typed into the text field on your phone.",
+    "intro": "There are two ways to dictate wherever you type: a floating bubble that appears beside any text field, and a keyboard with a microphone in place of the keys. Either way, what you say is transcribed on your computer and typed into the text field on your phone. Set up one or both.",
     "steps": {
       "microphone": {
         "title": "Allow the Microphone",
-        "description": "So the keyboard can hear you. Choose \"While using the app\"; \"Only this time\" wears off.",
+        "description": "So the bubble and the keyboard can hear you. Choose \"While using the app\"; \"Only this time\" wears off.",
         "action": "Allow"
       },
       "localNetwork": {
@@ -112,6 +112,14 @@
         "title": "Switch to the Handy Keyboard",
         "description": "Choose Handy Mobile in the list of keyboards.",
         "action": "Choose Keyboard"
+      },
+      "bubble": {
+        "title": "Turn On the Floating Bubble",
+        "description": "Switch on Handy Bubble in the accessibility settings that open, under installed or downloaded apps, then come back here. Android warns that it can see and control the screen. Handy uses this only to notice that you are in a text field and to type what you dictate.",
+        "action": "Open Accessibility Settings",
+        "helpTitle": "Is the switch greyed out?",
+        "help": "Android restricts this setting for apps installed from a file. Tap the greyed-out switch once so Android shows its notice, then open App Info, tap the three dots at the top right and choose \"Allow restricted settings\".",
+        "helpAction": "Open App Info"
       }
     },
     "tryLabel": "Try It",
@@ -120,8 +128,12 @@
     "done": "Done",
     "later": "Not Now",
     "back": "Back",
-    "settingsRow": "Handy Keyboard",
-    "settingsOn": "On",
-    "settingsOff": "Not set up"
+    "settingsRow": "Bubble and Keyboard",
+    "new": "New",
+    "bubbleHint": "Tap the bubble to start dictating and tap it again to finish, or hold it down while you talk. Holding it during a dictation cancels. Drag it to wherever suits you; it settles on the nearest side.",
+    "settingsBubbleOn": "Bubble on",
+    "settingsBubbleOff": "Bubble off",
+    "settingsKeyboardOn": "Keyboard on",
+    "settingsKeyboardOff": "Keyboard off"
   }
 }
