@@ -4,8 +4,9 @@ name: "Ubuntu 24.04 Build"
 # as workflow artifacts. Needs no secrets: the updater artifacts (which need
 # TAURI_SIGNING_PRIVATE_KEY) are turned off for this build.
 #
-# Pushing a tag like v0.11.0-alpha.1 builds that version (taken from the tag)
-# and publishes the packages as a GitHub pre-release.
+# Pushing a tag like v0.11.0 builds that version (taken from the tag) and
+# publishes the packages as a GitHub release; a tag with a suffix such as
+# v0.11.0-alpha.1 publishes a pre-release.
 
 on:
   workflow_dispatch:
@@ -122,7 +123,9 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-      - name: Publish pre-release
+      # A tag with a suffix (v0.11.0-alpha.1) is a pre-release; a plain
+      # version (v0.11.0) is a release.
+      - name: Publish release
         if: startsWith(github.ref, 'refs/tags/v')
         env:
           GH_TOKEN: ${{ github.token }}
@@ -132,9 +135,13 @@ jobs:
           files=(src-tauri/target/release/bundle/deb/*.deb \
                  src-tauri/target/release/bundle/rpm/*.rpm \
                  src-tauri/target/release/bundle/appimage/*.AppImage)
+          kind=(--latest)
+          if [[ "$GITHUB_REF_NAME" == *-* ]]; then
+            kind=(--prerelease)
+          fi
           gh release create "$GITHUB_REF_NAME" "${files[@]}" \
             --repo "$GITHUB_REPOSITORY" \
             --title "Handy $GITHUB_REF_NAME" \
-            --prerelease \
+            "${kind[@]}" \
             --verify-tag \
             --generate-notes
