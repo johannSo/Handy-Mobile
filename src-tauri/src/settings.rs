@@ -401,6 +401,17 @@ pub enum MobileOutputMode {
     Phone,
 }
 
+/// What turns this computer's dictation into text.
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, Default, PartialEq, Eq, Type)]
+#[serde(rename_all = "snake_case")]
+pub enum TranscriptionEngine {
+    /// A model on this computer.
+    #[default]
+    Local,
+    /// Another computer running Handy, paired from the Models tab.
+    Remote,
+}
+
 /* still handy for composing the initial JSON in the store ------------- */
 /// The container-level `serde(default)` (backed by the `Default` impl below)
 /// guarantees every field — including ones added in the future — falls back to
@@ -509,6 +520,15 @@ pub struct AppSettings {
     /// Run Post Process on what a phone dictates, when Post Process is on.
     #[serde(default)]
     pub mobile_post_process: bool,
+    /// Transcribe with a model here, or with another computer.
+    #[serde(default)]
+    pub transcription_engine: TranscriptionEngine,
+    /// The paired computer to transcribe with, when the engine is remote.
+    #[serde(default)]
+    pub remote_server_id: Option<String>,
+    /// Use the model on this computer when the other one can't be used.
+    #[serde(default = "default_remote_fallback")]
+    pub remote_fallback: bool,
     #[serde(default = "default_post_process_provider_id")]
     pub post_process_provider_id: String,
     #[serde(default = "default_post_process_providers")]
@@ -596,6 +616,10 @@ pub struct AppSettings {
     /// `overlay_position` (position `none` → style `None`).
     #[serde(default = "default_overlay_style")]
     pub overlay_style: OverlayStyle,
+}
+
+fn default_remote_fallback() -> bool {
+    true
 }
 
 fn default_model() -> String {
@@ -1076,6 +1100,9 @@ pub fn get_default_settings() -> AppSettings {
         mobile_port: default_mobile_port(),
         mobile_output_mode: MobileOutputMode::default(),
         mobile_post_process: false,
+        transcription_engine: TranscriptionEngine::default(),
+        remote_server_id: None,
+        remote_fallback: default_remote_fallback(),
         post_process_provider_id: default_post_process_provider_id(),
         post_process_providers: default_post_process_providers(),
         post_process_api_keys: default_post_process_api_keys(),

@@ -14,12 +14,15 @@ import { isChinese } from "@/lib/utils/languageSuggestions";
 import { Welcome } from "./screens/Welcome";
 import { Permissions } from "./screens/Permissions";
 import { Model } from "./screens/Model";
+import { Connect } from "./screens/Connect";
 import { Demo } from "./screens/Demo";
 import { TryIt } from "./screens/TryIt";
 import { useOsType } from "@/hooks/useOsType";
 import { DownloadStatus } from "./DownloadStatus";
 import { useOnboardingModels } from "./useOnboardingModels";
 import { useModelStore } from "@/stores/modelStore";
+import { remoteServerName, useRemoteStore } from "@/stores/remoteStore";
+import { linkText } from "../settings/remote/RemoteEnginePanel";
 import { moveScreens } from "./screenTransitions";
 import { downloadPick } from "./downloadPick";
 import "./screenTransitions.css";
@@ -46,7 +49,8 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
   previewStep,
   onComplete,
 }) => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const remoteStatus = useRemoteStore((s) => s.status);
   const store = useOnboardingStore();
   const { settings, updateSetting } = useSettings();
   const permissions = usePermissions(preview);
@@ -125,8 +129,11 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
 
   if (!permissions.checked) return null;
 
+  const remote = store.engine === "remote";
   const steps = STEP_ORDER.filter(
-    (s) => s !== "permissions" || permissions.needed || store.welcomeBack,
+    (s) =>
+      (s !== "permissions" || permissions.needed || store.welcomeBack) &&
+      (s !== "connect" || remote || (preview && store.step === "connect")),
   );
   const step = steps.includes(store.step) ? store.step : steps[0];
   const progress = { index: steps.indexOf(step), count: steps.length };
@@ -161,7 +168,19 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
 
   const chooseModel = (id: string) => {
     startModel(id);
-    onward();
+    // A model here after all: this computer transcribes.
+    if (remote) {
+      store.set({ engine: "local" });
+      if (!preview && settings?.transcription_engine === "remote")
+        updateSetting("transcription_engine", "local");
+    }
+    // Past Connect, which this render still counts.
+    if (store.returnTo) go(store.returnTo);
+    else go("demo");
+  };
+
+  const useAnotherComputer = () => {
+    store.set({ engine: "remote", step: "connect" });
   };
 
   const startModel = (id: string) => {
@@ -174,7 +193,21 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
   const downloadNow = preview
     ? ({ state: "ready" } as const)
     : models.downloadState(downloaded);
-  const modelReady = downloadNow.state === "ready";
+  const remoteReady =
+    preview ||
+    (remoteStatus?.in_use === true && remoteStatus.link === "connected");
+  const modelReady = remote ? remoteReady : downloadNow.state === "ready";
+  const remoteName = remoteServerName(remoteStatus) ?? "";
+  // Where the download's progress would be: how the link stands.
+  const downloadLine = remote ? (
+    <span className="text-small text-ink-2">
+      {remoteStatus && remoteName
+        ? `${remoteName} · ${linkText(remoteStatus, t)}`
+        : ""}
+    </span>
+  ) : (
+    <DownloadStatus models={models} model={downloaded} />
+  );
 
   const saveLanguages = () => {
     if (preview) return;
@@ -212,6 +245,16 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
           models={models}
           onBack={store.returnTo ? () => go(store.returnTo!) : back}
           onChoose={chooseModel}
+          onUseAnotherComputer={useAnotherComputer}
+        />
+      );
+    case "connect":
+      return (
+        <Connect
+          progress={progress}
+          preview={preview}
+          onBack={() => go("model")}
+          onContinue={onward}
         />
       );
     case "demo":
@@ -220,8 +263,8 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
           progress={progress}
           os={osType}
           ready={modelReady}
-          downloadFailed={downloadNow.state === "failed"}
-          download={<DownloadStatus models={models} model={downloaded} />}
+          downloadFailed={!remote && downloadNow.state === "failed"}
+          download={downloadLine}
           onRetry={() => downloaded && startModel(downloaded.id)}
           onBack={back}
           onContinue={() => moveScreens("in", next)}
@@ -240,8 +283,9 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
           model={
             downloaded ?? models.catalogFor(settings?.selected_model ?? "")
           }
+          modelName={remote ? remoteName : undefined}
           ready={modelReady}
-          download={<DownloadStatus models={models} model={downloaded} />}
+          download={downloadLine}
           onChangeModel={() => go("model")}
           onEdit={(to) => store.set({ step: to, returnTo: "done" })}
           onBack={() => moveScreens("out", back)}

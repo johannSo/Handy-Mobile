@@ -65,6 +65,30 @@ const NOTICE_DISPLAY: Record<NoticeCode, NoticeDisplay> = {
   MobileTranscriptionFailed: {
     title: "errors.mobileTranscriptionFailedTitle",
   },
+  RemoteUnreachable: {
+    title: "errors.remoteUnreachableTitle",
+    explanation: (t) => t("errors.remoteUnreachable"),
+  },
+  RemoteBusy: {
+    title: "errors.remoteBusyTitle",
+    explanation: (t) => t("errors.remoteBusy"),
+  },
+  RemoteNoModel: {
+    title: "errors.remoteNoModelTitle",
+    explanation: (t) => t("errors.remoteNoModel"),
+  },
+  RemoteRejected: {
+    title: "errors.remoteRejectedTitle",
+    explanation: (t) => t("errors.remoteRejected"),
+  },
+  RemoteIncompatible: {
+    title: "errors.remoteIncompatibleTitle",
+    explanation: (t) => t("errors.remoteIncompatible"),
+  },
+  RemoteFellBack: {
+    title: "errors.remoteFellBackTitle",
+    explanation: (t) => t("errors.remoteFellBack"),
+  },
 };
 
 export const noticeDisplay = (code: NoticeCode) => NOTICE_DISPLAY[code];

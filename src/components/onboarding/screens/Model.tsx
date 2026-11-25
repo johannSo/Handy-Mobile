@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../../ui/Button";
+import { TextLink } from "../../ui/TextLink";
 import { Radio } from "../../ui/Radio";
 import { GradeChip } from "../../shared/GradeChip";
 import { Tooltip } from "../../ui/Tooltip";
@@ -72,6 +73,8 @@ interface ModelProps {
   onBack?: () => void;
   /** The picked model (catalog id), once Download or Continue is pressed. */
   onChoose: (modelId: string) => void;
+  /** Transcribe with another computer instead of a model here. */
+  onUseAnotherComputer?: () => void;
 }
 
 /** Screen 3: pick one of three suggested models, or Show all for the table. */
@@ -80,6 +83,7 @@ export const Model: React.FC<ModelProps> = ({
   models,
   onBack,
   onChoose,
+  onUseAnotherComputer,
 }) => {
   const { t, i18n } = useTranslation();
   const words = useDownloadWords();
@@ -557,6 +561,14 @@ export const Model: React.FC<ModelProps> = ({
             {t("onboarding.model.showAll", { count: models.offered.length })}
             <Chevron />
           </button>
+          {onUseAnotherComputer && (
+            <TextLink
+              onClick={onUseAnotherComputer}
+              className="mt-[10px] self-center"
+            >
+              {t("onboarding.model.useAnotherComputer")}
+            </TextLink>
+          )}
         </ScreenMain>
       </OnboardingShell>
     );

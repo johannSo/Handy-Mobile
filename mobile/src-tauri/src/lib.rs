@@ -241,7 +241,7 @@ async fn pump(app: &AppHandle, core: &Shared, mut link: Link, current: &impl Fn(
         }
         match message {
             ServerMessage::State { state } => publish(app, core, |s| s.session = state),
-            ServerMessage::Final { text, pasted } => {
+            ServerMessage::Final { text, pasted, .. } => {
                 let _ = app.emit("transcript", TranscriptEvent { text, pasted });
             }
             ServerMessage::Error {
@@ -258,7 +258,10 @@ async fn pump(app: &AppHandle, core: &Shared, mut link: Link, current: &impl Fn(
                     },
                 );
             }
-            ServerMessage::Paired { .. } | ServerMessage::Ready { .. } | ServerMessage::Pong => {}
+            ServerMessage::Paired { .. }
+            | ServerMessage::Ready { .. }
+            | ServerMessage::ModelChanged { .. }
+            | ServerMessage::Pong => {}
         }
     }
 }
@@ -292,18 +295,24 @@ async fn pair(
         }
         .to_string()
     })?;
-    let (desktop, info, link) = client::pair(&payload, &device_name).await.map_err(|e| {
-        log::warn!("Pairing failed: {e}");
-        match e {
-            LinkError::Refused(ErrorCode::InvalidToken) => "expired_code",
-            LinkError::Refused(ErrorCode::UnsupportedProtocol) => "incompatible",
-            LinkError::Refused(ErrorCode::RateLimited) => "rate_limited",
-            LinkError::Unreachable(_) => "unreachable",
-            LinkError::Handshake(_) => "untrusted",
-            LinkError::Refused(_) | LinkError::Closed => "failed",
-        }
-        .to_string()
-    })?;
+    let me = client::ClientInfo {
+        device_kind: Some(handy_link::protocol::device_kind::PHONE.to_string()),
+        features: Vec::new(),
+    };
+    let (desktop, info, link) = client::pair_with(&payload, &device_name, &me)
+        .await
+        .map_err(|e| {
+            log::warn!("Pairing failed: {e}");
+            match e {
+                LinkError::Refused(ErrorCode::InvalidToken) => "expired_code",
+                LinkError::Refused(ErrorCode::UnsupportedProtocol) => "incompatible",
+                LinkError::Refused(ErrorCode::RateLimited) => "rate_limited",
+                LinkError::Unreachable(_) => "unreachable",
+                LinkError::Handshake(_) => "untrusted",
+                LinkError::Refused(_) | LinkError::Closed => "failed",
+            }
+            .to_string()
+        })?;
     // The pairing connection has done its job; the connection task makes
     // its own, the same way every later launch will.
     drop(link);
@@ -369,6 +378,7 @@ fn start_recording(
         ClientMessage::Start {
             output,
             post_process,
+            options: None,
         },
     )
 }

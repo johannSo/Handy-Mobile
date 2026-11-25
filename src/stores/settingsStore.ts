@@ -11,9 +11,11 @@ import type {
   VadBackend,
   LanguageDetectionMode,
   MobileOutputMode,
+  TranscriptionEngine,
 } from "@/bindings";
 import { commands } from "@/bindings";
 import { notify } from "@/stores/noticeStore";
+import i18n from "@/i18n";
 
 interface SettingsStore {
   settings: Settings | null;
@@ -170,6 +172,18 @@ const settingUpdaters: {
     commands.changeMobileOutputModeSetting(value as MobileOutputMode),
   mobile_post_process: (value) =>
     commands.changeMobilePostProcessSetting(value as boolean),
+  transcription_engine: async (value) => {
+    const result = await commands.changeTranscriptionEngineSetting(
+      value as TranscriptionEngine,
+    );
+    if (result.status === "error") {
+      // Refused mid-dictation or mid-job; the throw rolls the switch back.
+      notify({ title: i18n.t("settings.remote.engine.busy") });
+      throw new Error(result.error);
+    }
+  },
+  remote_fallback: (value) =>
+    commands.changeRemoteFallbackSetting(value as boolean),
   post_process_enabled: (value) =>
     commands.changePostProcessEnabledSetting(value as boolean),
   post_process_selected_prompt_id: (value) =>

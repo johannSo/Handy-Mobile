@@ -10,12 +10,15 @@
     "secureInputWarning": "⚠ Kortkommandon blockeras av Secure Input",
     "language": "Språk",
     "autoLanguage": "Automatiskt",
-    "otherLanguages": "Andra språk"
+    "otherLanguages": "Andra språk",
+    "transcribeWith": "Transkribera med",
+    "thisComputer": "Den här datorn",
+    "offline": "Offline"
   },
   "sidebar": {
     "general": "Allmänt",
     "models": "Modeller",
-    "mobile": "Mobil",
+    "mobile": "Delning",
     "advanced": "Avancerat",
     "postProcessing": "Efterbearbetning",
     "history": "Historik",
@@ -149,7 +152,8 @@
       "downloadInstead": "Ladda ner {{size}} i stället",
       "pauses": "{{name}} pausas vid {{percent}} %",
       "resumeLater": "Välj den igen för att fortsätta där den slutade",
-      "hint": "Laddas ner medan du slutför installationen"
+      "hint": "Laddas ner medan du slutför installationen",
+      "useAnotherComputer": "Använd en annan dator med Handy i stället"
     },
     "demo": {
       "title": "Tala i vilken app som helst, med en enda genväg",
@@ -218,6 +222,12 @@
     "linux": {
       "tryIt": "Fungerar det inte? <guide>Installationsguide för Linux</guide>",
       "done": "Fungerar det inte i andra appar? <guide>Installationsguide för Linux</guide>"
+    },
+    "connect": {
+      "title": "Använd en annan dator",
+      "subtitle": "Dess modell transkriberar det du säger här, via ditt nätverk.",
+      "hint": "Parkoppla en dator för att fortsätta",
+      "paired": "Parkopplad med {{name}}. Dess modell transkriberar det du dikterar."
     }
   },
   "modelTable": {
@@ -326,7 +336,8 @@
   },
   "settings": {
     "modelSettings": {
-      "title": "{{model}}-inställningar"
+      "title": "{{model}}-inställningar",
+      "remoteTitle": "{{model}} på {{computer}}"
     },
     "general": {
       "title": "Allmänt",
@@ -365,7 +376,8 @@
           "title": "Automatiskt är avstängt",
           "oneLanguage": "Bara ett av dina språk fungerar med den här modellen",
           "undetectable": "Inte tillgängligt med {{languages}}",
-          "noMatch": "Inget av dina språk fungerar med den här modellen"
+          "noMatch": "Inget av dina språk fungerar med den här modellen",
+          "remote": "Den andra datorns modell kan inte identifiera språket"
         },
         "detectorMissingTitle": "Automatiskt kräver en separat nedladdning",
         "detectorMissing": "Den här modellen kan inte avgöra vilket språk du talar. Automatiskt behöver en liten språkidentifiering som tar reda på det",
@@ -435,7 +447,7 @@
       }
     },
     "mobile": {
-      "intro": "Använd telefonen som mikrofon för den här datorn. Telefonen spelar in, den här datorn transkriberar.",
+      "intro": "Telefoner och andra datorer på ditt nätverk kan diktera med den här datorns modell. En telefon spelar in, den här datorn transkriberar.",
       "groups": {
         "connection": "Anslutning",
         "devices": "Parkopplade telefoner",
@@ -473,7 +485,11 @@
         "copied": "Parkopplingskoden har kopierats",
         "copyFailed": "Det gick inte att kopiera parkopplingskoden",
         "done": "{{name}} är parkopplad",
-        "failed": "Det gick inte att skapa en parkopplingskod"
+        "failed": "Det gick inte att skapa en parkopplingskod",
+        "computerButton": "Parkoppla en dator",
+        "computerTitle": "Parkoppla en dator",
+        "computerDescription": "Öppna Handy på den andra datorn, gå till Modeller, välj En annan dator och sedan Lägg till en dator, och klistra in den här koden.",
+        "computerNote": "En parkopplad dator får tillbaka sin text. Den kan inte skriva här om du inte tillåter det."
       },
       "devices": {
         "empty": "Inga telefoner är parkopplade än.",
@@ -488,7 +504,12 @@
         "removeConfirmTitle": "Ta bort parkopplingen med {{name}}?",
         "removeConfirm": "Den här telefonen kan inte diktera via den här datorn förrän du parkopplar den igen.",
         "removeFailed": "Det gick inte att ta bort parkopplingen",
-        "cancel": "Avbryt"
+        "cancel": "Avbryt",
+        "transcribing": "Transkriberar",
+        "canType": "Skriver här",
+        "canTypeDescription": "Klistra in det som enheten dikterar på den här datorn, när den ber om det.",
+        "canTypeLabel": "Låt {{name}} skriva på den här datorn",
+        "canTypeFailed": "Det gick inte att ändra"
       },
       "outputMode": {
         "title": "Skicka text till",
@@ -501,6 +522,11 @@
       "postProcess": {
         "label": "Efterbearbetning",
         "description": "Kör efterbearbetning på det som telefoner dikterar."
+      },
+      "model": {
+        "title": "Modell",
+        "description": "Det som parkopplade telefoner och datorer transkriberar med: modellen som är vald på den här datorn.",
+        "none": "Ingen. Ladda ner en under Modeller."
       }
     },
     "languages": {
@@ -830,7 +856,8 @@
           "model": "Modell",
           "demo": "Demo",
           "try": "Testa",
-          "done": "Klart"
+          "done": "Klart",
+          "connect": "Anslut"
         }
       },
       "onboardingRun": {
@@ -934,6 +961,12 @@
         "verdictOk": "Tangenthändelser når Handy som vanligt.",
         "verdictNoEvents": "Inga händelser fångades — tryckte du på några tangenter under testet?",
         "failed": "Diagnostiken misslyckades: {{error}}"
+      },
+      "remoteLink": {
+        "title": "Fjärrlänk",
+        "description": "Länken till datorn som den här transkriberar med.",
+        "simulateOffline": "Simulera onåbar",
+        "simulateOfflineDescription": "Förfrågningar till den andra datorn misslyckas som om den inte gick att nå, så att du kan testa vad som händer då."
       }
     },
     "about": {
@@ -966,6 +999,84 @@
           "title": "ggml",
           "description": "Högpresterande inferens av OpenAI:s Whisper-modell för automatisk taligenkänning",
           "details": "Handy använder ggml för snabb, lokal tal-till-text-behandling. Tack till det fantastiska arbete som utförts av Georgi Gerganov med medarbetare."
+        }
+      }
+    },
+    "remote": {
+      "engine": {
+        "title": "Transkribera med",
+        "thisComputer": "Den här datorn",
+        "anotherComputer": "En annan dator",
+        "busy": "Handy kan inte byta vad som transkriberar medan en transkribering pågår. Försök igen när den är klar."
+      },
+      "state": {
+        "transcribing": "Transkriberar…",
+        "connectedModel": "Ansluten · {{model}}",
+        "noModel": "Ansluten · ingen modell nedladdad där",
+        "connecting": "Ansluter…",
+        "offline": "Går inte att nå",
+        "rejected": "Inte längre parkopplad",
+        "incompatible": "Behöver uppdateras",
+        "unused": "Används inte"
+      },
+      "row": {
+        "use": "Transkribera med {{name}}",
+        "pairedAt": "Parkopplad {{time}}",
+        "selectFailed": "Det gick inte att byta till den datorn",
+        "rename": "Byt namn",
+        "nameLabel": "Datorns namn",
+        "renameFailed": "Det gick inte att byta namn på datorn",
+        "reconnect": "Försök igen nu",
+        "pairAgain": "Parkoppla igen",
+        "details": "Detaljer",
+        "hostName": "Namn",
+        "address": "Adress",
+        "fingerprint": "Certifikat",
+        "version": "Handy-version",
+        "lastError": "Senaste fel",
+        "forget": "Glöm",
+        "forgetConfirmTitle": "Glöm {{name}}?",
+        "forgetConfirm": "Den här datorn slutar transkribera med den. Om du även vill ta bort den här datorn från dess lista tar du bort parkopplingen där under Delning.",
+        "forgetFailed": "Det gick inte att glömma datorn",
+        "cancel": "Avbryt"
+      },
+      "incompatible": "{{name}} kör en version av Handy som inte kan transkribera åt den här datorn. Uppdatera Handy på båda datorerna.",
+      "computers": {
+        "title": "Datorer",
+        "description": "En annan dator med Handy kan transkribera åt den här med sin modell. Välj vilken som ska användas.",
+        "empty": "Inga datorer är parkopplade än.",
+        "hint": "Den andra datorn delar sin modell under Delning.",
+        "add": "Lägg till en dator"
+      },
+      "fallback": {
+        "group": "När den inte går att nå",
+        "label": "Använd den här datorns modell",
+        "description": "Om den andra datorn är i viloläge, upptagen eller offline transkriberas det här i stället, och du får veta det.",
+        "noModel": "Den här datorn har ingen modell att falla tillbaka på. Välj Den här datorn ovan för att ladda ner en."
+      },
+      "stays": "Bara ljudet skickas till den andra datorn, tillsammans med ditt språk, dina anpassade ord och utfyllnadsord. Efterbearbetning, historik och inklistring stannar på den här datorn.",
+      "decidedElsewhere": "Ställs in på datorn som transkriberar",
+      "add": {
+        "title": "Lägg till en dator",
+        "steps": {
+          "open": "Öppna Handy på den andra datorn och gå till Delning.",
+          "share": "Slå på Delning, välj Parkoppla en dator och sedan Kopiera kod.",
+          "paste": "Klistra in koden här."
+        },
+        "placeholder": "handy://pair?…",
+        "codeLabel": "Parkopplingskod",
+        "pair": "Parkoppla",
+        "pairing": "Parkopplar…",
+        "done": "Parkopplad med {{name}}. Den här datorn transkriberar nu med den.",
+        "errors": {
+          "invalid_code": "Det är ingen parkopplingskod för Handy.",
+          "expired_code": "Koden har gått ut eller har redan använts. Skapa en ny på den andra datorn.",
+          "incompatible": "Handy på den andra datorn kan inte transkribera åt den här. Uppdatera Handy på båda.",
+          "rate_limited": "För många försök. Vänta en minut och försök sedan igen.",
+          "unreachable": "Det går inte att nå den andra datorn. Kontrollera att båda är på samma nätverk och att Delning är på där.",
+          "untrusted": "Något annat svarade på den andra datorns adress. Skapa en ny kod och försök igen.",
+          "self": "Koden kommer från den här datorn. Klistra in den på den andra.",
+          "failed": "Parkopplingen misslyckades. Försök igen."
         }
       }
     }
@@ -1030,7 +1141,19 @@
     "mobileServerFailedTitle": "Handy Mobile kunde inte starta",
     "mobileServerFailed": "Telefoner kan inte ansluta. En annan app kanske använder porten; välj en annan i inställningarna för Mobil.",
     "mobileTranscriptionFailedTitle": "Dikteringen från telefonen misslyckades",
-    "transcriptionFailedTitle": "Transkriptionen misslyckades"
+    "transcriptionFailedTitle": "Transkriptionen misslyckades",
+    "remoteUnreachableTitle": "Andra datorn kan inte nås",
+    "remoteUnreachable": "Handy kunde inte nå datorn som den transkriberar med. Kontrollera att den är vaken, på samma nätverk och delar sin modell.",
+    "remoteBusyTitle": "Andra datorn är upptagen",
+    "remoteBusy": "Någon dikterar på datorn som den här transkriberar med. Försök igen om en stund.",
+    "remoteNoModelTitle": "Andra datorn saknar modell",
+    "remoteNoModel": "Datorn som den här transkriberar med har ingen modell. Ladda ner en där.",
+    "remoteRejectedTitle": "Parkoppla datorn igen",
+    "remoteRejected": "Den andra datorn känner inte längre igen den här. Parkoppla dem igen under Modeller.",
+    "remoteIncompatibleTitle": "Uppdatera Handy på båda",
+    "remoteIncompatible": "De två datorerna kör versioner av Handy som inte fungerar ihop. Uppdatera båda.",
+    "remoteFellBackTitle": "Transkriberat lokalt",
+    "remoteFellBack": "Den andra datorn kunde inte användas, så den här datorns modell transkriberade i stället."
   },
   "notices": {
     "errorOne": "{{n}} fel",

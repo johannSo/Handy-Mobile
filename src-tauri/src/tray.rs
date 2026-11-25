@@ -72,6 +72,21 @@ struct MenuInputs {
     update_checks_enabled: bool,
     /// The language submenu, when the selected model has languages to pick.
     language: Option<LanguageMenu>,
+    /// The engine submenu, when another computer is paired.
+    remote: Option<RemoteMenu>,
+}
+
+/// What the "Transcribe With" submenu shows.
+#[derive(Clone, Debug, PartialEq, Eq)]
+struct RemoteMenu {
+    /// Another computer transcribes; the model items are hidden.
+    in_use: bool,
+    /// The computer transcribed with, when in use.
+    selected: Option<String>,
+    /// The selected computer can't be reached right now.
+    offline: bool,
+    /// `(id, name)` of paired computers.
+    servers: Vec<(String, String)>,
 }
 
 /// What the language submenu shows: `(code, name)` entries, with codes as
@@ -381,6 +396,33 @@ fn compute_desired(app: &AppHandle, icon_state: TrayIconState) -> TrayDesired {
             })
     };
 
+    let remote = app
+        .try_state::<Arc<crate::managers::remote::RemoteEngineManager>>()
+        .map(|manager| manager.status())
+        .filter(|status| !status.servers.is_empty())
+        .map(|status| {
+            use crate::managers::remote::RemoteLinkState;
+            RemoteMenu {
+                in_use: status.in_use,
+                selected: status.selected,
+                offline: !matches!(
+                    status.link,
+                    RemoteLinkState::Connected | RemoteLinkState::Connecting
+                ),
+                servers: status
+                    .servers
+                    .into_iter()
+                    .map(|server| (server.id, server.name))
+                    .collect(),
+            }
+        });
+    // The language submenu reads this computer's model.
+    let language = if remote.as_ref().is_some_and(|remote| remote.in_use) {
+        None
+    } else {
+        language
+    };
+
     TrayDesired {
         icon_path: get_icon_path(theme, icon_state, badge),
         menu: MenuInputs {
@@ -394,6 +436,7 @@ fn compute_desired(app: &AppHandle, icon_state: TrayIconState) -> TrayDesired {
             locale: settings.app_language,
             update_checks_enabled: settings.update_checks_enabled,
             language,
+            remote,
         },
     }
 }
@@ -742,19 +785,33 @@ fn build_menu(app: &AppHandle, inputs: &MenuInputs) -> tauri::Result<(Menu<tauri
                 &separator()?,
                 &copy_last_transcript_i,
                 &separator()?,
-                &model_submenu,
-                &unload_model_i,
-                &separator()?,
                 &settings_i,
                 &check_updates_i,
                 &separator()?,
                 &quit_i,
             ],
         )?;
-        // Right below the model submenu: version, separator, copy, separator, model.
-        if let Some(language) = &inputs.language {
-            menu.insert(&language_submenu(app, &strings, language)?, 5)?;
+        // After version, separator, copy, separator: what transcribes, then
+        // its model and language when it's this computer.
+        let mut position = 4;
+        let remote_in_use = inputs.remote.as_ref().is_some_and(|remote| remote.in_use);
+        if let Some(remote) = &inputs.remote {
+            menu.insert(
+                &engine_submenu(app, &strings, remote, !inputs.models_locked)?,
+                position,
+            )?;
+            position += 1;
         }
+        if !remote_in_use {
+            menu.insert(&model_submenu, position)?;
+            menu.insert(&unload_model_i, position + 1)?;
+            position += 2;
+            if let Some(language) = &inputs.language {
+                menu.insert(&language_submenu(app, &strings, language)?, position)?;
+                position += 1;
+            }
+        }
+        menu.insert(&separator()?, position)?;
         menu
     };
 
@@ -786,6 +843,53 @@ fn build_menu(app: &AppHandle, inputs: &MenuInputs) -> tauri::Result<(Menu<tauri
     }
 
     Ok((menu, tooltip))
+}
+
+/// "Transcribe With": this computer, or one of the paired computers.
+fn engine_submenu(
+    app: &AppHandle,
+    strings: &crate::tray_i18n::TrayStrings,
+    remote: &RemoteMenu,
+    enabled: bool,
+) -> tauri::Result<Submenu<tauri::Wry>> {
+    let selected_name = remote
+        .servers
+        .iter()
+        .find(|(id, _)| remote.in_use && remote.selected.as_ref() == Some(id))
+        .map(|(_, name)| name.clone());
+    let label = format!(
+        "{}: {}",
+        strings.transcribe_with,
+        selected_name
+            .clone()
+            .unwrap_or_else(|| strings.this_computer.clone())
+    );
+    let submenu = Submenu::with_id(app, "engine_submenu", &label, enabled)?;
+    submenu.append(&CheckMenuItem::with_id(
+        app,
+        "engine:local",
+        &strings.this_computer,
+        true,
+        !remote.in_use,
+        None::<&str>,
+    )?)?;
+    for (id, name) in &remote.servers {
+        let active = remote.in_use && remote.selected.as_ref() == Some(id);
+        let label = if active && remote.offline {
+            format!("{name} ({})", strings.offline)
+        } else {
+            name.clone()
+        };
+        submenu.append(&CheckMenuItem::with_id(
+            app,
+            format!("engine:remote:{id}"),
+            &label,
+            true,
+            active,
+            None::<&str>,
+        )?)?;
+    }
+    Ok(submenu)
 }
 
 fn last_transcript_text(entry: &HistoryEntry) -> &str {
@@ -989,6 +1093,7 @@ mod tests {
             locale: "en".to_string(),
             update_checks_enabled: true,
             language: None,
+            remote: None,
         }
     }
 

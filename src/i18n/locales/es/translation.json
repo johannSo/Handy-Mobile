@@ -10,12 +10,15 @@
     "secureInputWarning": "⚠ Atajos bloqueados por Secure Input",
     "language": "Idioma",
     "autoLanguage": "Automático",
-    "otherLanguages": "Otros idiomas"
+    "otherLanguages": "Otros idiomas",
+    "transcribeWith": "Transcribir con",
+    "thisComputer": "Este equipo",
+    "offline": "Sin conexión"
   },
   "sidebar": {
     "general": "General",
     "models": "Modelos",
-    "mobile": "Móvil",
+    "mobile": "Compartir",
     "advanced": "Avanzado",
     "postProcessing": "Post proceso",
     "history": "Historial",
@@ -149,7 +152,8 @@
       "downloadInstead": "Descargar {{size}} en su lugar",
       "pauses": "{{name}} se pausa en {{percent}} %",
       "resumeLater": "Elígelo de nuevo para continuar donde se quedó",
-      "hint": "Se descarga mientras terminas la configuración"
+      "hint": "Se descarga mientras terminas la configuración",
+      "useAnotherComputer": "Usar otro equipo con Handy en su lugar"
     },
     "demo": {
       "title": "Habla en cualquier app, con un solo atajo",
@@ -218,6 +222,12 @@
     "linux": {
       "tryIt": "¿No funciona? <guide>Guía de configuración para Linux</guide>",
       "done": "¿No funciona en otras apps? <guide>Guía de configuración para Linux</guide>"
+    },
+    "connect": {
+      "title": "Usar otro equipo",
+      "subtitle": "Su modelo transcribe lo que dices aquí, a través de tu red.",
+      "hint": "Vincula un equipo para continuar",
+      "paired": "Vinculado con {{name}}. Su modelo transcribirá tus dictados."
     }
   },
   "modelTable": {
@@ -326,7 +336,8 @@
   },
   "settings": {
     "modelSettings": {
-      "title": "Configuración de {{model}}"
+      "title": "Configuración de {{model}}",
+      "remoteTitle": "{{model}} en {{computer}}"
     },
     "general": {
       "title": "General",
@@ -365,7 +376,8 @@
           "title": "Automático está desactivado",
           "oneLanguage": "Solo uno de tus idiomas funciona con este modelo",
           "undetectable": "No disponible con {{languages}}",
-          "noMatch": "Ninguno de tus idiomas funciona con este modelo"
+          "noMatch": "Ninguno de tus idiomas funciona con este modelo",
+          "remote": "El modelo del otro equipo no puede detectar el idioma"
         },
         "detectorMissingTitle": "Automático necesita una descarga aparte",
         "detectorMissing": "Este modelo no puede saber qué idioma hablas. Automático necesita un pequeño detector de idioma para averiguarlo",
@@ -435,7 +447,7 @@
       }
     },
     "mobile": {
-      "intro": "Usa tu teléfono como micrófono para este equipo. El teléfono graba y este equipo transcribe.",
+      "intro": "Los teléfonos y otros equipos de tu red pueden dictar con el modelo de este equipo. El teléfono graba y este equipo transcribe.",
       "groups": {
         "connection": "Conexión",
         "devices": "Teléfonos vinculados",
@@ -473,7 +485,11 @@
         "copied": "Código de vinculación copiado",
         "copyFailed": "No se pudo copiar el código de vinculación",
         "done": "{{name}} está vinculado",
-        "failed": "No se pudo crear un código de vinculación"
+        "failed": "No se pudo crear un código de vinculación",
+        "computerButton": "Vincular un equipo",
+        "computerTitle": "Vincular un equipo",
+        "computerDescription": "En el otro equipo, abre Handy, ve a Modelos, elige Otro equipo, luego Añadir un equipo, y pega este código.",
+        "computerNote": "Un equipo vinculado recibe su texto de vuelta. No puede escribir aquí a menos que lo permitas."
       },
       "devices": {
         "empty": "Aún no hay teléfonos vinculados.",
@@ -488,7 +504,12 @@
         "removeConfirmTitle": "¿Desvincular {{name}}?",
         "removeConfirm": "Este teléfono no podrá dictar a través de este equipo hasta que lo vincules de nuevo.",
         "removeFailed": "No se pudo desvincular el teléfono",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "transcribing": "Transcribiendo",
+        "canType": "Escribe aquí",
+        "canTypeDescription": "Pega en este equipo lo que dicta este dispositivo, cuando lo pida.",
+        "canTypeLabel": "Permitir que {{name}} escriba en este equipo",
+        "canTypeFailed": "No se pudo cambiar"
       },
       "outputMode": {
         "title": "Enviar texto a",
@@ -501,6 +522,11 @@
       "postProcess": {
         "label": "Post proceso",
         "description": "Aplica Post proceso a lo que dictan los teléfonos."
+      },
+      "model": {
+        "title": "Modelo",
+        "description": "Con qué transcriben los teléfonos y equipos vinculados: el modelo seleccionado en este equipo.",
+        "none": "Ninguno. Descarga uno en Modelos."
       }
     },
     "languages": {
@@ -830,7 +856,8 @@
           "model": "Modelo",
           "demo": "Demostración",
           "try": "Pruébalo",
-          "done": "Todo listo"
+          "done": "Todo listo",
+          "connect": "Conectar"
         }
       },
       "onboardingRun": {
@@ -934,6 +961,12 @@
         "verdictOk": "Los eventos de teclado llegan a Handy con normalidad.",
         "verdictNoEvents": "No se capturó ningún evento: ¿pulsaste alguna tecla durante la prueba?",
         "failed": "El diagnóstico falló: {{error}}"
+      },
+      "remoteLink": {
+        "title": "Enlace remoto",
+        "description": "El enlace con el equipo con el que transcribe este.",
+        "simulateOffline": "Simular inaccesible",
+        "simulateOfflineDescription": "Las solicitudes al otro equipo fallan como si no se pudiera acceder a él, para probar qué pasa entonces."
       }
     },
     "about": {
@@ -966,6 +999,84 @@
           "title": "ggml",
           "description": "Biblioteca de tensores de alto rendimiento para inferencia de aprendizaje automático en el dispositivo",
           "details": "El habla a texto local de Handy está construido sobre transcribe.cpp y ggml. Gracias al increíble trabajo de Georgi Gerganov y colaboradores."
+        }
+      }
+    },
+    "remote": {
+      "engine": {
+        "title": "Transcribir con",
+        "thisComputer": "Este equipo",
+        "anotherComputer": "Otro equipo",
+        "busy": "Handy no puede cambiar con qué transcribe mientras está transcribiendo. Inténtalo de nuevo cuando termine."
+      },
+      "state": {
+        "transcribing": "Transcribiendo…",
+        "connectedModel": "Conectado · {{model}}",
+        "noModel": "Conectado · no tiene ningún modelo descargado",
+        "connecting": "Conectando…",
+        "offline": "No accesible",
+        "rejected": "Ya no está vinculado",
+        "incompatible": "Necesita una actualización",
+        "unused": "Sin usar"
+      },
+      "row": {
+        "use": "Transcribir con {{name}}",
+        "pairedAt": "Vinculado {{time}}",
+        "selectFailed": "No se pudo cambiar a ese equipo",
+        "rename": "Cambiar nombre",
+        "nameLabel": "Nombre del equipo",
+        "renameFailed": "No se pudo cambiar el nombre del equipo",
+        "reconnect": "Reintentar ahora",
+        "pairAgain": "Vincular de nuevo",
+        "details": "Detalles",
+        "hostName": "Nombre",
+        "address": "Dirección",
+        "fingerprint": "Certificado",
+        "version": "Versión de Handy",
+        "lastError": "Último error",
+        "forget": "Olvidar",
+        "forgetConfirmTitle": "¿Olvidar {{name}}?",
+        "forgetConfirm": "Este equipo dejará de transcribir con él. Para quitar también este equipo de su lista, desvincúlalo allí en Compartir.",
+        "forgetFailed": "No se pudo olvidar el equipo",
+        "cancel": "Cancelar"
+      },
+      "incompatible": "{{name}} usa una versión de Handy que no puede transcribir para este equipo. Actualiza Handy en ambos equipos.",
+      "computers": {
+        "title": "Equipos",
+        "description": "Otro equipo con Handy puede transcribir para este con su modelo. Elige cuál usar.",
+        "empty": "Aún no hay equipos vinculados.",
+        "hint": "El otro equipo comparte su modelo en Compartir.",
+        "add": "Añadir un equipo"
+      },
+      "fallback": {
+        "group": "Cuando no esté accesible",
+        "label": "Usar el modelo de este equipo",
+        "description": "Si el otro equipo está suspendido, ocupado o sin conexión, transcribe aquí en su lugar y lo indica.",
+        "noModel": "Este equipo no tiene ningún modelo de respaldo. Elige Este equipo arriba para descargar uno."
+      },
+      "stays": "Solo el audio va al otro equipo, junto con tu idioma, tus palabras personalizadas y las muletillas. El post proceso, el historial y el pegado se quedan en este.",
+      "decidedElsewhere": "Se configura en el equipo que transcribe",
+      "add": {
+        "title": "Añadir un equipo",
+        "steps": {
+          "open": "En el otro equipo, abre Handy y ve a Compartir.",
+          "share": "Activa Compartir, elige Vincular un equipo y luego Copiar código.",
+          "paste": "Pega el código aquí."
+        },
+        "placeholder": "handy://pair?…",
+        "codeLabel": "Código de vinculación",
+        "pair": "Vincular",
+        "pairing": "Vinculando…",
+        "done": "Vinculado con {{name}}. Este equipo ahora transcribe con él.",
+        "errors": {
+          "invalid_code": "Eso no es un código de vinculación de Handy.",
+          "expired_code": "Ese código ha caducado o ya se usó. Crea uno nuevo en el otro equipo.",
+          "incompatible": "Handy en el otro equipo no puede transcribir para este. Actualiza Handy en ambos.",
+          "rate_limited": "Demasiados intentos. Espera un minuto y vuelve a intentarlo.",
+          "unreachable": "No se puede acceder al otro equipo. Comprueba que ambos estén en la misma red y que Compartir esté activado allí.",
+          "untrusted": "Otra cosa respondió en la dirección del otro equipo. Crea un código nuevo e inténtalo de nuevo.",
+          "self": "Ese código es de este equipo. Pégalo en el otro.",
+          "failed": "No se pudo vincular. Inténtalo de nuevo."
         }
       }
     }
@@ -1030,7 +1141,19 @@
     "mobileServerFailedTitle": "Handy Mobile no pudo iniciarse",
     "mobileServerFailed": "Los teléfonos no pueden conectarse. Puede que otra app esté usando el puerto; elige otro en la configuración de Móvil.",
     "mobileTranscriptionFailedTitle": "Error en el dictado del teléfono",
-    "transcriptionFailedTitle": "Error de transcripción"
+    "transcriptionFailedTitle": "Error de transcripción",
+    "remoteUnreachableTitle": "Otro equipo inaccesible",
+    "remoteUnreachable": "Handy no pudo acceder al equipo con el que transcribe. Comprueba que esté activo, en la misma red y compartiendo su modelo.",
+    "remoteBusyTitle": "Otro equipo ocupado",
+    "remoteBusy": "Alguien está dictando en el equipo con el que transcribe este. Inténtalo de nuevo en un momento.",
+    "remoteNoModelTitle": "Otro equipo sin modelo",
+    "remoteNoModel": "El equipo con el que transcribe este no tiene ningún modelo. Descarga uno allí.",
+    "remoteRejectedTitle": "Vuelve a vincular el equipo",
+    "remoteRejected": "El otro equipo ya no reconoce a este. Vuelve a vincularlos en Modelos.",
+    "remoteIncompatibleTitle": "Actualiza Handy en ambos",
+    "remoteIncompatible": "Los dos equipos usan versiones de Handy que no pueden funcionar juntas. Actualiza ambos.",
+    "remoteFellBackTitle": "Transcrito en este equipo",
+    "remoteFellBack": "No se pudo usar el otro equipo, así que lo transcribió el modelo de este equipo."
   },
   "notices": {
     "errorOne": "{{n}} error",

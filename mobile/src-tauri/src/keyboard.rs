@@ -282,6 +282,7 @@ pub extern "system" fn Java_com_pais_handy_mobile_PhoneLink_nativeStart<'local>(
         ClientMessage::Start {
             output: Some(OutputMode::Phone),
             post_process: None,
+            options: None,
         },
     );
 }

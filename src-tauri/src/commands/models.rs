@@ -181,8 +181,13 @@ pub fn switch_active_model(app: &AppHandle, model_id: &str) -> Result<(), String
     write_settings(app, settings);
 
     // Skip eager loading if unload is set to "Immediately" — the model
-    // will be loaded on-demand during the next transcription.
-    if unload_timeout == ModelUnloadTimeout::Immediately {
+    // will be loaded on-demand during the next transcription. Likewise while
+    // another computer transcribes this one's dictation: the model here only
+    // stands in, or serves paired devices, and loads when one of those needs it.
+    let remote_in_use = app
+        .try_state::<Arc<crate::managers::remote::RemoteEngineManager>>()
+        .is_some_and(|remote| remote.in_use());
+    if unload_timeout == ModelUnloadTimeout::Immediately || remote_in_use {
         // Notify frontend — load_model won't be called so no events
         // would otherwise be emitted.
         let _ = app.emit(

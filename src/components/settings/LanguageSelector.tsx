@@ -29,6 +29,11 @@ interface LanguageSelectorProps {
   /** The model whose language status is shown. */
   modelId: string;
   supportedLanguages?: string[];
+  /**
+   * The model is another computer's: its language status can't be asked of
+   * this one. Whether Auto works there; the language picked is sent along.
+   */
+  remoteAuto?: boolean;
 }
 
 export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
@@ -36,6 +41,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   grouped = false,
   modelId,
   supportedLanguages,
+  remoteAuto,
 }) => {
   const { t, i18n } = useTranslation();
   const { getSetting, updateSetting, resetSetting, isUpdating } = useSettings();
@@ -53,7 +59,12 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   const [status, setStatus] = useState<LanguageStatus | null>(null);
   const detector = useLanguageDetector();
 
+  const remote = remoteAuto !== undefined;
   useEffect(() => {
+    if (remote) {
+      setStatus(null);
+      return;
+    }
     let cancelled = false;
     const refresh = () =>
       commands.getLanguageStatus(modelId).then((next) => {
@@ -66,7 +77,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
       cancelled = true;
       unlisten.then((stop) => stop());
     };
-  }, [modelId, intent, spokenKey, detectionMode]);
+  }, [modelId, intent, spokenKey, detectionMode, remote]);
 
   const selectedLanguage =
     status === null
@@ -134,11 +145,13 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   // with the reason in a tooltip, so it's clear why it isn't in use. Without
   // the detector it's offered as a download instead.
   const autoNote =
-    status?.kind === "auto_unavailable"
-      ? autoUnavailableNote(status.reason)
-      : status?.kind === "detector_missing"
-        ? t("settings.general.language.detectorMissing")
-        : undefined;
+    remote && !remoteAuto
+      ? t("settings.general.language.autoUnavailable.remote")
+      : status?.kind === "auto_unavailable"
+        ? autoUnavailableNote(status.reason)
+        : status?.kind === "detector_missing"
+          ? t("settings.general.language.detectorMissing")
+          : undefined;
   const filteredLanguages = useMemo(() => {
     const showAuto = autoLabel
       .toLowerCase()

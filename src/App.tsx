@@ -184,10 +184,14 @@ function App() {
       const currentPlatform = platform();
 
       if (hasCompletedOnboarding) {
-        // Returning user - check if they need to grant permissions first
-        const retiredModelId = await getMigrationModelId(
-          settingsResult.data.selected_model ?? "",
-        );
+        // Returning user - check if they need to grant permissions first.
+        // A retired model only matters when this computer transcribes.
+        const retiredModelId =
+          settingsResult.data.transcription_engine === "remote"
+            ? null
+            : await getMigrationModelId(
+                settingsResult.data.selected_model ?? "",
+              );
         setMigrationModelId(retiredModelId);
 
         if (currentPlatform === "macos") {

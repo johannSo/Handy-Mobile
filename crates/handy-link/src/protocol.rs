@@ -20,7 +20,79 @@ pub enum OutputMode {
     Phone,
 }
 
-#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+/// What a peer can do beyond protocol 2 as first shipped. Each side lists
+/// its own in the handshake; a peer that lists nothing is an older one.
+pub mod feature {
+    /// The desktop honours [`super::StartOptions`]: a raw transcription
+    /// with the client's text settings, kept off the desktop's history and
+    /// never pasted there.
+    pub const RAW_TEXT: &str = "raw_text";
+    /// The desktop answers [`super::ClientMessage::Prepare`].
+    pub const PREPARE: &str = "prepare";
+}
+
+/// What kind of device pairs. Only informational: what a device may do is
+/// decided by the desktop when it makes the pairing code.
+pub mod device_kind {
+    pub const PHONE: &str = "phone";
+    pub const COMPUTER: &str = "computer";
+}
+
+/// How the client wants its speech turned into text. Fields left `None`
+/// fall back to what the desktop is set to.
+#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
+pub struct TextOptions {
+    /// A language code, or `"auto"`.
+    #[serde(default)]
+    pub selected_language: Option<String>,
+    #[serde(default)]
+    pub spoken_languages: Option<Vec<String>>,
+    #[serde(default)]
+    pub translate_to_english: Option<bool>,
+    /// Handy's language detection mode, as Handy spells it.
+    #[serde(default)]
+    pub language_detection: Option<String>,
+    #[serde(default)]
+    pub custom_words: Option<Vec<String>>,
+    #[serde(default)]
+    pub word_correction_threshold: Option<f64>,
+    #[serde(default)]
+    pub filler_word_removal: Option<bool>,
+    #[serde(default)]
+    pub custom_filler_words: Option<Vec<String>>,
+    /// Handy's Chinese script setting, as Handy spells it.
+    #[serde(default)]
+    pub chinese_script: Option<String>,
+}
+
+#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
+pub struct StartOptions {
+    /// Transcribe only: no history, no post-processing, no hook and no paste
+    /// on the desktop. The client does those itself.
+    #[serde(default)]
+    pub raw: bool,
+    #[serde(default)]
+    pub text: Option<TextOptions>,
+}
+
+/// The model a desktop transcribes with, as far as a client needs to know.
+#[derive(Clone, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub struct ModelInfo {
+    pub id: String,
+    pub name: String,
+    /// Language codes the model can be told to use.
+    #[serde(default)]
+    pub languages: Vec<String>,
+    #[serde(default)]
+    pub supports_language_selection: bool,
+    #[serde(default)]
+    pub supports_translation: bool,
+    /// Whether "auto" is a language it can be given.
+    #[serde(default)]
+    pub supports_language_detection: bool,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type", rename_all = "snake_case")]
 pub enum ClientMessage {
     /// First message of a phone that isn't paired yet. `token` is the
@@ -29,6 +101,12 @@ pub enum ClientMessage {
         protocol: u32,
         token: String,
         device_name: String,
+        /// See [`device_kind`]. A string, so a kind this desktop doesn't
+        /// know can't fail the whole message.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        device_kind: Option<String>,
+        #[serde(default, skip_serializing_if = "Vec::is_empty")]
+        features: Vec<String>,
     },
     /// First message of a paired phone.
     Auth {
@@ -40,6 +118,8 @@ pub enum ClientMessage {
         /// and leaves its other channels alone.
         #[serde(default)]
         channel: String,
+        #[serde(default, skip_serializing_if = "Vec::is_empty")]
+        features: Vec<String>,
     },
     /// Begin a recording. A `None` field means "what the desktop is set to".
     Start {
@@ -47,12 +127,17 @@ pub enum ClientMessage {
         output: Option<OutputMode>,
         #[serde(default)]
         post_process: Option<bool>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        options: Option<StartOptions>,
     },
     /// The recording is complete; transcribe it.
     Stop,
     /// Drop the recording, or the result of the transcription under way.
     Cancel,
     Ping,
+    /// A recording is about to start: load the model now, so the text isn't
+    /// kept waiting for it. Only sent to a desktop with [`feature::PREPARE`].
+    Prepare,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -99,12 +184,20 @@ pub enum ServerMessage {
         desktop_name: String,
         desktop_version: String,
         default_output: OutputMode,
+        #[serde(default, skip_serializing_if = "Vec::is_empty")]
+        features: Vec<String>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        model: Option<ModelInfo>,
     },
     /// `auth` worked.
     Ready {
         desktop_name: String,
         desktop_version: String,
         default_output: OutputMode,
+        #[serde(default, skip_serializing_if = "Vec::is_empty")]
+        features: Vec<String>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        model: Option<ModelInfo>,
     },
     State {
         state: SessionState,
@@ -114,6 +207,18 @@ pub enum ServerMessage {
         text: String,
         /// Whether the desktop pasted it.
         pasted: bool,
+        /// The language it was transcribed in, when known.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        language: Option<String>,
+        /// How that language was chosen, as Handy's history records it.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        language_source: Option<String>,
+    },
+    /// The desktop switched models, or has none any more. Older clients
+    /// ignore it.
+    ModelChanged {
+        #[serde(default)]
+        model: Option<ModelInfo>,
     },
     Error {
         code: ErrorCode,
@@ -166,8 +271,10 @@ mod tests {
         let json = serde_json::to_string(&ClientMessage::Start {
             output: Some(OutputMode::Phone),
             post_process: None,
+            options: None,
         })
         .unwrap();
+        // Exactly what protocol 2 always sent: older desktops read it.
         assert_eq!(
             json,
             r#"{"type":"start","output":"phone","post_process":null}"#
@@ -177,7 +284,8 @@ mod tests {
             parsed,
             ClientMessage::Start {
                 output: None,
-                post_process: None
+                post_process: None,
+                options: None,
             }
         );
         let json = serde_json::to_string(&ServerMessage::State {

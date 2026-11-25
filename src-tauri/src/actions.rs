@@ -5,6 +5,7 @@ use crate::audio_toolkit::VadPolicy;
 use crate::managers::audio::{recording_notice_code, AudioRecordingManager};
 use crate::managers::history::HistoryManager;
 use crate::managers::model::ModelManager;
+use crate::managers::remote::{self, EngineFailure, RemoteEngineManager};
 use crate::managers::transcription::policy::{live_decode, LiveDecode, ModelTraits};
 use crate::managers::transcription::StreamWorkKind;
 use crate::managers::transcription::{Transcription, TranscriptionManager};
@@ -22,7 +23,7 @@ use serde::{Deserialize, Serialize};
 use specta::Type;
 use std::collections::HashMap;
 use std::future::Future;
-use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 use tauri::{AppHandle, Manager};
@@ -108,6 +109,10 @@ const POST_PROCESS_TIMEOUT: Duration = Duration::from_secs(60);
 /// Bumped per recording session, so a late paste from an earlier session
 /// doesn't reset the tray or hide the overlay of a newer one.
 static RECORDING_SESSION: AtomicU64 = AtomicU64::new(0);
+
+/// Whether the recording under way goes to another computer, decided when
+/// it starts: switching engines mid-recording mustn't leave it half on each.
+static DICTATION_REMOTE: AtomicBool = AtomicBool::new(false);
 
 /// Drop guard that finishes the transcription pipeline, including immediate
 /// model unloading on early exits.
@@ -522,11 +527,23 @@ impl ShortcutAction for TranscribeAction {
         let tm = app.state::<Arc<TranscriptionManager>>();
         let rm = app.state::<Arc<AudioRecordingManager>>();
 
+        // Another computer transcribes this one. The recording starts whether
+        // or not it can be reached now: the audio is kept here, and the link
+        // has until the recording ends to come back (or the model here
+        // stands in).
+        let use_remote = app.state::<Arc<RemoteEngineManager>>().in_use();
+        DICTATION_REMOTE.store(use_remote, Ordering::SeqCst);
+
         // Load ASR model and VAD model in parallel
         let kickoff_started = Instant::now();
         // An empty selection has nothing to load; the check below says so.
         let selected_model = get_settings(app).selected_model;
-        let load_started = !selected_model.is_empty() && tm.initiate_model_load(true);
+        let load_started = if use_remote {
+            app.state::<Arc<RemoteEngineManager>>().prepare();
+            false
+        } else {
+            !selected_model.is_empty() && tm.initiate_model_load(true)
+        };
         let rm_clone = Arc::clone(&rm);
         std::thread::spawn(move || {
             if let Err(e) = rm_clone.preload_vad() {
@@ -537,7 +554,7 @@ impl ShortcutAction for TranscribeAction {
 
         // Don't open the mic if nothing can transcribe the recording. A load
         // started above reports its own failure; one already running doesn't.
-        if !tm.is_model_loaded() {
+        if !use_remote && !tm.is_model_loaded() {
             if selected_model.is_empty() {
                 warn!("Not starting recording: no model is selected");
                 tm.raise_no_model_selected();
@@ -566,13 +583,17 @@ impl ShortcutAction for TranscribeAction {
         let settings = get_settings(app);
         let is_always_on = settings.always_on_microphone;
 
-        let selected_model_info = app
-            .state::<Arc<ModelManager>>()
-            .get_model_info(&settings.selected_model);
+        let selected_model_info = (!use_remote)
+            .then(|| {
+                app.state::<Arc<ModelManager>>()
+                    .get_model_info(&settings.selected_model)
+            })
+            .flatten();
 
         // Use the app-facing model capability as the single pre-recording source
         // for live streaming decisions. Unknown support is represented as false
         // until the model registry is updated by discovery or runtime load.
+        // Another computer transcribes the whole recording when it ends.
         let model_supports_streaming = selected_model_info
             .as_ref()
             .map(|m| m.supports_streaming)
@@ -591,7 +612,9 @@ impl ShortcutAction for TranscribeAction {
             streaming: model_supports_streaming,
             long_form: false,
         };
-        if live_decode(expected_model, settings.long_form_chunking) != LiveDecode::None {
+        if !use_remote
+            && live_decode(expected_model, settings.long_form_chunking) != LiveDecode::None
+        {
             tm.start_stream();
         }
         let plan_elapsed = plan_started.elapsed();
@@ -738,6 +761,7 @@ impl ShortcutAction for TranscribeAction {
         let binding_id = binding_id.to_string(); // Clone binding_id for the async task
         let post_process = self.post_process;
         let cancel_generation = rm.cancel_generation();
+        let use_remote = DICTATION_REMOTE.load(Ordering::SeqCst);
 
         tauri::async_runtime::spawn(async move {
             let _guard = FinishGuard(ah.clone(), Arc::clone(&tm));
@@ -787,7 +811,18 @@ impl ShortcutAction for TranscribeAction {
                     // otherwise a batch run of the samples. A cancel is surfaced
                     // as an error, so it never starts a batch run.
                     let transcription_time = Instant::now();
-                    let transcription_result = tm.transcribe_recording(samples);
+                    let (transcription_result, fell_back) = if use_remote {
+                        remote::transcribe_dictation(&ah, samples, &|| {
+                            rm.was_cancelled_since(cancel_generation)
+                        })
+                        .await
+                    } else {
+                        (
+                            tm.transcribe_recording(samples)
+                                .map_err(EngineFailure::local),
+                            false,
+                        )
+                    };
 
                     // Await WAV save and verify
                     let wav_saved = match wav_handle.await {
@@ -927,12 +962,22 @@ impl ShortcutAction for TranscribeAction {
                                                             NoticeSource::Dictation,
                                                         );
                                                     }
-                                                    let notice = post_process_failed.then(|| {
-                                                        Notice::new(
-                                                            NoticeCode::PostProcessFailed,
+                                                    // Of the two, that another
+                                                    // engine made the text
+                                                    // matters more.
+                                                    let notice = if fell_back {
+                                                        Some(Notice::new(
+                                                            NoticeCode::RemoteFellBack,
                                                             NoticeSource::Dictation,
-                                                        )
-                                                    });
+                                                        ))
+                                                    } else {
+                                                        post_process_failed.then(|| {
+                                                            Notice::new(
+                                                                NoticeCode::PostProcessFailed,
+                                                                NoticeSource::Dictation,
+                                                            )
+                                                        })
+                                                    };
                                                     (TranscriptionOutcome::Typed, notice)
                                                 }
                                                 Ok(utils::PasteOutcome::Blocked) => (
@@ -1002,11 +1047,8 @@ impl ShortcutAction for TranscribeAction {
                             error!("Transcription failed: {}", err);
                             notices::raise(
                                 &ah,
-                                Notice::new(
-                                    NoticeCode::TranscriptionFailed,
-                                    NoticeSource::Dictation,
-                                )
-                                .with_detail(err.to_string()),
+                                Notice::new(err.code, NoticeSource::Dictation)
+                                    .with_detail(err.detail),
                             );
                             // Save entry with empty text so user can retry
                             if wav_saved {

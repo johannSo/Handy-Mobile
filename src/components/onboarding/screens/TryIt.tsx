@@ -154,6 +154,8 @@ interface TryItProps {
   /** Open directly on All set. */
   finished: boolean;
   model: CatalogModel | undefined;
+  /** What transcribes, when it isn't `model`: another computer. */
+  modelName?: string;
   /** The model is on disk. */
   ready: boolean;
   /** Download status, shown in All set's panel while in progress. */
@@ -174,6 +176,7 @@ export const TryIt: React.FC<TryItProps> = ({
   os,
   finished,
   model,
+  modelName,
   ready,
   download,
   onChangeModel,
@@ -194,7 +197,7 @@ export const TryIt: React.FC<TryItProps> = ({
   useEffect(() => {
     if (silent) refreshAudioDevices();
   }, [silent, refreshAudioDevices]);
-  const name = model?.name ?? "";
+  const name = modelName ?? model?.name ?? "";
 
   const seconds = (s: number) =>
     t("onboarding.try.seconds", {

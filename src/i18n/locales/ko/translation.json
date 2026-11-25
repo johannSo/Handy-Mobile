@@ -10,12 +10,15 @@
     "secureInputWarning": "⚠ Secure Input으로 단축키가 차단됨",
     "language": "언어",
     "autoLanguage": "자동",
-    "otherLanguages": "기타 언어"
+    "otherLanguages": "기타 언어",
+    "transcribeWith": "음성 인식 컴퓨터",
+    "thisComputer": "이 컴퓨터",
+    "offline": "오프라인"
   },
   "sidebar": {
     "general": "일반",
     "models": "모델",
-    "mobile": "모바일",
+    "mobile": "공유",
     "advanced": "고급",
     "postProcessing": "후처리",
     "history": "히스토리",
@@ -149,7 +152,8 @@
       "downloadInstead": "대신 {{size}} 다운로드",
       "pauses": "{{name}}은(는) {{percent}}%에서 일시 중지됩니다",
       "resumeLater": "다시 선택하면 중단된 곳에서 이어받습니다",
-      "hint": "설정을 마치는 동안 다운로드됩니다"
+      "hint": "설정을 마치는 동안 다운로드됩니다",
+      "useAnotherComputer": "대신 Handy를 실행 중인 다른 컴퓨터 사용"
     },
     "demo": {
       "title": "단축키 하나로 어떤 앱에서든 말하세요",
@@ -218,6 +222,12 @@
     "linux": {
       "tryIt": "작동하지 않나요? <guide>Linux 설정 가이드</guide>",
       "done": "다른 앱에서 작동하지 않나요? <guide>Linux 설정 가이드</guide>"
+    },
+    "connect": {
+      "title": "다른 컴퓨터 사용",
+      "subtitle": "여기서 말한 내용을 네트워크를 통해 그 컴퓨터의 모델이 텍스트로 변환합니다.",
+      "hint": "계속하려면 컴퓨터를 페어링하세요",
+      "paired": "{{name}}와(과) 페어링되었습니다. 받아쓰기 내용은 그 컴퓨터의 모델이 텍스트로 변환합니다."
     }
   },
   "modelTable": {
@@ -326,7 +336,8 @@
   },
   "settings": {
     "modelSettings": {
-      "title": "{{model}} 설정"
+      "title": "{{model}} 설정",
+      "remoteTitle": "{{computer}}의 {{model}}"
     },
     "general": {
       "title": "일반",
@@ -365,7 +376,8 @@
           "title": "자동이 꺼져 있습니다",
           "oneLanguage": "이 모델에서는 사용자 언어 중 하나만 사용할 수 있습니다",
           "undetectable": "{{languages}}에서는 사용할 수 없습니다",
-          "noMatch": "이 모델에서 사용할 수 있는 언어가 없습니다"
+          "noMatch": "이 모델에서 사용할 수 있는 언어가 없습니다",
+          "remote": "다른 컴퓨터의 모델은 언어를 감지할 수 없습니다"
         },
         "detectorMissingTitle": "자동을 사용하려면 별도 다운로드가 필요합니다",
         "detectorMissing": "이 모델은 어떤 언어로 말하는지 구별할 수 없습니다. 자동은 작은 언어 감지기로 언어를 알아냅니다",
@@ -435,7 +447,7 @@
       }
     },
     "mobile": {
-      "intro": "휴대폰을 이 컴퓨터의 마이크로 사용하세요. 휴대폰이 녹음하고 이 컴퓨터가 텍스트로 변환합니다.",
+      "intro": "네트워크에 있는 휴대폰과 다른 컴퓨터가 이 컴퓨터의 모델로 받아쓰기할 수 있습니다. 휴대폰이 녹음하고 이 컴퓨터가 텍스트로 변환합니다.",
       "groups": {
         "connection": "연결",
         "devices": "페어링된 휴대폰",
@@ -473,7 +485,11 @@
         "copied": "페어링 코드 복사됨",
         "copyFailed": "페어링 코드를 복사할 수 없음",
         "done": "{{name}} 페어링됨",
-        "failed": "페어링 코드를 만들 수 없음"
+        "failed": "페어링 코드를 만들 수 없음",
+        "computerButton": "컴퓨터 페어링",
+        "computerTitle": "컴퓨터 페어링",
+        "computerDescription": "다른 컴퓨터에서 Handy를 열고 모델로 이동해 다른 컴퓨터를 선택한 다음, 컴퓨터 추가를 누르고 이 코드를 붙여넣으세요.",
+        "computerNote": "페어링된 컴퓨터는 텍스트를 돌려받습니다. 허용하지 않으면 이 컴퓨터에 입력할 수 없습니다."
       },
       "devices": {
         "empty": "아직 페어링된 휴대폰이 없습니다.",
@@ -488,7 +504,12 @@
         "removeConfirmTitle": "{{name}} 페어링을 해제할까요?",
         "removeConfirm": "다시 페어링하기 전까지 이 휴대폰은 이 컴퓨터를 통해 받아쓰기할 수 없습니다.",
         "removeFailed": "휴대폰 페어링을 해제할 수 없음",
-        "cancel": "취소"
+        "cancel": "취소",
+        "transcribing": "음성 인식 중",
+        "canType": "여기에 입력",
+        "canTypeDescription": "이 기기가 요청하면 받아쓴 내용을 이 컴퓨터에 붙여넣습니다.",
+        "canTypeLabel": "{{name}}이(가) 이 컴퓨터에 입력하도록 허용",
+        "canTypeFailed": "변경할 수 없음"
       },
       "outputMode": {
         "title": "텍스트 보낼 곳",
@@ -501,6 +522,11 @@
       "postProcess": {
         "label": "후처리",
         "description": "휴대폰으로 받아쓴 내용에 후처리를 실행합니다."
+      },
+      "model": {
+        "title": "모델",
+        "description": "페어링된 휴대폰과 컴퓨터가 음성 인식에 사용하는 모델로, 이 컴퓨터에서 선택한 모델입니다.",
+        "none": "없음. 모델에서 다운로드하세요."
       }
     },
     "languages": {
@@ -830,7 +856,8 @@
           "model": "모델",
           "demo": "데모",
           "try": "체험",
-          "done": "준비 완료"
+          "done": "준비 완료",
+          "connect": "연결"
         }
       },
       "onboardingRun": {
@@ -934,6 +961,12 @@
         "verdictOk": "키 이벤트가 Handy에 정상적으로 도달하고 있습니다.",
         "verdictNoEvents": "이벤트가 감지되지 않았습니다. 테스트 중에 키를 누르셨나요?",
         "failed": "진단 실패: {{error}}"
+      },
+      "remoteLink": {
+        "title": "원격 링크",
+        "description": "이 컴퓨터가 음성 인식에 사용하는 컴퓨터와의 연결입니다.",
+        "simulateOffline": "연결 불가 시뮬레이션",
+        "simulateOfflineDescription": "다른 컴퓨터로 보내는 요청이 연결할 수 없는 것처럼 실패하게 하여, 그때 어떻게 되는지 확인합니다."
       }
     },
     "about": {
@@ -966,6 +999,84 @@
           "title": "ggml",
           "description": "OpenAI의 Whisper 자동 음성 인식 모델의 고성능 추론",
           "details": "Handy는 빠르고 로컬 음성-텍스트 처리를 위해 ggml를 사용합니다. Georgi Gerganov와 기여자들의 놀라운 작업에 감사드립니다."
+        }
+      }
+    },
+    "remote": {
+      "engine": {
+        "title": "음성 인식 컴퓨터",
+        "thisComputer": "이 컴퓨터",
+        "anotherComputer": "다른 컴퓨터",
+        "busy": "음성 인식 중에는 음성 인식에 사용할 컴퓨터를 바꿀 수 없습니다. 끝난 후 다시 시도하세요."
+      },
+      "state": {
+        "transcribing": "음성 인식 중…",
+        "connectedModel": "연결됨 · {{model}}",
+        "noModel": "연결됨 · 다운로드된 모델 없음",
+        "connecting": "연결하는 중…",
+        "offline": "연결할 수 없음",
+        "rejected": "더 이상 페어링되어 있지 않음",
+        "incompatible": "업데이트 필요",
+        "unused": "사용 안 함"
+      },
+      "row": {
+        "use": "{{name}}(으)로 음성 인식",
+        "pairedAt": "페어링: {{time}}",
+        "selectFailed": "해당 컴퓨터로 전환할 수 없음",
+        "rename": "이름 변경",
+        "nameLabel": "컴퓨터 이름",
+        "renameFailed": "컴퓨터 이름을 변경할 수 없음",
+        "reconnect": "지금 다시 시도",
+        "pairAgain": "다시 페어링",
+        "details": "세부 정보",
+        "hostName": "이름",
+        "address": "주소",
+        "fingerprint": "인증서",
+        "version": "Handy 버전",
+        "lastError": "마지막 오류",
+        "forget": "삭제",
+        "forgetConfirmTitle": "{{name}}을(를) 삭제할까요?",
+        "forgetConfirm": "이 컴퓨터는 더 이상 해당 컴퓨터로 음성 인식하지 않습니다. 그쪽 목록에서도 이 컴퓨터를 빼려면 해당 컴퓨터의 공유에서 페어링을 해제하세요.",
+        "forgetFailed": "컴퓨터를 삭제할 수 없음",
+        "cancel": "취소"
+      },
+      "incompatible": "{{name}}에서 실행 중인 Handy 버전으로는 이 컴퓨터의 음성 인식을 할 수 없습니다. 두 컴퓨터 모두 Handy를 업데이트하세요.",
+      "computers": {
+        "title": "컴퓨터",
+        "description": "Handy를 실행 중인 다른 컴퓨터가 자신의 모델로 이 컴퓨터의 음성 인식을 대신할 수 있습니다. 사용할 컴퓨터를 선택하세요.",
+        "empty": "아직 페어링된 컴퓨터가 없습니다.",
+        "hint": "다른 컴퓨터는 공유에서 모델을 공유합니다.",
+        "add": "컴퓨터 추가"
+      },
+      "fallback": {
+        "group": "연결할 수 없을 때",
+        "label": "이 컴퓨터의 모델 사용",
+        "description": "다른 컴퓨터가 절전 중이거나 사용 중이거나 오프라인이면 대신 여기서 음성 인식하고 그 사실을 알려 줍니다.",
+        "noModel": "이 컴퓨터에는 대신 사용할 모델이 없습니다. 위에서 이 컴퓨터를 선택해 모델을 다운로드하세요."
+      },
+      "stays": "다른 컴퓨터로는 오디오와 함께 언어, 사용자 정의 단어, 군더더기 표현 설정만 전송됩니다. 후처리, 히스토리, 붙여넣기는 이 컴퓨터에서 이루어집니다.",
+      "decidedElsewhere": "음성 인식하는 컴퓨터에서 설정됨",
+      "add": {
+        "title": "컴퓨터 추가",
+        "steps": {
+          "open": "다른 컴퓨터에서 Handy를 열고 공유로 이동하세요.",
+          "share": "공유를 켜고 컴퓨터 페어링을 선택한 다음 코드 복사를 누르세요.",
+          "paste": "여기에 코드를 붙여넣으세요."
+        },
+        "placeholder": "handy://pair?…",
+        "codeLabel": "페어링 코드",
+        "pair": "페어링",
+        "pairing": "페어링하는 중…",
+        "done": "{{name}}와(과) 페어링되었습니다. 이제 이 컴퓨터는 해당 컴퓨터로 음성 인식합니다.",
+        "errors": {
+          "invalid_code": "Handy 페어링 코드가 아닙니다.",
+          "expired_code": "만료되었거나 이미 사용된 코드입니다. 다른 컴퓨터에서 새 코드를 만드세요.",
+          "incompatible": "다른 컴퓨터의 Handy로는 이 컴퓨터의 음성 인식을 할 수 없습니다. 두 컴퓨터 모두 Handy를 업데이트하세요.",
+          "rate_limited": "시도 횟수가 너무 많습니다. 1분 정도 기다린 후 다시 시도하세요.",
+          "unreachable": "다른 컴퓨터에 연결할 수 없습니다. 두 컴퓨터가 같은 네트워크에 있고 그쪽에서 공유가 켜져 있는지 확인하세요.",
+          "untrusted": "다른 컴퓨터의 주소에서 다른 기기가 응답했습니다. 새 코드를 만들어 다시 시도하세요.",
+          "self": "이 컴퓨터에서 만든 코드입니다. 다른 컴퓨터에 붙여넣으세요.",
+          "failed": "페어링하지 못했습니다. 다시 시도하세요."
         }
       }
     }
@@ -1030,7 +1141,19 @@
     "mobileServerFailedTitle": "Handy Mobile 시작 실패",
     "mobileServerFailed": "휴대폰이 연결할 수 없습니다. 다른 앱이 포트를 사용 중일 수 있습니다. 모바일 설정에서 다른 포트를 선택하세요.",
     "mobileTranscriptionFailedTitle": "휴대폰 받아쓰기 실패",
-    "transcriptionFailedTitle": "음성 인식 실패"
+    "transcriptionFailedTitle": "음성 인식 실패",
+    "remoteUnreachableTitle": "다른 컴퓨터에 연결 불가",
+    "remoteUnreachable": "Handy가 음성 인식에 사용하는 컴퓨터에 연결할 수 없습니다. 그 컴퓨터가 켜져 있고 같은 네트워크에 있으며 모델을 공유 중인지 확인하세요.",
+    "remoteBusyTitle": "다른 컴퓨터 사용 중",
+    "remoteBusy": "음성 인식에 사용하는 컴퓨터에서 누군가 받아쓰기 중입니다. 잠시 후 다시 시도하세요.",
+    "remoteNoModelTitle": "다른 컴퓨터에 모델 없음",
+    "remoteNoModel": "음성 인식에 사용하는 컴퓨터에 모델이 없습니다. 그 컴퓨터에서 모델을 다운로드하세요.",
+    "remoteRejectedTitle": "컴퓨터를 다시 페어링하세요",
+    "remoteRejected": "다른 컴퓨터가 더 이상 이 컴퓨터를 인식하지 않습니다. 모델에서 다시 페어링하세요.",
+    "remoteIncompatibleTitle": "두 컴퓨터의 Handy 업데이트",
+    "remoteIncompatible": "두 컴퓨터의 Handy 버전이 서로 호환되지 않습니다. 둘 다 업데이트하세요.",
+    "remoteFellBackTitle": "이 컴퓨터에서 음성 인식함",
+    "remoteFellBack": "다른 컴퓨터를 사용할 수 없어서 이 컴퓨터의 모델로 음성 인식했습니다."
   },
   "notices": {
     "errorOne": "오류 {{n}}개",

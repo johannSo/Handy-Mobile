@@ -16,6 +16,8 @@ import { UpdateChecksToggle } from "../UpdateChecksToggle";
 import { WhatsNewPreview } from "./WhatsNewPreview";
 import { KeyboardDiagnostic } from "./KeyboardDiagnostic";
 import { DebugRun, OnboardingPreview } from "./OnboardingPreview";
+import { RemoteLinkDebug } from "./RemoteLinkDebug";
+import { DecidedElsewhere } from "../remote/DecidedElsewhere";
 import type { OnboardingStep } from "../../onboarding/onboardingStore";
 
 interface DebugSettingsProps {
@@ -70,9 +72,12 @@ export const DebugSettings: React.FC<DebugSettingsProps> = ({
         <ReliablePasteToggle descriptionMode="tooltip" grouped={true} />
         <HoldThreshold descriptionMode="tooltip" grouped={true} />
         <RecordingBuffer descriptionMode="tooltip" grouped={true} />
-        <LanguageDetectionWindow descriptionMode="tooltip" grouped={true} />
+        <DecidedElsewhere>
+          <LanguageDetectionWindow descriptionMode="tooltip" grouped={true} />
+        </DecidedElsewhere>
         <AlwaysOnMicrophone descriptionMode="tooltip" grouped={true} />
         <ClamshellMicrophoneSelector descriptionMode="tooltip" grouped={true} />
+        <RemoteLinkDebug />
         <KeyboardDiagnostic />
         <LiveLogViewer descriptionMode="tooltip" grouped={true} />
       </SettingsGroup>

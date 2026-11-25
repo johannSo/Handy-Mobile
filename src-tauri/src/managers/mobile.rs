@@ -5,6 +5,10 @@
 //! and this manager transcribes it the way a background file job would, then
 //! pastes the text here or only hands it back, as the user set.
 //!
+//! Another computer can pair too and use this one as its engine. It asks
+//! for a raw transcription with its own text settings: nothing it sends is
+//! kept, post-processed or pasted here, and it gets the bare transcript.
+//!
 //! The paired phones and this desktop's certificate live in their own file,
 //! not in the settings store: the frontend gets every setting, and none of
 //! it has any business holding a private key.
@@ -13,7 +17,10 @@ use anyhow::{anyhow, Result};
 use handy_link::pairing::{
     constant_time_eq, hash_secret, new_secret, random_hex, secret_matches, PairingPayload,
 };
-use handy_link::protocol::{ErrorCode, OutputMode, SessionState};
+use handy_link::protocol::{
+    device_kind, feature, ErrorCode, ModelInfo, OutputMode, ServerMessage, SessionState,
+    StartOptions, TextOptions,
+};
 use handy_link::server::{
     Failure, Host, HostInfo, PairedDevice, Recording, Server, ServerOptions, Transcript,
 };
@@ -34,14 +41,18 @@ use crate::actions::process_transcription_output;
 use crate::audio_toolkit::save_wav_file;
 use crate::language_detection::LanguageDecision;
 use crate::managers::history::HistoryManager;
+use crate::managers::model::ModelManager;
 use crate::managers::transcription::{ChunkControl, Transcription, TranscriptionManager};
 use crate::notices::{self, Notice, NoticeCode, NoticeSource};
-use crate::settings::{get_settings, MobileOutputMode};
+use crate::settings::{get_settings, AppSettings, MobileOutputMode};
 use crate::utils::{self, PasteOutcome};
 
 const STORE_FILE: &str = "mobile_link.json";
 /// How long a pairing code can be scanned.
 const PAIRING_WINDOW: Duration = Duration::from_secs(120);
+/// How long a computer's pairing code lasts: it's copied, carried to the
+/// other computer and pasted there, which takes longer than a scan.
+const COMPUTER_PAIRING_WINDOW: Duration = Duration::from_secs(300);
 /// How often a phone's transcription checks whether dictation here is done.
 const DICTATION_POLL: Duration = Duration::from_millis(200);
 const MAX_DEVICE_NAME_CHARS: usize = 40;
@@ -55,6 +66,37 @@ struct StoredDevice {
     paired_at: i64,
     #[serde(default)]
     last_seen: Option<i64>,
+    /// What it was paired as; see [`DeviceKind`].
+    #[serde(default)]
+    kind: DeviceKind,
+    /// May paste what it dictates into this computer. Decided by the code it
+    /// paired with, not by anything the device says.
+    #[serde(default = "can_type_by_default")]
+    can_type: bool,
+}
+
+/// Phones paired before computers could pair, and could type here.
+fn can_type_by_default() -> bool {
+    true
+}
+
+/// What a paired device is.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize, Type)]
+#[serde(rename_all = "snake_case")]
+pub enum DeviceKind {
+    #[default]
+    Phone,
+    /// Another computer using this one's model.
+    Computer,
+}
+
+impl DeviceKind {
+    fn pairing_window(self) -> Duration {
+        match self {
+            Self::Phone => PAIRING_WINDOW,
+            Self::Computer => COMPUTER_PAIRING_WINDOW,
+        }
+    }
 }
 
 #[derive(Serialize, Deserialize)]
@@ -79,6 +121,8 @@ impl LinkStore {
 struct PendingPairing {
     token: String,
     expires: Instant,
+    /// What the code is for; the device that redeems it is paired as this.
+    kind: DeviceKind,
 }
 
 /// A paired phone, as the Mobile tab lists it.
@@ -92,6 +136,9 @@ pub struct MobileDevice {
     pub connected: bool,
     /// Recording or being transcribed right now.
     pub active: bool,
+    pub kind: DeviceKind,
+    /// May paste into this computer.
+    pub can_type: bool,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize, Type)]
@@ -104,6 +151,8 @@ pub struct MobileStatus {
     /// Why the server isn't running although it's turned on.
     pub error: Option<String>,
     pub devices: Vec<MobileDevice>,
+    /// The model paired devices transcribe with, `None` without one.
+    pub model_name: Option<String>,
 }
 
 /// What the pairing dialog shows.
@@ -135,6 +184,8 @@ struct State {
     pairing: Option<PendingPairing>,
     /// The phone recording or being transcribed.
     active: Option<String>,
+    /// The model devices were last told about.
+    announced_model: Option<ModelInfo>,
 }
 
 pub struct MobileLinkManager {
@@ -212,6 +263,7 @@ impl MobileLinkManager {
                 error: None,
                 pairing: None,
                 active: None,
+                announced_model: None,
             }),
         })
     }
@@ -371,6 +423,8 @@ impl MobileLinkManager {
                         last_seen: device.last_seen,
                         connected: connected.contains(&device.id),
                         active: state.active.as_deref() == Some(&device.id),
+                        kind: device.kind,
+                        can_type: device.can_type,
                     })
                     .collect()
             })
@@ -384,7 +438,76 @@ impl MobileLinkManager {
                 .collect(),
             error: state.error.clone(),
             devices,
+            model_name: self.model_info().map(|model| model.name),
         }
+    }
+
+    /// The model paired devices transcribe with: this computer's, whatever
+    /// this computer itself dictates with.
+    fn model_info(&self) -> Option<ModelInfo> {
+        let selected = get_settings(&self.app).selected_model;
+        if selected.is_empty() {
+            return None;
+        }
+        let model = self
+            .app
+            .state::<Arc<ModelManager>>()
+            .get_model_info(&selected)?;
+        if !model.is_downloaded {
+            return None;
+        }
+        Some(ModelInfo {
+            id: model.id,
+            name: model.name,
+            languages: model.supported_languages,
+            supports_language_selection: model.supports_language_selection,
+            supports_translation: model.supports_translation,
+            supports_language_detection: model.supports_language_detection,
+        })
+    }
+
+    /// Tells connected devices which model they transcribe with now. Call
+    /// when the selected model changes.
+    pub fn model_changed(&self) {
+        let model = self.model_info();
+        {
+            let mut state = self.lock();
+            if state.announced_model == model {
+                return;
+            }
+            state.announced_model = model.clone();
+            if let Some(server) = state.server.as_ref() {
+                server.announce(ServerMessage::ModelChanged { model });
+            }
+        }
+        self.changed(None);
+    }
+
+    /// This desktop's id, if it ever made one. A computer must not pair
+    /// with itself.
+    pub fn desktop_id(&self) -> Option<String> {
+        self.load_devices();
+        self.lock()
+            .store
+            .as_ref()
+            .map(|store| store.desktop_id.clone())
+    }
+
+    /// Allows or forbids a device to paste into this computer.
+    pub fn set_device_can_type(&self, id: &str, can_type: bool) -> Result<()> {
+        {
+            let mut state = self.lock();
+            let store = self.store(&mut state)?;
+            let device = store
+                .devices
+                .iter_mut()
+                .find(|device| device.id == id)
+                .ok_or_else(|| anyhow!("That device isn't paired"))?;
+            device.can_type = can_type;
+            self.save(store)?;
+        }
+        self.changed(None);
+        Ok(())
     }
 
     /// Loads the paired phones for a status that is asked for before the
@@ -399,8 +522,9 @@ impl MobileLinkManager {
         }
     }
 
-    /// A fresh one-time code for a phone to scan. Replaces the previous one.
-    pub fn start_pairing(&self) -> Result<MobilePairing> {
+    /// A fresh one-time code for a phone to scan, or a computer to paste.
+    /// Replaces the previous one.
+    pub fn start_pairing(&self, kind: DeviceKind) -> Result<MobilePairing> {
         let mut state = self.lock();
         let Some(server) = state.server.as_ref() else {
             return Err(anyhow!("Turn on Handy Mobile first"));
@@ -422,14 +546,16 @@ impl MobileLinkManager {
         }
         .encode();
         let qr_svg = qr_svg(&code)?;
+        let window = kind.pairing_window();
         state.pairing = Some(PendingPairing {
             token,
-            expires: Instant::now() + PAIRING_WINDOW,
+            expires: Instant::now() + window,
+            kind,
         });
         Ok(MobilePairing {
             code,
             qr_svg,
-            expires_in_secs: PAIRING_WINDOW.as_secs() as u32,
+            expires_in_secs: window.as_secs() as u32,
         })
     }
 
@@ -449,7 +575,7 @@ impl MobileLinkManager {
                 .devices
                 .iter_mut()
                 .find(|device| device.id == id)
-                .ok_or_else(|| anyhow!("That phone isn't paired"))?;
+                .ok_or_else(|| anyhow!("That device isn't paired"))?;
             device.name = name;
             self.save(store)?;
         }
@@ -490,24 +616,30 @@ impl MobileLinkManager {
             samples,
             output,
             post_process,
+            options,
             cancelled,
         } = recording;
         if samples.is_empty() {
-            return Ok(Transcript {
-                text: String::new(),
-                pasted: false,
-            });
+            return Ok(Transcript::empty());
+        }
+        if let Some(options) = options.filter(|options| options.raw) {
+            return self.run_raw(samples, options, &cancelled);
         }
 
         let app = &self.app;
         let settings = get_settings(app);
         let tm = Arc::clone(&app.state::<Arc<TranscriptionManager>>());
         let hm = Arc::clone(&app.state::<Arc<HistoryManager>>());
-        let paste = match output {
+        let wants_paste = match output {
             Some(OutputMode::Desktop) => true,
             Some(OutputMode::Phone) => false,
             None => settings.mobile_output_mode == MobileOutputMode::Desktop,
         };
+        // Only a device paired to type here may, whatever it asks for.
+        let paste = wants_paste && self.device_can_type(&device_id);
+        if wants_paste && !paste {
+            info!("Device {device_id} may not type here; sending its text back only");
+        }
         // Post Process has to be set up here either way.
         let post_process =
             settings.post_process_enabled && post_process.unwrap_or(settings.mobile_post_process);
@@ -568,10 +700,7 @@ impl MobileLinkManager {
             // Cancelled: the phone isn't waiting for an answer.
             Ok(None) => {
                 discard_recording();
-                return Ok(Transcript {
-                    text: String::new(),
-                    pasted: false,
-                });
+                return Ok(Transcript::empty());
             }
             Err(e) => {
                 warn!("Transcribing a phone's recording failed: {e}");
@@ -583,20 +712,14 @@ impl MobileLinkManager {
             debug!("A phone's recording had no speech");
             discard_recording();
             notices::clear(app, NoticeSource::Mobile);
-            return Ok(Transcript {
-                text: String::new(),
-                pasted: false,
-            });
+            return Ok(Transcript::empty());
         }
 
         let processed =
             tauri::async_runtime::block_on(process_transcription_output(app, &text, post_process));
         if cancelled.load(Ordering::Acquire) {
             discard_recording();
-            return Ok(Transcript {
-                text: String::new(),
-                pasted: false,
-            });
+            return Ok(Transcript::empty());
         }
         save_history(
             text,
@@ -611,10 +734,7 @@ impl MobileLinkManager {
             processed.final_text,
         ));
         if final_text.is_empty() || cancelled.load(Ordering::Acquire) {
-            return Ok(Transcript {
-                text: String::new(),
-                pasted: false,
-            });
+            return Ok(Transcript::empty());
         }
 
         // Clear first, so a warning about this dictation survives it.
@@ -629,6 +749,8 @@ impl MobileLinkManager {
             return Ok(Transcript {
                 text: final_text,
                 pasted: false,
+                language: None,
+                language_source: None,
             });
         }
 
@@ -645,6 +767,8 @@ impl MobileLinkManager {
             Ok(()) => Ok(Transcript {
                 text: final_text,
                 pasted: true,
+                language: None,
+                language_source: None,
             }),
             Err(code) => {
                 notices::raise(app, Notice::new(code, NoticeSource::Mobile));
@@ -659,7 +783,95 @@ impl MobileLinkManager {
     }
 }
 
-fn desktop_name() -> String {
+impl MobileLinkManager {
+    fn device_can_type(&self, id: &str) -> bool {
+        self.lock().store.as_ref().is_some_and(|store| {
+            store
+                .devices
+                .iter()
+                .any(|device| device.id == id && device.can_type)
+        })
+    }
+
+    /// A raw transcription for another computer: the bare transcript with
+    /// its text settings, and nothing kept, post-processed or pasted here.
+    /// The audio never touches the disk.
+    fn run_raw(
+        &self,
+        samples: Vec<f32>,
+        options: StartOptions,
+        cancelled: &AtomicBool,
+    ) -> Result<Transcript, Failure> {
+        let app = &self.app;
+        let tm = Arc::clone(&app.state::<Arc<TranscriptionManager>>());
+        let mut settings = get_settings(app);
+        if let Some(text) = &options.text {
+            apply_text_options(&mut settings, text);
+        }
+        let control = Control { app, cancelled };
+        let transcribed = tm.transcribe_for_device(samples, settings, &control);
+        if !crate::tray::dictation_in_progress(app) {
+            tm.maybe_unload_immediately("device transcription");
+        }
+        match transcribed {
+            Ok(Some(Transcription { text, language })) if !cancelled.load(Ordering::Acquire) => {
+                Ok(Transcript {
+                    text,
+                    pasted: false,
+                    language_source: language.as_ref().map(|l| l.source.as_str().to_string()),
+                    language: language.and_then(|l| l.language),
+                })
+            }
+            Ok(_) => Ok(Transcript::empty()),
+            Err(e) => {
+                warn!("Transcribing for another computer failed: {e}");
+                // The other computer reports it; nothing failed for anyone here.
+                Err(Failure::new(ErrorCode::TranscriptionFailed).with_message(e.to_string()))
+            }
+        }
+    }
+}
+
+/// A client's text settings over this computer's. A value this version
+/// doesn't know keeps this computer's.
+pub(crate) fn apply_text_options(settings: &mut AppSettings, text: &TextOptions) {
+    fn parse<T: serde::de::DeserializeOwned>(value: &Option<String>) -> Option<T> {
+        value
+            .as_ref()
+            .and_then(|v| serde_json::from_value(serde_json::Value::String(v.clone())).ok())
+    }
+    if let Some(language) = &text.selected_language {
+        settings.selected_language = language.clone();
+    }
+    if let Some(languages) = &text.spoken_languages {
+        settings.spoken_languages = languages.clone();
+    }
+    if let Some(translate) = text.translate_to_english {
+        settings.translate_to_english = translate;
+    }
+    if let Some(mode) = parse(&text.language_detection) {
+        settings.language_detection = mode;
+    }
+    if let Some(words) = &text.custom_words {
+        settings.custom_words = words.clone();
+    }
+    if let Some(threshold) = text.word_correction_threshold {
+        if threshold.is_finite() {
+            settings.word_correction_threshold = threshold.clamp(0.0, 1.0);
+        }
+    }
+    if let Some(enabled) = text.filler_word_removal {
+        settings.filler_word_removal_enabled = enabled;
+    }
+    if let Some(words) = &text.custom_filler_words {
+        settings.custom_filler_words = Some(words.clone());
+    }
+    if let Some(script) = parse(&text.chinese_script) {
+        settings.chinese_script = script;
+    }
+}
+
+pub(crate) fn desktop_name() -> String {
     let name = gethostname::gethostname()
         .to_string_lossy()
         .trim()
@@ -681,10 +893,17 @@ impl Host for MobileLinkManager {
                 MobileOutputMode::Desktop => OutputMode::Desktop,
                 MobileOutputMode::Phone => OutputMode::Phone,
             },
+            features: vec![feature::RAW_TEXT.to_string(), feature::PREPARE.to_string()],
+            model: self.model_info(),
         }
     }
 
-    fn pair(&self, token: &str, device_name: &str) -> Option<PairedDevice> {
+    fn pair(
+        &self,
+        token: &str,
+        device_name: &str,
+        claimed_kind: Option<&str>,
+    ) -> Option<PairedDevice> {
         let paired = {
             let mut state = self.lock();
             let pending = state.pairing.as_ref()?;
@@ -695,8 +914,13 @@ impl Host for MobileLinkManager {
             if !constant_time_eq(pending.token.as_bytes(), token.as_bytes()) {
                 return None;
             }
-            // Good for one phone.
+            // Good for one device.
+            let kind = pending.kind;
             state.pairing = None;
+            if claimed_kind == Some(device_kind::COMPUTER) && kind == DeviceKind::Phone {
+                // Harmless: it's paired as what the code was for.
+                info!("A computer redeemed a phone's pairing code");
+            }
 
             let device_id = random_hex(8);
             let secret = new_secret();
@@ -707,13 +931,16 @@ impl Host for MobileLinkManager {
                 secret_hash: hash_secret(&secret),
                 paired_at: now(),
                 last_seen: Some(now()),
+                kind,
+                // A computer gets its text back; it never types here.
+                can_type: kind == DeviceKind::Phone,
             });
             if let Err(e) = self.save(store) {
                 error!("Failed to save a newly paired phone: {e}");
                 store.devices.retain(|device| device.id != device_id);
                 return None;
             }
-            info!("Paired with phone {device_id} ({device_name})");
+            info!("Paired with {kind:?} {device_id} ({device_name})");
             PairedDevice { device_id, secret }
         };
         self.changed(Some(paired.device_id.clone()));
@@ -778,6 +1005,17 @@ impl Host for MobileLinkManager {
                 .set_mobile_active(false);
         }
         self.changed(None);
+    }
+
+    fn prepare(&self, _device_id: &str) {
+        if crate::tray::dictation_in_progress(&self.app)
+            || get_settings(&self.app).selected_model.is_empty()
+        {
+            return;
+        }
+        self.app
+            .state::<Arc<TranscriptionManager>>()
+            .initiate_model_load(false);
     }
 
     fn transcribe(&self, recording: Recording) -> Result<Transcript, Failure> {

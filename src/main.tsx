@@ -26,7 +26,9 @@ import "./i18n";
 import { useModelStore } from "./stores/modelStore";
 import { useNoticeStore } from "./stores/noticeStore";
 import { useTranscriptionJobsStore } from "./stores/transcriptionJobsStore";
+import { useRemoteStore } from "./stores/remoteStore";
 useModelStore.getState().initialize();
+useRemoteStore.getState().initialize();
 useTranscriptionJobsStore.getState().initialize();
 useNoticeStore.getState().initialize();
 

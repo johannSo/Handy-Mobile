@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { getVersion } from "@tauri-apps/api/app";
 
 import ModelSelector from "../model-selector";
+import RemoteEngineStatus from "../model-selector/RemoteEngineStatus";
+import { useRemoteInUse } from "@/stores/remoteStore";
 import UpdateChecker from "../update-checker";
 import NoticeChip from "./NoticeChip";
 import TranscriptionStatus from "./TranscriptionStatus";
@@ -12,6 +14,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ onShowHistory }) => {
   const [version, setVersion] = useState("");
+  const remote = useRemoteInUse();
 
   useEffect(() => {
     const fetchVersion = async () => {
@@ -31,7 +34,7 @@ const Footer: React.FC<FooterProps> = ({ onShowHistory }) => {
     <div className="w-full border-t border-line pt-3">
       <div className="flex justify-between items-center text-xs px-4 pb-3 text-ink-2">
         <div className="flex items-center gap-4">
-          <ModelSelector />
+          {remote ? <RemoteEngineStatus /> : <ModelSelector />}
           <TranscriptionStatus onShowHistory={onShowHistory} />
         </div>
 

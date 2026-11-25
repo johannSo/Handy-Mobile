@@ -10,12 +10,15 @@
     "secureInputWarning": "⚠ Dreceres blocades per l'entrada segura",
     "language": "Llengua",
     "autoLanguage": "Automàtica",
-    "otherLanguages": "Altres llengües"
+    "otherLanguages": "Altres llengües",
+    "transcribeWith": "Transcriu amb",
+    "thisComputer": "Aquest ordinador",
+    "offline": "Fora de línia"
   },
   "sidebar": {
     "general": "General",
     "models": "Models",
-    "mobile": "Mòbil",
+    "mobile": "Compartició",
     "advanced": "Avançat",
     "postProcessing": "Postprocessament",
     "history": "Historial",
@@ -149,7 +152,8 @@
       "downloadInstead": "Baixa {{size}} en lloc seu",
       "pauses": "{{name}} es posa en pausa al {{percent}} %",
       "resumeLater": "Torneu-lo a triar per continuar on s'havia quedat",
-      "hint": "Es baixa mentre acabeu la configuració"
+      "hint": "Es baixa mentre acabeu la configuració",
+      "useAnotherComputer": "Fes servir un altre ordinador amb el Handy"
     },
     "demo": {
       "title": "Parleu a qualsevol aplicació, amb una sola drecera",
@@ -218,6 +222,12 @@
     "linux": {
       "tryIt": "No funciona? <guide>Guia de configuració per a Linux</guide>",
       "done": "No funciona a altres aplicacions? <guide>Guia de configuració per a Linux</guide>"
+    },
+    "connect": {
+      "title": "Fes servir un altre ordinador",
+      "subtitle": "El seu model transcriu el que dieu aquí, a través de la vostra xarxa.",
+      "hint": "Vinculeu un ordinador per continuar",
+      "paired": "Vinculat amb {{name}}. El seu model transcriurà el vostre dictat."
     }
   },
   "modelTable": {
@@ -326,7 +336,8 @@
   },
   "settings": {
     "modelSettings": {
-      "title": "Configuració de {{model}}"
+      "title": "Configuració de {{model}}",
+      "remoteTitle": "{{model}} a {{computer}}"
     },
     "general": {
       "title": "General",
@@ -365,7 +376,8 @@
           "title": "Automàtica està desactivada",
           "oneLanguage": "Només una de les teves llengües funciona amb aquest model",
           "undetectable": "No disponible amb {{languages}}",
-          "noMatch": "Cap de les teves llengües funciona amb aquest model"
+          "noMatch": "Cap de les teves llengües funciona amb aquest model",
+          "remote": "El model de l'altre ordinador no pot detectar la llengua"
         },
         "detectorMissingTitle": "Automàtica necessita una baixada a part",
         "detectorMissing": "Aquest model no pot saber en quin idioma parles. Automàtica necessita un petit detector d'idioma per esbrinar-ho",
@@ -435,7 +447,7 @@
       }
     },
     "mobile": {
-      "intro": "Feu servir el telèfon com a micròfon d'aquest ordinador. El telèfon enregistra i aquest ordinador transcriu.",
+      "intro": "Els telèfons i altres ordinadors de la vostra xarxa poden dictar amb el model d'aquest ordinador. El telèfon enregistra i aquest ordinador transcriu.",
       "groups": {
         "connection": "Connexió",
         "devices": "Telèfons vinculats",
@@ -473,7 +485,11 @@
         "copied": "S'ha copiat el codi de vinculació",
         "copyFailed": "No s'ha pogut copiar el codi de vinculació",
         "done": "{{name}} s'ha vinculat",
-        "failed": "No s'ha pogut crear un codi de vinculació"
+        "failed": "No s'ha pogut crear un codi de vinculació",
+        "computerButton": "Vincula un ordinador",
+        "computerTitle": "Vincula un ordinador",
+        "computerDescription": "A l'altre ordinador, obriu el Handy, aneu a «Models», trieu «Un altre ordinador», després «Afegeix un ordinador», i enganxeu-hi aquest codi.",
+        "computerNote": "Un ordinador vinculat rep el text de tornada. No pot escriure aquí si no ho permeteu."
       },
       "devices": {
         "empty": "Encara no hi ha cap telèfon vinculat.",
@@ -488,7 +504,12 @@
         "removeConfirmTitle": "Voleu desvincular {{name}}?",
         "removeConfirm": "Aquest telèfon no podrà dictar a través d'aquest ordinador fins que el torneu a vincular.",
         "removeFailed": "No s'ha pogut desvincular el telèfon",
-        "cancel": "Cancel·la"
+        "cancel": "Cancel·la",
+        "transcribing": "S'està transcrivint",
+        "canType": "Escriu aquí",
+        "canTypeDescription": "Enganxa en aquest ordinador el que dicta aquest dispositiu, quan ho demana.",
+        "canTypeLabel": "Permet que {{name}} escrigui en aquest ordinador",
+        "canTypeFailed": "No s'ha pogut canviar"
       },
       "outputMode": {
         "title": "Envia el text a",
@@ -501,6 +522,11 @@
       "postProcess": {
         "label": "Postprocessament",
         "description": "Aplica el postprocessament al que dicten els telèfons."
+      },
+      "model": {
+        "title": "Model",
+        "description": "Amb què transcriuen els telèfons i ordinadors vinculats: el model seleccionat en aquest ordinador.",
+        "none": "Cap. Baixeu-ne un a «Models»."
       }
     },
     "languages": {
@@ -830,7 +856,8 @@
           "model": "Model",
           "demo": "Demostració",
           "try": "Prova-ho",
-          "done": "Tot a punt"
+          "done": "Tot a punt",
+          "connect": "Connexió"
         }
       },
       "onboardingRun": {
@@ -934,6 +961,12 @@
         "verdictOk": "Els esdeveniments de tecla arriben al Handy amb normalitat.",
         "verdictNoEvents": "No s'ha capturat cap esdeveniment. Heu premut alguna tecla durant la prova?",
         "failed": "El diagnòstic ha fallat: {{error}}"
+      },
+      "remoteLink": {
+        "title": "Enllaç remot",
+        "description": "L'enllaç amb l'ordinador amb què transcriu aquest.",
+        "simulateOffline": "Simula que no és accessible",
+        "simulateOfflineDescription": "Les sol·licituds a l'altre ordinador fallen com si no s'hi pogués accedir, per provar què passa llavors."
       }
     },
     "about": {
@@ -966,6 +999,84 @@
           "title": "ggml",
           "description": "Biblioteca de tensors d'alt rendiment per a la inferència d'aprenentatge automàtic al dispositiu",
           "details": "La transcripció local de veu a text del Handy es basa en el transcribe.cpp i el ggml. Gràcies a la gran feina de Georgi Gerganov i dels col·laboradors."
+        }
+      }
+    },
+    "remote": {
+      "engine": {
+        "title": "Transcriu amb",
+        "thisComputer": "Aquest ordinador",
+        "anotherComputer": "Un altre ordinador",
+        "busy": "El Handy no pot canviar amb què transcriu mentre està transcrivint. Torneu-ho a provar quan acabi."
+      },
+      "state": {
+        "transcribing": "S'està transcrivint…",
+        "connectedModel": "Connectat · {{model}}",
+        "noModel": "Connectat · no té cap model baixat",
+        "connecting": "S'està connectant…",
+        "offline": "No és accessible",
+        "rejected": "Ja no està vinculat",
+        "incompatible": "Cal actualitzar-lo",
+        "unused": "No s'utilitza"
+      },
+      "row": {
+        "use": "Transcriu amb {{name}}",
+        "pairedAt": "Vinculat: {{time}}",
+        "selectFailed": "No s'ha pogut canviar a aquest ordinador",
+        "rename": "Canvia el nom",
+        "nameLabel": "Nom de l'ordinador",
+        "renameFailed": "No s'ha pogut canviar el nom de l'ordinador",
+        "reconnect": "Torna-ho a provar ara",
+        "pairAgain": "Torna a vincular",
+        "details": "Detalls",
+        "hostName": "Nom",
+        "address": "Adreça",
+        "fingerprint": "Certificat",
+        "version": "Versió del Handy",
+        "lastError": "Últim error",
+        "forget": "Oblida",
+        "forgetConfirmTitle": "Voleu oblidar {{name}}?",
+        "forgetConfirm": "Aquest ordinador deixarà de transcriure amb ell. Per treure també aquest ordinador de la seva llista, desvinculeu-lo allà, a «Compartició».",
+        "forgetFailed": "No s'ha pogut oblidar l'ordinador",
+        "cancel": "Cancel·la"
+      },
+      "incompatible": "{{name}} té una versió del Handy que no pot transcriure per a aquest ordinador. Actualitzeu el Handy als dos ordinadors.",
+      "computers": {
+        "title": "Ordinadors",
+        "description": "Un altre ordinador amb el Handy pot transcriure per a aquest amb el seu model. Trieu quin voleu fer servir.",
+        "empty": "Encara no hi ha cap ordinador vinculat.",
+        "hint": "L'altre ordinador comparteix el seu model a «Compartició».",
+        "add": "Afegeix un ordinador"
+      },
+      "fallback": {
+        "group": "Quan no és accessible",
+        "label": "Fes servir el model d'aquest ordinador",
+        "description": "Si l'altre ordinador està en repòs, ocupat o fora de línia, transcriu aquí i avisa'n.",
+        "noModel": "Aquest ordinador no té cap model de reserva. Trieu «Aquest ordinador» a dalt per baixar-ne un."
+      },
+      "stays": "A l'altre ordinador només hi va l'àudio, amb la llengua, les paraules personalitzades i les falques. El postprocessament, l'historial i l'enganxament es queden en aquest.",
+      "decidedElsewhere": "Es defineix a l'ordinador que transcriu",
+      "add": {
+        "title": "Afegeix un ordinador",
+        "steps": {
+          "open": "A l'altre ordinador, obriu el Handy i aneu a «Compartició».",
+          "share": "Activeu la compartició, trieu «Vincula un ordinador» i després «Copia el codi».",
+          "paste": "Enganxeu el codi aquí."
+        },
+        "placeholder": "handy://pair?…",
+        "codeLabel": "Codi de vinculació",
+        "pair": "Vincula",
+        "pairing": "S'està vinculant…",
+        "done": "Vinculat amb {{name}}. Ara aquest ordinador transcriu amb ell.",
+        "errors": {
+          "invalid_code": "Això no és un codi de vinculació del Handy.",
+          "expired_code": "Aquest codi ha caducat o ja s'ha fet servir. Genereu-ne un de nou a l'altre ordinador.",
+          "incompatible": "El Handy de l'altre ordinador no pot transcriure per a aquest. Actualitzeu el Handy als dos.",
+          "rate_limited": "Massa intents. Espereu un minut i torneu-ho a provar.",
+          "unreachable": "No es pot accedir a l'altre ordinador. Comproveu que tots dos siguin a la mateixa xarxa i que la compartició hi estigui activada.",
+          "untrusted": "Ha respost una altra cosa a l'adreça de l'altre ordinador. Genereu un codi nou i torneu-ho a provar.",
+          "self": "Aquest codi és d'aquest ordinador. Enganxeu-lo a l'altre.",
+          "failed": "No s'ha pogut vincular. Torneu-ho a provar."
         }
       }
     }
@@ -1030,7 +1141,19 @@
     "mobileServerFailedTitle": "El Handy Mobile no s'ha pogut iniciar",
     "mobileServerFailed": "Els telèfons no es poden connectar. Pot ser que una altra aplicació faci servir el port; trieu-ne un altre a la configuració de Mòbil.",
     "mobileTranscriptionFailedTitle": "El dictat del telèfon ha fallat",
-    "transcriptionFailedTitle": "La transcripció ha fallat"
+    "transcriptionFailedTitle": "La transcripció ha fallat",
+    "remoteUnreachableTitle": "L'ordinador no respon",
+    "remoteUnreachable": "El Handy no ha pogut accedir a l'ordinador amb què transcriu. Comproveu que estigui actiu, a la mateixa xarxa i compartint el seu model.",
+    "remoteBusyTitle": "L'ordinador està ocupat",
+    "remoteBusy": "Algú està dictant a l'ordinador amb què transcriu aquest. Torneu-ho a provar d'aquí a un moment.",
+    "remoteNoModelTitle": "L'ordinador no té model",
+    "remoteNoModel": "L'ordinador amb què transcriu aquest no té cap model. Baixeu-ne un allà.",
+    "remoteRejectedTitle": "Cal tornar a vincular",
+    "remoteRejected": "L'altre ordinador ja no reconeix aquest. Torneu a vincular-los a «Models».",
+    "remoteIncompatibleTitle": "Actualitzeu els dos Handy",
+    "remoteIncompatible": "Els dos ordinadors tenen versions del Handy que no poden funcionar juntes. Actualitzeu-los tots dos.",
+    "remoteFellBackTitle": "Transcrit aquí",
+    "remoteFellBack": "No s'ha pogut fer servir l'altre ordinador, de manera que l'ha transcrit el model d'aquest ordinador."
   },
   "notices": {
     "errorOne": "{{n}} error",

@@ -10,12 +10,15 @@
     "secureInputWarning": "⚠ Shortcuts blocked by Secure Input",
     "language": "Language",
     "autoLanguage": "Auto",
-    "otherLanguages": "Other Languages"
+    "otherLanguages": "Other Languages",
+    "transcribeWith": "Transcribe With",
+    "thisComputer": "This Computer",
+    "offline": "Offline"
   },
   "sidebar": {
     "general": "General",
     "models": "Models",
-    "mobile": "Mobile",
+    "mobile": "Sharing",
     "advanced": "Advanced",
     "postProcessing": "Post Process",
     "history": "History",
@@ -149,7 +152,8 @@
       "downloadInstead": "Download {{size}} instead",
       "pauses": "{{name}} pauses at {{percent}}%",
       "resumeLater": "Pick it again to pick up where it left off",
-      "hint": "Downloads while you finish setup"
+      "hint": "Downloads while you finish setup",
+      "useAnotherComputer": "Use another computer running Handy instead"
     },
     "demo": {
       "title": "Talk in any app, with one shortcut",
@@ -218,6 +222,12 @@
     "linux": {
       "tryIt": "Not working? <guide>Linux setup guide</guide>",
       "done": "Not working in other apps? <guide>Linux setup guide</guide>"
+    },
+    "connect": {
+      "title": "Use Another Computer",
+      "subtitle": "Its model transcribes what you say here, over your network.",
+      "hint": "Pair a computer to continue",
+      "paired": "Paired with {{name}}. Its model will transcribe your dictation."
     }
   },
   "modelTable": {
@@ -326,7 +336,8 @@
   },
   "settings": {
     "modelSettings": {
-      "title": "{{model}} Settings"
+      "title": "{{model}} Settings",
+      "remoteTitle": "{{model}} on {{computer}}"
     },
     "general": {
       "title": "General",
@@ -365,7 +376,8 @@
           "title": "Auto is disabled",
           "oneLanguage": "Only one of your languages works with this model",
           "undetectable": "Not available with {{languages}}",
-          "noMatch": "None of your languages work with this model"
+          "noMatch": "None of your languages work with this model",
+          "remote": "The other computer's model can't detect the language"
         },
         "detectorMissingTitle": "Auto needs a separate download",
         "detectorMissing": "This model can't tell which language you're speaking. Auto needs a small language detector to figure it out",
@@ -435,7 +447,7 @@
       }
     },
     "mobile": {
-      "intro": "Use your phone as a microphone for this computer. The phone records, this computer transcribes.",
+      "intro": "Phones and other computers on your network can dictate with this computer's model. A phone records, this computer transcribes.",
       "groups": {
         "connection": "Connection",
         "devices": "Paired Phones",
@@ -473,7 +485,11 @@
         "copied": "Pairing code copied",
         "copyFailed": "Couldn't copy the pairing code",
         "done": "{{name}} is paired",
-        "failed": "Couldn't Create a Pairing Code"
+        "failed": "Couldn't Create a Pairing Code",
+        "computerButton": "Pair a Computer",
+        "computerTitle": "Pair a Computer",
+        "computerDescription": "On the other computer, open Handy, go to Models, choose Another Computer, then Add a Computer, and paste this code.",
+        "computerNote": "A paired computer gets its text back. It can't type here unless you allow it."
       },
       "devices": {
         "empty": "No phones are paired yet.",
@@ -488,7 +504,12 @@
         "removeConfirmTitle": "Unpair {{name}}?",
         "removeConfirm": "This phone won't be able to dictate through this computer until you pair it again.",
         "removeFailed": "Couldn't Unpair the Phone",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "transcribing": "Transcribing",
+        "canType": "Types here",
+        "canTypeDescription": "Paste what this device dictates into this computer, when it asks to.",
+        "canTypeLabel": "Allow {{name}} to type on this computer",
+        "canTypeFailed": "Couldn't change that"
       },
       "outputMode": {
         "title": "Send Text To",
@@ -501,6 +522,11 @@
       "postProcess": {
         "label": "Post Process",
         "description": "Run Post Process on what phones dictate."
+      },
+      "model": {
+        "title": "Model",
+        "description": "What paired phones and computers transcribe with: the model selected on this computer.",
+        "none": "None. Download one under Models."
       }
     },
     "languages": {
@@ -830,7 +856,8 @@
           "model": "Model",
           "demo": "Demo",
           "try": "Try it",
-          "done": "All set"
+          "done": "All set",
+          "connect": "Connect"
         }
       },
       "onboardingRun": {
@@ -934,6 +961,12 @@
         "verdictOk": "Key events are reaching Handy normally.",
         "verdictNoEvents": "No events captured — did you press any keys during the test?",
         "failed": "Diagnostic failed: {{error}}"
+      },
+      "remoteLink": {
+        "title": "Remote Link",
+        "description": "The link to the computer this one transcribes with.",
+        "simulateOffline": "Simulate Unreachable",
+        "simulateOfflineDescription": "Requests to the other computer fail as if it couldn't be reached, to try what happens then."
       }
     },
     "about": {
@@ -966,6 +999,84 @@
           "title": "ggml",
           "description": "High-performance tensor library for on-device machine learning inference",
           "details": "Handy's local speech-to-text is built on transcribe.cpp and ggml. Thanks to the amazing work by Georgi Gerganov and contributors."
+        }
+      }
+    },
+    "remote": {
+      "engine": {
+        "title": "Transcribe With",
+        "thisComputer": "This Computer",
+        "anotherComputer": "Another Computer",
+        "busy": "Handy can't switch what transcribes while it's transcribing. Try again when it's done."
+      },
+      "state": {
+        "transcribing": "Transcribing…",
+        "connectedModel": "Connected · {{model}}",
+        "noModel": "Connected · it has no model downloaded",
+        "connecting": "Connecting…",
+        "offline": "Can't be reached",
+        "rejected": "No longer paired",
+        "incompatible": "Needs an update",
+        "unused": "Not in use"
+      },
+      "row": {
+        "use": "Transcribe with {{name}}",
+        "pairedAt": "Paired {{time}}",
+        "selectFailed": "Couldn't switch to that computer",
+        "rename": "Rename",
+        "nameLabel": "Computer name",
+        "renameFailed": "Couldn't rename the computer",
+        "reconnect": "Try again now",
+        "pairAgain": "Pair Again",
+        "details": "Details",
+        "hostName": "Name",
+        "address": "Address",
+        "fingerprint": "Certificate",
+        "version": "Handy version",
+        "lastError": "Last error",
+        "forget": "Forget",
+        "forgetConfirmTitle": "Forget {{name}}?",
+        "forgetConfirm": "This computer stops transcribing with it. To take this computer off its list too, unpair it there under Sharing.",
+        "forgetFailed": "Couldn't forget the computer",
+        "cancel": "Cancel"
+      },
+      "incompatible": "{{name}} runs a version of Handy that can't transcribe for this computer. Update Handy on both computers.",
+      "computers": {
+        "title": "Computers",
+        "description": "Another computer running Handy can transcribe for this one with its model. Pick the one to use.",
+        "empty": "No computers are paired yet.",
+        "hint": "The other computer shares its model under Sharing.",
+        "add": "Add a Computer"
+      },
+      "fallback": {
+        "group": "When It Can't Be Reached",
+        "label": "Use This Computer's Model",
+        "description": "If the other computer is asleep, busy or offline, transcribe here instead, and say so.",
+        "noModel": "This computer has no model to fall back on. Choose This Computer above to download one."
+      },
+      "stays": "Only the audio goes to the other computer, with your language, custom words and filler words. Post-processing, history and pasting stay on this one.",
+      "decidedElsewhere": "Set on the computer that transcribes",
+      "add": {
+        "title": "Add a Computer",
+        "steps": {
+          "open": "On the other computer, open Handy and go to Sharing.",
+          "share": "Turn on Sharing, choose Pair a Computer, then Copy Code.",
+          "paste": "Paste the code here."
+        },
+        "placeholder": "handy://pair?…",
+        "codeLabel": "Pairing code",
+        "pair": "Pair",
+        "pairing": "Pairing…",
+        "done": "Paired with {{name}}. This computer now transcribes with it.",
+        "errors": {
+          "invalid_code": "That isn't a Handy pairing code.",
+          "expired_code": "That code has expired or was already used. Make a new one on the other computer.",
+          "incompatible": "The other computer's Handy can't transcribe for this one. Update Handy on both.",
+          "rate_limited": "Too many tries. Wait a minute, then try again.",
+          "unreachable": "The other computer can't be reached. Check that both are on the same network and Sharing is on there.",
+          "untrusted": "Something else answered at the other computer's address. Make a new code and try again.",
+          "self": "That code is from this computer. Paste it on the other one.",
+          "failed": "Pairing didn't work. Try again."
         }
       }
     }
@@ -1030,7 +1141,19 @@
     "mobileServerFailedTitle": "Handy Mobile Couldn't Start",
     "mobileServerFailed": "Phones can't connect. Another app may be using the port; choose a different one in Mobile settings.",
     "mobileTranscriptionFailedTitle": "Phone Dictation Failed",
-    "transcriptionFailedTitle": "Transcription Failed"
+    "transcriptionFailedTitle": "Transcription Failed",
+    "remoteUnreachableTitle": "Other Computer Unreachable",
+    "remoteUnreachable": "Handy couldn't reach the computer it transcribes with. Check that it's awake, on the same network, and sharing its model.",
+    "remoteBusyTitle": "Other Computer Busy",
+    "remoteBusy": "Someone is dictating on the computer this one transcribes with. Try again in a moment.",
+    "remoteNoModelTitle": "Other Computer Has No Model",
+    "remoteNoModel": "The computer this one transcribes with has no model. Download one there.",
+    "remoteRejectedTitle": "Pair the Computer Again",
+    "remoteRejected": "The other computer no longer knows this one. Pair them again in Models.",
+    "remoteIncompatibleTitle": "Update Handy on Both Computers",
+    "remoteIncompatible": "The two computers run versions of Handy that can't work together. Update both.",
+    "remoteFellBackTitle": "Transcribed on This Computer",
+    "remoteFellBack": "The other computer couldn't be used, so this computer's model transcribed it instead."
   },
   "notices": {
     "errorOne": "{{n}} error",

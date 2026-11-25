@@ -61,7 +61,8 @@ Handy is a cross-platform desktop speech-to-text application built with Tauri 2.
   - `model.rs` - Model downloading and management
   - `transcription.rs` - Speech-to-text processing pipeline
   - `history.rs` - Transcription history storage
-  - `mobile.rs` - Handy Mobile: the server paired phones dictate through (see [Handy Mobile](#handy-mobile))
+  - `mobile.rs` - Handy Mobile: the server paired phones and computers dictate through (see [Handy Mobile](#handy-mobile))
+  - `remote.rs` - Transcribing with another computer: this app as a client of another Handy's server (see [Handy Mobile](#handy-mobile))
 - `audio_toolkit/` - Low-level audio processing:
   - `audio/` - Recording sink (VAD, levels, live streaming feed), output devices, WAV I/O
   - `vad/` - Voice Activity Detection (Silero VAD)
@@ -136,7 +137,7 @@ The app enforces single instance behavior — launching when already running bri
 
 ## Handy Mobile
 
-A phone is a remote microphone: it streams a recording to the desktop, which transcribes it and pastes the text or sends it back.
+A phone is a remote microphone: it streams a recording to the desktop, which transcribes it and pastes the text or sends it back. Another computer can pair the same way and use the desktop as its engine.
 
 - `crates/handy-link/` - Shared by both apps. `protocol.rs` (messages), `pairing.rs` (the QR payload and secrets), `tls.rs` (self-signed identity, fingerprint pinning), `discovery.rs` (finding the desktop after its address changed), `server.rs` (feature `server`, the desktop) and `client.rs` (feature `client`, the phone). `tests/roundtrip.rs` runs the whole exchange over a real socket; `examples/link-cli.rs` is a phone in a terminal for testing a desktop.
 - `src-tauri/src/managers/mobile.rs` - Implements `handy_link::server::Host`: owns the server, pairing codes and the paired phones, and runs a phone's recording through `transcribe_in_chunks` like a file job. Phones and the certificate are stored in `mobile_link.json` in the app data directory, not in settings.
@@ -145,11 +146,19 @@ A phone is a remote microphone: it streams a recording to the desktop, which tra
 - `mobile/src-tauri/gen/android/app/src/main/java/com/pais/handy/mobile/HandyKeyboardService.kt` - The Android keyboard: native, no WebView. It records and types; its link is `mobile/src-tauri/src/keyboard.rs`, called through `PhoneLink.kt`, on its own connection (channel `keyboard`). `mobile/src/screens/KeyboardSetup.tsx` walks the user through the permissions, with `SetupBridge` in `MainActivity.kt` reporting where they stand.
 - `mobile/src-tauri/gen/android/app/src/main/java/com/pais/handy/mobile/HandyBubbleService.kt` - The Android floating bubble: an accessibility service that shows a microphone beside any focused text field, drawn by `Blob.kt`. Same link code as the keyboard, on its own connection (channel `bubble`).
 
+Another computer as the engine:
+
+- `src-tauri/src/managers/remote.rs` - The client side, on the computer without the model. While `transcription_engine` is `remote` it keeps a link to the selected paired computer (`remote_server_id`; the secrets are in `remote_servers.json`, not in settings). `actions.rs` sends a dictation's recording there when it ends, file jobs go chunk by chunk, and this computer's model stands in when `remote_fallback` allows (`RemoteFellBack` says so).
+- It asks for a raw transcription (`StartOptions { raw: true }`) with its text settings (`TextOptions`: language, custom words, filler words, Chinese script). The server transcribes the whole recording as a dictation here would (`transcribe_for_device`), applies those settings, and keeps nothing: no WAV, history, post-processing, hook or paste. Post-processing, history and the paste stay on the client.
+- What a device may do is decided by the pairing code the server made (`DeviceKind`), not by what the device says: a computer's code pairs it without `can_type`, so it can't paste on the server. The user can change that per device.
+- `src-tauri/src/commands/remote.rs` and `src/components/settings/remote/` - The engine switch and paired computers on the Models tab; `src/stores/remoteStore.ts` holds the status.
+
 Rules:
 
-- A change either side could misread bumps `PROTOCOL_VERSION`. Unknown JSON messages are ignored by both sides, so adding one doesn't.
+- A change either side could misread bumps `PROTOCOL_VERSION`. Optional fields and new messages don't; what a peer can do beyond the first protocol 2 is listed in its handshake (`protocol::feature`), and a client checks for a feature before relying on it. Unknown JSON messages are ignored by both sides.
 - Dictation at the computer goes first; a phone's transcription waits for it, as file jobs do. One phone dictates at a time.
 - The server is off unless `mobile_enabled` is set, and nothing before authentication is trusted: keep it that way.
+- A server always transcribes with its own model, whatever it itself dictates with: no request is passed on to a third computer.
 
 ## Error notices
 

@@ -10,12 +10,15 @@
     "secureInputWarning": "⚠ Pintasan diblokir oleh Secure Input",
     "language": "Bahasa",
     "autoLanguage": "Otomatis",
-    "otherLanguages": "Bahasa Lain"
+    "otherLanguages": "Bahasa Lain",
+    "transcribeWith": "Transkripsi Dengan",
+    "thisComputer": "Komputer Ini",
+    "offline": "Offline"
   },
   "sidebar": {
     "general": "Umum",
     "models": "Model",
-    "mobile": "Seluler",
+    "mobile": "Berbagi",
     "advanced": "Lanjutan",
     "postProcessing": "Pascaproses",
     "history": "Riwayat",
@@ -149,7 +152,8 @@
       "downloadInstead": "Unduh {{size}} saja",
       "pauses": "{{name}} berhenti sejenak di {{percent}}%",
       "resumeLater": "Pilih lagi untuk melanjutkan dari titik terhenti",
-      "hint": "Diunduh selagi Anda menyelesaikan penyiapan"
+      "hint": "Diunduh selagi Anda menyelesaikan penyiapan",
+      "useAnotherComputer": "Gunakan komputer lain yang menjalankan Handy saja"
     },
     "demo": {
       "title": "Bicara di aplikasi apa pun, dengan satu pintasan",
@@ -218,6 +222,12 @@
     "linux": {
       "tryIt": "Tidak berfungsi? <guide>Panduan penyiapan Linux</guide>",
       "done": "Tidak berfungsi di aplikasi lain? <guide>Panduan penyiapan Linux</guide>"
+    },
+    "connect": {
+      "title": "Gunakan Komputer Lain",
+      "subtitle": "Modelnya mentranskripsi ucapan Anda di sini, melalui jaringan Anda.",
+      "hint": "Sandingkan komputer untuk melanjutkan",
+      "paired": "Tersanding dengan {{name}}. Modelnya akan mentranskripsi dikte Anda."
     }
   },
   "modelTable": {
@@ -326,7 +336,8 @@
   },
   "settings": {
     "modelSettings": {
-      "title": "Pengaturan {{model}}"
+      "title": "Pengaturan {{model}}",
+      "remoteTitle": "{{model}} di {{computer}}"
     },
     "general": {
       "title": "Umum",
@@ -365,7 +376,8 @@
           "title": "Otomatis dinonaktifkan",
           "oneLanguage": "Hanya satu bahasa Anda yang berfungsi dengan model ini",
           "undetectable": "Tidak tersedia untuk {{languages}}",
-          "noMatch": "Tidak ada bahasa Anda yang berfungsi dengan model ini"
+          "noMatch": "Tidak ada bahasa Anda yang berfungsi dengan model ini",
+          "remote": "Model komputer lain tidak dapat mendeteksi bahasa"
         },
         "detectorMissingTitle": "Otomatis memerlukan unduhan terpisah",
         "detectorMissing": "Model ini tidak dapat mengenali bahasa yang Anda ucapkan. Otomatis memerlukan pendeteksi bahasa kecil untuk mengenalinya",
@@ -435,7 +447,7 @@
       }
     },
     "mobile": {
-      "intro": "Gunakan ponsel Anda sebagai mikrofon untuk komputer ini. Ponsel merekam, komputer ini mentranskripsi.",
+      "intro": "Ponsel dan komputer lain di jaringan Anda dapat mendikte dengan model komputer ini. Ponsel merekam, komputer ini mentranskripsi.",
       "groups": {
         "connection": "Koneksi",
         "devices": "Ponsel Tersanding",
@@ -473,7 +485,11 @@
         "copied": "Kode penyandingan disalin",
         "copyFailed": "Gagal menyalin kode penyandingan",
         "done": "{{name}} telah disandingkan",
-        "failed": "Gagal Membuat Kode Penyandingan"
+        "failed": "Gagal Membuat Kode Penyandingan",
+        "computerButton": "Sandingkan Komputer",
+        "computerTitle": "Sandingkan Komputer",
+        "computerDescription": "Di komputer lain, buka Handy, masuk ke Model, pilih Komputer Lain, lalu Tambah Komputer, dan tempelkan kode ini.",
+        "computerNote": "Komputer tersanding menerima kembali teksnya. Komputer itu tidak dapat mengetik di sini kecuali Anda mengizinkannya."
       },
       "devices": {
         "empty": "Belum ada ponsel yang disandingkan.",
@@ -488,7 +504,12 @@
         "removeConfirmTitle": "Lepas sandingan {{name}}?",
         "removeConfirm": "Ponsel ini tidak akan dapat mendikte melalui komputer ini sampai Anda menyandingkannya lagi.",
         "removeFailed": "Gagal Melepas Sandingan Ponsel",
-        "cancel": "Batal"
+        "cancel": "Batal",
+        "transcribing": "Mentranskripsi",
+        "canType": "Mengetik di sini",
+        "canTypeDescription": "Tempelkan hasil dikte perangkat ini ke komputer ini saat perangkat memintanya.",
+        "canTypeLabel": "Izinkan {{name}} mengetik di komputer ini",
+        "canTypeFailed": "Gagal Mengubahnya"
       },
       "outputMode": {
         "title": "Kirim Teks Ke",
@@ -501,6 +522,11 @@
       "postProcess": {
         "label": "Pascaproses",
         "description": "Jalankan Pascaproses pada hasil dikte ponsel."
+      },
+      "model": {
+        "title": "Model",
+        "description": "Model yang digunakan ponsel dan komputer tersanding untuk mentranskripsi: model yang dipilih di komputer ini.",
+        "none": "Tidak ada. Unduh satu di Model."
       }
     },
     "languages": {
@@ -830,7 +856,8 @@
           "model": "Model",
           "demo": "Demo",
           "try": "Coba",
-          "done": "Selesai"
+          "done": "Selesai",
+          "connect": "Hubungkan"
         }
       },
       "onboardingRun": {
@@ -934,6 +961,12 @@
         "verdictOk": "Peristiwa tombol mencapai Handy secara normal.",
         "verdictNoEvents": "Tidak ada peristiwa yang tertangkap — apakah Anda menekan tombol selama pengujian?",
         "failed": "Diagnostik gagal: {{error}}"
+      },
+      "remoteLink": {
+        "title": "Tautan Jarak Jauh",
+        "description": "Tautan ke komputer yang digunakan komputer ini untuk mentranskripsi.",
+        "simulateOffline": "Simulasikan Tak Terjangkau",
+        "simulateOfflineDescription": "Permintaan ke komputer lain gagal seolah-olah komputer itu tidak dapat dijangkau, untuk mencoba apa yang terjadi saat itu."
       }
     },
     "about": {
@@ -966,6 +999,84 @@
           "title": "ggml",
           "description": "Pustaka tensor berkinerja tinggi untuk inferensi pembelajaran mesin di perangkat",
           "details": "Fitur ucapan-ke-teks lokal Handy dibangun menggunakan transcribe.cpp dan ggml. Terima kasih kepada Georgi Gerganov dan para kontributor atas karya luar biasa mereka."
+        }
+      }
+    },
+    "remote": {
+      "engine": {
+        "title": "Transkripsi Dengan",
+        "thisComputer": "Komputer Ini",
+        "anotherComputer": "Komputer Lain",
+        "busy": "Handy tidak dapat mengganti yang mentranskripsi saat sedang mentranskripsi. Coba lagi setelah selesai."
+      },
+      "state": {
+        "transcribing": "Mentranskripsi…",
+        "connectedModel": "Terhubung · {{model}}",
+        "noModel": "Terhubung · belum ada model yang diunduh di sana",
+        "connecting": "Menghubungkan…",
+        "offline": "Tidak dapat dijangkau",
+        "rejected": "Tidak lagi tersanding",
+        "incompatible": "Perlu diperbarui",
+        "unused": "Tidak digunakan"
+      },
+      "row": {
+        "use": "Transkripsi dengan {{name}}",
+        "pairedAt": "Disandingkan {{time}}",
+        "selectFailed": "Gagal Beralih ke Komputer Itu",
+        "rename": "Ganti Nama",
+        "nameLabel": "Nama komputer",
+        "renameFailed": "Gagal Mengganti Nama Komputer",
+        "reconnect": "Coba lagi sekarang",
+        "pairAgain": "Sandingkan Lagi",
+        "details": "Detail",
+        "hostName": "Nama",
+        "address": "Alamat",
+        "fingerprint": "Sertifikat",
+        "version": "Versi Handy",
+        "lastError": "Kesalahan terakhir",
+        "forget": "Lupakan",
+        "forgetConfirmTitle": "Lupakan {{name}}?",
+        "forgetConfirm": "Komputer ini berhenti mentranskripsi dengannya. Untuk menghapus komputer ini dari daftarnya juga, lepas sandingannya di sana melalui Berbagi.",
+        "forgetFailed": "Gagal Melupakan Komputer",
+        "cancel": "Batal"
+      },
+      "incompatible": "{{name}} menjalankan versi Handy yang tidak dapat mentranskripsi untuk komputer ini. Perbarui Handy di kedua komputer.",
+      "computers": {
+        "title": "Komputer",
+        "description": "Komputer lain yang menjalankan Handy dapat mentranskripsi untuk komputer ini dengan modelnya. Pilih yang akan digunakan.",
+        "empty": "Belum ada komputer yang disandingkan.",
+        "hint": "Komputer lain membagikan modelnya melalui Berbagi.",
+        "add": "Tambah Komputer"
+      },
+      "fallback": {
+        "group": "Saat Tidak Dapat Dijangkau",
+        "label": "Gunakan Model Komputer Ini",
+        "description": "Jika komputer lain sedang tidur, sibuk, atau offline, transkripsi di sini saja, dan beri tahu.",
+        "noModel": "Komputer ini tidak punya model cadangan. Pilih Komputer Ini di atas untuk mengunduhnya."
+      },
+      "stays": "Hanya audio yang dikirim ke komputer lain, bersama bahasa, kata khusus, dan kata pengisi Anda. Pascaproses, riwayat, dan penempelan tetap di komputer ini.",
+      "decidedElsewhere": "Diatur di komputer yang mentranskripsi",
+      "add": {
+        "title": "Tambah Komputer",
+        "steps": {
+          "open": "Di komputer lain, buka Handy dan masuk ke Berbagi.",
+          "share": "Aktifkan Berbagi, pilih Sandingkan Komputer, lalu Salin Kode.",
+          "paste": "Tempelkan kodenya di sini."
+        },
+        "placeholder": "handy://pair?…",
+        "codeLabel": "Kode penyandingan",
+        "pair": "Sandingkan",
+        "pairing": "Menyandingkan…",
+        "done": "Tersanding dengan {{name}}. Komputer ini sekarang mentranskripsi dengannya.",
+        "errors": {
+          "invalid_code": "Itu bukan kode penyandingan Handy.",
+          "expired_code": "Kode itu sudah kedaluwarsa atau sudah digunakan. Buat kode baru di komputer lain.",
+          "incompatible": "Handy di komputer lain tidak dapat mentranskripsi untuk komputer ini. Perbarui Handy di keduanya.",
+          "rate_limited": "Terlalu banyak percobaan. Tunggu sebentar, lalu coba lagi.",
+          "unreachable": "Komputer lain tidak dapat dijangkau. Pastikan keduanya berada di jaringan yang sama dan Berbagi aktif di sana.",
+          "untrusted": "Ada perangkat lain yang menjawab di alamat komputer tersebut. Buat kode baru dan coba lagi.",
+          "self": "Kode itu berasal dari komputer ini. Tempelkan di komputer yang lain.",
+          "failed": "Penyandingan gagal. Coba lagi."
         }
       }
     }
@@ -1030,7 +1141,19 @@
     "mobileServerFailedTitle": "Handy Mobile Gagal Dimulai",
     "mobileServerFailed": "Ponsel tidak dapat terhubung. Aplikasi lain mungkin sedang memakai port tersebut; pilih port lain di pengaturan Seluler.",
     "mobileTranscriptionFailedTitle": "Dikte Ponsel Gagal",
-    "transcriptionFailedTitle": "Transkripsi Gagal"
+    "transcriptionFailedTitle": "Transkripsi Gagal",
+    "remoteUnreachableTitle": "Komputer Lain Tak Terjangkau",
+    "remoteUnreachable": "Handy tidak dapat menjangkau komputer yang digunakannya untuk mentranskripsi. Pastikan komputer itu menyala, berada di jaringan yang sama, dan membagikan modelnya.",
+    "remoteBusyTitle": "Komputer Lain Sibuk",
+    "remoteBusy": "Seseorang sedang mendikte di komputer yang digunakan komputer ini untuk mentranskripsi. Coba lagi sebentar lagi.",
+    "remoteNoModelTitle": "Komputer Lain Tanpa Model",
+    "remoteNoModel": "Komputer yang digunakan komputer ini untuk mentranskripsi tidak punya model. Unduh satu di sana.",
+    "remoteRejectedTitle": "Sandingkan Komputer Lagi",
+    "remoteRejected": "Komputer lain tidak lagi mengenali komputer ini. Sandingkan keduanya lagi di Model.",
+    "remoteIncompatibleTitle": "Perbarui Handy di Keduanya",
+    "remoteIncompatible": "Kedua komputer menjalankan versi Handy yang tidak dapat bekerja sama. Perbarui keduanya.",
+    "remoteFellBackTitle": "Ditranskripsi di Sini",
+    "remoteFellBack": "Komputer lain tidak dapat digunakan, jadi model komputer ini yang mentranskripsinya."
   },
   "notices": {
     "errorOne": "{{n}} kesalahan",

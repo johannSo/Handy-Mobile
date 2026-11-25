@@ -1,9 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Check, Copy, Pencil, Smartphone, Trash2, X } from "lucide-react";
+import {
+  Check,
+  Copy,
+  Laptop,
+  Pencil,
+  Smartphone,
+  Trash2,
+  X,
+} from "lucide-react";
 import {
   commands,
   events,
+  type DeviceKind,
   type MobileDevice,
   type MobileOutputMode,
   type MobilePairing,
@@ -18,6 +27,7 @@ import { Dropdown } from "../../ui/Dropdown";
 import { Input } from "../../ui/Input";
 import { SettingContainer } from "../../ui/SettingContainer";
 import { SettingsGroup } from "../../ui/SettingsGroup";
+import { Switch } from "../../ui/Switch";
 import { ToggleSwitch } from "../../ui/ToggleSwitch";
 import { copyToClipboard } from "../history/clipboard";
 
@@ -99,10 +109,12 @@ const PortSetting: React.FC<{ onChanged: () => void }> = ({ onChanged }) => {
 
 const PairingDialog: React.FC<{
   pairing: MobilePairing | null;
+  /** What the code is for: a phone scans it, a computer pastes it. */
+  kind: DeviceKind;
   pairedName: string | null;
   onNewCode: () => void;
   onClose: () => void;
-}> = ({ pairing, pairedName, onNewCode, onClose }) => {
+}> = ({ pairing, kind, pairedName, onNewCode, onClose }) => {
   const { t } = useTranslation();
   const [secondsLeft, setSecondsLeft] = useState(0);
 
@@ -134,7 +146,11 @@ const PairingDialog: React.FC<{
   return (
     <Dialog
       open={pairing !== null}
-      title={t("settings.mobile.pair.title")}
+      title={
+        kind === "computer"
+          ? t("settings.mobile.pair.computerTitle")
+          : t("settings.mobile.pair.title")
+      }
       onOpenChange={(open) => {
         if (!open) onClose();
       }}
@@ -153,6 +169,44 @@ const PairingDialog: React.FC<{
           <Button variant="secondary" size="sm" onClick={onClose}>
             {t("common.close")}
           </Button>
+        </div>
+      ) : pairing && kind === "computer" ? (
+        <div className="flex flex-col gap-3">
+          <p className="text-sm text-ink-2">
+            {t("settings.mobile.pair.computerDescription")}
+          </p>
+          <code
+            className={`block max-h-24 overflow-y-auto break-all rounded-md border border-line bg-wash px-2 py-1.5 font-mono text-xs select-all ${expired ? "opacity-30" : ""}`}
+          >
+            {pairing.code}
+          </code>
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-xs text-ink-3">
+              {expired
+                ? t("settings.mobile.pair.expired")
+                : t("settings.mobile.pair.expires", {
+                    time: `${minutes}:${seconds}`,
+                  })}
+            </p>
+            {expired ? (
+              <Button variant="primary" size="sm" onClick={onNewCode}>
+                {t("settings.mobile.pair.newCode")}
+              </Button>
+            ) : (
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={() => void copyCode()}
+                className="inline-flex items-center gap-1.5"
+              >
+                <Copy className="h-3.5 w-3.5" />
+                {t("settings.mobile.pair.copy")}
+              </Button>
+            )}
+          </div>
+          <p className="text-xs text-ink-3">
+            {t("settings.mobile.pair.computerNote")}
+          </p>
         </div>
       ) : (
         pairing && (
@@ -229,8 +283,22 @@ const DeviceRow: React.FC<{
     }
   };
 
+  const setCanType = async (canType: boolean) => {
+    const result = await commands.setMobileDeviceCanType(device.id, canType);
+    if (result.status === "error") {
+      notify({
+        title: t("settings.mobile.devices.canTypeFailed"),
+        detail: result.error,
+        level: "error",
+      });
+    }
+  };
+
+  const DeviceIcon = device.kind === "computer" ? Laptop : Smartphone;
   const state = device.active
-    ? t("settings.mobile.devices.dictating")
+    ? device.kind === "computer"
+      ? t("settings.mobile.devices.transcribing")
+      : t("settings.mobile.devices.dictating")
     : device.connected
       ? t("settings.mobile.devices.connected")
       : device.last_seen !== null
@@ -241,7 +309,7 @@ const DeviceRow: React.FC<{
 
   return (
     <div className="flex items-center gap-3 px-4 py-2">
-      <Smartphone
+      <DeviceIcon
         className={`h-5 w-5 shrink-0 ${device.connected ? "text-logo-primary" : "text-ink-3"}`}
       />
       <div className="min-w-0 flex-1">
@@ -267,6 +335,21 @@ const DeviceRow: React.FC<{
           <p className="truncate text-sm font-medium">{device.name}</p>
         )}
         <p className="truncate text-xs text-ink-3">{state}</p>
+      </div>
+      <div
+        className="flex items-center gap-2"
+        title={t("settings.mobile.devices.canTypeDescription")}
+      >
+        <span className="text-xs text-ink-3">
+          {t("settings.mobile.devices.canType")}
+        </span>
+        <Switch
+          checked={device.can_type}
+          onChange={(value) => void setCanType(value)}
+          ariaLabel={t("settings.mobile.devices.canTypeLabel", {
+            name: device.name,
+          })}
+        />
       </div>
       <button
         type="button"
@@ -294,6 +377,7 @@ export const MobileSettings: React.FC = () => {
   const { t } = useTranslation();
   const { getSetting, updateSetting, isUpdating } = useSettings();
   const [pairing, setPairing] = useState<MobilePairing | null>(null);
+  const [pairingKind, setPairingKind] = useState<DeviceKind>("phone");
   const [pairedId, setPairedId] = useState<string | null>(null);
   const [removing, setRemoving] = useState<MobileDevice | null>(null);
 
@@ -311,9 +395,10 @@ export const MobileSettings: React.FC = () => {
       ? (devices.find((device) => device.id === pairedId)?.name ?? "")
       : null;
 
-  const startPairing = async () => {
+  const startPairing = async (kind: DeviceKind) => {
     setPairedId(null);
-    const result = await commands.startMobilePairing();
+    setPairingKind(kind);
+    const result = await commands.startMobilePairing(kind);
     if (result.status === "ok") {
       setPairing(result.data);
     } else {
@@ -388,6 +473,18 @@ export const MobileSettings: React.FC = () => {
           </span>
         </SettingContainer>
         <PortSetting onChanged={() => void refresh()} />
+        <SettingContainer
+          title={t("settings.mobile.model.title")}
+          description={t("settings.mobile.model.description")}
+          descriptionMode="tooltip"
+          grouped
+        >
+          <span
+            className={`text-sm ${status && !status.model_name ? "text-warning" : "text-ink-2"}`}
+          >
+            {status?.model_name ?? t("settings.mobile.model.none")}
+          </span>
+        </SettingContainer>
       </SettingsGroup>
 
       <SettingsGroup title={t("settings.mobile.groups.devices")}>
@@ -406,15 +503,24 @@ export const MobileSettings: React.FC = () => {
               ? t("settings.mobile.pair.hint")
               : t("settings.mobile.pair.turnOnFirst")}
           </p>
-          <Button
-            variant="primary"
-            size="md"
-            onClick={() => void startPairing()}
-            disabled={!status?.running}
-            className="shrink-0"
-          >
-            {t("settings.mobile.pair.button")}
-          </Button>
+          <div className="flex shrink-0 gap-2">
+            <Button
+              variant="secondary"
+              size="md"
+              onClick={() => void startPairing("computer")}
+              disabled={!status?.running}
+            >
+              {t("settings.mobile.pair.computerButton")}
+            </Button>
+            <Button
+              variant="primary"
+              size="md"
+              onClick={() => void startPairing("phone")}
+              disabled={!status?.running}
+            >
+              {t("settings.mobile.pair.button")}
+            </Button>
+          </div>
         </div>
       </SettingsGroup>
 
@@ -458,8 +564,9 @@ export const MobileSettings: React.FC = () => {
 
       <PairingDialog
         pairing={pairing}
+        kind={pairingKind}
         pairedName={pairedName}
-        onNewCode={() => void startPairing()}
+        onNewCode={() => void startPairing(pairingKind)}
         onClose={closePairing}
       />
 

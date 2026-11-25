@@ -2,6 +2,7 @@ pub mod audio;
 pub mod history;
 pub mod mobile;
 pub mod models;
+pub mod remote;
 pub mod transcription;
 
 use crate::settings::{

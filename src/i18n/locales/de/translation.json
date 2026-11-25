@@ -10,12 +10,15 @@
     "secureInputWarning": "⚠ Tastenkürzel durch Secure Input blockiert",
     "language": "Sprache",
     "autoLanguage": "Automatisch",
-    "otherLanguages": "Weitere Sprachen"
+    "otherLanguages": "Weitere Sprachen",
+    "transcribeWith": "Transkribieren mit",
+    "thisComputer": "Dieser Computer",
+    "offline": "Offline"
   },
   "sidebar": {
     "general": "Allgemein",
     "models": "Modelle",
-    "mobile": "Mobil",
+    "mobile": "Freigabe",
     "advanced": "Erweitert",
     "postProcessing": "Nachbearbeitung",
     "history": "Verlauf",
@@ -149,7 +152,8 @@
       "downloadInstead": "Stattdessen {{size}} herunterladen",
       "pauses": "{{name}} pausiert bei {{percent}} %",
       "resumeLater": "Wähle es erneut, um dort weiterzumachen, wo es aufgehört hat",
-      "hint": "Wird heruntergeladen, während du die Einrichtung abschließt"
+      "hint": "Wird heruntergeladen, während du die Einrichtung abschließt",
+      "useAnotherComputer": "Stattdessen einen anderen Computer mit Handy verwenden"
     },
     "demo": {
       "title": "Sprich in jeder App, mit einem Tastenkürzel",
@@ -218,6 +222,12 @@
     "linux": {
       "tryIt": "Funktioniert nicht? <guide>Linux-Einrichtungsanleitung</guide>",
       "done": "Funktioniert in anderen Apps nicht? <guide>Linux-Einrichtungsanleitung</guide>"
+    },
+    "connect": {
+      "title": "Anderen Computer verwenden",
+      "subtitle": "Sein Modell transkribiert über dein Netzwerk, was du hier sagst.",
+      "hint": "Kopple einen Computer, um fortzufahren",
+      "paired": "Mit {{name}} gekoppelt. Sein Modell transkribiert dein Diktat."
     }
   },
   "modelTable": {
@@ -326,7 +336,8 @@
   },
   "settings": {
     "modelSettings": {
-      "title": "{{model}}-Einstellungen"
+      "title": "{{model}}-Einstellungen",
+      "remoteTitle": "{{model}} auf {{computer}}"
     },
     "general": {
       "title": "Allgemein",
@@ -365,7 +376,8 @@
           "title": "Automatisch ist deaktiviert",
           "oneLanguage": "Nur eine deiner Sprachen funktioniert mit diesem Modell",
           "undetectable": "Nicht verfügbar mit {{languages}}",
-          "noMatch": "Keine deiner Sprachen funktioniert mit diesem Modell"
+          "noMatch": "Keine deiner Sprachen funktioniert mit diesem Modell",
+          "remote": "Das Modell des anderen Computers kann die Sprache nicht erkennen"
         },
         "detectorMissingTitle": "Automatisch braucht einen separaten Download",
         "detectorMissing": "Dieses Modell erkennt nicht, welche Sprache du sprichst. Automatisch braucht eine kleine Spracherkennung, die das herausfindet",
@@ -435,7 +447,7 @@
       }
     },
     "mobile": {
-      "intro": "Nutze dein Smartphone als Mikrofon für diesen Computer. Das Smartphone nimmt auf, dieser Computer transkribiert.",
+      "intro": "Smartphones und andere Computer in deinem Netzwerk können mit dem Modell dieses Computers diktieren. Ein Smartphone nimmt auf, dieser Computer transkribiert.",
       "groups": {
         "connection": "Verbindung",
         "devices": "Gekoppelte Smartphones",
@@ -473,7 +485,11 @@
         "copied": "Kopplungscode kopiert",
         "copyFailed": "Kopplungscode konnte nicht kopiert werden",
         "done": "{{name}} ist gekoppelt",
-        "failed": "Kopplungscode konnte nicht erstellt werden"
+        "failed": "Kopplungscode konnte nicht erstellt werden",
+        "computerButton": "Computer koppeln",
+        "computerTitle": "Computer koppeln",
+        "computerDescription": "Öffne Handy auf dem anderen Computer, gehe zu Modelle, wähle Anderer Computer, dann Computer hinzufügen, und füge diesen Code ein.",
+        "computerNote": "Ein gekoppelter Computer erhält seinen Text zurück. Er kann hier nur tippen, wenn du es erlaubst."
       },
       "devices": {
         "empty": "Noch keine Smartphones gekoppelt.",
@@ -488,7 +504,12 @@
         "removeConfirmTitle": "{{name}} entkoppeln?",
         "removeConfirm": "Dieses Smartphone kann erst wieder über diesen Computer diktieren, wenn du es erneut koppelst.",
         "removeFailed": "Smartphone konnte nicht entkoppelt werden",
-        "cancel": "Abbrechen"
+        "cancel": "Abbrechen",
+        "transcribing": "Transkribiert",
+        "canType": "Tippt hier",
+        "canTypeDescription": "Fügt das, was dieses Gerät diktiert, auf diesem Computer ein, wenn es darum bittet.",
+        "canTypeLabel": "{{name}} erlauben, auf diesem Computer zu tippen",
+        "canTypeFailed": "Das konnte nicht geändert werden"
       },
       "outputMode": {
         "title": "Text senden an",
@@ -501,6 +522,11 @@
       "postProcess": {
         "label": "Nachbearbeitung",
         "description": "Wendet die Nachbearbeitung auf das an, was Smartphones diktieren."
+      },
+      "model": {
+        "title": "Modell",
+        "description": "Womit gekoppelte Smartphones und Computer transkribieren: das auf diesem Computer ausgewählte Modell.",
+        "none": "Keins. Lade eines unter Modelle herunter."
       }
     },
     "languages": {
@@ -830,7 +856,8 @@
           "model": "Modell",
           "demo": "Demo",
           "try": "Ausprobieren",
-          "done": "Alles bereit"
+          "done": "Alles bereit",
+          "connect": "Verbinden"
         }
       },
       "onboardingRun": {
@@ -934,6 +961,12 @@
         "verdictOk": "Tastenereignisse erreichen Handy normal.",
         "verdictNoEvents": "Keine Ereignisse erfasst — hast du während des Tests Tasten gedrückt?",
         "failed": "Diagnose fehlgeschlagen: {{error}}"
+      },
+      "remoteLink": {
+        "title": "Remote-Verbindung",
+        "description": "Die Verbindung zu dem Computer, mit dem dieser transkribiert.",
+        "simulateOffline": "Unerreichbarkeit simulieren",
+        "simulateOfflineDescription": "Anfragen an den anderen Computer schlagen fehl, als wäre er nicht erreichbar, damit du ausprobieren kannst, was dann passiert."
       }
     },
     "about": {
@@ -966,6 +999,84 @@
           "title": "ggml",
           "description": "Hochleistungs-Inferenz des Whisper-Spracherkennungsmodells von OpenAI",
           "details": "Handy verwendet ggml für schnelle, lokale Sprach-zu-Text-Verarbeitung. Dank an Georgi Gerganov und die Mitwirkenden für ihre großartige Arbeit."
+        }
+      }
+    },
+    "remote": {
+      "engine": {
+        "title": "Transkribieren mit",
+        "thisComputer": "Dieser Computer",
+        "anotherComputer": "Anderer Computer",
+        "busy": "Handy kann nicht wechseln, womit transkribiert wird, während gerade transkribiert wird. Versuche es erneut, wenn es fertig ist."
+      },
+      "state": {
+        "transcribing": "Transkribiert…",
+        "connectedModel": "Verbunden · {{model}}",
+        "noModel": "Verbunden · kein Modell heruntergeladen",
+        "connecting": "Verbindet…",
+        "offline": "Nicht erreichbar",
+        "rejected": "Nicht mehr gekoppelt",
+        "incompatible": "Update erforderlich",
+        "unused": "Nicht verwendet"
+      },
+      "row": {
+        "use": "Mit {{name}} transkribieren",
+        "pairedAt": "Gekoppelt: {{time}}",
+        "selectFailed": "Konnte nicht zu diesem Computer wechseln",
+        "rename": "Umbenennen",
+        "nameLabel": "Name des Computers",
+        "renameFailed": "Computer konnte nicht umbenannt werden",
+        "reconnect": "Jetzt erneut versuchen",
+        "pairAgain": "Erneut koppeln",
+        "details": "Details",
+        "hostName": "Name",
+        "address": "Adresse",
+        "fingerprint": "Zertifikat",
+        "version": "Handy-Version",
+        "lastError": "Letzter Fehler",
+        "forget": "Vergessen",
+        "forgetConfirmTitle": "{{name}} vergessen?",
+        "forgetConfirm": "Dieser Computer transkribiert dann nicht mehr damit. Um diesen Computer auch von dessen Liste zu entfernen, entkopple ihn dort unter Freigabe.",
+        "forgetFailed": "Computer konnte nicht vergessen werden",
+        "cancel": "Abbrechen"
+      },
+      "incompatible": "Auf {{name}} läuft eine Handy-Version, die nicht für diesen Computer transkribieren kann. Aktualisiere Handy auf beiden Computern.",
+      "computers": {
+        "title": "Computer",
+        "description": "Ein anderer Computer mit Handy kann mit seinem Modell für diesen transkribieren. Wähle aus, welcher verwendet werden soll.",
+        "empty": "Noch keine Computer gekoppelt.",
+        "hint": "Der andere Computer gibt sein Modell unter Freigabe frei.",
+        "add": "Computer hinzufügen"
+      },
+      "fallback": {
+        "group": "Wenn er nicht erreichbar ist",
+        "label": "Modell dieses Computers verwenden",
+        "description": "Wenn der andere Computer im Ruhezustand, beschäftigt oder offline ist, wird stattdessen hier transkribiert – mit Hinweis.",
+        "noModel": "Dieser Computer hat kein Modell zum Ausweichen. Wähle oben Dieser Computer, um eines herunterzuladen."
+      },
+      "stays": "Nur das Audio geht an den anderen Computer, zusammen mit deiner Sprache, deinen benutzerdefinierten Wörtern und Füllwörtern. Nachbearbeitung, Verlauf und Einfügen bleiben auf diesem.",
+      "decidedElsewhere": "Wird auf dem transkribierenden Computer festgelegt",
+      "add": {
+        "title": "Computer hinzufügen",
+        "steps": {
+          "open": "Öffne Handy auf dem anderen Computer und gehe zu Freigabe.",
+          "share": "Aktiviere Freigabe, wähle Computer koppeln und dann Code kopieren.",
+          "paste": "Füge den Code hier ein."
+        },
+        "placeholder": "handy://pair?…",
+        "codeLabel": "Kopplungscode",
+        "pair": "Koppeln",
+        "pairing": "Wird gekoppelt…",
+        "done": "Mit {{name}} gekoppelt. Dieser Computer transkribiert jetzt damit.",
+        "errors": {
+          "invalid_code": "Das ist kein Handy-Kopplungscode.",
+          "expired_code": "Dieser Code ist abgelaufen oder wurde schon verwendet. Erstelle auf dem anderen Computer einen neuen.",
+          "incompatible": "Handy auf dem anderen Computer kann nicht für diesen transkribieren. Aktualisiere Handy auf beiden.",
+          "rate_limited": "Zu viele Versuche. Warte eine Minute und versuche es dann erneut.",
+          "unreachable": "Der andere Computer ist nicht erreichbar. Prüfe, ob beide im selben Netzwerk sind und Freigabe dort aktiviert ist.",
+          "untrusted": "Unter der Adresse des anderen Computers hat etwas anderes geantwortet. Erstelle einen neuen Code und versuche es erneut.",
+          "self": "Dieser Code stammt von diesem Computer. Füge ihn auf dem anderen ein.",
+          "failed": "Koppeln hat nicht geklappt. Versuche es erneut."
         }
       }
     }
@@ -1030,7 +1141,19 @@
     "mobileServerFailedTitle": "Handy Mobile konnte nicht starten",
     "mobileServerFailed": "Smartphones können sich nicht verbinden. Möglicherweise verwendet eine andere App den Port; wähle in den Mobil-Einstellungen einen anderen.",
     "mobileTranscriptionFailedTitle": "Smartphone-Diktat fehlgeschlagen",
-    "transcriptionFailedTitle": "Transkription fehlgeschlagen"
+    "transcriptionFailedTitle": "Transkription fehlgeschlagen",
+    "remoteUnreachableTitle": "Computer nicht erreichbar",
+    "remoteUnreachable": "Handy konnte den Computer, mit dem es transkribiert, nicht erreichen. Prüfe, ob er wach ist, im selben Netzwerk ist und sein Modell freigibt.",
+    "remoteBusyTitle": "Anderer Computer belegt",
+    "remoteBusy": "Auf dem Computer, mit dem dieser transkribiert, diktiert gerade jemand. Versuche es gleich noch einmal.",
+    "remoteNoModelTitle": "Anderer Computer ohne Modell",
+    "remoteNoModel": "Der Computer, mit dem dieser transkribiert, hat kein Modell. Lade dort eines herunter.",
+    "remoteRejectedTitle": "Computer erneut koppeln",
+    "remoteRejected": "Der andere Computer kennt diesen nicht mehr. Kopple sie unter Modelle erneut.",
+    "remoteIncompatibleTitle": "Handy auf beiden aktualisieren",
+    "remoteIncompatible": "Die beiden Computer verwenden Handy-Versionen, die nicht zusammenarbeiten können. Aktualisiere beide.",
+    "remoteFellBackTitle": "Lokal transkribiert",
+    "remoteFellBack": "Der andere Computer war nicht nutzbar, daher hat das Modell dieses Computers transkribiert."
   },
   "notices": {
     "errorOne": "{{n}} Fehler",

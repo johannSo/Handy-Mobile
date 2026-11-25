@@ -10,6 +10,7 @@ export type OnboardingStep =
   | "welcome"
   | "permissions"
   | "model"
+  | "connect"
   | "demo"
   | "try"
   | "done";
@@ -18,6 +19,7 @@ export const STEP_ORDER: OnboardingStep[] = [
   "welcome",
   "permissions",
   "model",
+  "connect",
   "demo",
   "try",
   "done",
@@ -43,6 +45,8 @@ interface Persisted {
   returnTo: OnboardingStep | null;
   /** Start Handy at login: set on All set, saved when they finish. */
   atLogin: boolean;
+  /** A model here, or another computer's (the Connect screen). */
+  engine: "local" | "remote";
 }
 
 interface OnboardingState extends Persisted {
@@ -70,6 +74,7 @@ const fresh = (): Persisted => ({
   lessons: { hold: false, tap: false },
   returnTo: null,
   atLogin: true,
+  engine: "local",
 });
 
 const isStringList = (v: unknown): v is string[] =>
@@ -104,6 +109,7 @@ const load = (): Persisted => {
         (v) => v === null || STEP_ORDER.includes(v as OnboardingStep),
       ),
       atLogin: pick("atLogin", isBool),
+      engine: pick("engine", (v) => v === "local" || v === "remote"),
       lessons: pick(
         "lessons",
         (v) =>
@@ -131,6 +137,7 @@ const save = (state: OnboardingState) => {
     lessons: state.lessons,
     returnTo: state.returnTo,
     atLogin: state.atLogin,
+    engine: state.engine,
   };
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(persisted));

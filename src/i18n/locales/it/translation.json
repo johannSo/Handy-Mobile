@@ -10,12 +10,15 @@
     "secureInputWarning": "⚠ Scorciatoie bloccate da Secure Input",
     "language": "Lingua",
     "autoLanguage": "Automatico",
-    "otherLanguages": "Altre lingue"
+    "otherLanguages": "Altre lingue",
+    "transcribeWith": "Trascrivi con",
+    "thisComputer": "Questo computer",
+    "offline": "Offline"
   },
   "sidebar": {
     "general": "Generale",
     "models": "Modelli",
-    "mobile": "Mobile",
+    "mobile": "Condivisione",
     "advanced": "Avanzate",
     "postProcessing": "Post-Elaborazione",
     "history": "Cronologia",
@@ -149,7 +152,8 @@
       "downloadInstead": "Scarica invece {{size}}",
       "pauses": "{{name}} si ferma al {{percent}}%",
       "resumeLater": "Sceglilo di nuovo per riprendere da dove si era fermato",
-      "hint": "Si scarica mentre completi la configurazione"
+      "hint": "Si scarica mentre completi la configurazione",
+      "useAnotherComputer": "Usa invece un altro computer con Handy"
     },
     "demo": {
       "title": "Parla in qualsiasi app, con una sola scorciatoia",
@@ -218,6 +222,12 @@
     "linux": {
       "tryIt": "Non funziona? <guide>Guida alla configurazione su Linux</guide>",
       "done": "Non funziona in altre app? <guide>Guida alla configurazione su Linux</guide>"
+    },
+    "connect": {
+      "title": "Usa un altro computer",
+      "subtitle": "Il suo modello trascrive ciò che dici qui, attraverso la tua rete.",
+      "hint": "Associa un computer per continuare",
+      "paired": "Associato a {{name}}. Il suo modello trascriverà la tua dettatura."
     }
   },
   "modelTable": {
@@ -326,7 +336,8 @@
   },
   "settings": {
     "modelSettings": {
-      "title": "Impostazioni di {{model}}"
+      "title": "Impostazioni di {{model}}",
+      "remoteTitle": "{{model}} su {{computer}}"
     },
     "general": {
       "title": "Generale",
@@ -365,7 +376,8 @@
           "title": "Automatico è disattivato",
           "oneLanguage": "Solo una delle tue lingue funziona con questo modello",
           "undetectable": "Non disponibile con {{languages}}",
-          "noMatch": "Nessuna delle tue lingue funziona con questo modello"
+          "noMatch": "Nessuna delle tue lingue funziona con questo modello",
+          "remote": "Il modello dell'altro computer non può rilevare la lingua"
         },
         "detectorMissingTitle": "Automatico richiede un download separato",
         "detectorMissing": "Questo modello non riesce a capire quale lingua stai parlando. Automatico ha bisogno di un piccolo rilevatore di lingua per capirlo",
@@ -435,7 +447,7 @@
       }
     },
     "mobile": {
-      "intro": "Usa il telefono come microfono per questo computer. Il telefono registra, questo computer trascrive.",
+      "intro": "I telefoni e gli altri computer della tua rete possono dettare con il modello di questo computer. Il telefono registra, questo computer trascrive.",
       "groups": {
         "connection": "Connessione",
         "devices": "Telefoni associati",
@@ -473,7 +485,11 @@
         "copied": "Codice di associazione copiato",
         "copyFailed": "Impossibile copiare il codice di associazione",
         "done": "{{name}} è associato",
-        "failed": "Impossibile creare un codice di associazione"
+        "failed": "Impossibile creare un codice di associazione",
+        "computerButton": "Associa un computer",
+        "computerTitle": "Associa un computer",
+        "computerDescription": "Sull'altro computer apri Handy, vai su Modelli, scegli Altro computer, poi Aggiungi un computer, e incolla questo codice.",
+        "computerNote": "Un computer associato riceve indietro il proprio testo. Non può scrivere qui a meno che tu non lo consenta."
       },
       "devices": {
         "empty": "Nessun telefono associato.",
@@ -488,7 +504,12 @@
         "removeConfirmTitle": "Dissociare {{name}}?",
         "removeConfirm": "Questo telefono non potrà più dettare tramite questo computer finché non lo associ di nuovo.",
         "removeFailed": "Impossibile dissociare il telefono",
-        "cancel": "Annulla"
+        "cancel": "Annulla",
+        "transcribing": "Trascrizione in corso",
+        "canType": "Scrive qui",
+        "canTypeDescription": "Incolla su questo computer ciò che detta questo dispositivo, quando lo richiede.",
+        "canTypeLabel": "Consenti a {{name}} di scrivere su questo computer",
+        "canTypeFailed": "Impossibile modificare l'impostazione"
       },
       "outputMode": {
         "title": "Invia il testo a",
@@ -501,6 +522,11 @@
       "postProcess": {
         "label": "Post-Elaborazione",
         "description": "Applica la post-elaborazione a ciò che dettano i telefoni."
+      },
+      "model": {
+        "title": "Modello",
+        "description": "Con cosa trascrivono i telefoni e i computer associati: il modello selezionato su questo computer.",
+        "none": "Nessuno. Scaricane uno in Modelli."
       }
     },
     "languages": {
@@ -830,7 +856,8 @@
           "model": "Modello",
           "demo": "Demo",
           "try": "Provalo",
-          "done": "Tutto pronto"
+          "done": "Tutto pronto",
+          "connect": "Connessione"
         }
       },
       "onboardingRun": {
@@ -934,6 +961,12 @@
         "verdictOk": "Gli eventi dei tasti arrivano a Handy normalmente.",
         "verdictNoEvents": "Nessun evento rilevato: hai premuto qualche tasto durante il test?",
         "failed": "Diagnostica non riuscita: {{error}}"
+      },
+      "remoteLink": {
+        "title": "Collegamento remoto",
+        "description": "Il collegamento al computer con cui trascrive questo.",
+        "simulateOffline": "Simula irraggiungibile",
+        "simulateOfflineDescription": "Le richieste all'altro computer falliscono come se non fosse raggiungibile, per provare cosa succede in quel caso."
       }
     },
     "about": {
@@ -966,6 +999,84 @@
           "title": "ggml",
           "description": "Inferenza ad alte prestazioni del modello di riconoscimento vocale automatico Whisper di OpenAI",
           "details": "Handy usa ggml per il riconoscimento vocale veloce in locale. Grazie a Georgi Gerganov e collaboratori per il fantastico lavoro."
+        }
+      }
+    },
+    "remote": {
+      "engine": {
+        "title": "Trascrivi con",
+        "thisComputer": "Questo computer",
+        "anotherComputer": "Altro computer",
+        "busy": "Handy non può cambiare ciò con cui trascrive mentre sta trascrivendo. Riprova quando ha finito."
+      },
+      "state": {
+        "transcribing": "Trascrizione in corso…",
+        "connectedModel": "Connesso · {{model}}",
+        "noModel": "Connesso · nessun modello scaricato",
+        "connecting": "Connessione in corso…",
+        "offline": "Non raggiungibile",
+        "rejected": "Non più associato",
+        "incompatible": "Richiede un aggiornamento",
+        "unused": "Non in uso"
+      },
+      "row": {
+        "use": "Trascrivi con {{name}}",
+        "pairedAt": "Associato {{time}}",
+        "selectFailed": "Impossibile passare a quel computer",
+        "rename": "Rinomina",
+        "nameLabel": "Nome del computer",
+        "renameFailed": "Impossibile rinominare il computer",
+        "reconnect": "Riprova ora",
+        "pairAgain": "Associa di nuovo",
+        "details": "Dettagli",
+        "hostName": "Nome",
+        "address": "Indirizzo",
+        "fingerprint": "Certificato",
+        "version": "Versione di Handy",
+        "lastError": "Ultimo errore",
+        "forget": "Dimentica",
+        "forgetConfirmTitle": "Dimenticare {{name}}?",
+        "forgetConfirm": "Questo computer smetterà di trascrivere con esso. Per togliere questo computer anche dal suo elenco, dissocialo lì in Condivisione.",
+        "forgetFailed": "Impossibile dimenticare il computer",
+        "cancel": "Annulla"
+      },
+      "incompatible": "{{name}} usa una versione di Handy che non può trascrivere per questo computer. Aggiorna Handy su entrambi i computer.",
+      "computers": {
+        "title": "Computer",
+        "description": "Un altro computer con Handy può trascrivere per questo con il suo modello. Scegli quale usare.",
+        "empty": "Nessun computer associato.",
+        "hint": "L'altro computer condivide il suo modello in Condivisione.",
+        "add": "Aggiungi un computer"
+      },
+      "fallback": {
+        "group": "Quando non è raggiungibile",
+        "label": "Usa il modello di questo computer",
+        "description": "Se l'altro computer è in stop, occupato o offline, trascrive qui al suo posto e lo segnala.",
+        "noModel": "Questo computer non ha un modello di riserva. Scegli Questo computer qui sopra per scaricarne uno."
+      },
+      "stays": "All'altro computer va solo l'audio, insieme alla tua lingua, alle parole personalizzate e alle parole riempitive. Post-elaborazione, cronologia e incolla restano su questo.",
+      "decidedElsewhere": "Impostato sul computer che trascrive",
+      "add": {
+        "title": "Aggiungi un computer",
+        "steps": {
+          "open": "Sull'altro computer apri Handy e vai su Condivisione.",
+          "share": "Attiva Condivisione, scegli Associa un computer, poi Copia codice.",
+          "paste": "Incolla qui il codice."
+        },
+        "placeholder": "handy://pair?…",
+        "codeLabel": "Codice di associazione",
+        "pair": "Associa",
+        "pairing": "Associazione in corso…",
+        "done": "Associato a {{name}}. Ora questo computer trascrive con esso.",
+        "errors": {
+          "invalid_code": "Questo non è un codice di associazione di Handy.",
+          "expired_code": "Il codice è scaduto o è già stato usato. Creane uno nuovo sull'altro computer.",
+          "incompatible": "Handy sull'altro computer non può trascrivere per questo. Aggiorna Handy su entrambi.",
+          "rate_limited": "Troppi tentativi. Attendi un minuto, poi riprova.",
+          "unreachable": "L'altro computer non è raggiungibile. Controlla che entrambi siano sulla stessa rete e che lì Condivisione sia attiva.",
+          "untrusted": "All'indirizzo dell'altro computer ha risposto qualcos'altro. Crea un nuovo codice e riprova.",
+          "self": "Questo codice viene da questo computer. Incollalo sull'altro.",
+          "failed": "Associazione non riuscita. Riprova."
         }
       }
     }
@@ -1030,7 +1141,19 @@
     "mobileServerFailedTitle": "Impossibile avviare Handy Mobile",
     "mobileServerFailed": "I telefoni non riescono a connettersi. Un'altra app potrebbe usare la porta; scegline un'altra nelle impostazioni Mobile.",
     "mobileTranscriptionFailedTitle": "Dettatura dal telefono non riuscita",
-    "transcriptionFailedTitle": "Trascrizione non riuscita"
+    "transcriptionFailedTitle": "Trascrizione non riuscita",
+    "remoteUnreachableTitle": "Altro computer irraggiungibile",
+    "remoteUnreachable": "Handy non è riuscito a raggiungere il computer con cui trascrive. Controlla che sia acceso, sulla stessa rete e che condivida il suo modello.",
+    "remoteBusyTitle": "Altro computer occupato",
+    "remoteBusy": "Qualcuno sta dettando sul computer con cui trascrive questo. Riprova tra un momento.",
+    "remoteNoModelTitle": "Altro computer senza modello",
+    "remoteNoModel": "Il computer con cui trascrive questo non ha un modello. Scaricane uno lì.",
+    "remoteRejectedTitle": "Associa di nuovo il computer",
+    "remoteRejected": "L'altro computer non riconosce più questo. Associali di nuovo in Modelli.",
+    "remoteIncompatibleTitle": "Aggiorna Handy su entrambi",
+    "remoteIncompatible": "I due computer usano versioni di Handy che non possono funzionare insieme. Aggiornali entrambi.",
+    "remoteFellBackTitle": "Trascritto su questo computer",
+    "remoteFellBack": "Non è stato possibile usare l'altro computer, quindi ha trascritto il modello di questo computer."
   },
   "notices": {
     "errorOne": "{{n}} errore",

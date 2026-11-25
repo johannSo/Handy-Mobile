@@ -1,7 +1,9 @@
 //! The phone side of the link: pair once, then connect and stream.
 
 use crate::pairing::PairingPayload;
-use crate::protocol::{ClientMessage, ErrorCode, OutputMode, ServerMessage, PROTOCOL_VERSION};
+use crate::protocol::{
+    ClientMessage, ErrorCode, ModelInfo, OutputMode, ServerMessage, PROTOCOL_VERSION,
+};
 use crate::tls::pinned_client_config;
 use futures_util::{SinkExt, StreamExt};
 use rustls::pki_types::ServerName;
@@ -145,6 +147,42 @@ pub struct DesktopInfo {
     pub name: String,
     pub version: String,
     pub default_output: OutputMode,
+    /// Empty from a desktop that predates them; see
+    /// [`crate::protocol::feature`].
+    pub features: Vec<String>,
+    pub model: Option<ModelInfo>,
+}
+
+impl DesktopInfo {
+    pub fn has(&self, feature: &str) -> bool {
+        self.features.iter().any(|f| f == feature)
+    }
+}
+
+/// Who is connecting, beyond its pairing.
+#[derive(Clone, Debug, Default)]
+pub struct ClientInfo {
+    /// See [`crate::protocol::device_kind`]. `None` reads as a phone.
+    pub device_kind: Option<String>,
+    pub features: Vec<String>,
+}
+
+/// How [`connect_with`] looks for the desktop.
+#[derive(Clone, Debug)]
+pub struct ConnectOptions {
+    pub client: ClientInfo,
+    /// Broadcast on the network when no known address answers. Off for a
+    /// reconnect loop that would otherwise shout every few seconds.
+    pub discover: bool,
+}
+
+impl Default for ConnectOptions {
+    fn default() -> Self {
+        Self {
+            client: ClientInfo::default(),
+            discover: true,
+        }
+    }
 }
 
 /// Puts the address that worked first, so the next connect tries it first.
@@ -159,6 +197,15 @@ pub async fn pair(
     payload: &PairingPayload,
     device_name: &str,
 ) -> Result<(Desktop, DesktopInfo, Link), LinkError> {
+    pair_with(payload, device_name, &ClientInfo::default()).await
+}
+
+/// [`pair`], saying what kind of device this is and what it can do.
+pub async fn pair_with(
+    payload: &PairingPayload,
+    device_name: &str,
+    client: &ClientInfo,
+) -> Result<(Desktop, DesktopInfo, Link), LinkError> {
     let (mut ws, ip) = open(&payload.addresses, payload.port, &payload.fingerprint).await?;
     send_control(
         &mut ws,
@@ -166,6 +213,8 @@ pub async fn pair(
             protocol: PROTOCOL_VERSION,
             token: payload.token.clone(),
             device_name: device_name.to_string(),
+            device_kind: client.device_kind.clone(),
+            features: client.features.clone(),
         },
     )
     .await?;
@@ -179,6 +228,8 @@ pub async fn pair(
             desktop_name,
             desktop_version,
             default_output,
+            features,
+            model,
         } => {
             let mut addresses = payload.addresses.clone();
             prefer(&mut addresses, ip);
@@ -195,6 +246,8 @@ pub async fn pair(
                 name: desktop_name,
                 version: desktop_version,
                 default_output,
+                features,
+                model,
             };
             Ok((desktop, info, Link::start(ws)))
         }
@@ -214,8 +267,19 @@ pub async fn connect(
     desktop: &mut Desktop,
     channel: &str,
 ) -> Result<(DesktopInfo, Link), LinkError> {
+    connect_with(desktop, channel, &ConnectOptions::default()).await
+}
+
+/// [`connect`], with control over how the desktop is looked for and what
+/// this client tells it about itself.
+pub async fn connect_with(
+    desktop: &mut Desktop,
+    channel: &str,
+    options: &ConnectOptions,
+) -> Result<(DesktopInfo, Link), LinkError> {
     let (mut ws, ip) = match open(&desktop.addresses, desktop.port, &desktop.fingerprint).await {
         Ok(opened) => opened,
+        Err(first) if !options.discover => return Err(first),
         // A wrong certificate at an old address usually means that address
         // now belongs to something else, so look for the desktop either way.
         Err(first) => {
@@ -239,6 +303,7 @@ pub async fn connect(
             device_id: desktop.device_id.clone(),
             secret: desktop.secret.clone(),
             channel: channel.to_string(),
+            features: options.client.features.clone(),
         },
     )
     .await?;
@@ -250,6 +315,8 @@ pub async fn connect(
             desktop_name,
             desktop_version,
             default_output,
+            features,
+            model,
         } => {
             prefer(&mut desktop.addresses, ip);
             desktop.desktop_name = desktop_name.clone();
@@ -257,6 +324,8 @@ pub async fn connect(
                 name: desktop_name,
                 version: desktop_version,
                 default_output,
+                features,
+                model,
             };
             Ok((info, Link::start(ws)))
         }

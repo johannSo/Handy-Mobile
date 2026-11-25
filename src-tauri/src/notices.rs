@@ -56,6 +56,18 @@ pub enum NoticeCode {
     /// The server paired phones connect to couldn't start.
     MobileServerFailed,
     MobileTranscriptionFailed,
+    /// The other computer this one transcribes with can't be reached.
+    RemoteUnreachable,
+    /// It's busy: its own user, or a phone, is dictating.
+    RemoteBusy,
+    /// It has no model to transcribe with.
+    RemoteNoModel,
+    /// It no longer knows this computer; pair again.
+    RemoteRejected,
+    /// Its Handy is too old or too new for this one.
+    RemoteIncompatible,
+    /// The text came from this computer's model instead of the other one.
+    RemoteFellBack,
 }
 
 impl NoticeCode {
@@ -72,8 +84,15 @@ impl NoticeCode {
             | Self::NoModelSelected
             | Self::FileTranscriptionFailed
             | Self::MobileServerFailed
-            | Self::MobileTranscriptionFailed => NoticeLevel::Error,
-            Self::PostProcessFailed | Self::FilePostProcessFailed => NoticeLevel::Warning,
+            | Self::MobileTranscriptionFailed
+            | Self::RemoteUnreachable
+            | Self::RemoteBusy
+            | Self::RemoteNoModel
+            | Self::RemoteRejected
+            | Self::RemoteIncompatible => NoticeLevel::Error,
+            Self::PostProcessFailed | Self::FilePostProcessFailed | Self::RemoteFellBack => {
+                NoticeLevel::Warning
+            }
         }
     }
 
@@ -94,6 +113,12 @@ impl NoticeCode {
             Self::FilePostProcessFailed => &strings.file_post_process_failed_title,
             Self::MobileServerFailed => &strings.mobile_server_failed_title,
             Self::MobileTranscriptionFailed => &strings.mobile_transcription_failed_title,
+            Self::RemoteUnreachable => &strings.remote_unreachable_title,
+            Self::RemoteBusy => &strings.remote_busy_title,
+            Self::RemoteNoModel => &strings.remote_no_model_title,
+            Self::RemoteRejected => &strings.remote_rejected_title,
+            Self::RemoteIncompatible => &strings.remote_incompatible_title,
+            Self::RemoteFellBack => &strings.remote_fell_back_title,
         }
     }
 }

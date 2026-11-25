@@ -10,12 +10,15 @@
     "secureInputWarning": "⚠ Phím tắt bị Secure Input chặn",
     "language": "Ngôn ngữ",
     "autoLanguage": "Tự động",
-    "otherLanguages": "Ngôn ngữ khác"
+    "otherLanguages": "Ngôn ngữ khác",
+    "transcribeWith": "Phiên âm bằng",
+    "thisComputer": "Máy tính này",
+    "offline": "Ngoại tuyến"
   },
   "sidebar": {
     "general": "Chung",
     "models": "Mô hình",
-    "mobile": "Di động",
+    "mobile": "Chia sẻ",
     "advanced": "Nâng cao",
     "postProcessing": "Xử lý sau",
     "history": "Lịch sử",
@@ -149,7 +152,8 @@
       "downloadInstead": "Tải xuống {{size}} thay thế",
       "pauses": "{{name}} tạm dừng ở {{percent}}%",
       "resumeLater": "Chọn lại để tiếp tục từ chỗ đã dừng",
-      "hint": "Tải xuống trong lúc bạn hoàn tất thiết lập"
+      "hint": "Tải xuống trong lúc bạn hoàn tất thiết lập",
+      "useAnotherComputer": "Dùng một máy tính khác đang chạy Handy thay thế"
     },
     "demo": {
       "title": "Nói trong mọi ứng dụng, chỉ với một phím tắt",
@@ -218,6 +222,12 @@
     "linux": {
       "tryIt": "Không hoạt động? <guide>Hướng dẫn thiết lập Linux</guide>",
       "done": "Không hoạt động trong các ứng dụng khác? <guide>Hướng dẫn thiết lập Linux</guide>"
+    },
+    "connect": {
+      "title": "Dùng máy tính khác",
+      "subtitle": "Mô hình của máy đó sẽ phiên âm những gì bạn nói ở đây, qua mạng của bạn.",
+      "hint": "Ghép nối một máy tính để tiếp tục",
+      "paired": "Đã ghép nối với {{name}}. Mô hình của máy đó sẽ phiên âm nội dung bạn đọc chính tả."
     }
   },
   "modelTable": {
@@ -326,7 +336,8 @@
   },
   "settings": {
     "modelSettings": {
-      "title": "Cài đặt {{model}}"
+      "title": "Cài đặt {{model}}",
+      "remoteTitle": "{{model}} trên {{computer}}"
     },
     "general": {
       "title": "Chung",
@@ -365,7 +376,8 @@
           "title": "Tự động đã tắt",
           "oneLanguage": "Chỉ một trong các ngôn ngữ của bạn hoạt động với mô hình này",
           "undetectable": "Không khả dụng với {{languages}}",
-          "noMatch": "Không ngôn ngữ nào của bạn hoạt động với mô hình này"
+          "noMatch": "Không ngôn ngữ nào của bạn hoạt động với mô hình này",
+          "remote": "Mô hình của máy tính kia không nhận diện được ngôn ngữ"
         },
         "detectorMissingTitle": "Tự động cần tải xuống riêng",
         "detectorMissing": "Mô hình này không nhận biết được bạn đang nói ngôn ngữ nào. Tự động cần một trình nhận diện ngôn ngữ nhỏ để xác định",
@@ -435,7 +447,7 @@
       }
     },
     "mobile": {
-      "intro": "Dùng điện thoại làm micro cho máy tính này. Điện thoại ghi âm, máy tính này phiên âm.",
+      "intro": "Điện thoại và các máy tính khác trong mạng của bạn có thể đọc chính tả bằng mô hình của máy tính này. Điện thoại ghi âm, máy tính này phiên âm.",
       "groups": {
         "connection": "Kết nối",
         "devices": "Điện thoại đã ghép nối",
@@ -473,7 +485,11 @@
         "copied": "Đã sao chép mã ghép nối",
         "copyFailed": "Không thể sao chép mã ghép nối",
         "done": "Đã ghép nối {{name}}",
-        "failed": "Không thể tạo mã ghép nối"
+        "failed": "Không thể tạo mã ghép nối",
+        "computerButton": "Ghép nối máy tính",
+        "computerTitle": "Ghép nối máy tính",
+        "computerDescription": "Trên máy tính kia, mở Handy, vào Mô hình, chọn Máy tính khác, rồi chọn Thêm máy tính và dán mã này.",
+        "computerNote": "Máy tính đã ghép nối sẽ nhận lại văn bản. Nó không thể nhập vào đây trừ khi bạn cho phép."
       },
       "devices": {
         "empty": "Chưa có điện thoại nào được ghép nối.",
@@ -488,7 +504,12 @@
         "removeConfirmTitle": "Hủy ghép nối {{name}}?",
         "removeConfirm": "Điện thoại này sẽ không thể đọc chính tả qua máy tính này cho đến khi bạn ghép nối lại.",
         "removeFailed": "Không thể hủy ghép nối điện thoại",
-        "cancel": "Hủy"
+        "cancel": "Hủy",
+        "transcribing": "Đang phiên âm",
+        "canType": "Nhập tại đây",
+        "canTypeDescription": "Dán nội dung thiết bị này đọc chính tả vào máy tính này khi thiết bị yêu cầu.",
+        "canTypeLabel": "Cho phép {{name}} nhập trên máy tính này",
+        "canTypeFailed": "Không thể thay đổi"
       },
       "outputMode": {
         "title": "Gửi văn bản tới",
@@ -501,6 +522,11 @@
       "postProcess": {
         "label": "Xử lý sau",
         "description": "Áp dụng Xử lý sau cho nội dung điện thoại đọc chính tả."
+      },
+      "model": {
+        "title": "Mô hình",
+        "description": "Mô hình mà điện thoại và máy tính đã ghép nối dùng để phiên âm: mô hình đang được chọn trên máy tính này.",
+        "none": "Chưa có. Hãy tải xuống trong Mô hình."
       }
     },
     "languages": {
@@ -830,7 +856,8 @@
           "model": "Mô hình",
           "demo": "Demo",
           "try": "Thử xem",
-          "done": "Hoàn tất"
+          "done": "Hoàn tất",
+          "connect": "Kết nối"
         }
       },
       "onboardingRun": {
@@ -934,6 +961,12 @@
         "verdictOk": "Các sự kiện phím đang đến Handy bình thường.",
         "verdictNoEvents": "Không ghi nhận sự kiện nào — bạn có bấm phím nào trong lúc kiểm tra không?",
         "failed": "Chẩn đoán thất bại: {{error}}"
+      },
+      "remoteLink": {
+        "title": "Liên kết từ xa",
+        "description": "Kết nối tới máy tính mà máy này dùng để phiên âm.",
+        "simulateOffline": "Giả lập không kết nối được",
+        "simulateOfflineDescription": "Các yêu cầu tới máy tính kia sẽ thất bại như thể không kết nối được, để thử xem điều gì xảy ra khi đó."
       }
     },
     "about": {
@@ -966,6 +999,84 @@
           "title": "ggml",
           "description": "Suy luận hiệu suất cao của mô hình nhận dạng giọng nói tự động Whisper của OpenAI",
           "details": "Handy sử dụng ggml để xử lý chuyển đổi giọng nói thành văn bản nhanh, cục bộ. Cảm ơn công việc tuyệt vời của Georgi Gerganov và các cộng tác viên."
+        }
+      }
+    },
+    "remote": {
+      "engine": {
+        "title": "Phiên âm bằng",
+        "thisComputer": "Máy tính này",
+        "anotherComputer": "Máy tính khác",
+        "busy": "Handy không thể đổi nơi phiên âm khi đang phiên âm. Hãy thử lại khi hoàn tất."
+      },
+      "state": {
+        "transcribing": "Đang phiên âm…",
+        "connectedModel": "Đã kết nối · {{model}}",
+        "noModel": "Đã kết nối · máy đó chưa tải mô hình nào",
+        "connecting": "Đang kết nối…",
+        "offline": "Không thể kết nối",
+        "rejected": "Không còn ghép nối",
+        "incompatible": "Cần cập nhật",
+        "unused": "Không sử dụng"
+      },
+      "row": {
+        "use": "Phiên âm bằng {{name}}",
+        "pairedAt": "Đã ghép nối {{time}}",
+        "selectFailed": "Không thể chuyển sang máy tính đó",
+        "rename": "Đổi tên",
+        "nameLabel": "Tên máy tính",
+        "renameFailed": "Không thể đổi tên máy tính",
+        "reconnect": "Thử lại ngay",
+        "pairAgain": "Ghép nối lại",
+        "details": "Chi tiết",
+        "hostName": "Tên",
+        "address": "Địa chỉ",
+        "fingerprint": "Chứng chỉ",
+        "version": "Phiên bản Handy",
+        "lastError": "Lỗi gần nhất",
+        "forget": "Xóa",
+        "forgetConfirmTitle": "Xóa {{name}}?",
+        "forgetConfirm": "Máy tính này sẽ không phiên âm bằng máy đó nữa. Để xóa cả máy tính này khỏi danh sách bên kia, hãy hủy ghép nối trong mục Chia sẻ trên máy đó.",
+        "forgetFailed": "Không thể xóa máy tính",
+        "cancel": "Hủy"
+      },
+      "incompatible": "{{name}} đang chạy phiên bản Handy không thể phiên âm cho máy tính này. Hãy cập nhật Handy trên cả hai máy.",
+      "computers": {
+        "title": "Máy tính",
+        "description": "Một máy tính khác đang chạy Handy có thể phiên âm cho máy này bằng mô hình của nó. Hãy chọn máy muốn dùng.",
+        "empty": "Chưa có máy tính nào được ghép nối.",
+        "hint": "Máy tính kia chia sẻ mô hình của nó trong mục Chia sẻ.",
+        "add": "Thêm máy tính"
+      },
+      "fallback": {
+        "group": "Khi không kết nối được",
+        "label": "Dùng mô hình của máy tính này",
+        "description": "Nếu máy tính kia đang ngủ, bận hoặc ngoại tuyến, hãy phiên âm tại đây và báo cho bạn biết.",
+        "noModel": "Máy tính này không có mô hình dự phòng. Hãy chọn Máy tính này ở trên để tải xuống một mô hình."
+      },
+      "stays": "Chỉ âm thanh được gửi tới máy tính kia, cùng với ngôn ngữ, từ tùy chỉnh và từ đệm của bạn. Xử lý sau, lịch sử và việc dán vẫn diễn ra trên máy này.",
+      "decidedElsewhere": "Được đặt trên máy tính phiên âm",
+      "add": {
+        "title": "Thêm máy tính",
+        "steps": {
+          "open": "Trên máy tính kia, mở Handy và vào Chia sẻ.",
+          "share": "Bật Chia sẻ, chọn Ghép nối máy tính, rồi chọn Sao chép mã.",
+          "paste": "Dán mã vào đây."
+        },
+        "placeholder": "handy://pair?…",
+        "codeLabel": "Mã ghép nối",
+        "pair": "Ghép nối",
+        "pairing": "Đang ghép nối…",
+        "done": "Đã ghép nối với {{name}}. Từ giờ máy tính này phiên âm bằng máy đó.",
+        "errors": {
+          "invalid_code": "Đây không phải mã ghép nối Handy.",
+          "expired_code": "Mã này đã hết hạn hoặc đã được dùng. Hãy tạo mã mới trên máy tính kia.",
+          "incompatible": "Handy trên máy tính kia không thể phiên âm cho máy này. Hãy cập nhật Handy trên cả hai máy.",
+          "rate_limited": "Thử quá nhiều lần. Hãy đợi một phút rồi thử lại.",
+          "unreachable": "Không thể kết nối tới máy tính kia. Hãy kiểm tra cả hai máy cùng mạng và Chia sẻ đã được bật trên máy đó.",
+          "untrusted": "Một thiết bị khác đã phản hồi tại địa chỉ của máy tính kia. Hãy tạo mã mới và thử lại.",
+          "self": "Mã này là của máy tính này. Hãy dán nó trên máy kia.",
+          "failed": "Ghép nối không thành công. Hãy thử lại."
         }
       }
     }
@@ -1030,7 +1141,19 @@
     "mobileServerFailedTitle": "Không thể khởi động Handy Mobile",
     "mobileServerFailed": "Điện thoại không kết nối được. Có thể ứng dụng khác đang dùng cổng này; hãy chọn cổng khác trong cài đặt Di động.",
     "mobileTranscriptionFailedTitle": "Đọc chính tả từ điện thoại thất bại",
-    "transcriptionFailedTitle": "Phiên âm thất bại"
+    "transcriptionFailedTitle": "Phiên âm thất bại",
+    "remoteUnreachableTitle": "Không kết nối được máy kia",
+    "remoteUnreachable": "Handy không kết nối được tới máy tính dùng để phiên âm. Hãy kiểm tra máy đó đang bật, cùng mạng và đang chia sẻ mô hình.",
+    "remoteBusyTitle": "Máy kia đang bận",
+    "remoteBusy": "Có người đang đọc chính tả trên máy tính mà máy này dùng để phiên âm. Hãy thử lại sau giây lát.",
+    "remoteNoModelTitle": "Máy kia chưa có mô hình",
+    "remoteNoModel": "Máy tính dùng để phiên âm chưa có mô hình. Hãy tải xuống một mô hình trên máy đó.",
+    "remoteRejectedTitle": "Hãy ghép nối lại máy tính",
+    "remoteRejected": "Máy tính kia không còn nhận ra máy này. Hãy ghép nối lại trong Mô hình.",
+    "remoteIncompatibleTitle": "Cập nhật Handy trên cả hai máy",
+    "remoteIncompatible": "Hai máy tính đang chạy các phiên bản Handy không tương thích với nhau. Hãy cập nhật cả hai.",
+    "remoteFellBackTitle": "Đã phiên âm trên máy này",
+    "remoteFellBack": "Không dùng được máy tính kia, nên mô hình của máy này đã phiên âm thay."
   },
   "notices": {
     "errorOne": "{{n}} lỗi",

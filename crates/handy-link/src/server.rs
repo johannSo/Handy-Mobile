@@ -7,8 +7,8 @@
 
 use crate::discovery;
 use crate::protocol::{
-    pcm16_to_f32, ClientMessage, ErrorCode, OutputMode, ServerMessage, SessionState,
-    PROTOCOL_VERSION,
+    pcm16_to_f32, ClientMessage, ErrorCode, ModelInfo, OutputMode, ServerMessage, SessionState,
+    StartOptions, PROTOCOL_VERSION,
 };
 use crate::tls::Identity;
 use futures_util::{SinkExt, StreamExt};
@@ -50,6 +50,9 @@ pub struct HostInfo {
     pub name: String,
     pub version: String,
     pub default_output: OutputMode,
+    /// What this desktop can do; see [`crate::protocol::feature`].
+    pub features: Vec<String>,
+    pub model: Option<ModelInfo>,
 }
 
 /// A phone that just paired. The secret goes to the phone once and is never
@@ -66,6 +69,8 @@ pub struct Recording {
     /// `None`: use what the desktop is set to.
     pub output: Option<OutputMode>,
     pub post_process: Option<bool>,
+    /// `None` from a client that predates them.
+    pub options: Option<StartOptions>,
     /// Set when the phone cancels. The host should stop when it sees this,
     /// and must not paste once it is set.
     pub cancelled: Arc<AtomicBool>,
@@ -74,6 +79,20 @@ pub struct Recording {
 pub struct Transcript {
     pub text: String,
     pub pasted: bool,
+    pub language: Option<String>,
+    pub language_source: Option<String>,
+}
+
+impl Transcript {
+    /// Nothing to say: no speech, or a cancelled transcription.
+    pub fn empty() -> Self {
+        Self {
+            text: String::new(),
+            pasted: false,
+            language: None,
+            language_source: None,
+        }
+    }
 }
 
 pub struct Failure {
@@ -104,7 +123,14 @@ impl Failure {
 pub trait Host: Send + Sync + 'static {
     fn info(&self) -> HostInfo;
     /// Redeems a pairing token, or `None` if it's wrong, used or expired.
-    fn pair(&self, token: &str, device_name: &str) -> Option<PairedDevice>;
+    /// `device_kind` is what the device says it is; see
+    /// [`crate::protocol::device_kind`].
+    fn pair(
+        &self,
+        token: &str,
+        device_name: &str,
+        device_kind: Option<&str>,
+    ) -> Option<PairedDevice>;
     fn authenticate(&self, device_id: &str, secret: &str) -> bool;
     fn connected(&self, _device_id: &str, _peer: SocketAddr) {}
     fn disconnected(&self, _device_id: &str) {}
@@ -115,6 +141,8 @@ pub trait Host: Send + Sync + 'static {
     /// The phone's session changed state. `Idle` ends what `begin` started,
     /// however it ended.
     fn state_changed(&self, _device_id: &str, _state: SessionState) {}
+    /// A client is about to record; a good time to load the model.
+    fn prepare(&self, _device_id: &str) {}
     fn transcribe(&self, recording: Recording) -> Result<Transcript, Failure>;
 }
 
@@ -140,6 +168,8 @@ struct Shared {
     next_connection: AtomicU64,
     pending: Arc<Semaphore>,
     kick: broadcast::Sender<Kick>,
+    /// Said to every connected device, such as a model change.
+    announce: broadcast::Sender<ServerMessage>,
     max_recording_samples: usize,
 }
 
@@ -232,6 +262,7 @@ impl Server {
             .map_err(|e| format!("Can't listen on {addr}: {e}"))?;
         let local_addr = listener.local_addr().map_err(|e| e.to_string())?;
         let (kick, _) = broadcast::channel(16);
+        let (announce, _) = broadcast::channel(16);
         let shared = Arc::new(Shared {
             host,
             active: Mutex::new(None),
@@ -240,6 +271,7 @@ impl Server {
             next_connection: AtomicU64::new(1),
             pending: Arc::new(Semaphore::new(MAX_PENDING)),
             kick,
+            announce,
             max_recording_samples: options.max_recording_samples,
         });
 
@@ -297,6 +329,11 @@ impl Server {
         devices.sort();
         devices.dedup();
         devices
+    }
+
+    /// Tells every connected device, such as that the model changed.
+    pub fn announce(&self, message: ServerMessage) {
+        let _ = self.shared.announce.send(message);
     }
 
     /// Drops a phone's connections, such as after it was unpaired.
@@ -431,10 +468,16 @@ where
                 return refuse(&mut ws, ErrorCode::UnsupportedProtocol).await;
             }
             Some(Incoming::Control(ClientMessage::Pair {
-                token, device_name, ..
+                token,
+                device_name,
+                device_kind,
+                ..
             })) => {
-                let Some(paired) = shared.host.pair(&token, &clean_device_name(&device_name))
-                else {
+                let Some(paired) = shared.host.pair(
+                    &token,
+                    &clean_device_name(&device_name),
+                    device_kind.as_deref(),
+                ) else {
                     shared.record_failure(peer.ip());
                     return refuse(&mut ws, ErrorCode::InvalidToken).await;
                 };
@@ -446,6 +489,8 @@ where
                         desktop_name: info.name,
                         desktop_version: info.version,
                         default_output: info.default_output,
+                        features: info.features,
+                        model: info.model,
                     },
                 )
                 .await?;
@@ -467,6 +512,8 @@ where
                         desktop_name: info.name,
                         desktop_version: info.version,
                         default_output: info.default_output,
+                        features: info.features,
+                        model: info.model,
                     },
                 )
                 .await?;
@@ -482,6 +529,7 @@ where
     // Subscribe before announcing, so no kick meant for this connection can
     // slip between the two.
     let mut kicks = shared.kick.subscribe();
+    let mut announcements = shared.announce.subscribe();
     // A phone that reconnects replaces its old connection, which may still
     // look alive from here. Only on the same channel: the phone's app and
     // its keyboard each hold a connection of their own.
@@ -495,7 +543,13 @@ where
     info!("Phone {device_id} connected from {peer}");
 
     let result = session(
-        &shared, &mut ws, &device_id, &channel, connection, &mut kicks,
+        &shared,
+        &mut ws,
+        &device_id,
+        &channel,
+        connection,
+        &mut kicks,
+        &mut announcements,
     )
     .await;
 
@@ -519,6 +573,8 @@ enum Phase {
         samples: Vec<f32>,
         output: Option<OutputMode>,
         post_process: Option<bool>,
+        /// Boxed: it's large, and most phases don't have one.
+        options: Option<Box<StartOptions>>,
     },
     Transcribing {
         cancelled: Arc<AtomicBool>,
@@ -533,6 +589,7 @@ async fn session<S>(
     channel: &str,
     connection: u64,
     kicks: &mut broadcast::Receiver<Kick>,
+    announcements: &mut broadcast::Receiver<ServerMessage>,
 ) -> Result<(), String>
 where
     S: AsyncRead + AsyncWrite + Unpin,
@@ -555,13 +612,21 @@ where
                 // connection; the phone reconnects if it wasn't.
                 _ => return Ok(()),
             },
+            announcement = announcements.recv() => match announcement {
+                Ok(message) => send(ws, &message).await?,
+                // A missed announcement is only stale information.
+                Err(broadcast::error::RecvError::Lagged(_)) => {}
+                Err(broadcast::error::RecvError::Closed) => return Ok(()),
+            },
             result = finished => {
                 let Phase::Transcribing { cancelled, .. } = &phase else {
                     unreachable!("only a transcription finishes");
                 };
                 if !cancelled.load(Ordering::Acquire) {
                     let message = match result {
-                        Ok(Ok(Transcript { text, pasted })) => ServerMessage::Final { text, pasted },
+                        Ok(Ok(Transcript { text, pasted, language, language_source })) => {
+                            ServerMessage::Final { text, pasted, language, language_source }
+                        }
                         Ok(Err(Failure { code, message, text })) => {
                             ServerMessage::Error { code, message, text }
                         }
@@ -593,7 +658,12 @@ where
                         }
                     }
                     Incoming::Control(ClientMessage::Ping) => send(ws, &ServerMessage::Pong).await?,
-                    Incoming::Control(ClientMessage::Start { output, post_process }) => {
+                    Incoming::Control(ClientMessage::Prepare) => {
+                        if matches!(phase, Phase::Idle) {
+                            shared.host.prepare(device_id);
+                        }
+                    }
+                    Incoming::Control(ClientMessage::Start { output, post_process, options }) => {
                         match phase {
                             // Starting again starts over.
                             Phase::Recording { slot, .. } => {
@@ -602,6 +672,7 @@ where
                                     samples: Vec::new(),
                                     output,
                                     post_process,
+                                    options: options.map(Box::new),
                                 };
                             }
                             Phase::Transcribing { .. } => {
@@ -616,6 +687,7 @@ where
                                         samples: Vec::new(),
                                         output,
                                         post_process,
+                                        options: options.map(Box::new),
                                     };
                                 }
                                 Err(code) => {
@@ -665,6 +737,7 @@ where
         samples,
         output,
         post_process,
+        options,
     } = phase
     else {
         return Ok(phase);
@@ -676,6 +749,7 @@ where
         samples,
         output,
         post_process,
+        options: options.map(|options| *options),
         cancelled: Arc::clone(&cancelled),
     };
     shared

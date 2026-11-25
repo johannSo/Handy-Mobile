@@ -1086,6 +1086,12 @@ impl TranscriptionManager {
     /// `audio` runs with: the loaded model, the settings, and the language
     /// resolved for it.
     fn batch_context(&self, audio: &[f32]) -> Result<BatchContext> {
+        self.batch_context_with(audio, get_settings(&self.app_handle))
+    }
+
+    /// [`Self::batch_context`] with the given settings instead of this
+    /// computer's, such as a paired computer's text settings over them.
+    fn batch_context_with(&self, audio: &[f32], settings: AppSettings) -> Result<BatchContext> {
         {
             let mut is_loading = self.is_loading.lock().unwrap();
             while *is_loading {
@@ -1096,7 +1102,6 @@ impl TranscriptionManager {
             return Err(anyhow::anyhow!("Model is not loaded for transcription."));
         };
 
-        let settings = get_settings(&self.app_handle);
         // Validate against the model that's actually loaded (which can differ
         // from settings.selected_model when a caller loaded a specific model —
         // e.g. the --transcribe-file path's --model), not the persisted

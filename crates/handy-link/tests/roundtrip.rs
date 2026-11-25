@@ -1,10 +1,11 @@
 //! The whole exchange over a real socket: pair, reconnect, record, cancel,
 //! and everything the server must refuse.
 
-use handy_link::client::{self, Desktop, Link, LinkError};
+use handy_link::client::{self, ClientInfo, ConnectOptions, Desktop, Link, LinkError};
 use handy_link::pairing::{hash_secret, new_secret, random_hex, secret_matches, PairingPayload};
 use handy_link::protocol::{
-    f32_to_pcm16, ClientMessage, ErrorCode, OutputMode, ServerMessage, SessionState,
+    device_kind, f32_to_pcm16, feature, ClientMessage, ErrorCode, ModelInfo, OutputMode,
+    ServerMessage, SessionState, StartOptions, TextOptions,
 };
 use handy_link::server::{
     Failure, Host, HostInfo, PairedDevice, Recording, Server, ServerOptions, Transcript,
@@ -26,6 +27,20 @@ struct TestHost {
     hold: AtomicBool,
     no_model: AtomicBool,
     saw_cancel: AtomicBool,
+    prepared: AtomicBool,
+    kind: Mutex<Option<String>>,
+    options: Mutex<Option<StartOptions>>,
+}
+
+fn model(id: &str) -> ModelInfo {
+    ModelInfo {
+        id: id.into(),
+        name: id.to_uppercase(),
+        languages: vec!["en".into(), "de".into()],
+        supports_language_selection: true,
+        supports_translation: false,
+        supports_language_detection: true,
+    }
 }
 
 impl Host for TestHost {
@@ -34,10 +49,18 @@ impl Host for TestHost {
             name: "Test Desktop".into(),
             version: "1.2.3".into(),
             default_output: OutputMode::Desktop,
+            features: vec![feature::RAW_TEXT.into(), feature::PREPARE.into()],
+            model: Some(model("large")),
         }
     }
 
-    fn pair(&self, token: &str, _device_name: &str) -> Option<PairedDevice> {
+    fn pair(
+        &self,
+        token: &str,
+        _device_name: &str,
+        device_kind: Option<&str>,
+    ) -> Option<PairedDevice> {
+        *self.kind.lock().unwrap() = device_kind.map(str::to_string);
         let mut expected = self.token.lock().unwrap();
         if expected.as_deref() != Some(token) {
             return None;
@@ -72,7 +95,12 @@ impl Host for TestHost {
         self.states.lock().unwrap().push(state);
     }
 
+    fn prepare(&self, _device_id: &str) {
+        self.prepared.store(true, Ordering::Release);
+    }
+
     fn transcribe(&self, recording: Recording) -> Result<Transcript, Failure> {
+        *self.options.lock().unwrap() = recording.options.clone();
         while self.hold.load(Ordering::Acquire) {
             std::thread::sleep(Duration::from_millis(5));
         }
@@ -83,6 +111,8 @@ impl Host for TestHost {
         Ok(Transcript {
             text: format!("{} samples", recording.samples.len()),
             pasted,
+            language: None,
+            language_source: None,
         })
     }
 }
@@ -163,6 +193,7 @@ async fn pairs_then_reconnects_and_transcribes() {
     link.send(ClientMessage::Start {
         output: Some(OutputMode::Phone),
         post_process: None,
+        options: None,
     })
     .unwrap();
     assert_eq!(next(&mut link).await, state(SessionState::Recording));
@@ -175,7 +206,9 @@ async fn pairs_then_reconnects_and_transcribes() {
         next(&mut link).await,
         ServerMessage::Final {
             text: "16000 samples".into(),
-            pasted: false
+            pasted: false,
+            language: None,
+            language_source: None,
         }
     );
     assert_eq!(next(&mut link).await, state(SessionState::Idle));
@@ -249,6 +282,7 @@ async fn cancel_drops_a_recording_and_a_result() {
     link.send(ClientMessage::Start {
         output: None,
         post_process: None,
+        options: None,
     })
     .unwrap();
     assert_eq!(next(&mut link).await, state(SessionState::Recording));
@@ -261,6 +295,7 @@ async fn cancel_drops_a_recording_and_a_result() {
     link.send(ClientMessage::Start {
         output: None,
         post_process: None,
+        options: None,
     })
     .unwrap();
     assert_eq!(next(&mut link).await, state(SessionState::Recording));
@@ -271,6 +306,7 @@ async fn cancel_drops_a_recording_and_a_result() {
     link.send(ClientMessage::Start {
         output: None,
         post_process: None,
+        options: None,
     })
     .unwrap();
     assert_eq!(next(&mut link).await, ServerMessage::error(ErrorCode::Busy));
@@ -289,6 +325,7 @@ async fn one_phone_at_a_time() {
         .send(ClientMessage::Start {
             output: None,
             post_process: None,
+            options: None,
         })
         .unwrap();
     assert_eq!(next(&mut first).await, state(SessionState::Recording));
@@ -296,6 +333,7 @@ async fn one_phone_at_a_time() {
         .send(ClientMessage::Start {
             output: None,
             post_process: None,
+            options: None,
         })
         .unwrap();
     assert_eq!(
@@ -311,6 +349,7 @@ async fn one_phone_at_a_time() {
             .send(ClientMessage::Start {
                 output: None,
                 post_process: None,
+                options: None,
             })
             .unwrap();
         match next(&mut second).await {
@@ -334,6 +373,7 @@ async fn the_host_can_refuse_a_recording() {
     link.send(ClientMessage::Start {
         output: None,
         post_process: None,
+        options: None,
     })
     .unwrap();
     assert_eq!(
@@ -354,6 +394,7 @@ async fn a_recording_that_runs_too_long_is_cut_and_transcribed() {
     link.send(ClientMessage::Start {
         output: None,
         post_process: None,
+        options: None,
     })
     .unwrap();
     assert_eq!(next(&mut link).await, state(SessionState::Recording));
@@ -369,7 +410,9 @@ async fn a_recording_that_runs_too_long_is_cut_and_transcribed() {
         next(&mut link).await,
         ServerMessage::Final {
             text: "4000 samples".into(),
-            pasted: true
+            pasted: true,
+            language: None,
+            language_source: None,
         }
     );
 }
@@ -386,6 +429,7 @@ async fn a_new_connection_replaces_only_its_own_channel() {
     app.send(ClientMessage::Start {
         output: None,
         post_process: None,
+        options: None,
     })
     .unwrap();
     assert_eq!(next(&mut app).await, state(SessionState::Recording));
@@ -398,6 +442,7 @@ async fn a_new_connection_replaces_only_its_own_channel() {
         .send(ClientMessage::Start {
             output: None,
             post_process: None,
+            options: None,
         })
         .unwrap();
     assert_eq!(next(&mut keyboard).await, state(SessionState::Recording));
@@ -435,4 +480,110 @@ async fn a_moved_desktop_is_found_on_the_network() {
         Err(LinkError::Unreachable(_)) if handy_link::discovery::local_ipv4().is_none() => {}
         Err(e) => panic!("the desktop wasn't found: {e}"),
     }
+}
+
+#[tokio::test(flavor = "multi_thread")]
+async fn a_computer_pairs_and_sends_its_own_text_settings() {
+    let fx = Fixture::start(ServerOptions::default()).await;
+    let client = ClientInfo {
+        device_kind: Some(device_kind::COMPUTER.into()),
+        features: vec![feature::RAW_TEXT.into()],
+    };
+    let (mut desktop, info, link) = client::pair_with(&fx.payload("tok"), "Laptop", &client)
+        .await
+        .unwrap();
+    assert_eq!(fx.host.kind.lock().unwrap().as_deref(), Some("computer"));
+    assert!(info.has(feature::RAW_TEXT));
+    assert_eq!(info.model, Some(model("large")));
+    drop(link);
+
+    let options = ConnectOptions {
+        client,
+        discover: false,
+    };
+    let (info, mut link) = client::connect_with(&mut desktop, "desktop", &options)
+        .await
+        .unwrap();
+    assert!(info.has(feature::PREPARE));
+
+    link.send(ClientMessage::Prepare).unwrap();
+    let start_options = StartOptions {
+        raw: true,
+        text: Some(TextOptions {
+            selected_language: Some("de".into()),
+            custom_words: Some(vec!["Handy".into()]),
+            ..TextOptions::default()
+        }),
+    };
+    link.send(ClientMessage::Start {
+        output: Some(OutputMode::Phone),
+        post_process: Some(false),
+        options: Some(start_options.clone()),
+    })
+    .unwrap();
+    assert_eq!(next(&mut link).await, state(SessionState::Recording));
+    assert!(fx.host.prepared.load(Ordering::Acquire));
+    link.send_audio(audio(1600)).unwrap();
+    link.send(ClientMessage::Stop).unwrap();
+    assert_eq!(next(&mut link).await, state(SessionState::Transcribing));
+    assert!(matches!(next(&mut link).await, ServerMessage::Final { .. }));
+    assert_eq!(*fx.host.options.lock().unwrap(), Some(start_options));
+}
+
+#[tokio::test(flavor = "multi_thread")]
+async fn a_model_change_reaches_every_device() {
+    let fx = Fixture::start(ServerOptions::default()).await;
+    let (_desktop, mut link) = fx.paired().await;
+    // Wait until the server holds the connection.
+    for _ in 0..100 {
+        if !fx.server.connected_devices().is_empty() {
+            break;
+        }
+        tokio::time::sleep(Duration::from_millis(10)).await;
+    }
+    fx.server.announce(ServerMessage::ModelChanged {
+        model: Some(model("small")),
+    });
+    assert_eq!(
+        next(&mut link).await,
+        ServerMessage::ModelChanged {
+            model: Some(model("small"))
+        }
+    );
+}
+
+#[test]
+fn old_and_new_peers_read_each_other() {
+    // A new client's first message, as an old desktop parses it: the extra
+    // fields are ignored.
+    let json = serde_json::to_string(&ClientMessage::Auth {
+        protocol: 2,
+        device_id: "d".into(),
+        secret: "s".into(),
+        channel: "desktop".into(),
+        features: vec![feature::RAW_TEXT.into()],
+    })
+    .unwrap();
+    let value: serde_json::Value = serde_json::from_str(&json).unwrap();
+    assert_eq!(value["type"], "auth");
+    // An old desktop's answer, as a new client parses it.
+    let ready: ServerMessage = serde_json::from_str(
+        r#"{"type":"ready","desktop_name":"D","desktop_version":"0.10.1","default_output":"desktop"}"#,
+    )
+    .unwrap();
+    assert!(matches!(
+        ready,
+        ServerMessage::Ready { ref features, model: None, .. } if features.is_empty()
+    ));
+    // An old phone's pairing, as a new desktop parses it.
+    let pair: ClientMessage =
+        serde_json::from_str(r#"{"type":"pair","protocol":2,"token":"t","device_name":"P"}"#)
+            .unwrap();
+    assert!(matches!(
+        pair,
+        ClientMessage::Pair {
+            device_kind: None,
+            ..
+        }
+    ));
 }

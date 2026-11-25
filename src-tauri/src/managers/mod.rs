@@ -4,5 +4,6 @@ pub mod history;
 pub mod mobile;
 pub mod model;
 pub mod model_capabilities;
+pub mod remote;
 pub mod transcription;
 pub mod transcription_jobs;

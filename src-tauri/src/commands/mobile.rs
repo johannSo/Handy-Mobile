@@ -3,7 +3,7 @@
 //! The ones that start or stop the server are deliberately not `async`: they
 //! block on the runtime to bind the port, which a runtime thread can't do.
 
-use crate::managers::mobile::{MobileLinkManager, MobilePairing, MobileStatus};
+use crate::managers::mobile::{DeviceKind, MobileLinkManager, MobilePairing, MobileStatus};
 use crate::settings::{self, MobileOutputMode};
 use std::sync::Arc;
 use tauri::{AppHandle, State};
@@ -72,8 +72,22 @@ pub fn change_mobile_post_process_setting(app: AppHandle, enabled: bool) -> Resu
 #[specta::specta]
 pub fn start_mobile_pairing(
     manager: State<'_, Arc<MobileLinkManager>>,
+    kind: DeviceKind,
 ) -> Result<MobilePairing, String> {
-    manager.start_pairing().map_err(|e| e.to_string())
+    manager.start_pairing(kind).map_err(|e| e.to_string())
+}
+
+/// Allows or forbids a paired device to paste what it dictates here.
+#[tauri::command]
+#[specta::specta]
+pub fn set_mobile_device_can_type(
+    manager: State<'_, Arc<MobileLinkManager>>,
+    id: String,
+    can_type: bool,
+) -> Result<(), String> {
+    manager
+        .set_device_can_type(&id, can_type)
+        .map_err(|e| e.to_string())
 }
 
 #[tauri::command]

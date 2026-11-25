@@ -1037,20 +1037,6 @@ async updateRecordingRetentionPeriod(period: string) : Promise<Result<null, stri
     else return { status: "error", error: e  as any };
 }
 },
-/**
- * Checks if the Mac is a laptop by detecting battery presence
- * 
- * This uses pmset to check for battery information.
- * Returns true if a battery is detected (laptop), false otherwise (desktop)
- */
-async isLaptop() : Promise<Result<boolean, string>> {
-    try {
-    return { status: "ok", data: await TAURI_INVOKE("is_laptop") };
-} catch (e) {
-    if(e instanceof Error) throw e;
-    else return { status: "error", error: e  as any };
-}
-},
 async getMobileStatus() : Promise<MobileStatus> {
     return await TAURI_INVOKE("get_mobile_status");
 },
@@ -1086,9 +1072,9 @@ async changeMobilePostProcessSetting(enabled: boolean) : Promise<Result<null, st
     else return { status: "error", error: e  as any };
 }
 },
-async startMobilePairing() : Promise<Result<MobilePairing, string>> {
+async startMobilePairing(kind: DeviceKind) : Promise<Result<MobilePairing, string>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("start_mobile_pairing") };
+    return { status: "ok", data: await TAURI_INVOKE("start_mobile_pairing", { kind }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -1108,6 +1094,99 @@ async renameMobileDevice(id: string, name: string) : Promise<Result<null, string
 async removeMobileDevice(id: string) : Promise<Result<null, string>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("remove_mobile_device", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Allows or forbids a paired device to paste what it dictates here.
+ */
+async setMobileDeviceCanType(id: string, canType: boolean) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("set_mobile_device_can_type", { id, canType }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async getRemoteStatus() : Promise<RemoteStatus> {
+    return await TAURI_INVOKE("get_remote_status");
+},
+/**
+ * Pairs with the computer a pasted code describes and selects it. Errors
+ * are codes the UI has words for.
+ */
+async pairRemoteComputer(code: string) : Promise<Result<RemoteServer, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("pair_remote_computer", { code }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async forgetRemoteComputer(id: string) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("forget_remote_computer", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async renameRemoteComputer(id: string, name: string) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("rename_remote_computer", { id, name }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Transcribes with this paired computer from now on.
+ */
+async selectRemoteComputer(id: string) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("select_remote_computer", { id }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async changeTranscriptionEngineSetting(engine: TranscriptionEngine) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("change_transcription_engine_setting", { engine }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async changeRemoteFallbackSetting(enabled: boolean) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("change_remote_fallback_setting", { enabled }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Tries to reach the selected computer now.
+ */
+async reconnectRemoteComputer() : Promise<void> {
+    await TAURI_INVOKE("reconnect_remote_computer");
+},
+/**
+ * Debug: act as if the other computer were unreachable.
+ */
+async setRemoteSimulateOffline(enabled: boolean) : Promise<void> {
+    await TAURI_INVOKE("set_remote_simulate_offline", { enabled });
+},
+/**
+ * Stub implementation for non-macOS platforms
+ * Always returns false since laptop detection is macOS-specific
+ */
+async isLaptop() : Promise<Result<boolean, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("is_laptop") };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -1139,6 +1218,7 @@ historyUpdatePayload: HistoryUpdatePayload,
 mobileLinkChanged: MobileLinkChanged,
 noticesChanged: NoticesChanged,
 recordingStateEvent: RecordingStateEvent,
+remoteStatus: RemoteStatus,
 streamPhaseEvent: StreamPhaseEvent,
 streamTextEvent: StreamTextEvent,
 transcriptionCompleteEvent: TranscriptionCompleteEvent,
@@ -1148,6 +1228,7 @@ historyUpdatePayload: "history-update-payload",
 mobileLinkChanged: "mobile-link-changed",
 noticesChanged: "notices-changed",
 recordingStateEvent: "recording-state-event",
+remoteStatus: "remote-status",
 streamPhaseEvent: "stream-phase-event",
 streamTextEvent: "stream-text-event",
 transcriptionCompleteEvent: "transcription-complete-event",
@@ -1218,7 +1299,19 @@ mobile_output_mode?: MobileOutputMode;
 /**
  * Run Post Process on what a phone dictates, when Post Process is on.
  */
-mobile_post_process?: boolean; post_process_provider_id?: string; post_process_providers?: PostProcessProvider[]; post_process_api_keys?: SecretMap; post_process_models?: Partial<{ [key in string]: string }>; post_process_prompts?: LLMPrompt[]; post_process_selected_prompt_id?: string | null; mute_while_recording?: boolean; append_trailing_space?: boolean; app_language?: string; theme?: Theme; experimental_enabled?: boolean; lazy_stream_close?: boolean; 
+mobile_post_process?: boolean; 
+/**
+ * Transcribe with a model here, or with another computer.
+ */
+transcription_engine?: TranscriptionEngine; 
+/**
+ * The paired computer to transcribe with, when the engine is remote.
+ */
+remote_server_id?: string | null; 
+/**
+ * Use the model on this computer when the other one can't be used.
+ */
+remote_fallback?: boolean; post_process_provider_id?: string; post_process_providers?: PostProcessProvider[]; post_process_api_keys?: SecretMap; post_process_models?: Partial<{ [key in string]: string }>; post_process_prompts?: LLMPrompt[]; post_process_selected_prompt_id?: string | null; mute_while_recording?: boolean; append_trailing_space?: boolean; app_language?: string; theme?: Theme; experimental_enabled?: boolean; lazy_stream_close?: boolean; 
 /**
  * Experimental, macOS only: move a Bluetooth headset (AirPods) to this
  * Mac while recording, so its microphone does not return silence while
@@ -1299,6 +1392,14 @@ export type ChineseScript =
 "traditional_hk"
 export type ClipboardHandling = "dont_modify" | "copy_to_clipboard"
 export type CustomSounds = { start: boolean; stop: boolean }
+/**
+ * What a paired device is.
+ */
+export type DeviceKind = "phone" | 
+/**
+ * Another computer using this one's model.
+ */
+"computer"
 export type GpuDeviceOption = { id: string; name: string; total_vram_mb: number }
 export type HistoryEntry = { id: number; file_name: string; timestamp: number; saved: boolean; title: string; transcription_text: string; post_processed_text: string | null; post_process_prompt: string | null; post_process_requested: boolean; 
 /**
@@ -1398,6 +1499,73 @@ export type LogLevel = "trace" | "debug" | "info" | "warn" | "error"
  * A macOS privacy permission Handy asks for during onboarding.
  */
 export type MacPermission = "accessibility" | "microphone"
+/**
+ * A paired phone, as the Mobile tab lists it.
+ */
+export type MobileDevice = { id: string; name: string; 
+/**
+ * Unix seconds.
+ */
+paired_at: number; last_seen: number | null; connected: boolean; 
+/**
+ * Recording or being transcribed right now.
+ */
+active: boolean; kind: DeviceKind; 
+/**
+ * May paste into this computer.
+ */
+can_type: boolean }
+/**
+ * Something on the Mobile tab is out of date: a phone paired, connected,
+ * left, or started or finished dictating.
+ */
+export type MobileLinkChanged = { 
+/**
+ * The phone that just paired, so the pairing dialog can close itself.
+ */
+paired_device: string | null }
+/**
+ * Where the desktop sends what a paired phone dictates. The phone is sent
+ * the text either way.
+ */
+export type MobileOutputMode = 
+/**
+ * Paste it into the focused app on this computer.
+ */
+"desktop" | 
+/**
+ * Only send it back to the phone.
+ */
+"phone"
+/**
+ * What the pairing dialog shows.
+ */
+export type MobilePairing = { 
+/**
+ * The code itself, for typing in where a camera can't be used.
+ */
+code: string; 
+/**
+ * The same code as a QR code.
+ */
+qr_svg: string; expires_in_secs: number }
+export type MobileStatus = { 
+/**
+ * Listening for phones.
+ */
+running: boolean; port: number; 
+/**
+ * The addresses a phone on the same network can reach this computer at.
+ */
+addresses: string[]; 
+/**
+ * Why the server isn't running although it's turned on.
+ */
+error: string | null; devices: MobileDevice[]; 
+/**
+ * The model paired devices transcribe with, `None` without one.
+ */
+model_name: string | null }
 export type ModelInfo = { id: string; name: string; description: string; filename: string; source: ModelSource; size_mb: number; is_downloaded: boolean; is_downloading: boolean; partial_size: number; accuracy_score: number; speed_score: number; supports_translation: boolean; is_recommended: boolean; supported_languages: string[]; supports_language_selection: boolean; is_custom: boolean; supports_streaming: boolean; supports_language_detection: boolean }
 export type ModelLoadStatus = { is_loaded: boolean; current_model: string | null }
 /**
@@ -1433,12 +1601,35 @@ detail: string | null }
 /**
  * The frontend maps each code to its text in `src/lib/notices.ts`.
  */
-export type MobileDevice = { id: string; name: string; paired_at: number; last_seen: number | null; connected: boolean; active: boolean }
-export type MobileLinkChanged = { paired_device: string | null }
-export type MobileOutputMode = "desktop" | "phone"
-export type MobilePairing = { code: string; qr_svg: string; expires_in_secs: number }
-export type MobileStatus = { running: boolean; port: number; addresses: string[]; error: string | null; devices: MobileDevice[] }
-export type NoticeCode = "TranscriptionFailed" | "PasteFailed" | "PasteBlockedElevated" | "NoMicrophone" | "MicrophoneSilent" | "MicPermissionDenied" | "RecordingFailed" | "ModelLoadFailed" | "NoModelSelected" | "PostProcessFailed" | "FileTranscriptionFailed" | "FilePostProcessFailed" | "MobileServerFailed" | "MobileTranscriptionFailed"
+export type NoticeCode = "TranscriptionFailed" | "PasteFailed" | "PasteBlockedElevated" | "NoMicrophone" | "MicrophoneSilent" | "MicPermissionDenied" | "RecordingFailed" | "ModelLoadFailed" | "NoModelSelected" | "PostProcessFailed" | "FileTranscriptionFailed" | "FilePostProcessFailed" | 
+/**
+ * The server paired phones connect to couldn't start.
+ */
+"MobileServerFailed" | "MobileTranscriptionFailed" | 
+/**
+ * The other computer this one transcribes with can't be reached.
+ */
+"RemoteUnreachable" | 
+/**
+ * It's busy: its own user, or a phone, is dictating.
+ */
+"RemoteBusy" | 
+/**
+ * It has no model to transcribe with.
+ */
+"RemoteNoModel" | 
+/**
+ * It no longer knows this computer; pair again.
+ */
+"RemoteRejected" | 
+/**
+ * Its Handy is too old or too new for this one.
+ */
+"RemoteIncompatible" | 
+/**
+ * The text came from this computer's model instead of the other one.
+ */
+"RemoteFellBack"
 export type NoticeLevel = 
 /**
  * Nothing came out, or Handy can't do its job.
@@ -1451,7 +1642,8 @@ export type NoticeLevel =
 /**
  * Each source has one slot in the store. Only dictation notices use the
  * overlay: a file job finishes while the user is doing something else, and
- * `Model` is a switch the user made in Settings or the tray.
+ * `Model` is a switch the user made in Settings or the tray, and `Mobile`
+ * is a paired phone, whose user is looking at the phone.
  */
 export type NoticeSource = "dictation" | "file" | "model" | "mobile"
 export type NoticesChanged = { 
@@ -1511,6 +1703,75 @@ export type RecordingPhase =
 "cancelled"
 export type RecordingRetentionPeriod = "never" | "preserve_limit" | "days_3" | "weeks_2" | "months_3"
 export type RecordingStateEvent = { phase: RecordingPhase }
+/**
+ * Where the link to the selected computer stands.
+ */
+export type RemoteLinkState = 
+/**
+ * Not transcribing with another computer, or none is selected.
+ */
+"unused" | "connecting" | "connected" | 
+/**
+ * It can't be reached; trying again on its own.
+ */
+"offline" | 
+/**
+ * It no longer knows this computer. Pairing again fixes it.
+ */
+"rejected" | 
+/**
+ * One of the two is too old for the other.
+ */
+"incompatible"
+/**
+ * The model a computer transcribes with.
+ */
+export type RemoteModel = { id: string; name: string; languages: string[]; supports_language_selection: boolean; supports_translation: boolean; supports_language_detection: boolean }
+/**
+ * A paired computer, as the Models tab lists it.
+ */
+export type RemoteServer = { id: string; name: string; 
+/**
+ * What it calls itself.
+ */
+host_name: string; addresses: string[]; port: number; 
+/**
+ * The start of its certificate's fingerprint, to tell two apart.
+ */
+fingerprint: string; 
+/**
+ * Unix seconds.
+ */
+paired_at: number }
+/**
+ * Everything the UI shows about transcribing with another computer.
+ */
+export type RemoteStatus = { 
+/**
+ * The engine is set to another computer and one is selected.
+ */
+in_use: boolean; selected: string | null; link: RemoteLinkState; 
+/**
+ * Its version, once connected.
+ */
+version: string | null; 
+/**
+ * The model it transcribes with, once connected. `None` there means it
+ * has none.
+ */
+model: RemoteModel | null; 
+/**
+ * A request is under way.
+ */
+busy: boolean; 
+/**
+ * Why the last attempt failed, for the curious.
+ */
+detail: string | null; servers: RemoteServer[]; 
+/**
+ * Debug: requests fail as if the computer were unreachable.
+ */
+simulate_offline: boolean }
 /**
  * A retired ONNX model found on disk.
  */
@@ -1610,6 +1871,18 @@ export type TranscribeAcceleratorSetting = "auto" | "cpu" | "gpu"
  * Emitted when a dictation finishes (not on cancel); onboarding uses it to measure speed.
  */
 export type TranscriptionCompleteEvent = { outcome: TranscriptionOutcome; audio_seconds: number; wait_seconds: number }
+/**
+ * What turns this computer's dictation into text.
+ */
+export type TranscriptionEngine = 
+/**
+ * A model on this computer.
+ */
+"local" | 
+/**
+ * Another computer running Handy, paired from the Models tab.
+ */
+"remote"
 /**
  * A background transcription of one History entry.
  */

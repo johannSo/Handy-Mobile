@@ -7,12 +7,13 @@ use std::time::Instant;
 use transcribe_cpp::Transcript;
 
 use super::{
-    agreed_language, engine_error, post_process_transcription_text, real_time_factor, BatchContext,
-    Transcription, TranscriptionManager,
+    agreed_language, engine_error, finish_text, post_process_transcription_text, real_time_factor,
+    BatchContext, Transcription, TranscriptionManager,
 };
 use crate::audio_toolkit::chunking::Chunker;
 use crate::engine_supervisor::EngineError;
 use crate::managers::audio::create_detector;
+use crate::settings::AppSettings;
 
 /// Tries per chunk when a dictation's cancel interrupts it.
 const MAX_CHUNK_ATTEMPTS: usize = 3;
@@ -30,6 +31,11 @@ pub trait ChunkControl {
     fn proceed(&self) -> bool;
     /// `done` of `total` samples are transcribed.
     fn progress(&self, done: usize, total: usize);
+    /// Whether the transcription was stopped, without waiting. For work
+    /// that can be abandoned midway, such as a request to another computer.
+    fn stopped(&self) -> bool {
+        false
+    }
 }
 
 impl TranscriptionManager {
@@ -132,6 +138,72 @@ impl TranscriptionManager {
         );
         Ok(Some(Transcription {
             text: paragraphs.join("\n\n"),
+            language: Some(language),
+        }))
+    }
+}
+
+impl TranscriptionManager {
+    /// Transcribe a whole recording the way a dictation here would be, for
+    /// another device: one run (or the chunks of a long-form model, joined
+    /// as a dictation joins them), with `settings` instead of this
+    /// computer's. `None` if `control` stopped it.
+    ///
+    /// Dictation here goes first: `control` is asked before each attempt,
+    /// and an attempt a dictation's cancel interrupts is tried again.
+    pub fn transcribe_for_device(
+        &self,
+        audio: Vec<f32>,
+        settings: AppSettings,
+        control: &dyn ChunkControl,
+    ) -> Result<Option<Transcription>> {
+        let started = Instant::now();
+        let total = audio.len();
+        if total == 0 {
+            return Ok(Some(Transcription {
+                text: String::new(),
+                language: None,
+            }));
+        }
+        self.touch_activity();
+        self.initiate_model_load(false);
+
+        let mut attempts = 0;
+        let outcome = loop {
+            if !control.proceed() {
+                return Ok(None);
+            }
+            attempts += 1;
+            let mark = self.engine.cancel_mark();
+            let batch = self.batch_context_with(&audio, settings.clone())?;
+            match self.transcribe_cpp(mark, batch, audio.clone()) {
+                Ok(outcome) => break outcome,
+                Err(e)
+                    if attempts < MAX_CHUNK_ATTEMPTS
+                        && matches!(
+                            e.downcast_ref::<EngineError>(),
+                            Some(EngineError::Cancelled)
+                        ) =>
+                {
+                    warn!("A device's transcription was cancelled here; trying it again");
+                }
+                Err(e) => return Err(e),
+            }
+        };
+        let language = outcome
+            .setup
+            .spoken_language(outcome.model_detected_language.as_deref());
+        let text = finish_text(outcome, &settings);
+        let elapsed_secs = started.elapsed().as_secs_f64();
+        let audio_secs = total as f64 / 16_000.0;
+        info!(
+            "Transcribed {:.1}s of a device's audio in {:.1}s ({:.1}x real time)",
+            audio_secs,
+            elapsed_secs,
+            real_time_factor(audio_secs, elapsed_secs)
+        );
+        Ok(Some(Transcription {
+            text,
             language: Some(language),
         }))
     }

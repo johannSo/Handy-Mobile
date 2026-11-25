@@ -19,6 +19,7 @@ use tauri_specta::Event;
 use crate::actions::process_transcription_output;
 use crate::audio_toolkit::{decode_audio_file, read_wav_samples, save_wav_file};
 use crate::managers::history::{HistoryEntry, HistoryManager};
+use crate::managers::remote::{self, RemoteEngineManager, RemoteError};
 use crate::managers::transcription::{
     panic_payload_message, ChunkControl, Transcription, TranscriptionManager,
 };
@@ -281,10 +282,16 @@ impl TranscriptionJobManager {
                 }
                 Ok(JobEnd::Finished {
                     post_process_failed,
+                    fell_back,
                 }) => {
                     // Clear first, so the warning about this job survives it.
                     notices::clear(&self.app, NoticeSource::File);
-                    if post_process_failed {
+                    if fell_back {
+                        notices::raise(
+                            &self.app,
+                            Notice::new(NoticeCode::RemoteFellBack, NoticeSource::File),
+                        );
+                    } else if post_process_failed {
                         notices::raise(
                             &self.app,
                             Notice::new(NoticeCode::FilePostProcessFailed, NoticeSource::File),
@@ -315,8 +322,23 @@ impl TranscriptionJobManager {
             cancelled,
             percent: Cell::new(0),
         };
-        let Some(Transcription { text, language }) = tm.transcribe_in_chunks(samples, &control)?
-        else {
+        let remote = Arc::clone(&self.app.state::<Arc<RemoteEngineManager>>());
+        let mut fell_back = false;
+        let transcribed = if remote.in_use() {
+            match remote::transcribe_file(&self.app, &samples, &control) {
+                Ok(transcribed) => transcribed,
+                Err(RemoteError::Cancelled) => None,
+                Err(e) if remote::can_fall_back(&self.app) => {
+                    warn!("Transcribing a file with the other computer failed ({e}); using this computer's model");
+                    fell_back = true;
+                    tm.transcribe_in_chunks(samples, &control)?
+                }
+                Err(e) => return Err(anyhow!(e)),
+            }
+        } else {
+            tm.transcribe_in_chunks(samples, &control)?
+        };
+        let Some(Transcription { text, language }) = transcribed else {
             return Ok(JobEnd::Cancelled);
         };
         if text.is_empty() {
@@ -345,13 +367,18 @@ impl TranscriptionJobManager {
         )?;
         Ok(JobEnd::Finished {
             post_process_failed,
+            fell_back,
         })
     }
 }
 
 /// A cancelled job changes no notices.
 enum JobEnd {
-    Finished { post_process_failed: bool },
+    Finished {
+        post_process_failed: bool,
+        /// This computer's model stood in for the other computer's.
+        fell_back: bool,
+    },
     Cancelled,
 }
 
@@ -389,6 +416,10 @@ impl ChunkControl for Control<'_> {
             }
             thread::sleep(DICTATION_POLL);
         }
+    }
+
+    fn stopped(&self) -> bool {
+        self.cancelled.load(Ordering::Acquire)
     }
 
     fn progress(&self, done: usize, total: usize) {

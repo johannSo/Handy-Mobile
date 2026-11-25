@@ -31,9 +31,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Some("send") => {
             let wav = args
                 .get(1)
-                .ok_or("usage: link-cli send <wav> [phone|desktop] [state-file]")?;
+                .ok_or("usage: link-cli send <wav> [phone|desktop|raw] [state-file]")?;
+            // `raw` asks what a computer using the desktop as its engine asks:
+            // the bare transcript, kept off the desktop.
+            let raw = args.get(2).map(String::as_str) == Some("raw");
             let output = match args.get(2).map(String::as_str) {
-                Some("phone") => Some(OutputMode::Phone),
+                Some("phone") | Some("raw") => Some(OutputMode::Phone),
                 Some("desktop") => Some(OutputMode::Desktop),
                 _ => None,
             };
@@ -48,7 +51,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             link.send(ClientMessage::Start {
                 output,
-                post_process: None,
+                post_process: raw.then_some(false),
+                options: raw.then_some(handy_link::protocol::StartOptions {
+                    raw: true,
+                    text: None,
+                }),
             })?;
             // 100 ms frames, sent faster than real time: a test needn't wait.
             for frame in pcm.chunks(3200) {
@@ -58,8 +65,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             link.send(ClientMessage::Stop)?;
             while let Some(message) = link.recv().await {
                 match message {
-                    ServerMessage::Final { text, pasted } => {
-                        println!("pasted on desktop: {pasted}\n{text}");
+                    ServerMessage::Final {
+                        text,
+                        pasted,
+                        language,
+                        ..
+                    } => {
+                        println!(
+                            "pasted on desktop: {pasted}, language: {}\n{text}",
+                            language.as_deref().unwrap_or("?")
+                        );
                     }
                     ServerMessage::Error {
                         code,
@@ -83,7 +98,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         }
         _ => {
-            eprintln!("usage: link-cli pair <code> [state-file]\n       link-cli send <wav> [phone|desktop] [state-file]");
+            eprintln!("usage: link-cli pair <code> [state-file]\n       link-cli send <wav> [phone|desktop|raw] [state-file]");
             std::process::exit(2);
         }
     }

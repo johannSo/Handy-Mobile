@@ -232,6 +232,10 @@ fn initialize_core_logic(app_handle: &AppHandle) {
     app_handle.manage(mobile_link.clone());
     mobile_link.apply_settings();
 
+    let remote_engine = managers::remote::RemoteEngineManager::new(app_handle);
+    app_handle.manage(remote_engine.clone());
+    remote_engine.apply_settings();
+
     // Note: Shortcuts are NOT initialized here.
     // The frontend is responsible for calling the `initialize_shortcuts` command
     // after permissions are confirmed (on macOS) or after onboarding completes.
@@ -359,6 +363,32 @@ fn initialize_core_logic(app_handle: &AppHandle) {
                     tray::update_tray_menu(&app_clone);
                 });
             }
+            id if id.starts_with("engine:") => {
+                use crate::settings::TranscriptionEngine;
+                let remote = app.state::<Arc<managers::remote::RemoteEngineManager>>();
+                let tm = app.state::<Arc<TranscriptionManager>>();
+                if tm.job_active() {
+                    log::warn!("The engine can't change while a file is transcribing");
+                    tray::rebuild_tray_menu(app);
+                    return;
+                }
+                let mut settings = settings::get_settings(app);
+                match id.strip_prefix("engine:remote:") {
+                    Some(server_id) => {
+                        settings.transcription_engine = TranscriptionEngine::Remote;
+                        settings.remote_server_id = Some(server_id.to_string());
+                    }
+                    None => settings.transcription_engine = TranscriptionEngine::Local,
+                }
+                settings::write_settings(app, settings);
+                remote.apply_settings();
+                // The settings window follows.
+                let _ = app.emit(
+                    "settings-changed",
+                    serde_json::json!({ "setting": "transcription_engine" }),
+                );
+                tray::rebuild_tray_menu(app);
+            }
             id if id.starts_with("language_select:") => {
                 let language = id.strip_prefix("language_select:").unwrap().to_string();
                 if let Err(e) =
@@ -389,6 +419,10 @@ fn initialize_core_logic(app_handle: &AppHandle) {
     let app_handle_for_listener = app_handle.clone();
     app_handle.listen("model-state-changed", move |_| {
         tray::update_tray_menu(&app_handle_for_listener);
+        // Devices that use this computer's model hear about a new one.
+        app_handle_for_listener
+            .state::<Arc<managers::mobile::MobileLinkManager>>()
+            .model_changed();
     });
     // A download or delete can change what the language submenu offers (the
     // language detector arriving makes Auto usable).
@@ -831,6 +865,16 @@ pub fn run(cli_args: CliArgs) {
             commands::mobile::cancel_mobile_pairing,
             commands::mobile::rename_mobile_device,
             commands::mobile::remove_mobile_device,
+            commands::mobile::set_mobile_device_can_type,
+            commands::remote::get_remote_status,
+            commands::remote::pair_remote_computer,
+            commands::remote::forget_remote_computer,
+            commands::remote::rename_remote_computer,
+            commands::remote::select_remote_computer,
+            commands::remote::change_transcription_engine_setting,
+            commands::remote::change_remote_fallback_setting,
+            commands::remote::reconnect_remote_computer,
+            commands::remote::set_remote_simulate_offline,
             helpers::clamshell::is_laptop,
             notices::get_active_notices,
             notices::dismiss_notice,
@@ -840,6 +884,7 @@ pub fn run(cli_args: CliArgs) {
             managers::history::HistoryUpdatePayload,
             managers::transcription_jobs::TranscriptionJob,
             managers::mobile::MobileLinkChanged,
+            managers::remote::RemoteStatus,
             managers::transcription::StreamTextEvent,
             managers::transcription::StreamPhaseEvent,
             transcription_coordinator::RecordingStateEvent,
