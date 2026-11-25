@@ -450,16 +450,16 @@
       "intro": "Phones and other computers on your network can dictate with this computer's model. A phone records, this computer transcribes.",
       "groups": {
         "connection": "Connection",
-        "devices": "Paired Phones",
+        "devices": "Paired Devices",
         "dictation": "Dictation"
       },
       "enabled": {
-        "label": "Handy Mobile",
-        "description": "Let paired phones dictate through this computer. While this is on, Handy listens for them on your local network."
+        "label": "Handy Remote",
+        "description": "Let paired devices dictate through this computer. While this is on, Handy listens for them on your local network."
       },
       "status": {
         "title": "Status",
-        "description": "The address paired phones connect to. The phone and this computer must be on the same network.",
+        "description": "The address paired devices connect to. They must be on the same network as this computer.",
         "off": "Off",
         "starting": "Starting…",
         "listening": "Listening on {{address}}",
@@ -468,12 +468,12 @@
       },
       "port": {
         "title": "Port",
-        "description": "The network port phones connect to. Allow it through your firewall if phones can't connect. Phones have to be paired again after you change it."
+        "description": "The network port paired devices connect to. Allow it through your firewall if they can't connect. Devices have to be paired again after you change it."
       },
       "pair": {
         "button": "Pair a Phone",
-        "hint": "Pairing shows a code to scan with Handy Mobile.",
-        "turnOnFirst": "Turn on Handy Mobile to pair a phone.",
+        "hint": "Pairing shows a code to scan or paste on the other device.",
+        "turnOnFirst": "Turn on Handy Remote to pair a device.",
         "title": "Pair a Phone",
         "description": "Open Handy Mobile on your phone and scan this code. The phone must be on the same network as this computer.",
         "qrAlt": "Pairing code",
@@ -492,18 +492,18 @@
         "computerNote": "A paired computer gets its text back. It can't type here unless you allow it."
       },
       "devices": {
-        "empty": "No phones are paired yet.",
+        "empty": "No devices are paired yet.",
         "connected": "Connected",
         "dictating": "Dictating…",
         "lastSeen": "Last seen {{time}}",
         "never": "Not connected yet",
         "rename": "Rename",
-        "nameLabel": "Phone name",
-        "renameFailed": "Couldn't Rename the Phone",
+        "nameLabel": "Device name",
+        "renameFailed": "Couldn't Rename the Device",
         "remove": "Unpair",
         "removeConfirmTitle": "Unpair {{name}}?",
-        "removeConfirm": "This phone won't be able to dictate through this computer until you pair it again.",
-        "removeFailed": "Couldn't Unpair the Phone",
+        "removeConfirm": "This device won't be able to dictate through this computer until you pair it again.",
+        "removeFailed": "Couldn't Unpair the Device",
         "cancel": "Cancel",
         "transcribing": "Transcribing",
         "canType": "Types here",
@@ -1138,8 +1138,8 @@
     "filePostProcessFailedTitle": "Transcribed Without Post-Processing",
     "filePostProcessFailed": "Post Process didn't finish, so the transcript was saved as is.",
     "fileTranscriptionFailedTitle": "File Transcription Failed",
-    "mobileServerFailedTitle": "Handy Mobile Couldn't Start",
-    "mobileServerFailed": "Phones can't connect. Another app may be using the port; choose a different one in Mobile settings.",
+    "mobileServerFailedTitle": "Handy Remote Couldn't Start",
+    "mobileServerFailed": "Paired devices can't connect. Another app may be using the port; choose a different one in Sharing settings.",
     "mobileTranscriptionFailedTitle": "Phone Dictation Failed",
     "transcriptionFailedTitle": "Transcription Failed",
     "remoteUnreachableTitle": "Other Computer Unreachable",

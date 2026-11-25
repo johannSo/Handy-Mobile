@@ -450,16 +450,16 @@
       "intro": "Smartphones und andere Computer in deinem Netzwerk können mit dem Modell dieses Computers diktieren. Ein Smartphone nimmt auf, dieser Computer transkribiert.",
       "groups": {
         "connection": "Verbindung",
-        "devices": "Gekoppelte Smartphones",
+        "devices": "Gekoppelte Geräte",
         "dictation": "Diktat"
       },
       "enabled": {
-        "label": "Handy Mobile",
-        "description": "Gekoppelte Smartphones können über diesen Computer diktieren. Solange dies aktiviert ist, wartet Handy in deinem lokalen Netzwerk auf sie."
+        "label": "Handy Remote",
+        "description": "Gekoppelte Geräte können über diesen Computer diktieren. Solange dies aktiviert ist, wartet Handy in deinem lokalen Netzwerk auf sie."
       },
       "status": {
         "title": "Status",
-        "description": "Die Adresse, mit der sich gekoppelte Smartphones verbinden. Smartphone und Computer müssen im selben Netzwerk sein.",
+        "description": "Die Adresse, mit der sich gekoppelte Geräte verbinden. Sie müssen im selben Netzwerk wie dieser Computer sein.",
         "off": "Aus",
         "starting": "Wird gestartet…",
         "listening": "Erreichbar unter {{address}}",
@@ -468,12 +468,12 @@
       },
       "port": {
         "title": "Port",
-        "description": "Der Netzwerkport, über den sich Smartphones verbinden. Gib ihn in deiner Firewall frei, falls Smartphones keine Verbindung herstellen können. Nach einer Änderung müssen Smartphones neu gekoppelt werden."
+        "description": "Der Netzwerkport, über den sich gekoppelte Geräte verbinden. Gib ihn in deiner Firewall frei, falls sie keine Verbindung herstellen können. Nach einer Änderung müssen Geräte neu gekoppelt werden."
       },
       "pair": {
         "button": "Smartphone koppeln",
-        "hint": "Beim Koppeln wird ein Code angezeigt, den du mit Handy Mobile scannst.",
-        "turnOnFirst": "Aktiviere Handy Mobile, um ein Smartphone zu koppeln.",
+        "hint": "Beim Koppeln wird ein Code angezeigt, den du auf dem anderen Gerät scannst oder einfügst.",
+        "turnOnFirst": "Aktiviere Handy Remote, um ein Gerät zu koppeln.",
         "title": "Smartphone koppeln",
         "description": "Öffne Handy Mobile auf deinem Smartphone und scanne diesen Code. Das Smartphone muss im selben Netzwerk wie dieser Computer sein.",
         "qrAlt": "Kopplungscode",
@@ -492,18 +492,18 @@
         "computerNote": "Ein gekoppelter Computer erhält seinen Text zurück. Er kann hier nur tippen, wenn du es erlaubst."
       },
       "devices": {
-        "empty": "Noch keine Smartphones gekoppelt.",
+        "empty": "Noch keine Geräte gekoppelt.",
         "connected": "Verbunden",
         "dictating": "Diktiert…",
         "lastSeen": "Zuletzt gesehen: {{time}}",
         "never": "Noch nie verbunden",
         "rename": "Umbenennen",
-        "nameLabel": "Name des Smartphones",
-        "renameFailed": "Smartphone konnte nicht umbenannt werden",
+        "nameLabel": "Name des Geräts",
+        "renameFailed": "Gerät konnte nicht umbenannt werden",
         "remove": "Entkoppeln",
         "removeConfirmTitle": "{{name}} entkoppeln?",
-        "removeConfirm": "Dieses Smartphone kann erst wieder über diesen Computer diktieren, wenn du es erneut koppelst.",
-        "removeFailed": "Smartphone konnte nicht entkoppelt werden",
+        "removeConfirm": "Dieses Gerät kann erst wieder über diesen Computer diktieren, wenn du es erneut koppelst.",
+        "removeFailed": "Gerät konnte nicht entkoppelt werden",
         "cancel": "Abbrechen",
         "transcribing": "Transkribiert",
         "canType": "Tippt hier",
@@ -1138,8 +1138,8 @@
     "filePostProcessFailedTitle": "Ohne Nachbearbeitung transkribiert",
     "filePostProcessFailed": "Die Nachbearbeitung wurde nicht abgeschlossen, daher wurde das Transkript unverändert gespeichert.",
     "fileTranscriptionFailedTitle": "Dateitranskription fehlgeschlagen",
-    "mobileServerFailedTitle": "Handy Mobile konnte nicht starten",
-    "mobileServerFailed": "Smartphones können sich nicht verbinden. Möglicherweise verwendet eine andere App den Port; wähle in den Mobil-Einstellungen einen anderen.",
+    "mobileServerFailedTitle": "Handy Remote konnte nicht starten",
+    "mobileServerFailed": "Gekoppelte Geräte können sich nicht verbinden. Möglicherweise verwendet eine andere App den Port; wähle in den Freigabe-Einstellungen einen anderen.",
     "mobileTranscriptionFailedTitle": "Smartphone-Diktat fehlgeschlagen",
     "transcriptionFailedTitle": "Transkription fehlgeschlagen",
     "remoteUnreachableTitle": "Computer nicht erreichbar",

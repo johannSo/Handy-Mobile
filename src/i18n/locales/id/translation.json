@@ -450,16 +450,16 @@
       "intro": "Ponsel dan komputer lain di jaringan Anda dapat mendikte dengan model komputer ini. Ponsel merekam, komputer ini mentranskripsi.",
       "groups": {
         "connection": "Koneksi",
-        "devices": "Ponsel Tersanding",
+        "devices": "Perangkat Tersanding",
         "dictation": "Dikte"
       },
       "enabled": {
-        "label": "Handy Mobile",
-        "description": "Izinkan ponsel tersanding mendikte melalui komputer ini. Selama fitur ini aktif, Handy menunggu ponsel tersebut di jaringan lokal Anda."
+        "label": "Handy Remote",
+        "description": "Izinkan perangkat tersanding mendikte melalui komputer ini. Selama fitur ini aktif, Handy menunggu perangkat tersebut di jaringan lokal Anda."
       },
       "status": {
         "title": "Status",
-        "description": "Alamat yang dituju ponsel tersanding untuk terhubung. Ponsel dan komputer ini harus berada di jaringan yang sama.",
+        "description": "Alamat yang dituju perangkat tersanding untuk terhubung. Perangkat tersebut harus berada di jaringan yang sama dengan komputer ini.",
         "off": "Nonaktif",
         "starting": "Memulai…",
         "listening": "Menunggu koneksi di {{address}}",
@@ -468,12 +468,12 @@
       },
       "port": {
         "title": "Port",
-        "description": "Port jaringan yang dituju ponsel untuk terhubung. Izinkan port ini di firewall jika ponsel tidak dapat terhubung. Ponsel harus disandingkan lagi setelah Anda mengubahnya."
+        "description": "Port jaringan yang dituju perangkat tersanding untuk terhubung. Izinkan port ini di firewall jika perangkat tidak dapat terhubung. Perangkat harus disandingkan lagi setelah Anda mengubahnya."
       },
       "pair": {
         "button": "Sandingkan Ponsel",
-        "hint": "Penyandingan menampilkan kode untuk dipindai dengan Handy Mobile.",
-        "turnOnFirst": "Aktifkan Handy Mobile untuk menyandingkan ponsel.",
+        "hint": "Penyandingan menampilkan kode untuk dipindai atau ditempel di perangkat lain.",
+        "turnOnFirst": "Aktifkan Handy Remote untuk menyandingkan perangkat.",
         "title": "Sandingkan Ponsel",
         "description": "Buka Handy Mobile di ponsel Anda dan pindai kode ini. Ponsel harus berada di jaringan yang sama dengan komputer ini.",
         "qrAlt": "Kode penyandingan",
@@ -492,18 +492,18 @@
         "computerNote": "Komputer tersanding menerima kembali teksnya. Komputer itu tidak dapat mengetik di sini kecuali Anda mengizinkannya."
       },
       "devices": {
-        "empty": "Belum ada ponsel yang disandingkan.",
+        "empty": "Belum ada perangkat yang disandingkan.",
         "connected": "Terhubung",
         "dictating": "Mendikte…",
         "lastSeen": "Terakhir terlihat {{time}}",
         "never": "Belum pernah terhubung",
         "rename": "Ganti Nama",
-        "nameLabel": "Nama ponsel",
-        "renameFailed": "Gagal Mengganti Nama Ponsel",
+        "nameLabel": "Nama perangkat",
+        "renameFailed": "Gagal Mengganti Nama Perangkat",
         "remove": "Lepas Sandingan",
         "removeConfirmTitle": "Lepas sandingan {{name}}?",
-        "removeConfirm": "Ponsel ini tidak akan dapat mendikte melalui komputer ini sampai Anda menyandingkannya lagi.",
-        "removeFailed": "Gagal Melepas Sandingan Ponsel",
+        "removeConfirm": "Perangkat ini tidak akan dapat mendikte melalui komputer ini sampai Anda menyandingkannya lagi.",
+        "removeFailed": "Gagal Melepas Sandingan Perangkat",
         "cancel": "Batal",
         "transcribing": "Mentranskripsi",
         "canType": "Mengetik di sini",
@@ -1138,8 +1138,8 @@
     "filePostProcessFailedTitle": "Ditranskripsi Tanpa Pascaproses",
     "filePostProcessFailed": "Pascaproses tidak selesai, jadi transkrip disimpan apa adanya.",
     "fileTranscriptionFailedTitle": "Transkripsi File Gagal",
-    "mobileServerFailedTitle": "Handy Mobile Gagal Dimulai",
-    "mobileServerFailed": "Ponsel tidak dapat terhubung. Aplikasi lain mungkin sedang memakai port tersebut; pilih port lain di pengaturan Seluler.",
+    "mobileServerFailedTitle": "Handy Remote Gagal Dimulai",
+    "mobileServerFailed": "Perangkat tersanding tidak dapat terhubung. Aplikasi lain mungkin sedang memakai port tersebut; pilih port lain di pengaturan Berbagi.",
     "mobileTranscriptionFailedTitle": "Dikte Ponsel Gagal",
     "transcriptionFailedTitle": "Transkripsi Gagal",
     "remoteUnreachableTitle": "Komputer Lain Tak Terjangkau",

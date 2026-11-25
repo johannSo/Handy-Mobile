@@ -86,11 +86,11 @@ Control Handy from [Raycast](https://www.raycast.com) — start/stop recording, 
 
 Handy Mobile turns a phone into a microphone for Handy on your computer. The phone records; your computer transcribes with the model it already has, then pastes the text where your cursor is or sends it back to the phone. Nothing leaves your local network.
 
-1. On your computer, open **Mobile** in Handy's sidebar and turn on **Handy Mobile**.
+1. On your computer, open **Sharing** in Handy's sidebar and turn on **Handy Remote**.
 2. Choose **Pair a Phone**. Handy shows a QR code that is good for two minutes and for one phone.
 3. In Handy Mobile, scan the code (or paste it, if the camera can't be used).
 
-After that the phone connects on its own whenever both devices are on the same network, and finds the computer again if its address changes. **Mobile → Send Text To** chooses whether a phone's dictation is pasted on the computer or only shown on the phone; the phone can override it per dictation. Unpair a phone from the same tab.
+After that the phone connects on its own whenever both devices are on the same network, and finds the computer again if its address changes. **Sharing → Send Text To** chooses whether a phone's dictation is pasted on the computer or only shown on the phone; the phone can override it per dictation. Unpair a phone from the same tab.
 
 #### The Handy keyboard (Android)
 
@@ -100,7 +100,7 @@ Handy Mobile walks you through setting it up after pairing, and again from its s
 
 Things to know:
 
-- Handy listens on TCP and UDP port `47823` (changeable in the Mobile tab) only while Handy Mobile is on. If a phone can't connect, allow that port through your firewall, for example `sudo ufw allow 47823` on Linux. Phones paired before a port change must be paired again.
+- Handy listens on TCP and UDP port `47823` (changeable in the Sharing tab) only while Handy Remote is on. If a paired device can't connect, allow that port through your firewall, for example `sudo ufw allow 47823` on Linux. Devices paired before a port change must be paired again.
 - The connection is TLS with a certificate the phone pins when it scans the code, so only the computer you paired with can receive your audio, and only phones you paired can send any.
 - On Android 17 and later, Handy Mobile asks to find nearby devices when it starts. It can't reach your computer without that; if you declined, allow **Nearby devices** for Handy Mobile in the phone's settings.
 - Both devices have to reach each other directly. Away from home, a VPN such as Tailscale works; there is no relay server.

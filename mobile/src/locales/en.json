@@ -5,8 +5,8 @@
   "pair": {
     "title": "Pair With Your Computer",
     "intro": "Your phone is the microphone. Handy on your computer does the transcribing.",
-    "step1": "Open Handy on your computer and go to Mobile.",
-    "step2": "Turn on Handy Mobile and choose Pair a Phone.",
+    "step1": "Open Handy on your computer and go to Sharing.",
+    "step2": "Turn on Handy Remote and choose Pair a Phone.",
     "step3": "Scan the code it shows. Both devices must be on the same network.",
     "scan": "Scan Pairing Code",
     "manual": "Enter Code Instead",
@@ -84,7 +84,7 @@
     "version": "Handy {{version}}",
     "unpair": "Unpair",
     "unpairConfirm": "Unpair from {{name}}? You'll need to scan a new code to dictate again.",
-    "unpairNote": "To remove this phone from the list on your computer as well, unpair it there in Mobile settings.",
+    "unpairNote": "To remove this phone from the list on your computer as well, unpair it there in Sharing settings.",
     "confirm": "Unpair",
     "cancel": "Cancel",
     "close": "Close"

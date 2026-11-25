@@ -450,16 +450,16 @@
       "intro": "Điện thoại và các máy tính khác trong mạng của bạn có thể đọc chính tả bằng mô hình của máy tính này. Điện thoại ghi âm, máy tính này phiên âm.",
       "groups": {
         "connection": "Kết nối",
-        "devices": "Điện thoại đã ghép nối",
+        "devices": "Thiết bị đã ghép nối",
         "dictation": "Đọc chính tả"
       },
       "enabled": {
-        "label": "Handy Mobile",
-        "description": "Cho phép điện thoại đã ghép nối đọc chính tả qua máy tính này. Khi bật, Handy chờ kết nối từ chúng trên mạng cục bộ của bạn."
+        "label": "Handy Remote",
+        "description": "Cho phép thiết bị đã ghép nối đọc chính tả qua máy tính này. Khi bật, Handy chờ kết nối từ chúng trên mạng cục bộ của bạn."
       },
       "status": {
         "title": "Trạng thái",
-        "description": "Địa chỉ mà điện thoại đã ghép nối kết nối tới. Điện thoại và máy tính này phải ở cùng một mạng.",
+        "description": "Địa chỉ mà thiết bị đã ghép nối kết nối tới. Chúng phải ở cùng một mạng với máy tính này.",
         "off": "Tắt",
         "starting": "Đang khởi động…",
         "listening": "Đang lắng nghe tại {{address}}",
@@ -468,12 +468,12 @@
       },
       "port": {
         "title": "Cổng",
-        "description": "Cổng mạng mà điện thoại kết nối tới. Hãy cho phép cổng này qua tường lửa nếu điện thoại không kết nối được. Sau khi đổi cổng, bạn phải ghép nối lại các điện thoại."
+        "description": "Cổng mạng mà thiết bị đã ghép nối kết nối tới. Hãy cho phép cổng này qua tường lửa nếu chúng không kết nối được. Sau khi đổi cổng, bạn phải ghép nối lại các thiết bị."
       },
       "pair": {
         "button": "Ghép nối điện thoại",
-        "hint": "Khi ghép nối, một mã sẽ hiện ra để quét bằng Handy Mobile.",
-        "turnOnFirst": "Bật Handy Mobile để ghép nối điện thoại.",
+        "hint": "Khi ghép nối, một mã sẽ hiện ra để quét hoặc dán trên thiết bị kia.",
+        "turnOnFirst": "Bật Handy Remote để ghép nối thiết bị.",
         "title": "Ghép nối điện thoại",
         "description": "Mở Handy Mobile trên điện thoại và quét mã này. Điện thoại phải ở cùng mạng với máy tính này.",
         "qrAlt": "Mã ghép nối",
@@ -492,18 +492,18 @@
         "computerNote": "Máy tính đã ghép nối sẽ nhận lại văn bản. Nó không thể nhập vào đây trừ khi bạn cho phép."
       },
       "devices": {
-        "empty": "Chưa có điện thoại nào được ghép nối.",
+        "empty": "Chưa có thiết bị nào được ghép nối.",
         "connected": "Đã kết nối",
         "dictating": "Đang đọc chính tả…",
         "lastSeen": "Hoạt động lần cuối {{time}}",
         "never": "Chưa từng kết nối",
         "rename": "Đổi tên",
-        "nameLabel": "Tên điện thoại",
-        "renameFailed": "Không thể đổi tên điện thoại",
+        "nameLabel": "Tên thiết bị",
+        "renameFailed": "Không thể đổi tên thiết bị",
         "remove": "Hủy ghép nối",
         "removeConfirmTitle": "Hủy ghép nối {{name}}?",
-        "removeConfirm": "Điện thoại này sẽ không thể đọc chính tả qua máy tính này cho đến khi bạn ghép nối lại.",
-        "removeFailed": "Không thể hủy ghép nối điện thoại",
+        "removeConfirm": "Thiết bị này sẽ không thể đọc chính tả qua máy tính này cho đến khi bạn ghép nối lại.",
+        "removeFailed": "Không thể hủy ghép nối thiết bị",
         "cancel": "Hủy",
         "transcribing": "Đang phiên âm",
         "canType": "Nhập tại đây",
@@ -1138,8 +1138,8 @@
     "filePostProcessFailedTitle": "Đã chép lời không qua xử lý sau",
     "filePostProcessFailed": "Xử lý sau chưa hoàn tất nên bản chép lời được lưu nguyên trạng.",
     "fileTranscriptionFailedTitle": "Phiên âm tệp thất bại",
-    "mobileServerFailedTitle": "Không thể khởi động Handy Mobile",
-    "mobileServerFailed": "Điện thoại không kết nối được. Có thể ứng dụng khác đang dùng cổng này; hãy chọn cổng khác trong cài đặt Di động.",
+    "mobileServerFailedTitle": "Không thể khởi động Handy Remote",
+    "mobileServerFailed": "Thiết bị đã ghép nối không kết nối được. Có thể ứng dụng khác đang dùng cổng này; hãy chọn cổng khác trong cài đặt Chia sẻ.",
     "mobileTranscriptionFailedTitle": "Đọc chính tả từ điện thoại thất bại",
     "transcriptionFailedTitle": "Phiên âm thất bại",
     "remoteUnreachableTitle": "Không kết nối được máy kia",

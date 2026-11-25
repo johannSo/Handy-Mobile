@@ -76,7 +76,7 @@ Without that file a release build comes out unsigned.
 
 ## Testing without a phone
 
-`handy-link` ships a phone in a terminal. Turn on Handy Mobile on the desktop, choose **Pair a Phone**, copy the code, then:
+`handy-link` ships a phone in a terminal. Turn on **Handy Remote** in the desktop's Sharing tab, choose **Pair a Phone**, copy the code, then:
 
 ```bash
 cd crates/handy-link

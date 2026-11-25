@@ -450,16 +450,16 @@
       "intro": "Telefoner och andra datorer på ditt nätverk kan diktera med den här datorns modell. En telefon spelar in, den här datorn transkriberar.",
       "groups": {
         "connection": "Anslutning",
-        "devices": "Parkopplade telefoner",
+        "devices": "Parkopplade enheter",
         "dictation": "Diktering"
       },
       "enabled": {
-        "label": "Handy Mobile",
-        "description": "Låt parkopplade telefoner diktera via den här datorn. När detta är på lyssnar Handy efter dem på ditt lokala nätverk."
+        "label": "Handy Remote",
+        "description": "Låt parkopplade enheter diktera via den här datorn. När detta är på lyssnar Handy efter dem på ditt lokala nätverk."
       },
       "status": {
         "title": "Status",
-        "description": "Adressen som parkopplade telefoner ansluter till. Telefonen och den här datorn måste vara på samma nätverk.",
+        "description": "Adressen som parkopplade enheter ansluter till. De måste vara på samma nätverk som den här datorn.",
         "off": "Av",
         "starting": "Startar…",
         "listening": "Lyssnar på {{address}}",
@@ -468,12 +468,12 @@
       },
       "port": {
         "title": "Port",
-        "description": "Nätverksporten som telefoner ansluter till. Tillåt den i din brandvägg om telefoner inte kan ansluta. Telefoner måste parkopplas igen när du har ändrat den."
+        "description": "Nätverksporten som parkopplade enheter ansluter till. Tillåt den i din brandvägg om de inte kan ansluta. Enheter måste parkopplas igen när du har ändrat den."
       },
       "pair": {
         "button": "Parkoppla en telefon",
-        "hint": "Vid parkoppling visas en kod att skanna med Handy Mobile.",
-        "turnOnFirst": "Slå på Handy Mobile för att parkoppla en telefon.",
+        "hint": "Vid parkoppling visas en kod att skanna eller klistra in på den andra enheten.",
+        "turnOnFirst": "Slå på Handy Remote för att parkoppla en enhet.",
         "title": "Parkoppla en telefon",
         "description": "Öppna Handy Mobile på telefonen och skanna den här koden. Telefonen måste vara på samma nätverk som den här datorn.",
         "qrAlt": "Parkopplingskod",
@@ -492,17 +492,17 @@
         "computerNote": "En parkopplad dator får tillbaka sin text. Den kan inte skriva här om du inte tillåter det."
       },
       "devices": {
-        "empty": "Inga telefoner är parkopplade än.",
+        "empty": "Inga enheter är parkopplade än.",
         "connected": "Ansluten",
         "dictating": "Dikterar…",
         "lastSeen": "Sågs senast {{time}}",
         "never": "Inte ansluten än",
         "rename": "Byt namn",
-        "nameLabel": "Telefonens namn",
-        "renameFailed": "Det gick inte att byta namn på telefonen",
+        "nameLabel": "Enhetens namn",
+        "renameFailed": "Det gick inte att byta namn på enheten",
         "remove": "Ta bort parkoppling",
         "removeConfirmTitle": "Ta bort parkopplingen med {{name}}?",
-        "removeConfirm": "Den här telefonen kan inte diktera via den här datorn förrän du parkopplar den igen.",
+        "removeConfirm": "Den här enheten kan inte diktera via den här datorn förrän du parkopplar den igen.",
         "removeFailed": "Det gick inte att ta bort parkopplingen",
         "cancel": "Avbryt",
         "transcribing": "Transkriberar",
@@ -1138,8 +1138,8 @@
     "filePostProcessFailedTitle": "Transkriberat utan efterbearbetning",
     "filePostProcessFailed": "Efterbearbetningen slutfördes inte, så transkriptionen sparades som den är.",
     "fileTranscriptionFailedTitle": "Transkriptionen av filen misslyckades",
-    "mobileServerFailedTitle": "Handy Mobile kunde inte starta",
-    "mobileServerFailed": "Telefoner kan inte ansluta. En annan app kanske använder porten; välj en annan i inställningarna för Mobil.",
+    "mobileServerFailedTitle": "Handy Remote kunde inte starta",
+    "mobileServerFailed": "Parkopplade enheter kan inte ansluta. En annan app kanske använder porten; välj en annan i inställningarna för Delning.",
     "mobileTranscriptionFailedTitle": "Dikteringen från telefonen misslyckades",
     "transcriptionFailedTitle": "Transkriptionen misslyckades",
     "remoteUnreachableTitle": "Andra datorn kan inte nås",

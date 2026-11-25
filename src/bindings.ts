@@ -1551,7 +1551,7 @@ code: string;
 qr_svg: string; expires_in_secs: number }
 export type MobileStatus = { 
 /**
- * Listening for phones.
+ * Listening for paired devices.
  */
 running: boolean; port: number; 
 /**

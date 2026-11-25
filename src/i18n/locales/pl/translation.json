@@ -450,16 +450,16 @@
       "intro": "Telefony i inne komputery w Twojej sieci mogą dyktować z użyciem modelu tego komputera. Telefon nagrywa, a ten komputer transkrybuje.",
       "groups": {
         "connection": "Połączenie",
-        "devices": "Sparowane telefony",
+        "devices": "Sparowane urządzenia",
         "dictation": "Dyktowanie"
       },
       "enabled": {
-        "label": "Handy Mobile",
-        "description": "Pozwól sparowanym telefonom dyktować przez ten komputer. Gdy ta opcja jest włączona, Handy nasłuchuje ich w sieci lokalnej."
+        "label": "Handy Remote",
+        "description": "Pozwól sparowanym urządzeniom dyktować przez ten komputer. Gdy ta opcja jest włączona, Handy nasłuchuje ich w sieci lokalnej."
       },
       "status": {
         "title": "Stan",
-        "description": "Adres, z którym łączą się sparowane telefony. Telefon i ten komputer muszą być w tej samej sieci.",
+        "description": "Adres, z którym łączą się sparowane urządzenia. Muszą być w tej samej sieci co ten komputer.",
         "off": "Wyłączone",
         "starting": "Uruchamianie…",
         "listening": "Nasłuchuje pod adresem {{address}}",
@@ -468,12 +468,12 @@
       },
       "port": {
         "title": "Port",
-        "description": "Port sieciowy, z którym łączą się telefony. Odblokuj go w zaporze, jeśli telefony nie mogą się połączyć. Po jego zmianie telefony trzeba sparować ponownie."
+        "description": "Port sieciowy, z którym łączą się sparowane urządzenia. Odblokuj go w zaporze, jeśli nie mogą się połączyć. Po jego zmianie urządzenia trzeba sparować ponownie."
       },
       "pair": {
         "button": "Sparuj telefon",
-        "hint": "Podczas parowania pojawi się kod do zeskanowania w Handy Mobile.",
-        "turnOnFirst": "Włącz Handy Mobile, aby sparować telefon.",
+        "hint": "Podczas parowania pojawi się kod do zeskanowania lub wklejenia na drugim urządzeniu.",
+        "turnOnFirst": "Włącz Handy Remote, aby sparować urządzenie.",
         "title": "Sparuj telefon",
         "description": "Otwórz Handy Mobile na telefonie i zeskanuj ten kod. Telefon musi być w tej samej sieci co ten komputer.",
         "qrAlt": "Kod parowania",
@@ -492,18 +492,18 @@
         "computerNote": "Sparowany komputer otrzymuje swój tekst z powrotem. Nie może tu pisać, chyba że na to pozwolisz."
       },
       "devices": {
-        "empty": "Nie sparowano jeszcze żadnego telefonu.",
+        "empty": "Nie sparowano jeszcze żadnego urządzenia.",
         "connected": "Połączono",
         "dictating": "Dyktowanie…",
         "lastSeen": "Ostatnio widziany {{time}}",
         "never": "Jeszcze nie połączono",
         "rename": "Zmień nazwę",
-        "nameLabel": "Nazwa telefonu",
-        "renameFailed": "Nie udało się zmienić nazwy telefonu",
+        "nameLabel": "Nazwa urządzenia",
+        "renameFailed": "Nie udało się zmienić nazwy urządzenia",
         "remove": "Usuń parowanie",
         "removeConfirmTitle": "Usunąć parowanie z {{name}}?",
-        "removeConfirm": "Ten telefon nie będzie mógł dyktować przez ten komputer, dopóki nie sparujesz go ponownie.",
-        "removeFailed": "Nie udało się usunąć parowania telefonu",
+        "removeConfirm": "To urządzenie nie będzie mogło dyktować przez ten komputer, dopóki nie sparujesz go ponownie.",
+        "removeFailed": "Nie udało się usunąć parowania urządzenia",
         "cancel": "Anuluj",
         "transcribing": "Transkrybuje",
         "canType": "Pisze tutaj",
@@ -1138,8 +1138,8 @@
     "filePostProcessFailedTitle": "Przetranskrybowano bez postprocesu",
     "filePostProcessFailed": "Postproces nie został ukończony, więc transkrypcja została zapisana bez zmian.",
     "fileTranscriptionFailedTitle": "Transkrypcja pliku nie powiodła się",
-    "mobileServerFailedTitle": "Nie udało się uruchomić Handy Mobile",
-    "mobileServerFailed": "Telefony nie mogą się połączyć. Być może portu używa inna aplikacja; wybierz inny w ustawieniach zakładki Telefon.",
+    "mobileServerFailedTitle": "Nie udało się uruchomić Handy Remote",
+    "mobileServerFailed": "Sparowane urządzenia nie mogą się połączyć. Być może portu używa inna aplikacja; wybierz inny w ustawieniach zakładki Udostępnianie.",
     "mobileTranscriptionFailedTitle": "Dyktowanie z telefonu nie powiodło się",
     "transcriptionFailedTitle": "Transkrypcja nie powiodła się",
     "remoteUnreachableTitle": "Drugi komputer nieosiągalny",

@@ -450,16 +450,16 @@
       "intro": "Ağınızdaki telefonlar ve diğer bilgisayarlar, bu bilgisayarın modeliyle dikte edebilir. Telefon kaydeder, bu bilgisayar metne dönüştürür.",
       "groups": {
         "connection": "Bağlantı",
-        "devices": "Eşleştirilmiş Telefonlar",
+        "devices": "Eşleştirilmiş Cihazlar",
         "dictation": "Dikte"
       },
       "enabled": {
-        "label": "Handy Mobile",
-        "description": "Eşleştirilmiş telefonların bu bilgisayar üzerinden dikte etmesine izin verir. Bu açıkken Handy, yerel ağınızda onları bekler."
+        "label": "Handy Remote",
+        "description": "Eşleştirilmiş cihazların bu bilgisayar üzerinden dikte etmesine izin verir. Bu açıkken Handy, yerel ağınızda onları bekler."
       },
       "status": {
         "title": "Durum",
-        "description": "Eşleştirilmiş telefonların bağlandığı adres. Telefon ve bu bilgisayar aynı ağda olmalıdır.",
+        "description": "Eşleştirilmiş cihazların bağlandığı adres. Bu bilgisayarla aynı ağda olmaları gerekir.",
         "off": "Kapalı",
         "starting": "Başlatılıyor…",
         "listening": "{{address}} adresinde dinleniyor",
@@ -468,12 +468,12 @@
       },
       "port": {
         "title": "Port",
-        "description": "Telefonların bağlandığı ağ portu. Telefonlar bağlanamıyorsa güvenlik duvarınızda bu porta izin verin. Portu değiştirdikten sonra telefonların yeniden eşleştirilmesi gerekir."
+        "description": "Eşleştirilmiş cihazların bağlandığı ağ portu. Bağlanamıyorlarsa güvenlik duvarınızda bu porta izin verin. Portu değiştirdikten sonra cihazların yeniden eşleştirilmesi gerekir."
       },
       "pair": {
         "button": "Telefon Eşleştir",
-        "hint": "Eşleştirme sırasında Handy Mobile ile taranacak bir kod gösterilir.",
-        "turnOnFirst": "Telefon eşleştirmek için Handy Mobile'ı açın.",
+        "hint": "Eşleştirme sırasında diğer cihazda taranacak veya yapıştırılacak bir kod gösterilir.",
+        "turnOnFirst": "Cihaz eşleştirmek için Handy Remote'u açın.",
         "title": "Telefon Eşleştir",
         "description": "Telefonunuzda Handy Mobile'ı açın ve bu kodu tarayın. Telefon, bu bilgisayarla aynı ağda olmalıdır.",
         "qrAlt": "Eşleştirme kodu",
@@ -492,18 +492,18 @@
         "computerNote": "Eşleştirilmiş bir bilgisayar metni geri alır. Siz izin vermedikçe buraya yazamaz."
       },
       "devices": {
-        "empty": "Henüz eşleştirilmiş telefon yok.",
+        "empty": "Henüz eşleştirilmiş cihaz yok.",
         "connected": "Bağlı",
         "dictating": "Dikte ediliyor…",
         "lastSeen": "Son görülme: {{time}}",
         "never": "Henüz bağlanmadı",
         "rename": "Yeniden Adlandır",
-        "nameLabel": "Telefon adı",
-        "renameFailed": "Telefon yeniden adlandırılamadı",
+        "nameLabel": "Cihaz adı",
+        "renameFailed": "Cihaz yeniden adlandırılamadı",
         "remove": "Eşleştirmeyi Kaldır",
         "removeConfirmTitle": "{{name}} eşleştirmesi kaldırılsın mı?",
-        "removeConfirm": "Bu telefon, yeniden eşleştirene kadar bu bilgisayar üzerinden dikte edemez.",
-        "removeFailed": "Telefonun eşleştirmesi kaldırılamadı",
+        "removeConfirm": "Bu cihaz, yeniden eşleştirene kadar bu bilgisayar üzerinden dikte edemez.",
+        "removeFailed": "Cihazın eşleştirmesi kaldırılamadı",
         "cancel": "İptal",
         "transcribing": "Yazıya dökülüyor",
         "canType": "Buraya yazar",
@@ -1138,8 +1138,8 @@
     "filePostProcessFailedTitle": "Son işlem olmadan yazıya döküldü",
     "filePostProcessFailed": "Son işlem tamamlanmadı, bu yüzden metin olduğu gibi kaydedildi.",
     "fileTranscriptionFailedTitle": "Dosya transkripsiyonu başarısız oldu",
-    "mobileServerFailedTitle": "Handy Mobile başlatılamadı",
-    "mobileServerFailed": "Telefonlar bağlanamıyor. Portu başka bir uygulama kullanıyor olabilir; Mobil ayarlarından farklı bir port seçin.",
+    "mobileServerFailedTitle": "Handy Remote başlatılamadı",
+    "mobileServerFailed": "Eşleştirilmiş cihazlar bağlanamıyor. Portu başka bir uygulama kullanıyor olabilir; Paylaşım ayarlarından farklı bir port seçin.",
     "mobileTranscriptionFailedTitle": "Telefon diktesi başarısız oldu",
     "transcriptionFailedTitle": "Transkripsiyon başarısız oldu",
     "remoteUnreachableTitle": "Bilgisayara ulaşılamıyor",

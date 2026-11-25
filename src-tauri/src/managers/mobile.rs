@@ -143,7 +143,7 @@ pub struct MobileDevice {
 
 #[derive(Clone, Debug, Serialize, Deserialize, Type)]
 pub struct MobileStatus {
-    /// Listening for phones.
+    /// Listening for paired devices.
     pub running: bool,
     pub port: u16,
     /// The addresses a phone on the same network can reach this computer at.
@@ -284,12 +284,12 @@ impl MobileLinkManager {
                 Ok(json) => match serde_json::from_str::<LinkStore>(&json) {
                     Ok(store) if store.identity.is_valid() => Some(store),
                     Ok(_) => {
-                        warn!("The stored certificate is unusable; every phone must pair again");
+                        warn!("The stored certificate is unusable; every device must pair again");
                         None
                     }
                     Err(e) => {
                         warn!(
-                            "{} is unreadable ({e}); every phone must pair again",
+                            "{} is unreadable ({e}); every device must pair again",
                             path.display()
                         );
                         None
@@ -359,7 +359,7 @@ impl MobileLinkManager {
         let Some(port) = wanted else {
             drop(state);
             notices::clear(&self.app, NoticeSource::Mobile);
-            info!("Stopped listening for phones");
+            info!("Stopped listening for paired devices");
             self.changed(None);
             return;
         };
@@ -387,7 +387,7 @@ impl MobileLinkManager {
                 notices::clear(&self.app, NoticeSource::Mobile);
             }
             Err(e) => {
-                error!("Failed to start listening for phones: {e}");
+                error!("Failed to start listening for paired devices: {e}");
                 state.port = port;
                 state.error = Some(e.to_string());
                 drop(state);
@@ -517,7 +517,7 @@ impl MobileLinkManager {
         if self.store_path().is_ok_and(|path| path.exists()) {
             let mut state = self.lock();
             if let Err(e) = self.store(&mut state) {
-                warn!("Failed to read the paired phones: {e}");
+                warn!("Failed to read the paired devices: {e}");
             }
         }
     }
@@ -527,7 +527,7 @@ impl MobileLinkManager {
     pub fn start_pairing(&self, kind: DeviceKind) -> Result<MobilePairing> {
         let mut state = self.lock();
         let Some(server) = state.server.as_ref() else {
-            return Err(anyhow!("Turn on Handy Mobile first"));
+            return Err(anyhow!("Turn on Handy Remote first"));
         };
         let port = server.local_addr().port();
         let addresses = reachable_addresses();
@@ -566,7 +566,7 @@ impl MobileLinkManager {
     pub fn rename_device(&self, id: &str, name: &str) -> Result<()> {
         let name = clean_name(name);
         if name.is_empty() {
-            return Err(anyhow!("A phone needs a name"));
+            return Err(anyhow!("A device needs a name"));
         }
         {
             let mut state = self.lock();
@@ -936,7 +936,7 @@ impl Host for MobileLinkManager {
                 can_type: kind == DeviceKind::Phone,
             });
             if let Err(e) = self.save(store) {
-                error!("Failed to save a newly paired phone: {e}");
+                error!("Failed to save a newly paired device: {e}");
                 store.devices.retain(|device| device.id != device_id);
                 return None;
             }
@@ -964,7 +964,7 @@ impl Host for MobileLinkManager {
         }
         device.last_seen = Some(now());
         if let Err(e) = self.save(store) {
-            warn!("Failed to note when a phone was last seen: {e}");
+            warn!("Failed to note when a device was last seen: {e}");
         }
         true
     }

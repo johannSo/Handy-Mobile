@@ -450,16 +450,16 @@
       "intro": "您網路中的手機和其他電腦可以使用這台電腦的模型聽寫。手機負責錄音，這台電腦負責轉錄。",
       "groups": {
         "connection": "連線",
-        "devices": "已配對的手機",
+        "devices": "已配對的裝置",
         "dictation": "聽寫"
       },
       "enabled": {
-        "label": "Handy Mobile",
-        "description": "允許已配對的手機透過這台電腦聽寫。開啟後，Handy 會在區域網路中等待它們連線。"
+        "label": "Handy Remote",
+        "description": "允許已配對的裝置透過這台電腦聽寫。開啟後，Handy 會在區域網路中等待它們連線。"
       },
       "status": {
         "title": "狀態",
-        "description": "已配對手機連線的位址。手機和這台電腦必須在同一個網路中。",
+        "description": "已配對裝置連線的位址。它們必須和這台電腦在同一個網路中。",
         "off": "關閉",
         "starting": "正在啟動…",
         "listening": "正在監聽 {{address}}",
@@ -468,12 +468,12 @@
       },
       "port": {
         "title": "連接埠",
-        "description": "手機連線所用的網路連接埠。如果手機無法連線，請在防火牆中允許此連接埠。變更連接埠後，需要重新配對手機。"
+        "description": "已配對裝置連線所用的網路連接埠。如果無法連線，請在防火牆中允許此連接埠。變更連接埠後，需要重新配對裝置。"
       },
       "pair": {
         "button": "配對手機",
-        "hint": "配對時會顯示一個 QR 碼，用 Handy Mobile 掃描即可。",
-        "turnOnFirst": "請先開啟 Handy Mobile，再配對手機。",
+        "hint": "配對時會顯示一組代碼，在另一台裝置上掃描或貼上即可。",
+        "turnOnFirst": "請先開啟 Handy Remote，再配對裝置。",
         "title": "配對手機",
         "description": "在手機上開啟 Handy Mobile 並掃描此 QR 碼。手機必須與這台電腦在同一個網路中。",
         "qrAlt": "配對碼",
@@ -492,18 +492,18 @@
         "computerNote": "已配對的電腦會收到傳回的文字。除非您允許，否則它無法在這裡輸入。"
       },
       "devices": {
-        "empty": "尚未配對任何手機。",
+        "empty": "尚未配對任何裝置。",
         "connected": "已連線",
         "dictating": "正在聽寫…",
         "lastSeen": "上次上線：{{time}}",
         "never": "尚未連線過",
         "rename": "重新命名",
-        "nameLabel": "手機名稱",
-        "renameFailed": "無法重新命名手機",
+        "nameLabel": "裝置名稱",
+        "renameFailed": "無法重新命名裝置",
         "remove": "取消配對",
         "removeConfirmTitle": "要取消與 {{name}} 的配對嗎？",
-        "removeConfirm": "在重新配對之前，這支手機將無法透過這台電腦聽寫。",
-        "removeFailed": "無法取消手機配對",
+        "removeConfirm": "在重新配對之前，這台裝置將無法透過這台電腦聽寫。",
+        "removeFailed": "無法取消裝置配對",
         "cancel": "取消",
         "transcribing": "正在轉錄",
         "canType": "可在此輸入",
@@ -1138,8 +1138,8 @@
     "filePostProcessFailedTitle": "已轉錄，未經後處理",
     "filePostProcessFailed": "後處理未完成，因此按原樣儲存轉錄內容。",
     "fileTranscriptionFailedTitle": "檔案轉錄失敗",
-    "mobileServerFailedTitle": "Handy Mobile 無法啟動",
-    "mobileServerFailed": "手機無法連線。連接埠可能被其他應用程式佔用；請在行動裝置設定中選擇其他連接埠。",
+    "mobileServerFailedTitle": "Handy Remote 無法啟動",
+    "mobileServerFailed": "已配對的裝置無法連線。連接埠可能被其他應用程式佔用；請在分享設定中選擇其他連接埠。",
     "mobileTranscriptionFailedTitle": "手機聽寫失敗",
     "transcriptionFailedTitle": "轉錄失敗",
     "remoteUnreachableTitle": "無法連線到另一台電腦",

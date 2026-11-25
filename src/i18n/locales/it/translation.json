@@ -450,16 +450,16 @@
       "intro": "I telefoni e gli altri computer della tua rete possono dettare con il modello di questo computer. Il telefono registra, questo computer trascrive.",
       "groups": {
         "connection": "Connessione",
-        "devices": "Telefoni associati",
+        "devices": "Dispositivi associati",
         "dictation": "Dettatura"
       },
       "enabled": {
-        "label": "Handy Mobile",
-        "description": "Consenti ai telefoni associati di dettare tramite questo computer. Finché è attivo, Handy resta in ascolto sulla tua rete locale."
+        "label": "Handy Remote",
+        "description": "Consenti ai dispositivi associati di dettare tramite questo computer. Finché è attivo, Handy resta in ascolto sulla tua rete locale."
       },
       "status": {
         "title": "Stato",
-        "description": "L'indirizzo a cui si connettono i telefoni associati. Il telefono e questo computer devono essere sulla stessa rete.",
+        "description": "L'indirizzo a cui si connettono i dispositivi associati. Devono essere sulla stessa rete di questo computer.",
         "off": "Disattivato",
         "starting": "Avvio in corso…",
         "listening": "In ascolto su {{address}}",
@@ -468,12 +468,12 @@
       },
       "port": {
         "title": "Porta",
-        "description": "La porta di rete a cui si connettono i telefoni. Consentila nel firewall se i telefoni non riescono a connettersi. Dopo averla cambiata, i telefoni vanno associati di nuovo."
+        "description": "La porta di rete a cui si connettono i dispositivi associati. Consentila nel firewall se non riescono a connettersi. Dopo averla cambiata, i dispositivi vanno associati di nuovo."
       },
       "pair": {
         "button": "Associa un telefono",
-        "hint": "L'associazione mostra un codice da scansionare con Handy Mobile.",
-        "turnOnFirst": "Attiva Handy Mobile per associare un telefono.",
+        "hint": "L'associazione mostra un codice da scansionare o incollare sull'altro dispositivo.",
+        "turnOnFirst": "Attiva Handy Remote per associare un dispositivo.",
         "title": "Associa un telefono",
         "description": "Apri Handy Mobile sul telefono e scansiona questo codice. Il telefono deve essere sulla stessa rete di questo computer.",
         "qrAlt": "Codice di associazione",
@@ -492,18 +492,18 @@
         "computerNote": "Un computer associato riceve indietro il proprio testo. Non può scrivere qui a meno che tu non lo consenta."
       },
       "devices": {
-        "empty": "Nessun telefono associato.",
+        "empty": "Nessun dispositivo associato.",
         "connected": "Connesso",
         "dictating": "Dettatura in corso…",
         "lastSeen": "Ultima connessione: {{time}}",
         "never": "Non ancora connesso",
         "rename": "Rinomina",
-        "nameLabel": "Nome del telefono",
-        "renameFailed": "Impossibile rinominare il telefono",
+        "nameLabel": "Nome del dispositivo",
+        "renameFailed": "Impossibile rinominare il dispositivo",
         "remove": "Dissocia",
         "removeConfirmTitle": "Dissociare {{name}}?",
-        "removeConfirm": "Questo telefono non potrà più dettare tramite questo computer finché non lo associ di nuovo.",
-        "removeFailed": "Impossibile dissociare il telefono",
+        "removeConfirm": "Questo dispositivo non potrà più dettare tramite questo computer finché non lo associ di nuovo.",
+        "removeFailed": "Impossibile dissociare il dispositivo",
         "cancel": "Annulla",
         "transcribing": "Trascrizione in corso",
         "canType": "Scrive qui",
@@ -1138,8 +1138,8 @@
     "filePostProcessFailedTitle": "Trascritto senza post-elaborazione",
     "filePostProcessFailed": "La post-elaborazione non è terminata, quindi la trascrizione è stata salvata così com'è.",
     "fileTranscriptionFailedTitle": "Trascrizione del file non riuscita",
-    "mobileServerFailedTitle": "Impossibile avviare Handy Mobile",
-    "mobileServerFailed": "I telefoni non riescono a connettersi. Un'altra app potrebbe usare la porta; scegline un'altra nelle impostazioni Mobile.",
+    "mobileServerFailedTitle": "Impossibile avviare Handy Remote",
+    "mobileServerFailed": "I dispositivi associati non riescono a connettersi. Un'altra app potrebbe usare la porta; scegline un'altra nelle impostazioni Condivisione.",
     "mobileTranscriptionFailedTitle": "Dettatura dal telefono non riuscita",
     "transcriptionFailedTitle": "Trascrizione non riuscita",
     "remoteUnreachableTitle": "Altro computer irraggiungibile",

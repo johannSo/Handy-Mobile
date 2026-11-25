@@ -281,7 +281,7 @@ impl Server {
                 // Not being findable costs only the reconnect after an
                 // address change; the server still works.
                 if let Err(e) = discovery::respond(desktop_id, port).await {
-                    warn!("Phones can't look this desktop up on the network: {e}");
+                    warn!("Paired devices can't look this desktop up on the network: {e}");
                 }
             })
         });
@@ -310,7 +310,7 @@ impl Server {
             }
         });
 
-        info!("Listening for phones on {local_addr}");
+        info!("Listening for paired devices on {local_addr}");
         Ok(Self {
             shared,
             local_addr,
@@ -365,7 +365,7 @@ where
     let json = serde_json::to_string(message).map_err(|e| e.to_string())?;
     timeout(WRITE_TIMEOUT, ws.send(Message::text(json)))
         .await
-        .map_err(|_| "the phone stopped reading".to_string())?
+        .map_err(|_| "the device stopped reading".to_string())?
         .map_err(|e| e.to_string())
 }
 
@@ -387,7 +387,7 @@ fn clean_device_name(name: &str) -> String {
         .collect();
     let cleaned = cleaned.trim();
     if cleaned.is_empty() {
-        "Phone".to_string()
+        "Device".to_string()
     } else {
         cleaned.to_string()
     }
@@ -459,7 +459,7 @@ where
 
         let first = timeout(HANDSHAKE_TIMEOUT, next_message(&mut ws))
             .await
-            .map_err(|_| "the phone never said who it is".to_string())??;
+            .map_err(|_| "the device never said who it is".to_string())??;
         let info = shared.host.info();
         let identified = match first {
             Some(Incoming::Control(
@@ -540,7 +540,7 @@ where
     });
     lock(&shared.connections).insert(connection, device_id.clone());
     shared.host.connected(&device_id, peer);
-    info!("Phone {device_id} connected from {peer}");
+    info!("Device {device_id} connected from {peer}");
 
     let result = session(
         &shared,
@@ -561,7 +561,7 @@ where
     {
         shared.host.disconnected(&device_id);
     }
-    info!("Phone {device_id} disconnected");
+    info!("Device {device_id} disconnected");
     let _ = timeout(WRITE_TIMEOUT, ws.close(None)).await;
     result
 }
@@ -639,7 +639,7 @@ where
                 send(ws, &ServerMessage::State { state: SessionState::Idle }).await?;
             },
             incoming = timeout(IDLE_TIMEOUT, next_message(ws)) => {
-                let incoming = incoming.map_err(|_| "the phone went silent".to_string())??;
+                let incoming = incoming.map_err(|_| "the device went silent".to_string())??;
                 let Some(incoming) = incoming else {
                     return Ok(());
                 };
@@ -783,7 +783,7 @@ mod tests {
     #[test]
     fn device_names_are_cleaned() {
         assert_eq!(clean_device_name("  Pixel 9\n"), "Pixel 9");
-        assert_eq!(clean_device_name("\u{7}\t"), "Phone");
+        assert_eq!(clean_device_name("\u{7}\t"), "Device");
         assert_eq!(clean_device_name(&"x".repeat(100)).len(), 40);
     }
 }

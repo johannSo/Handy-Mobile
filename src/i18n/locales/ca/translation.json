@@ -450,16 +450,16 @@
       "intro": "Els telèfons i altres ordinadors de la vostra xarxa poden dictar amb el model d'aquest ordinador. El telèfon enregistra i aquest ordinador transcriu.",
       "groups": {
         "connection": "Connexió",
-        "devices": "Telèfons vinculats",
+        "devices": "Dispositius vinculats",
         "dictation": "Dictat"
       },
       "enabled": {
-        "label": "Handy Mobile",
-        "description": "Permet que els telèfons vinculats dictin a través d'aquest ordinador. Mentre estigui activat, el Handy els espera a la xarxa local."
+        "label": "Handy Remote",
+        "description": "Permet que els dispositius vinculats dictin a través d'aquest ordinador. Mentre estigui activat, el Handy els espera a la xarxa local."
       },
       "status": {
         "title": "Estat",
-        "description": "L'adreça a què es connecten els telèfons vinculats. El telèfon i aquest ordinador han de ser a la mateixa xarxa.",
+        "description": "L'adreça a què es connecten els dispositius vinculats. Han de ser a la mateixa xarxa que aquest ordinador.",
         "off": "Desactivat",
         "starting": "S'està iniciant…",
         "listening": "Escoltant a {{address}}",
@@ -468,12 +468,12 @@
       },
       "port": {
         "title": "Port",
-        "description": "El port de xarxa a què es connecten els telèfons. Permeteu-lo al tallafoc si els telèfons no es poden connectar. Després de canviar-lo, caldrà tornar a vincular els telèfons."
+        "description": "El port de xarxa a què es connecten els dispositius vinculats. Permeteu-lo al tallafoc si no es poden connectar. Després de canviar-lo, caldrà tornar a vincular els dispositius."
       },
       "pair": {
         "button": "Vincula un telèfon",
-        "hint": "En vincular es mostra un codi per escanejar amb el Handy Mobile.",
-        "turnOnFirst": "Activeu el Handy Mobile per vincular un telèfon.",
+        "hint": "En vincular es mostra un codi per escanejar o enganxar a l'altre dispositiu.",
+        "turnOnFirst": "Activeu el Handy Remote per vincular un dispositiu.",
         "title": "Vincula un telèfon",
         "description": "Obriu el Handy Mobile al telèfon i escanegeu aquest codi. El telèfon ha de ser a la mateixa xarxa que aquest ordinador.",
         "qrAlt": "Codi de vinculació",
@@ -492,18 +492,18 @@
         "computerNote": "Un ordinador vinculat rep el text de tornada. No pot escriure aquí si no ho permeteu."
       },
       "devices": {
-        "empty": "Encara no hi ha cap telèfon vinculat.",
+        "empty": "Encara no hi ha cap dispositiu vinculat.",
         "connected": "Connectat",
         "dictating": "S'està dictant…",
         "lastSeen": "Última connexió: {{time}}",
         "never": "Encara no s'ha connectat",
         "rename": "Canvia el nom",
-        "nameLabel": "Nom del telèfon",
-        "renameFailed": "No s'ha pogut canviar el nom del telèfon",
+        "nameLabel": "Nom del dispositiu",
+        "renameFailed": "No s'ha pogut canviar el nom del dispositiu",
         "remove": "Desvincula",
         "removeConfirmTitle": "Voleu desvincular {{name}}?",
-        "removeConfirm": "Aquest telèfon no podrà dictar a través d'aquest ordinador fins que el torneu a vincular.",
-        "removeFailed": "No s'ha pogut desvincular el telèfon",
+        "removeConfirm": "Aquest dispositiu no podrà dictar a través d'aquest ordinador fins que el torneu a vincular.",
+        "removeFailed": "No s'ha pogut desvincular el dispositiu",
         "cancel": "Cancel·la",
         "transcribing": "S'està transcrivint",
         "canType": "Escriu aquí",
@@ -1138,8 +1138,8 @@
     "filePostProcessFailedTitle": "Transcrit sense postprocessament",
     "filePostProcessFailed": "El postprocessament no ha acabat, així que la transcripció s'ha desat tal qual.",
     "fileTranscriptionFailedTitle": "La transcripció del fitxer ha fallat",
-    "mobileServerFailedTitle": "El Handy Mobile no s'ha pogut iniciar",
-    "mobileServerFailed": "Els telèfons no es poden connectar. Pot ser que una altra aplicació faci servir el port; trieu-ne un altre a la configuració de Mòbil.",
+    "mobileServerFailedTitle": "El Handy Remote no s'ha pogut iniciar",
+    "mobileServerFailed": "Els dispositius vinculats no es poden connectar. Pot ser que una altra aplicació faci servir el port; trieu-ne un altre a la configuració de Compartició.",
     "mobileTranscriptionFailedTitle": "El dictat del telèfon ha fallat",
     "transcriptionFailedTitle": "La transcripció ha fallat",
     "remoteUnreachableTitle": "L'ordinador no respon",

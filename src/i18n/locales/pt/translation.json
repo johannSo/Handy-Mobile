@@ -450,16 +450,16 @@
       "intro": "Celulares e outros computadores na sua rede podem ditar com o modelo deste computador. O celular grava, este computador transcreve.",
       "groups": {
         "connection": "Conexão",
-        "devices": "Celulares Pareados",
+        "devices": "Dispositivos Pareados",
         "dictation": "Ditado"
       },
       "enabled": {
-        "label": "Handy Mobile",
-        "description": "Permite que celulares pareados ditem por este computador. Enquanto estiver ativado, o Handy fica à espera deles na sua rede local."
+        "label": "Handy Remote",
+        "description": "Permite que dispositivos pareados ditem por este computador. Enquanto estiver ativado, o Handy fica à espera deles na sua rede local."
       },
       "status": {
         "title": "Status",
-        "description": "O endereço ao qual os celulares pareados se conectam. O celular e este computador precisam estar na mesma rede.",
+        "description": "O endereço ao qual os dispositivos pareados se conectam. Eles precisam estar na mesma rede que este computador.",
         "off": "Desativado",
         "starting": "Iniciando…",
         "listening": "Escutando em {{address}}",
@@ -468,12 +468,12 @@
       },
       "port": {
         "title": "Porta",
-        "description": "A porta de rede à qual os celulares se conectam. Libere-a no firewall se os celulares não conseguirem se conectar. Os celulares precisam ser pareados de novo depois que você a altera."
+        "description": "A porta de rede à qual os dispositivos pareados se conectam. Libere-a no firewall se eles não conseguirem se conectar. Os dispositivos precisam ser pareados de novo depois que você a altera."
       },
       "pair": {
         "button": "Parear um Celular",
-        "hint": "O pareamento mostra um código para escanear com o Handy Mobile.",
-        "turnOnFirst": "Ative o Handy Mobile para parear um celular.",
+        "hint": "O pareamento mostra um código para escanear ou colar no outro dispositivo.",
+        "turnOnFirst": "Ative o Handy Remote para parear um dispositivo.",
         "title": "Parear um Celular",
         "description": "Abra o Handy Mobile no celular e escaneie este código. O celular precisa estar na mesma rede que este computador.",
         "qrAlt": "Código de pareamento",
@@ -492,18 +492,18 @@
         "computerNote": "Um computador pareado recebe o texto de volta. Ele não pode digitar aqui a menos que você permita."
       },
       "devices": {
-        "empty": "Nenhum celular pareado ainda.",
+        "empty": "Nenhum dispositivo pareado ainda.",
         "connected": "Conectado",
         "dictating": "Ditando…",
         "lastSeen": "Visto pela última vez {{time}}",
         "never": "Ainda não se conectou",
         "rename": "Renomear",
-        "nameLabel": "Nome do celular",
-        "renameFailed": "Não foi possível renomear o celular",
+        "nameLabel": "Nome do dispositivo",
+        "renameFailed": "Não foi possível renomear o dispositivo",
         "remove": "Desparear",
         "removeConfirmTitle": "Desparear {{name}}?",
-        "removeConfirm": "Este celular não poderá ditar por este computador até você pareá-lo de novo.",
-        "removeFailed": "Não foi possível desparear o celular",
+        "removeConfirm": "Este dispositivo não poderá ditar por este computador até você pareá-lo de novo.",
+        "removeFailed": "Não foi possível desparear o dispositivo",
         "cancel": "Cancelar",
         "transcribing": "Transcrevendo",
         "canType": "Digita aqui",
@@ -1138,8 +1138,8 @@
     "filePostProcessFailedTitle": "Transcrito sem pós-processamento",
     "filePostProcessFailed": "O pós-processamento não terminou, então a transcrição foi salva como está.",
     "fileTranscriptionFailedTitle": "Falha na transcrição do arquivo",
-    "mobileServerFailedTitle": "Falha ao iniciar o Handy Mobile",
-    "mobileServerFailed": "Os celulares não conseguem se conectar. Outro app pode estar usando a porta; escolha outra nas configurações de Celular.",
+    "mobileServerFailedTitle": "Falha ao iniciar o Handy Remote",
+    "mobileServerFailed": "Os dispositivos pareados não conseguem se conectar. Outro app pode estar usando a porta; escolha outra nas configurações de Compartilhamento.",
     "mobileTranscriptionFailedTitle": "Falha no ditado pelo celular",
     "transcriptionFailedTitle": "Falha na transcrição",
     "remoteUnreachableTitle": "Outro computador inacessível",

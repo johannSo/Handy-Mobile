@@ -450,16 +450,16 @@
       "intro": "Telefoner og andre computere på dit netværk kan diktere med denne computers model. En telefon optager, denne computer transskriberer.",
       "groups": {
         "connection": "Forbindelse",
-        "devices": "Parrede telefoner",
+        "devices": "Parrede enheder",
         "dictation": "Diktering"
       },
       "enabled": {
-        "label": "Handy Mobile",
-        "description": "Lad parrede telefoner diktere via denne computer. Mens dette er slået til, lytter Handy efter dem på dit lokale netværk."
+        "label": "Handy Remote",
+        "description": "Lad parrede enheder diktere via denne computer. Mens dette er slået til, lytter Handy efter dem på dit lokale netværk."
       },
       "status": {
         "title": "Status",
-        "description": "Adressen, som parrede telefoner opretter forbindelse til. Telefonen og denne computer skal være på samme netværk.",
+        "description": "Adressen, som parrede enheder opretter forbindelse til. De skal være på samme netværk som denne computer.",
         "off": "Fra",
         "starting": "Starter…",
         "listening": "Lytter på {{address}}",
@@ -468,12 +468,12 @@
       },
       "port": {
         "title": "Port",
-        "description": "Netværksporten, som telefoner opretter forbindelse til. Tillad den i din firewall, hvis telefoner ikke kan oprette forbindelse. Telefoner skal parres igen, når du har ændret den."
+        "description": "Netværksporten, som parrede enheder opretter forbindelse til. Tillad den i din firewall, hvis de ikke kan oprette forbindelse. Enheder skal parres igen, når du har ændret den."
       },
       "pair": {
         "button": "Par en telefon",
-        "hint": "Ved parring vises en kode, som du scanner med Handy Mobile.",
-        "turnOnFirst": "Slå Handy Mobile til for at parre en telefon.",
+        "hint": "Ved parring vises en kode, som du scanner eller indsætter på den anden enhed.",
+        "turnOnFirst": "Slå Handy Remote til for at parre en enhed.",
         "title": "Par en telefon",
         "description": "Åbn Handy Mobile på din telefon, og scan denne kode. Telefonen skal være på samme netværk som denne computer.",
         "qrAlt": "Parringskode",
@@ -492,17 +492,17 @@
         "computerNote": "En parret computer får sin tekst tilbage. Den kan ikke skrive her, medmindre du tillader det."
       },
       "devices": {
-        "empty": "Ingen telefoner er parret endnu.",
+        "empty": "Ingen enheder er parret endnu.",
         "connected": "Forbundet",
         "dictating": "Dikterer…",
         "lastSeen": "Sidst set {{time}}",
         "never": "Ikke forbundet endnu",
         "rename": "Omdøb",
-        "nameLabel": "Telefonens navn",
-        "renameFailed": "Kunne ikke omdøbe telefonen",
+        "nameLabel": "Enhedens navn",
+        "renameFailed": "Kunne ikke omdøbe enheden",
         "remove": "Fjern parring",
         "removeConfirmTitle": "Fjern parringen med {{name}}?",
-        "removeConfirm": "Denne telefon kan ikke diktere via denne computer, før du parrer den igen.",
+        "removeConfirm": "Denne enhed kan ikke diktere via denne computer, før du parrer den igen.",
         "removeFailed": "Kunne ikke fjerne parringen",
         "cancel": "Annuller",
         "transcribing": "Transskriberer",
@@ -1138,8 +1138,8 @@
     "filePostProcessFailedTitle": "Transskriberet uden efterbehandling",
     "filePostProcessFailed": "Efterbehandlingen blev ikke færdig, så transskriptionen blev gemt, som den er.",
     "fileTranscriptionFailedTitle": "Transskription af fil mislykkedes",
-    "mobileServerFailedTitle": "Handy Mobile kunne ikke starte",
-    "mobileServerFailed": "Telefoner kan ikke oprette forbindelse. En anden app bruger måske porten; vælg en anden i indstillingerne for Mobil.",
+    "mobileServerFailedTitle": "Handy Remote kunne ikke starte",
+    "mobileServerFailed": "Parrede enheder kan ikke oprette forbindelse. En anden app bruger måske porten; vælg en anden i indstillingerne for Deling.",
     "mobileTranscriptionFailedTitle": "Diktering fra telefon mislykkedes",
     "transcriptionFailedTitle": "Transskription mislykkedes",
     "remoteUnreachableTitle": "Anden computer kan ikke nås",

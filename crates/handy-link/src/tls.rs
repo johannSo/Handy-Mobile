@@ -119,7 +119,7 @@ mod client {
                 Ok(ServerCertVerified::assertion())
             } else {
                 Err(Error::General(
-                    "this is not the desktop this phone was paired with".into(),
+                    "this is not the computer this device was paired with".into(),
                 ))
             }
         }

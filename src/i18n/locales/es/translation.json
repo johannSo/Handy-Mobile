@@ -450,16 +450,16 @@
       "intro": "Los teléfonos y otros equipos de tu red pueden dictar con el modelo de este equipo. El teléfono graba y este equipo transcribe.",
       "groups": {
         "connection": "Conexión",
-        "devices": "Teléfonos vinculados",
+        "devices": "Dispositivos vinculados",
         "dictation": "Dictado"
       },
       "enabled": {
-        "label": "Handy Mobile",
-        "description": "Permite que los teléfonos vinculados dicten a través de este equipo. Mientras esté activado, Handy los espera en tu red local."
+        "label": "Handy Remote",
+        "description": "Permite que los dispositivos vinculados dicten a través de este equipo. Mientras esté activado, Handy los espera en tu red local."
       },
       "status": {
         "title": "Estado",
-        "description": "La dirección a la que se conectan los teléfonos vinculados. El teléfono y este equipo deben estar en la misma red.",
+        "description": "La dirección a la que se conectan los dispositivos vinculados. Deben estar en la misma red que este equipo.",
         "off": "Desactivado",
         "starting": "Iniciando…",
         "listening": "Escuchando en {{address}}",
@@ -468,12 +468,12 @@
       },
       "port": {
         "title": "Puerto",
-        "description": "El puerto de red al que se conectan los teléfonos. Permítelo en tu firewall si los teléfonos no pueden conectarse. Tendrás que volver a vincular los teléfonos después de cambiarlo."
+        "description": "El puerto de red al que se conectan los dispositivos vinculados. Permítelo en tu firewall si no pueden conectarse. Tendrás que volver a vincular los dispositivos después de cambiarlo."
       },
       "pair": {
         "button": "Vincular un teléfono",
-        "hint": "Al vincular se muestra un código para escanear con Handy Mobile.",
-        "turnOnFirst": "Activa Handy Mobile para vincular un teléfono.",
+        "hint": "Al vincular se muestra un código para escanear o pegar en el otro dispositivo.",
+        "turnOnFirst": "Activa Handy Remote para vincular un dispositivo.",
         "title": "Vincular un teléfono",
         "description": "Abre Handy Mobile en tu teléfono y escanea este código. El teléfono debe estar en la misma red que este equipo.",
         "qrAlt": "Código de vinculación",
@@ -492,18 +492,18 @@
         "computerNote": "Un equipo vinculado recibe su texto de vuelta. No puede escribir aquí a menos que lo permitas."
       },
       "devices": {
-        "empty": "Aún no hay teléfonos vinculados.",
+        "empty": "Aún no hay dispositivos vinculados.",
         "connected": "Conectado",
         "dictating": "Dictando…",
         "lastSeen": "Última conexión: {{time}}",
         "never": "Aún no se ha conectado",
         "rename": "Cambiar nombre",
-        "nameLabel": "Nombre del teléfono",
-        "renameFailed": "No se pudo cambiar el nombre del teléfono",
+        "nameLabel": "Nombre del dispositivo",
+        "renameFailed": "No se pudo cambiar el nombre del dispositivo",
         "remove": "Desvincular",
         "removeConfirmTitle": "¿Desvincular {{name}}?",
-        "removeConfirm": "Este teléfono no podrá dictar a través de este equipo hasta que lo vincules de nuevo.",
-        "removeFailed": "No se pudo desvincular el teléfono",
+        "removeConfirm": "Este dispositivo no podrá dictar a través de este equipo hasta que lo vincules de nuevo.",
+        "removeFailed": "No se pudo desvincular el dispositivo",
         "cancel": "Cancelar",
         "transcribing": "Transcribiendo",
         "canType": "Escribe aquí",
@@ -1138,8 +1138,8 @@
     "filePostProcessFailedTitle": "Transcrito sin post proceso",
     "filePostProcessFailed": "El post proceso no terminó, así que la transcripción se guardó tal cual.",
     "fileTranscriptionFailedTitle": "Error al transcribir el archivo",
-    "mobileServerFailedTitle": "Handy Mobile no pudo iniciarse",
-    "mobileServerFailed": "Los teléfonos no pueden conectarse. Puede que otra app esté usando el puerto; elige otro en la configuración de Móvil.",
+    "mobileServerFailedTitle": "Handy Remote no pudo iniciarse",
+    "mobileServerFailed": "Los dispositivos vinculados no pueden conectarse. Puede que otra app esté usando el puerto; elige otro en la configuración de Compartir.",
     "mobileTranscriptionFailedTitle": "Error en el dictado del teléfono",
     "transcriptionFailedTitle": "Error de transcripción",
     "remoteUnreachableTitle": "Otro equipo inaccesible",

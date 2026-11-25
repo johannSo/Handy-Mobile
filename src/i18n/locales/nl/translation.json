@@ -450,16 +450,16 @@
       "intro": "Telefoons en andere computers in je netwerk kunnen dicteren met het model van deze computer. Een telefoon neemt op, deze computer transcribeert.",
       "groups": {
         "connection": "Verbinding",
-        "devices": "Gekoppelde telefoons",
+        "devices": "Gekoppelde apparaten",
         "dictation": "Dicteren"
       },
       "enabled": {
-        "label": "Handy Mobile",
-        "description": "Laat gekoppelde telefoons via deze computer dicteren. Zolang dit aanstaat, wacht Handy op ze in je lokale netwerk."
+        "label": "Handy Remote",
+        "description": "Laat gekoppelde apparaten via deze computer dicteren. Zolang dit aanstaat, wacht Handy op ze in je lokale netwerk."
       },
       "status": {
         "title": "Status",
-        "description": "Het adres waarmee gekoppelde telefoons verbinding maken. De telefoon en deze computer moeten op hetzelfde netwerk zitten.",
+        "description": "Het adres waarmee gekoppelde apparaten verbinding maken. Ze moeten op hetzelfde netwerk zitten als deze computer.",
         "off": "Uit",
         "starting": "Starten…",
         "listening": "Bereikbaar op {{address}}",
@@ -468,12 +468,12 @@
       },
       "port": {
         "title": "Poort",
-        "description": "De netwerkpoort waarmee telefoons verbinding maken. Sta deze toe in je firewall als telefoons geen verbinding kunnen maken. Na een wijziging moeten telefoons opnieuw worden gekoppeld."
+        "description": "De netwerkpoort waarmee gekoppelde apparaten verbinding maken. Sta deze toe in je firewall als ze geen verbinding kunnen maken. Na een wijziging moeten apparaten opnieuw worden gekoppeld."
       },
       "pair": {
         "button": "Telefoon koppelen",
-        "hint": "Bij het koppelen verschijnt een code om te scannen met Handy Mobile.",
-        "turnOnFirst": "Zet Handy Mobile aan om een telefoon te koppelen.",
+        "hint": "Bij het koppelen verschijnt een code om te scannen of te plakken op het andere apparaat.",
+        "turnOnFirst": "Zet Handy Remote aan om een apparaat te koppelen.",
         "title": "Telefoon koppelen",
         "description": "Open Handy Mobile op je telefoon en scan deze code. De telefoon moet op hetzelfde netwerk zitten als deze computer.",
         "qrAlt": "Koppelcode",
@@ -492,18 +492,18 @@
         "computerNote": "Een gekoppelde computer krijgt zijn tekst terug. Hij kan hier alleen typen als je dat toestaat."
       },
       "devices": {
-        "empty": "Er zijn nog geen telefoons gekoppeld.",
+        "empty": "Er zijn nog geen apparaten gekoppeld.",
         "connected": "Verbonden",
         "dictating": "Dicteert…",
         "lastSeen": "Laatst gezien: {{time}}",
         "never": "Nog niet verbonden",
         "rename": "Naam wijzigen",
-        "nameLabel": "Naam van telefoon",
-        "renameFailed": "Naam van telefoon wijzigen mislukt",
+        "nameLabel": "Naam van apparaat",
+        "renameFailed": "Naam van apparaat wijzigen mislukt",
         "remove": "Ontkoppelen",
         "removeConfirmTitle": "{{name}} ontkoppelen?",
-        "removeConfirm": "Deze telefoon kan niet meer via deze computer dicteren totdat je hem opnieuw koppelt.",
-        "removeFailed": "Telefoon ontkoppelen mislukt",
+        "removeConfirm": "Dit apparaat kan niet meer via deze computer dicteren totdat je het opnieuw koppelt.",
+        "removeFailed": "Apparaat ontkoppelen mislukt",
         "cancel": "Annuleren",
         "transcribing": "Transcribeert",
         "canType": "Typt hier",
@@ -1138,8 +1138,8 @@
     "filePostProcessFailedTitle": "Getranscribeerd zonder naverwerking",
     "filePostProcessFailed": "De naverwerking is niet voltooid, dus de transcriptie is ongewijzigd opgeslagen.",
     "fileTranscriptionFailedTitle": "Transcriptie van bestand mislukt",
-    "mobileServerFailedTitle": "Handy Mobile starten mislukt",
-    "mobileServerFailed": "Telefoons kunnen geen verbinding maken. Mogelijk gebruikt een andere app de poort; kies een andere in de instellingen voor Mobiel.",
+    "mobileServerFailedTitle": "Handy Remote starten mislukt",
+    "mobileServerFailed": "Gekoppelde apparaten kunnen geen verbinding maken. Mogelijk gebruikt een andere app de poort; kies een andere in de instellingen voor Delen.",
     "mobileTranscriptionFailedTitle": "Dicteren via telefoon mislukt",
     "transcriptionFailedTitle": "Transcriptie mislukt",
     "remoteUnreachableTitle": "Andere computer onbereikbaar",

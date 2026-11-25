@@ -802,7 +802,7 @@ impl TranscriptionManager {
     pub fn ensure_model_unlocked(&self) -> std::result::Result<(), String> {
         if self.job_active() {
             return Err(
-                "The model can't change while a file or a phone's dictation is transcribing"
+                "The model can't change while a file or another device's dictation is transcribing"
                     .to_string(),
             );
         }
