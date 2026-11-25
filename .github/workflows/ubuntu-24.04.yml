@@ -1,0 +1,140 @@
+name: "Ubuntu 24.04 Build"
+
+# Builds Handy on Ubuntu 24.04 (x86_64) and uploads the deb, rpm and AppImage
+# as workflow artifacts. Needs no secrets: the updater artifacts (which need
+# TAURI_SIGNING_PRIVATE_KEY) are turned off for this build.
+#
+# Pushing a tag like v0.11.0-alpha.1 builds that version (taken from the tag)
+# and publishes the packages as a GitHub pre-release.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "./src-tauri -> target"
+          key: ubuntu-24.04-x86_64
+          cache-bin: false
+
+      # WebKitGTK is pinned to the version the release AppImage is built
+      # against (same as build.yml). libvulkan-dev, glslc and spirv-headers
+      # let transcribe-cpp-sys build ggml's Vulkan backend.
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential clang libclang-dev cmake pkg-config patchelf \
+            libssl-dev libasound2-dev libevdev-dev libopenblas-dev \
+            libx11-dev libxtst-dev libxrandr-dev \
+            libappindicator3-dev librsvg2-dev \
+            libgtk-3-dev libgtk-layer-shell0 libgtk-layer-shell-dev \
+            libvulkan-dev glslc glslang-tools spirv-headers \
+            libfuse2 file xdg-utils \
+            libwebkit2gtk-4.1-0=2.44.0-2 \
+            libwebkit2gtk-4.1-dev=2.44.0-2 \
+            libjavascriptcoregtk-4.1-0=2.44.0-2 \
+            libjavascriptcoregtk-4.1-dev=2.44.0-2 \
+            gir1.2-javascriptcoregtk-4.1=2.44.0-2 \
+            gir1.2-webkit2-4.1=2.44.0-2
+
+      - name: Install frontend dependencies
+        run: bun install --frozen-lockfile
+
+      # linuxdeploy (AppImage) fails hard if it can't resolve libtranscribe.so,
+      # which only exists in the cargo build tree. Build once, then expose the
+      # transcribe-cpp install dir to the linker. Mirrors build.yml.
+      - name: Pre-build and locate transcribe-cpp libs
+        run: |
+          set -euo pipefail
+          bun run build
+          (cd src-tauri && cargo build --release)
+          LIBDIR="$(find src-tauri/target/release/build \
+            -type f -name transcribe-link.json -path '*transcribe-cpp-sys*/out/lib/*' \
+            -printf '%T@ %h\n' 2>/dev/null | sort -rn | head -1 | cut -d' ' -f2-)"
+          if [ -z "${LIBDIR:-}" ] || [ ! -d "$LIBDIR" ]; then
+            echo "ERROR: could not locate transcribe-cpp-sys install lib dir" >&2
+            exit 1
+          fi
+          LIBDIR="$(cd "$LIBDIR" && pwd)"
+          echo "Located transcribe-cpp libs in: $LIBDIR"
+          echo "LD_LIBRARY_PATH=$LIBDIR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" >> "$GITHUB_ENV"
+          sudo cp -vL "$LIBDIR"/libtranscribe.so* "$LIBDIR"/libggml*.so* /usr/local/lib/ 2>/dev/null || true
+          sudo ldconfig
+
+      # Tauri's bundled linuxdeploy predates LINUXDEPLOY_EXCLUDED_LIBRARIES.
+      - name: Install current linuxdeploy
+        run: |
+          set -euo pipefail
+          tools_dir="${XDG_CACHE_HOME:-$HOME/.cache}/tauri"
+          mkdir -p "$tools_dir"
+          curl -L --fail --show-error --retry 3 \
+            -o "$tools_dir/linuxdeploy-x86_64.AppImage" \
+            "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage"
+          chmod +x "$tools_dir/linuxdeploy-x86_64.AppImage"
+
+      - name: Build with Tauri
+        env:
+          # Keep the host's Vulkan loader and Wayland client out of the AppImage.
+          LINUXDEPLOY_EXCLUDED_LIBRARIES: "libvulkan.so*;libwayland-client.so*"
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+            echo "{\"version\":\"$VERSION\",\"bundle\":{\"createUpdaterArtifacts\":false}}" > "$RUNNER_TEMP/ci.conf.json"
+          else
+            echo '{"bundle":{"createUpdaterArtifacts":false}}' > "$RUNNER_TEMP/ci.conf.json"
+          fi
+          cat "$RUNNER_TEMP/ci.conf.json"
+          bun run tauri build --bundles deb,rpm,appimage --config "$RUNNER_TEMP/ci.conf.json"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: handy-ubuntu-24.04-x86_64
+          path: |
+            src-tauri/target/release/bundle/deb/*.deb
+            src-tauri/target/release/bundle/rpm/*.rpm
+            src-tauri/target/release/bundle/appimage/*.AppImage
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish pre-release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          files=(src-tauri/target/release/bundle/deb/*.deb \
+                 src-tauri/target/release/bundle/rpm/*.rpm \
+                 src-tauri/target/release/bundle/appimage/*.AppImage)
+          gh release create "$GITHUB_REF_NAME" "${files[@]}" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "Handy $GITHUB_REF_NAME" \
+            --prerelease \
+            --verify-tag \
+            --generate-notes
