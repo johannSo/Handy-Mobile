@@ -1,6 +1,6 @@
 [package]
 name = "handy-mobile"
-version = "0.2.1"
+version = "0.11.0"
 description = "Handy Mobile: dictate on your phone, transcribe on your computer"
 edition = "2021"
 license = "MIT"
