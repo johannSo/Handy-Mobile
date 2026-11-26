@@ -1,0 +1,98 @@
+# Arch Linux package for Handy, built from the checkout this file lives in
+# (there is no source download):
+#
+#   cd packaging/arch && makepkg -si
+#
+# The version comes from src-tauri/tauri.conf.json, or from HANDY_VERSION when
+# it is set (CI sets it from the tag, e.g. 0.11.0-alpha.1).
+#
+# Tauri builds the deb and package() unpacks it, so the files and their layout
+# (/usr/bin/handy, app-private libs in /usr/lib/Handy) are the same as in the
+# deb and rpm. The updater stays off: the binary is stamped as a deb build and
+# Arch has no dpkg to install an update with.
+
+pkgname=handy
+pkgver=0.11.0
+pkgrel=1
+pkgdesc="Free, open source and extensible speech-to-text that works completely offline"
+arch=('x86_64')
+url="https://github.com/cjpais/Handy"
+license=('MIT')
+depends=(
+  'alsa-lib'
+  'gcc-libs'
+  'glib2'
+  'glibc'
+  'gtk-layer-shell'
+  'gtk3'
+  'hicolor-icon-theme'
+  'libayatana-appindicator'
+  'libevdev'
+  'libx11'
+  'libxtst'
+  'openblas'
+  'openssl'
+  'vulkan-icd-loader'
+  'webkit2gtk-4.1'
+)
+makedepends=(
+  'bun'
+  'cargo'
+  'clang'
+  'cmake'
+  'git'
+  'pkgconf'
+  'shaderc'
+  'spirv-headers'
+  'vulkan-headers'
+)
+optdepends=('vulkan-driver: GPU-accelerated transcription')
+# LTO in makepkg's CFLAGS breaks the ggml/transcribe-cpp CMake build.
+options=('!lto' '!debug')
+
+_root() {
+  cd "$startdir/../.." && pwd
+}
+
+_version() {
+  if [[ -n ${HANDY_VERSION:-} ]]; then
+    echo "$HANDY_VERSION"
+  else
+    grep -o '"version": "[^"]*"' "$(_root)/src-tauri/tauri.conf.json" | head -1 | cut -d'"' -f4
+  fi
+}
+
+pkgver() {
+  # pacman versions can't contain '-': 0.11.0-alpha.1 -> 0.11.0_alpha.1
+  local v
+  v="$(_version)"
+  echo "${v//-/_}"
+}
+
+build() {
+  cd "$(_root)"
+
+  # The updater artifacts need the release signing key; this package doesn't
+  # use them.
+  printf '{"version":"%s","bundle":{"createUpdaterArtifacts":false}}\n' "$(_version)" \
+    > "$srcdir/arch.conf.json"
+
+  # Leave only this build's deb for package() to find.
+  rm -rf src-tauri/target/release/bundle/deb
+
+  bun install --frozen-lockfile
+  bun run tauri build --bundles deb --config "$srcdir/arch.conf.json"
+}
+
+package() {
+  local root debs
+  root="$(_root)"
+  debs=("$root"/src-tauri/target/release/bundle/deb/*.deb)
+  if (( ${#debs[@]} != 1 )) || [[ ! -f ${debs[0]} ]]; then
+    echo "Expected exactly one deb, found: ${debs[*]}" >&2
+    return 1
+  fi
+
+  bsdtar -xOf "${debs[0]}" 'data.tar.*' | bsdtar -xf - -C "$pkgdir"
+  install -Dm644 "$root/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

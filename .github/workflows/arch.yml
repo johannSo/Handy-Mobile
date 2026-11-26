@@ -1,0 +1,145 @@
+name: "Arch Linux Build"
+
+# Builds the Arch package (handy-<version>-1-x86_64.pkg.tar.zst) from
+# packaging/arch/PKGBUILD in an Arch Linux container, against Arch's own
+# WebKitGTK, OpenBLAS and Vulkan, and uploads it as a workflow artifact. Needs
+# no secrets.
+#
+# Pushing a tag like v0.11.0 builds that version (taken from the tag) and adds
+# the package to that tag's GitHub release, creating the release if the Ubuntu
+# build hasn't yet. A tag with a suffix such as v0.11.0-alpha.1 is a
+# pre-release.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    paths:
+      - "packaging/arch/**"
+      - ".github/workflows/arch.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    container: archlinux:base-devel
+    permissions:
+      contents: write
+    env:
+      # makepkg won't run as root, so the build runs as `builder`; keep cargo's
+      # home where both it and rust-cache (running as root) can find it.
+      CARGO_HOME: /cargo-home
+    steps:
+      - name: Install git
+        run: pacman -Syu --noconfirm --needed git
+
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Install build dependencies
+        run: |
+          set -euo pipefail
+          source packaging/arch/PKGBUILD
+          pacman -S --noconfirm --needed \
+            "${depends[@]}" "${makedepends[@]}" \
+            github-cli xorg-server-xvfb xorg-xauth mesa vulkan-swrast
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "./src-tauri -> target"
+          key: archlinux-x86_64
+          cache-bin: false
+
+      - name: Create build user
+        run: |
+          set -euo pipefail
+          useradd -m builder
+          mkdir -p "$CARGO_HOME"
+          chown -R builder: "$GITHUB_WORKSPACE" "$CARGO_HOME"
+
+      - name: Build package
+        run: |
+          set -euo pipefail
+          HANDY_VERSION=""
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            HANDY_VERSION="${GITHUB_REF_NAME#v}"
+          fi
+          cd packaging/arch
+          sudo -u builder -H env HANDY_VERSION="$HANDY_VERSION" CARGO_HOME="$CARGO_HOME" \
+            makepkg -f --noconfirm
+          ls -la ./*.pkg.tar.zst
+
+      # Install the package and launch it the way a user would: the binary has
+      # to find libtranscribe in /usr/lib/Handy through its rpath.
+      - name: Install and smoke-test package
+        run: |
+          set -euo pipefail
+          pkg="$(ls packaging/arch/handy-[0-9]*.pkg.tar.zst)"
+          pacman -U --noconfirm "$pkg"
+          listing="$(pacman -Qlq handy)"
+          for path in /usr/bin/handy /usr/lib/Handy/ /usr/share/applications/Handy.desktop; do
+            if ! grep -Fqx "$path" <<<"$listing"; then
+              echo "ERROR: package is missing $path" >&2
+              echo "$listing" >&2
+              exit 1
+            fi
+          done
+          if ! grep -Eq '^/usr/lib/Handy/libtranscribe\.so(\.[0-9]+)+$' <<<"$listing"; then
+            echo "ERROR: package is missing libtranscribe in /usr/lib/Handy" >&2
+            exit 1
+          fi
+          if ! grep -Eq '^/usr/lib/Handy/libggml-cpu.*\.so' <<<"$listing"; then
+            echo "ERROR: package is missing the ggml CPU backend" >&2
+            exit 1
+          fi
+          # Handy's libs stay out of the ldconfig-scanned /usr/lib (issue #1639).
+          if grep -Eq '^/usr/lib/[^/]+\.so' <<<"$listing"; then
+            echo "ERROR: libraries installed directly into /usr/lib:" >&2
+            grep -E '^/usr/lib/[^/]+\.so' <<<"$listing" >&2
+            exit 1
+          fi
+          if ! sudo -u builder -H env HANDY_NO_GTK_LAYER_SHELL=1 \
+            xvfb-run -a handy --list-devices > /tmp/handy-smoke.log 2>&1; then
+            cat /tmp/handy-smoke.log >&2
+            exit 1
+          fi
+          cat /tmp/handy-smoke.log
+          echo "Arch package --list-devices smoke passed"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: handy-archlinux-x86_64
+          path: packaging/arch/handy-[0-9]*.pkg.tar.zst
+          if-no-files-found: error
+          retention-days: 30
+
+      # The Ubuntu build publishes the same tag; whichever finishes first
+      # creates the release and the other adds its files to it.
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          files=(packaging/arch/handy-[0-9]*.pkg.tar.zst)
+          kind=(--latest)
+          if [[ "$GITHUB_REF_NAME" == *-* ]]; then
+            kind=(--prerelease)
+          fi
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 ||
+            ! gh release create "$GITHUB_REF_NAME" "${files[@]}" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "Handy $GITHUB_REF_NAME" \
+              "${kind[@]}" \
+              --verify-tag \
+              --generate-notes; then
+            gh release upload "$GITHUB_REF_NAME" "${files[@]}" \
+              --repo "$GITHUB_REPOSITORY" --clobber
+          fi
