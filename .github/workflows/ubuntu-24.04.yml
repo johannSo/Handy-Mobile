@@ -4,23 +4,25 @@ name: "Ubuntu 24.04 Build"
 # as workflow artifacts. Needs no secrets: the updater artifacts (which need
 # TAURI_SIGNING_PRIVATE_KEY) are turned off for this build.
 #
-# Pushing a tag like v0.11.0 builds that version (taken from the tag) and
-# publishes the packages as a GitHub release; a tag with a suffix such as
-# v0.11.0-alpha.1 publishes a pre-release.
+# Runs only when started by hand or when a release is published. Publishing a
+# release for a tag like v0.11.0 builds that version (taken from the tag) and
+# adds the packages to the release. Running it by hand on a v* tag does the
+# same, creating the release if there is none yet (a tag with a suffix such as
+# v0.11.0-alpha.1 is a pre-release); on a branch it only uploads artifacts.
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    tags: ["v*"]
-  pull_request:
+  release:
+    types: [published]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
+    # Releases with other tags (such as mobile-v*) aren't desktop releases.
+    if: github.event_name != 'release' || startsWith(github.event.release.tag_name, 'v')
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -123,10 +125,11 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-      # A tag with a suffix (v0.11.0-alpha.1) is a pre-release; a plain
-      # version (v0.11.0) is a release. The Arch build (arch.yml) publishes
-      # the same tag; whichever finishes first creates the release and the
-      # other adds its files to it.
+      # A published release already exists, so the files are added to it.
+      # Run by hand on a tag, the first of this, the Arch build (arch.yml) and
+      # the Android build (android.yml) to finish creates the release and the
+      # others add their files. A tag with a suffix (v0.11.0-alpha.1) is a
+      # pre-release.
       - name: Publish release
         if: startsWith(github.ref, 'refs/tags/v')
         env:

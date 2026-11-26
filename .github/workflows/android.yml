@@ -1,0 +1,166 @@
+name: "Android Build"
+
+# Builds the Handy Mobile release APK (arm64 and armv7 in one universal APK),
+# signs it with the CI release key and uploads it as a workflow artifact.
+#
+# Runs only when started by hand or when a release is published. Publishing a
+# release for a tag like v0.11.0 builds that version (taken from the tag) and
+# adds the APK to the release. Running it by hand on a v* tag does the same,
+# creating the release if there is none yet (a tag with a suffix such as
+# v0.11.0-alpha.1 is a pre-release); on a branch it only uploads the artifact.
+#
+# Needs three repository secrets:
+#   ANDROID_KEYSTORE_BASE64    the release keystore, base64-encoded
+#   ANDROID_KEYSTORE_PASSWORD  its password (store and key share it)
+#   ANDROID_KEY_ALIAS          the key's alias in the keystore
+# Every update has to be signed with the same key, so keep the keystore.
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Match compileSdk in mobile/src-tauri/gen/android/app/build.gradle.kts.
+  ANDROID_PLATFORM: "platforms;android-37.0"
+  ANDROID_BUILD_TOOLS: "build-tools;37.0.0"
+  ANDROID_NDK_VERSION: "30.0.16248370"
+
+jobs:
+  build:
+    # Releases with other tags (such as mobile-v*) aren't app releases.
+    if: github.event_name != 'release' || startsWith(github.event.release.tag_name, 'v')
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: gradle
+          cache-dependency-path: |
+            mobile/src-tauri/gen/android/**/*.gradle*
+            mobile/src-tauri/gen/android/gradle/wrapper/gradle-wrapper.properties
+
+      - name: Install Android SDK packages
+        run: |
+          set -euo pipefail
+          sdkmanager="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$sdkmanager" --licenses >/dev/null || true
+          "$sdkmanager" --install "$ANDROID_PLATFORM" "$ANDROID_BUILD_TOOLS" "ndk;$ANDROID_NDK_VERSION" >/dev/null
+          echo "NDK_HOME=$ANDROID_HOME/ndk/$ANDROID_NDK_VERSION" >> "$GITHUB_ENV"
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-linux-android,armv7-linux-androideabi
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "./mobile/src-tauri -> target"
+          key: android-release
+          cache-bin: false
+
+      - name: Install frontend dependencies
+        working-directory: mobile
+        run: bun install --frozen-lockfile
+
+      # build.gradle.kts signs the release build with the keystore named in
+      # keystore.properties; without that file the APK comes out unsigned.
+      - name: Set up release signing
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          set -euo pipefail
+          if [ -z "$ANDROID_KEYSTORE_BASE64" ] || [ -z "$ANDROID_KEYSTORE_PASSWORD" ] || [ -z "$ANDROID_KEY_ALIAS" ]; then
+            echo "ERROR: set the ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD and ANDROID_KEY_ALIAS secrets" >&2
+            exit 1
+          fi
+          keystore="$RUNNER_TEMP/handy-mobile-release.jks"
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "$keystore"
+          {
+            echo "storeFile=$keystore"
+            echo "password=$ANDROID_KEYSTORE_PASSWORD"
+            echo "keyAlias=$ANDROID_KEY_ALIAS"
+          } > mobile/src-tauri/gen/android/keystore.properties
+
+      - name: Build APK
+        working-directory: mobile
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          else
+            VERSION="$(grep -o '"version": "[^"]*"' src-tauri/tauri.conf.json | cut -d'"' -f4)"
+          fi
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "{\"version\":\"$VERSION\"}" > "$RUNNER_TEMP/ci.conf.json"
+          bun run tauri android build --ci --target aarch64 --target armv7 --apk \
+            --config "$RUNNER_TEMP/ci.conf.json"
+
+      - name: Verify signature and collect APK
+        run: |
+          set -euo pipefail
+          apk="$(find mobile/src-tauri/gen/android/app/build/outputs/apk -name '*-release.apk' -print -quit)"
+          if [ -z "$apk" ]; then
+            echo "ERROR: no release APK was built" >&2
+            find mobile/src-tauri/gen/android/app/build/outputs -type f >&2 || true
+            exit 1
+          fi
+          apksigner="$ANDROID_HOME/build-tools/${ANDROID_BUILD_TOOLS#build-tools;}/apksigner"
+          "$apksigner" verify --verbose --print-certs "$apk"
+          mkdir -p dist-android
+          cp "$apk" "dist-android/Handy-Mobile_${VERSION}_android.apk"
+          ls -la dist-android
+
+      - name: Remove signing material
+        if: always()
+        run: rm -f "$RUNNER_TEMP/handy-mobile-release.jks" mobile/src-tauri/gen/android/keystore.properties
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: handy-mobile-android
+          path: dist-android/*.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      # A published release already exists, so the APK is added to it. Run by
+      # hand on a tag, the first of this, the Ubuntu build and the Arch build
+      # to finish creates the release and the others add their files.
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          files=(dist-android/*.apk)
+          kind=(--latest)
+          if [[ "$GITHUB_REF_NAME" == *-* ]]; then
+            kind=(--prerelease)
+          fi
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 ||
+            ! gh release create "$GITHUB_REF_NAME" "${files[@]}" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "Handy $GITHUB_REF_NAME" \
+              "${kind[@]}" \
+              --verify-tag \
+              --generate-notes; then
+            gh release upload "$GITHUB_REF_NAME" "${files[@]}" \
+              --repo "$GITHUB_REPOSITORY" --clobber
+          fi
