@@ -13,17 +13,18 @@
     "otherLanguages": "Další jazyky",
     "transcribeWith": "Přepisovat pomocí",
     "thisComputer": "Tento počítač",
-    "offline": "Offline"
+    "offline": "Offline",
+    "remote": "Handy Remote..."
   },
   "sidebar": {
     "general": "Obecné",
     "models": "Modely",
-    "mobile": "Sdílení",
     "advanced": "Pokročilé",
     "postProcessing": "Následné zpracování",
     "history": "Historie",
     "debug": "Ladění",
-    "about": "O aplikaci"
+    "about": "O aplikaci",
+    "remote": "Handy Remote"
   },
   "onboarding": {
     "customModelDescription": "Oficiálně nepodporováno",
@@ -444,17 +445,21 @@
       "rescan": {
         "label": "Znovu prohledat",
         "tooltip": "Znovu prohledat modely přidané do složky modelů nebo mezipaměti Hugging Face mimo Handy"
+      },
+      "remote": {
+        "withFallback": "Pro tento počítač přepisuje {{name}}. Zde vybraný model zaskočí, když není dostupný.",
+        "withoutFallback": "Pro tento počítač přepisuje {{name}}. Zdejší modely se mezitím nepoužívají."
       }
     },
     "mobile": {
       "intro": "Telefony a jiné počítače ve vaší síti mohou diktovat pomocí modelu tohoto počítače. Telefon nahrává, tento počítač přepisuje.",
       "groups": {
-        "connection": "Připojení",
-        "devices": "Spárovaná zařízení",
-        "dictation": "Diktování"
+        "connection": "Sdílet tento počítač",
+        "devices": "Vzdálená připojení",
+        "dictation": "Diktování z telefonu"
       },
       "enabled": {
-        "label": "Handy Remote",
+        "label": "Povolit vzdálená připojení",
         "description": "Umožní spárovaným zařízením diktovat přes tento počítač. Dokud je tato možnost zapnutá, Handy na ně čeká ve vaší místní síti."
       },
       "status": {
@@ -464,23 +469,27 @@
         "starting": "Spouštění…",
         "listening": "Naslouchá na {{address}}",
         "noNetwork": "Bez připojení k síti",
-        "failed": "Nepodařilo se spustit: {{error}}"
+        "failed": "Nepodařilo se spustit: {{error}}",
+        "alsoAt": "Také na {{addresses}}"
       },
       "port": {
         "title": "Port",
-        "description": "Síťový port, ke kterému se spárovaná zařízení připojují. Pokud se nemohou připojit, povolte ho ve firewallu. Po jeho změně je potřeba zařízení spárovat znovu."
+        "description": "Síťový port, ke kterému se spárovaná zařízení připojují. Pokud se nemohou připojit, povolte ho ve firewallu. Po jeho změně je potřeba zařízení spárovat znovu.",
+        "confirmTitle": "Změnit port na {{port}}?",
+        "confirm": "Všechna spárovaná zařízení bude nutné spárovat znovu. Hledají tento počítač na portu, který měl při spárování.",
+        "change": "Změnit port"
       },
       "pair": {
         "button": "Spárovat telefon",
         "hint": "Při párování se zobrazí kód, který naskenujete nebo vložíte na druhém zařízení.",
-        "turnOnFirst": "Chcete-li spárovat zařízení, zapněte Handy Remote.",
+        "turnOnFirst": "Chcete-li spárovat zařízení, povolte vzdálená připojení.",
         "title": "Spárovat telefon",
-        "description": "Otevřete v telefonu Handy Mobile a naskenujte tento kód. Telefon musí být ve stejné síti jako tento počítač.",
+        "description": "Otevřete v telefonu Handy a naskenujte tento kód. Telefon musí být ve stejné síti jako tento počítač.",
         "qrAlt": "Párovací kód",
         "expires": "Platnost kódu vyprší za {{time}}",
         "expired": "Platnost kódu vypršela.",
         "newCode": "Nový kód",
-        "manual": "Nejde naskenovat? Zkopírujte kód a vložte ho do Handy Mobile.",
+        "manual": "Nejde naskenovat? Zkopírujte kód a vložte ho do Handy.",
         "copy": "Kopírovat kód",
         "copied": "Párovací kód zkopírován",
         "copyFailed": "Párovací kód se nepodařilo zkopírovat",
@@ -488,11 +497,13 @@
         "failed": "Párovací kód se nepodařilo vytvořit",
         "computerButton": "Spárovat počítač",
         "computerTitle": "Spárovat počítač",
-        "computerDescription": "Na druhém počítači otevřete Handy, přejděte do sekce Modely, zvolte Jiný počítač, pak Přidat počítač a vložte tento kód.",
-        "computerNote": "Spárovaný počítač dostane svůj text zpět. Psát sem může, jen pokud mu to povolíte."
+        "computerDescription": "Na druhém počítači otevřete Handy, přejděte do sekce Handy Remote, zvolte Připojit se k počítači a vložte tento kód.",
+        "computerNote": "Spárovaný počítač dostane svůj text zpět. Psát sem může, jen pokud mu to povolíte.",
+        "turnOn": "Zapnout",
+        "computerCarry": "Přeneste ho tam sami, například ve zprávě nebo v poznámce. Dokud není použit, zacházejte s ním jako s heslem: funguje jen jednou."
       },
       "devices": {
-        "empty": "Zatím nejsou spárována žádná zařízení.",
+        "empty": "S tímto počítačem zatím není nic spárováno.",
         "connected": "Připojeno",
         "dictating": "Diktuje…",
         "lastSeen": "Naposledy viděn {{time}}",
@@ -506,27 +517,35 @@
         "removeFailed": "Spárování zařízení se nepodařilo zrušit",
         "cancel": "Zrušit",
         "transcribing": "Přepisuje",
-        "canType": "Píše sem",
-        "canTypeDescription": "Vkládat do tohoto počítače, co toto zařízení nadiktuje, když o to požádá.",
+        "canType": "Může sem psát",
         "canTypeLabel": "Povolit zařízení {{name}} psát na tomto počítači",
-        "canTypeFailed": "Nepodařilo se to změnit"
+        "canTypeFailed": "Nepodařilo se to změnit",
+        "emptyPhone": "Chcete-li diktovat z telefonu, nainstalujte si do něj Handy a pak zvolte Spárovat telefon.",
+        "canTypeNote": "Volba Může sem psát umožní zařízení vkládat do tohoto počítače, co nadiktuje. Bez ní se text vrací jen do zařízení."
       },
       "outputMode": {
-        "title": "Odesílat text do",
-        "description": "Kam se text odešle, když diktuje telefon. Telefon ho zobrazí vždy.",
+        "title": "Kam jde text z telefonu",
+        "description": "Čím telefon začíná. Každý telefon to může přepnout v Handy a sem píše, jen dokud má zapnutou volbu Může sem psát.",
         "options": {
-          "desktop": "Tento počítač",
+          "desktop": "Tam, kde je kurzor",
           "phone": "Pouze telefon"
         }
       },
       "postProcess": {
-        "label": "Následné zpracování",
-        "description": "Použije následné zpracování na to, co telefony nadiktují."
+        "label": "Následné zpracování diktování z telefonu",
+        "description": "Použije následné zpracování na to, co telefony nadiktují.",
+        "unavailable": "Následné zpracování je vypnuté. Je to experimentální funkce v sekci Pokročilé.",
+        "openAdvanced": "Otevřít Pokročilé"
       },
       "model": {
         "title": "Model",
         "description": "Čím přepisují spárované telefony a počítače: model vybraný na tomto počítači.",
-        "none": "Žádný. Stáhněte si ho v sekci Modely."
+        "none": "Žádný",
+        "download": "Stáhnout model v sekci Modely"
+      },
+      "certificate": {
+        "title": "Certifikát",
+        "description": "Začátek otisku certifikátu tohoto počítače. Počítač spárovaný s tímto zobrazuje stejný v části Podrobnosti. Pokud se shodují, komunikují spolu přímo a nic mezi nimi nestojí."
       }
     },
     "languages": {
@@ -963,7 +982,7 @@
         "failed": "Diagnostika selhala: {{error}}"
       },
       "remoteLink": {
-        "title": "Vzdálené propojení",
+        "title": "Vzdálené připojení",
         "description": "Propojení s počítačem, pomocí kterého tento počítač přepisuje.",
         "simulateOffline": "Simulovat nedostupnost",
         "simulateOfflineDescription": "Požadavky na druhý počítač selžou, jako by nebyl dostupný, abyste si vyzkoušeli, co se pak stane."
@@ -1017,7 +1036,8 @@
         "offline": "Nedostupný",
         "rejected": "Už není spárován",
         "incompatible": "Vyžaduje aktualizaci",
-        "unused": "Nepoužívá se"
+        "unused": "Nepoužívá se",
+        "available": "Dostupný"
       },
       "row": {
         "use": "Přepisovat pomocí počítače {{name}}",
@@ -1029,39 +1049,40 @@
         "reconnect": "Zkusit znovu",
         "pairAgain": "Spárovat znovu",
         "details": "Podrobnosti",
-        "hostName": "Název",
+        "hostName": "Název počítače",
         "address": "Adresa",
         "fingerprint": "Certifikát",
         "version": "Verze Handy",
         "lastError": "Poslední chyba",
-        "forget": "Zapomenout",
-        "forgetConfirmTitle": "Zapomenout počítač {{name}}?",
-        "forgetConfirm": "Tento počítač s ním přestane přepisovat. Chcete-li tento počítač odebrat i z jeho seznamu, zrušte tam spárování v sekci Sdílení.",
-        "forgetFailed": "Počítač se nepodařilo zapomenout",
-        "cancel": "Zrušit"
+        "cancel": "Zrušit",
+        "fingerprintHint": "Druhý počítač zobrazuje stejný v sekci Handy Remote.",
+        "unpairConfirm": "Tento počítač s ním přestane přepisovat. Pokud je druhý počítač právě dostupný, odebere tento počítač ze svého seznamu; jinak zrušte spárování tohoto počítače tam, v sekci Handy Remote.",
+        "unpairFailed": "Spárování počítače se nepodařilo zrušit",
+        "unpair": "Zrušit spárování",
+        "unpairConfirmTitle": "Zrušit spárování s {{name}}?"
       },
       "incompatible": "{{name}} používá verzi Handy, která nemůže přepisovat pro tento počítač. Aktualizujte Handy na obou počítačích.",
       "computers": {
-        "title": "Počítače",
-        "description": "Jiný počítač s Handy může pro tento počítač přepisovat svým modelem. Vyberte, který použít.",
-        "empty": "Zatím nejsou spárovány žádné počítače.",
-        "hint": "Druhý počítač sdílí svůj model v sekci Sdílení.",
-        "add": "Přidat počítač"
+        "title": "Použít jiný počítač",
+        "description": "Jiný počítač s Handy může svým modelem přepisovat, co zde diktujete.",
+        "empty": "Zatím jste se nepřipojili k žádnému počítači.",
+        "hint": "Druhý počítač musí povolit vzdálená připojení, v sekci Handy Remote.",
+        "add": "Připojit se k počítači"
       },
       "fallback": {
-        "group": "Když není dostupný",
-        "label": "Použít model tohoto počítače",
+        "label": "Jako zálohu použít model tohoto počítače",
         "description": "Pokud druhý počítač spí, je zaneprázdněný nebo offline, přepisovat místo toho zde a dát o tom vědět.",
-        "noModel": "Tento počítač nemá žádný záložní model. Vyberte výše Tento počítač a nějaký stáhněte."
+        "noModel": "Tento počítač nemá žádný záložní model.",
+        "getModel": "Stáhnout model v sekci Modely"
       },
       "stays": "Na druhý počítač se posílá jen zvuk spolu s vaším jazykem, vlastními slovy a výplňovými slovy. Následné zpracování, historie a vkládání zůstávají na tomto počítači.",
       "decidedElsewhere": "Nastavuje se na počítači, který přepisuje",
       "add": {
-        "title": "Přidat počítač",
+        "title": "Připojit se k počítači",
         "steps": {
-          "open": "Na druhém počítači otevřete Handy a přejděte do sekce Sdílení.",
-          "share": "Zapněte Sdílení, zvolte Spárovat počítač a pak Kopírovat kód.",
-          "paste": "Vložte kód sem."
+          "open": "Na druhém počítači otevřete Handy a přejděte do sekce Handy Remote.",
+          "share": "Zapněte volbu Povolit vzdálená připojení, zvolte Spárovat počítač a pak Kopírovat kód.",
+          "paste": "Přeneste kód na tento počítač, například ve zprávě nebo v poznámce pro sebe, a vložte ho sem. Funguje jednou, po dobu pěti minut."
         },
         "placeholder": "handy://pair?…",
         "codeLabel": "Párovací kód",
@@ -1073,12 +1094,14 @@
           "expired_code": "Platnost kódu vypršela nebo už byl použit. Vytvořte nový na druhém počítači.",
           "incompatible": "Handy na druhém počítači nemůže pro tento počítač přepisovat. Aktualizujte Handy na obou.",
           "rate_limited": "Příliš mnoho pokusů. Počkejte minutu a zkuste to znovu.",
-          "unreachable": "Druhý počítač není dostupný. Zkontrolujte, že jsou oba ve stejné síti a že je na něm zapnuté Sdílení.",
+          "unreachable": "Druhý počítač není dostupný. Zkontrolujte, že jsou oba ve stejné síti a že povoluje vzdálená připojení.",
           "untrusted": "Na adrese druhého počítače odpovědělo něco jiného. Vytvořte nový kód a zkuste to znovu.",
           "self": "Tento kód je z tohoto počítače. Vložte ho na tom druhém.",
           "failed": "Párování se nezdařilo. Zkuste to znovu."
         }
-      }
+      },
+      "open": "Otevřít Handy Remote",
+      "localOnly": "Platí jen tehdy, když přepisuje tento počítač"
     }
   },
   "footer": {
@@ -1094,7 +1117,14 @@
     "portableUpdateMessage": "Přenosné instalace nelze aktualizovat automaticky. Níže stáhněte instalátor pro svůj systém, spusťte jej a nainstalujte do stejné složky — vaše složka Data/ (nastavení, modely, nahrávky) zůstane na místě.",
     "portableUpdateButton": "Stáhnout instalátor",
     "portableUpdateBrowseMessage": "Přenosné instalace nelze aktualizovat automaticky. Stáhněte nejnovější verzi pro svůj systém z GitHub Releases a nainstalujte ji do stejné složky — vaše složka Data/ (nastavení, modely, nahrávky) zůstane na místě.",
-    "portableUpdateBrowseButton": "Otevřít GitHub Releases"
+    "portableUpdateBrowseButton": "Otevřít GitHub Releases",
+    "remote": {
+      "on": "Remote zapnutý",
+      "connected": "Připojeno: {{count}}",
+      "dictating": "{{name}} diktuje",
+      "failed": "Vzdálená připojení selhala",
+      "manage": "Vzdálená připojení…"
+    }
   },
   "whatsNew": {
     "title": "Novinky v Handy v{{version}}"
@@ -1139,17 +1169,17 @@
     "filePostProcessFailed": "Následné zpracování se nedokončilo, takže byl přepis uložen beze změn.",
     "fileTranscriptionFailedTitle": "Přepis souboru selhal",
     "mobileServerFailedTitle": "Handy Remote se nepodařilo spustit",
-    "mobileServerFailed": "Spárovaná zařízení se nemohou připojit. Port možná používá jiná aplikace; v nastavení Sdílení zvolte jiný.",
+    "mobileServerFailed": "Spárovaná zařízení se nemohou připojit. Port možná používá jiná aplikace; v sekci Handy Remote zvolte jiný.",
     "mobileTranscriptionFailedTitle": "Diktování z telefonu selhalo",
     "transcriptionFailedTitle": "Přepis selhal",
     "remoteUnreachableTitle": "Druhý počítač je nedostupný",
-    "remoteUnreachable": "Handy se nemohl spojit s počítačem, pomocí kterého přepisuje. Zkontrolujte, že je probuzený, ve stejné síti a sdílí svůj model.",
+    "remoteUnreachable": "Handy se nemohl spojit s počítačem, pomocí kterého přepisuje. Zkontrolujte, že je probuzený, ve stejné síti a povoluje vzdálená připojení.",
     "remoteBusyTitle": "Druhý počítač je vytížený",
     "remoteBusy": "Na počítači, pomocí kterého tento přepisuje, někdo diktuje. Zkuste to za chvíli znovu.",
     "remoteNoModelTitle": "Druhý počítač nemá model",
     "remoteNoModel": "Počítač, pomocí kterého tento přepisuje, nemá žádný model. Stáhněte ho tam.",
     "remoteRejectedTitle": "Spárujte počítač znovu",
-    "remoteRejected": "Druhý počítač už tento nezná. Spárujte je znovu v sekci Modely.",
+    "remoteRejected": "Druhý počítač už tento nezná. Spárujte je znovu v sekci Handy Remote.",
     "remoteIncompatibleTitle": "Aktualizujte Handy na obou",
     "remoteIncompatible": "Oba počítače používají verze Handy, které spolu nemohou fungovat. Aktualizujte oba.",
     "remoteFellBackTitle": "Přepsáno na tomto počítači",

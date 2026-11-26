@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "Spárování s počítačem",
+    "intro": "Telefon slouží jako mikrofon. Přepis obstará Handy na vašem počítači.",
+    "step1": "Otevřete na počítači Handy a přejděte do sekce Handy Remote.",
+    "step2": "Zapněte volbu Povolit vzdálená připojení a zvolte Spárovat telefon.",
+    "step3": "Naskenujte zobrazený kód. Obě zařízení musí být ve stejné síti.",
+    "scan": "Naskenovat párovací kód",
+    "manual": "Zadat kód ručně",
+    "manualPlaceholder": "Vložte párovací kód z počítače",
+    "manualSubmit": "Spárovat",
+    "pairing": "Párování…",
+    "scanHint": "Namiřte fotoaparát na kód na počítači",
+    "cancelScan": "Zrušit",
+    "errors": {
+      "invalid_code": "Toto není párovací kód Handy.",
+      "expired_code": "Platnost kódu vypršela nebo už byl použit. Vytvořte na počítači nový.",
+      "incompatible": "Verze této aplikace a Handy na vašem počítači se příliš liší. Aktualizujte obojí.",
+      "rate_limited": "Příliš mnoho pokusů. Počkejte minutu a zkuste to znovu.",
+      "unreachable": "Počítač není dostupný. Zkontrolujte, že jsou obě zařízení ve stejné síti, že Handy neblokuje firewall a že má Handy v nastavení telefonu povoleno hledat zařízení v okolí.",
+      "untrusted": "Odpovědělo něco, co není váš počítač. Vytvořte nový kód a zkuste to znovu.",
+      "failed": "Párování se nezdařilo. Zkuste to znovu.",
+      "camera_denied": "Handy potřebuje k naskenování kódu fotoaparát. Povolte ho v nastavení telefonu, nebo zadejte kód ručně.",
+      "scan_failed": "Fotoaparát se nepodařilo spustit. Zadejte kód ručně."
+    },
+    "back": "Zpět"
+  },
+  "link": {
+    "connecting": "Připojování…",
+    "connected": "Připojeno",
+    "notPaired": "Nespárováno",
+    "updateNeeded": "Vyžaduje aktualizaci",
+    "offline": "Počítač není dostupný",
+    "offlineHint": "Zkontrolujte, že {{name}} běží a je na něm spuštěný Handy, že jsou obě zařízení ve stejné síti a že má Handy v nastavení telefonu povoleno hledat zařízení v okolí.",
+    "retry": "Zkusit znovu",
+    "rejected": "{{name}} už s tímto telefonem není spárován.",
+    "incompatible": "Verze Handy, kterou používá {{name}}, se od verze této aplikace příliš liší. Aktualizujte obojí.",
+    "pairAgain": "Spárovat znovu",
+    "yourComputer": "váš počítač"
+  },
+  "record": {
+    "tapToStart": "Klepnutím začnete diktovat",
+    "starting": "Spouštění…",
+    "listening": "Poslouchám… klepnutím dokončíte",
+    "finishing": "Dokončování…",
+    "transcribing": "Přepisuje se…",
+    "start": "Začít diktovat",
+    "stop": "Dokončit diktování",
+    "cancel": "Zrušit"
+  },
+  "output": {
+    "label": "Odesílat text do",
+    "desktop": "Počítač",
+    "phone": "Pouze telefon",
+    "desktopHint": "Píše se tam, kde je kurzor ({{name}}).",
+    "phoneHint": "Zobrazí se zde a zkopíruje se do schránky.",
+    "notAllowedHint": "{{name}} tomuto telefonu nedovoluje na něm psát. Chcete-li to změnit, zapněte pro tento telefon volbu Může sem psát v sekci Handy Remote na počítači."
+  },
+  "transcripts": {
+    "empty": "Zde se zobrazí, co nadiktujete.",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno",
+    "share": "Sdílet",
+    "pasted": "Napsáno na počítači",
+    "notPasted": "Nenapsáno na počítači",
+    "clear": "Vymazat"
+  },
+  "notices": {
+    "noSpeech": "Nic nebylo slyšet.",
+    "micDenied": "Handy potřebuje mikrofon. Povolte ho v nastavení telefonu.",
+    "micUnavailable": "Mikrofon se nepodařilo spustit.",
+    "connectionLost": "Spojení se přerušilo, takže tato nahrávka nebyla přepsána.",
+    "busy": "Váš počítač je zaneprázdněn jiným diktováním.",
+    "no_model": "Handy na vašem počítači nemá vybraný žádný model.",
+    "transcription_failed": "Váš počítač to nedokázal přepsat.",
+    "paste_failed": "Váš počítač nedokázal text napsat, takže je jen zde.",
+    "too_long": "Byl dosažen limit délky, takže se diktování ukončilo za vás.",
+    "generic": "Na vašem počítači se něco pokazilo."
+  },
+  "settings": {
+    "title": "Nastavení",
+    "computer": "Spárovaný počítač",
+    "version": "Handy {{version}}",
+    "unpair": "Zrušit spárování",
+    "unpairConfirm": "Zrušit spárování ({{name}})? Abyste mohli znovu diktovat, budete muset naskenovat nový kód.",
+    "unpairNote": "Pokud je {{name}} právě dostupný, odebere tento telefon ze svého seznamu. Jinak zrušte spárování tam, v sekci Handy Remote.",
+    "confirm": "Zrušit spárování",
+    "cancel": "Zrušit",
+    "close": "Zavřít"
+  },
+  "keyboard": {
+    "title": "Diktujte do libovolné aplikace",
+    "intro": "Diktovat všude, kde píšete, můžete dvěma způsoby: plovoucí bublinou, která se objeví vedle každého textového pole, a klávesnicí s mikrofonem místo kláves. V obou případech se to, co řeknete, přepíše na vašem počítači a napíše do textového pole v telefonu. Nastavte si jeden způsob, nebo oba.",
+    "steps": {
+      "microphone": {
+        "title": "Povolte mikrofon",
+        "description": "Aby vás bublina a klávesnice slyšely. Zvolte „Při používání aplikace“; volba „Pouze tentokrát“ přestane platit.",
+        "action": "Povolit"
+      },
+      "localNetwork": {
+        "title": "Povolte zařízení v okolí",
+        "description": "Aby se telefon mohl spojit s počítačem ve vaší síti.",
+        "action": "Povolit"
+      },
+      "enable": {
+        "title": "Zapněte klávesnici Handy",
+        "description": "V seznamu, který se otevře, zapněte Handy, potvrďte obě výzvy systému Android a vraťte se sem. Android upozorňuje, že klávesnice může shromažďovat, co píšete. Klávesnice Handy odesílá jen váš hlas, a to jen do vašeho počítače.",
+        "action": "Otevřít nastavení klávesnice"
+      },
+      "select": {
+        "title": "Přepněte na klávesnici Handy",
+        "description": "V seznamu klávesnic zvolte Handy.",
+        "action": "Zvolit klávesnici"
+      },
+      "bubble": {
+        "title": "Zapněte plovoucí bublinu",
+        "description": "V nastavení přístupnosti, které se otevře, zapněte Handy Bubble v části nainstalovaných nebo stažených aplikací a vraťte se sem. Android upozorňuje, že služba může vidět a ovládat obrazovku. Handy to používá jen k tomu, aby poznal, že jste v textovém poli, a napsal, co nadiktujete.",
+        "action": "Otevřít nastavení přístupnosti",
+        "helpTitle": "Je přepínač zašedlý?",
+        "help": "Android toto nastavení omezuje u aplikací nainstalovaných ze souboru. Klepněte jednou na zašedlý přepínač, aby Android zobrazil upozornění, pak otevřete „Informace o aplikaci“, klepněte na tři tečky vpravo nahoře a zvolte „Povolit omezená nastavení“.",
+        "helpAction": "Otevřít informace o aplikaci"
+      }
+    },
+    "tryLabel": "Vyzkoušejte to",
+    "tryPlaceholder": "Klepněte sem a pak na mikrofon",
+    "switchHint": "Tlačítko klávesnice na klávesnici Handy vás vrátí k vaší obvyklé klávesnici. Na Handy přepnete z jiné klávesnice jejím tlačítkem klávesnice nebo glóbusu.",
+    "done": "Hotovo",
+    "later": "Teď ne",
+    "back": "Zpět",
+    "settingsRow": "Bublina a klávesnice",
+    "new": "Novinka",
+    "bubbleHint": "Klepnutím na bublinu začnete diktovat a dalším klepnutím skončíte, nebo ji držte, dokud mluvíte. Podržením během diktování ho zrušíte. Přetáhněte ji, kam se vám hodí; usadí se u nejbližšího okraje.",
+    "settingsBubbleOn": "Bublina zapnutá",
+    "settingsBubbleOff": "Bublina vypnutá",
+    "settingsKeyboardOn": "Klávesnice zapnutá",
+    "settingsKeyboardOff": "Klávesnice vypnutá"
+  }
+}

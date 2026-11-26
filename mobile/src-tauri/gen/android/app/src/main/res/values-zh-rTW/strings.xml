@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"聽寫"</string>
+    <string name="keyboard_tap_to_dictate">"輕觸開始聽寫"</string>
+    <string name="keyboard_listening">"正在聆聽… 輕觸結束"</string>
+    <string name="keyboard_transcribing">"正在轉錄…"</string>
+    <string name="keyboard_connecting">"正在連線到 %1$s…"</string>
+    <string name="keyboard_offline">"無法連線到 %1$s。輕觸再試一次。"</string>
+    <string name="keyboard_your_computer">"您的電腦"</string>
+    <string name="keyboard_unpaired">"輕觸以與電腦配對"</string>
+    <string name="keyboard_rejected">"已不再配對。輕觸重新配對。"</string>
+    <string name="keyboard_incompatible">"請更新手機和電腦上的 Handy"</string>
+    <string name="keyboard_needs_microphone">"輕觸以允許使用麥克風"</string>
+    <string name="keyboard_microphone_failed">"無法啟動麥克風"</string>
+    <string name="keyboard_nothing_heard">"沒有聽到任何內容"</string>
+    <string name="keyboard_connection_lost">"連線已中斷。請再試一次。"</string>
+    <string name="keyboard_busy">"您的電腦正忙於另一次聽寫"</string>
+    <string name="keyboard_no_model">"電腦上的 Handy 尚未選擇模型"</string>
+    <string name="keyboard_too_long">"已達到長度上限"</string>
+    <string name="keyboard_failed">"您的電腦無法轉錄這段內容"</string>
+    <string name="keyboard_dictate">"開始聽寫"</string>
+    <string name="keyboard_finish">"結束聽寫"</string>
+    <string name="keyboard_cancel">"取消"</string>
+    <string name="keyboard_switch">"切換鍵盤"</string>
+    <string name="keyboard_space">"空白"</string>
+    <string name="keyboard_backspace">"刪除"</string>
+    <string name="keyboard_enter">"換行"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"懸浮麥克風，可在任何文字欄位中聽寫"</string>
+    <string name="bubble_description">"當您在文字欄位中時，在螢幕邊緣顯示懸浮麥克風。輕觸或按住它即可聽寫；您說的話會在電腦上轉錄，並輸入到該欄位中。\n\nHandy 只會使用這項權限來得知文字欄位正在使用中，並將您聽寫的內容輸入其中。它不會讀取或傳送螢幕上的任何其他內容。"</string>
+    <string name="bubble_dictate">"用 Handy 聽寫"</string>
+    <string name="bubble_cancelled">"已取消"</string>
+    <string name="bubble_offline">"無法連線到 %1$s"</string>
+    <string name="bubble_copied">"已複製。請貼到需要的位置。"</string>
+</resources>

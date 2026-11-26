@@ -123,7 +123,7 @@ export const PairScreen: React.FC<PairScreenProps> = ({ onPaired, onBack }) => {
             <button
               type="button"
               onClick={onBack}
-              aria-label={t("settings.close")}
+              aria-label={t("pair.back")}
               className="-ms-2 rounded-full p-2 text-ink-2 active:bg-wash"
             >
               <ArrowLeft className="h-6 w-6" />

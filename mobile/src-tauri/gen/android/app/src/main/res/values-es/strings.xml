@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Dictado"</string>
+    <string name="keyboard_tap_to_dictate">"Toca para dictar"</string>
+    <string name="keyboard_listening">"Escuchando… toca para terminar"</string>
+    <string name="keyboard_transcribing">"Transcribiendo…"</string>
+    <string name="keyboard_connecting">"Conectando con %1$s…"</string>
+    <string name="keyboard_offline">"No se puede acceder a %1$s. Toca para reintentar."</string>
+    <string name="keyboard_your_computer">"tu equipo"</string>
+    <string name="keyboard_unpaired">"Toca para vincular con tu equipo"</string>
+    <string name="keyboard_rejected">"Ya no está vinculado. Toca para vincular de nuevo."</string>
+    <string name="keyboard_incompatible">"Actualiza Handy en tu teléfono y en tu equipo"</string>
+    <string name="keyboard_needs_microphone">"Toca para permitir el micrófono"</string>
+    <string name="keyboard_microphone_failed">"No se pudo iniciar el micrófono"</string>
+    <string name="keyboard_nothing_heard">"No se oyó nada"</string>
+    <string name="keyboard_connection_lost">"Se perdió la conexión. Inténtalo de nuevo."</string>
+    <string name="keyboard_busy">"Tu equipo está ocupado con otro dictado"</string>
+    <string name="keyboard_no_model">"Handy no tiene ningún modelo seleccionado en tu equipo"</string>
+    <string name="keyboard_too_long">"Se alcanzó el límite de duración"</string>
+    <string name="keyboard_failed">"Tu equipo no pudo transcribir eso"</string>
+    <string name="keyboard_dictate">"Empezar a dictar"</string>
+    <string name="keyboard_finish">"Terminar de dictar"</string>
+    <string name="keyboard_cancel">"Cancelar"</string>
+    <string name="keyboard_switch">"Cambiar de teclado"</string>
+    <string name="keyboard_space">"espacio"</string>
+    <string name="keyboard_backspace">"Borrar"</string>
+    <string name="keyboard_enter">"Intro"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"Un micrófono flotante para dictar en cualquier campo de texto"</string>
+    <string name="bubble_description">"Muestra un micrófono flotante en el lateral de la pantalla mientras estás en un campo de texto. Tócalo o mantenlo pulsado para dictar; lo que dices se transcribe en tu equipo y se escribe en el campo.\n\nHandy usa este acceso solo para detectar que se está usando un campo de texto y para escribir en él tu dictado. No lee ni envía nada más de tu pantalla."</string>
+    <string name="bubble_dictate">"Dictar con Handy"</string>
+    <string name="bubble_cancelled">"Cancelado"</string>
+    <string name="bubble_offline">"No se puede acceder a %1$s"</string>
+    <string name="bubble_copied">"Copiado. Pégalo donde quieras."</string>
+</resources>

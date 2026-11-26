@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Диктуване"</string>
+    <string name="keyboard_tap_to_dictate">"Докоснете, за да диктувате"</string>
+    <string name="keyboard_listening">"Слушам… докоснете, за да завършите"</string>
+    <string name="keyboard_transcribing">"Транскрибиране…"</string>
+    <string name="keyboard_connecting">"Свързване с %1$s…"</string>
+    <string name="keyboard_offline">"Няма връзка с %1$s. Докоснете за нов опит."</string>
+    <string name="keyboard_your_computer">"вашия компютър"</string>
+    <string name="keyboard_unpaired">"Докоснете, за да сдвоите с компютъра си"</string>
+    <string name="keyboard_rejected">"Вече няма сдвояване. Докоснете за повторно сдвояване."</string>
+    <string name="keyboard_incompatible">"Актуализирайте Handy на телефона и компютъра си"</string>
+    <string name="keyboard_needs_microphone">"Докоснете, за да разрешите микрофона"</string>
+    <string name="keyboard_microphone_failed">"Микрофонът не можа да се стартира"</string>
+    <string name="keyboard_nothing_heard">"Не беше чуто нищо"</string>
+    <string name="keyboard_connection_lost">"Връзката прекъсна. Опитайте отново."</string>
+    <string name="keyboard_busy">"Компютърът ви е зает с друго диктуване"</string>
+    <string name="keyboard_no_model">"В Handy на компютъра ви няма избран модел"</string>
+    <string name="keyboard_too_long">"Достигнат е лимитът за дължина"</string>
+    <string name="keyboard_failed">"Компютърът ви не можа да транскрибира това"</string>
+    <string name="keyboard_dictate">"Започване на диктуването"</string>
+    <string name="keyboard_finish">"Завършване на диктуването"</string>
+    <string name="keyboard_cancel">"Отказ"</string>
+    <string name="keyboard_switch">"Смяна на клавиатурата"</string>
+    <string name="keyboard_space">"интервал"</string>
+    <string name="keyboard_backspace">"Изтриване"</string>
+    <string name="keyboard_enter">"Enter"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"Плаващ микрофон за диктуване във всяко текстово поле"</string>
+    <string name="bubble_description">"Показва плаващ микрофон отстрани на екрана, докато сте в текстово поле. Докоснете го или го задръжте, за да диктувате; казаното се транскрибира на компютъра ви и се въвежда в полето.\n\nHandy използва този достъп само за да забележи, че се използва текстово поле, и да въведе диктовката ви в него. Не чете и не изпраща нищо друго от екрана ви."</string>
+    <string name="bubble_dictate">"Диктуване с Handy"</string>
+    <string name="bubble_cancelled">"Отменено"</string>
+    <string name="bubble_offline">"Няма връзка с %1$s"</string>
+    <string name="bubble_copied">"Копирано. Поставете го където желаете."</string>
+</resources>

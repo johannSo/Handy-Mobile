@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "Vincular con tu equipo",
+    "intro": "Tu teléfono es el micrófono. Handy, en tu equipo, se encarga de transcribir.",
+    "step1": "Abre Handy en tu equipo y ve a Handy Remote.",
+    "step2": "Activa Permitir conexiones remotas y elige Vincular un teléfono.",
+    "step3": "Escanea el código que muestra. Ambos dispositivos deben estar en la misma red.",
+    "scan": "Escanear código de vinculación",
+    "manual": "Introducir el código",
+    "manualPlaceholder": "Pega el código de vinculación de tu equipo",
+    "manualSubmit": "Vincular",
+    "pairing": "Vinculando…",
+    "scanHint": "Apunta la cámara al código que muestra tu equipo",
+    "cancelScan": "Cancelar",
+    "errors": {
+      "invalid_code": "Eso no es un código de vinculación de Handy.",
+      "expired_code": "Ese código ha caducado o ya se usó. Crea uno nuevo en tu equipo.",
+      "incompatible": "Las versiones de esta app y de Handy en tu equipo son demasiado distintas. Actualiza ambas.",
+      "rate_limited": "Demasiados intentos. Espera un minuto y vuelve a intentarlo.",
+      "unreachable": "No se puede acceder a tu equipo. Comprueba que ambos dispositivos estén en la misma red, que ningún firewall esté bloqueando Handy y que Handy tenga permiso para buscar dispositivos cercanos en los ajustes de tu teléfono.",
+      "untrusted": "Ha respondido algo que no es tu equipo. Crea un código nuevo e inténtalo de nuevo.",
+      "failed": "No se pudo vincular. Inténtalo de nuevo.",
+      "camera_denied": "Handy necesita la cámara para escanear el código. Permítela en los ajustes de tu teléfono o introduce el código.",
+      "scan_failed": "No se pudo iniciar la cámara. Introduce el código."
+    },
+    "back": "Atrás"
+  },
+  "link": {
+    "connecting": "Conectando…",
+    "connected": "Conectado",
+    "notPaired": "Sin vincular",
+    "updateNeeded": "Actualización necesaria",
+    "offline": "No se puede acceder a tu equipo",
+    "offlineHint": "Comprueba que Handy esté abierto en {{name}}, que ambos dispositivos estén en la misma red y que Handy tenga permiso para buscar dispositivos cercanos en los ajustes de tu teléfono.",
+    "retry": "Reintentar",
+    "rejected": "Este teléfono ya no está vinculado con {{name}}.",
+    "incompatible": "Las versiones de esta app y de Handy en {{name}} son demasiado distintas. Actualiza ambas.",
+    "pairAgain": "Vincular de nuevo",
+    "yourComputer": "tu equipo"
+  },
+  "record": {
+    "tapToStart": "Toca para dictar",
+    "starting": "Iniciando…",
+    "listening": "Escuchando… toca para terminar",
+    "finishing": "Terminando…",
+    "transcribing": "Transcribiendo…",
+    "start": "Empezar a dictar",
+    "stop": "Terminar de dictar",
+    "cancel": "Cancelar"
+  },
+  "output": {
+    "label": "Enviar texto a",
+    "desktop": "Equipo",
+    "phone": "Solo el teléfono",
+    "desktopHint": "Se escribe donde está el cursor en {{name}}.",
+    "phoneHint": "Se muestra aquí y se copia al portapapeles.",
+    "notAllowedHint": "{{name}} no permite que este teléfono escriba en él. Para cambiarlo, activa Puede escribir aquí para este teléfono en Handy Remote, en el equipo."
+  },
+  "transcripts": {
+    "empty": "Lo que dictes aparecerá aquí.",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "share": "Compartir",
+    "pasted": "Escrito en tu equipo",
+    "notPasted": "No escrito en tu equipo",
+    "clear": "Borrar"
+  },
+  "notices": {
+    "noSpeech": "No se oyó nada.",
+    "micDenied": "Handy necesita el micrófono. Permítelo en los ajustes de tu teléfono.",
+    "micUnavailable": "No se pudo iniciar el micrófono.",
+    "connectionLost": "Se perdió la conexión, así que esa grabación no se transcribió.",
+    "busy": "Tu equipo está ocupado con otro dictado.",
+    "no_model": "Handy no tiene ningún modelo seleccionado en tu equipo.",
+    "transcription_failed": "Tu equipo no pudo transcribir eso.",
+    "paste_failed": "Tu equipo no pudo escribir el texto, así que solo está aquí.",
+    "too_long": "Se alcanzó el límite de duración, así que el dictado se terminó automáticamente.",
+    "generic": "Algo salió mal en tu equipo."
+  },
+  "settings": {
+    "title": "Ajustes",
+    "computer": "Equipo vinculado",
+    "version": "Handy {{version}}",
+    "unpair": "Desvincular",
+    "unpairConfirm": "¿Desvincular de {{name}}? Tendrás que escanear un código nuevo para volver a dictar.",
+    "unpairNote": "{{name}} quitará este teléfono de su lista si se puede acceder a él ahora. Si no, desvincúlalo allí, en Handy Remote.",
+    "confirm": "Desvincular",
+    "cancel": "Cancelar",
+    "close": "Cerrar"
+  },
+  "keyboard": {
+    "title": "Dicta en cualquier app",
+    "intro": "Hay dos formas de dictar allí donde escribas: una burbuja flotante que aparece junto a cualquier campo de texto y un teclado con un micrófono en lugar de las teclas. En ambos casos, lo que dices se transcribe en tu equipo y se escribe en el campo de texto de tu teléfono. Configura una o las dos.",
+    "steps": {
+      "microphone": {
+        "title": "Permitir el micrófono",
+        "description": "Para que la burbuja y el teclado puedan oírte. Elige «Mientras se usa la aplicación»; «Solo esta vez» no dura.",
+        "action": "Permitir"
+      },
+      "localNetwork": {
+        "title": "Permitir dispositivos cercanos",
+        "description": "Para que tu teléfono pueda acceder a tu equipo en tu red.",
+        "action": "Permitir"
+      },
+      "enable": {
+        "title": "Activar el teclado de Handy",
+        "description": "Activa Handy en la lista que se abre y confirma los dos avisos de Android; luego vuelve aquí. Android advierte de que un teclado puede recopilar lo que escribes. El teclado de Handy solo envía tu voz, y solo a tu propio equipo.",
+        "action": "Abrir ajustes del teclado"
+      },
+      "select": {
+        "title": "Cambiar al teclado de Handy",
+        "description": "Elige Handy en la lista de teclados.",
+        "action": "Elegir teclado"
+      },
+      "bubble": {
+        "title": "Activar la burbuja flotante",
+        "description": "Activa Handy Bubble en los ajustes de accesibilidad que se abren, en las aplicaciones instaladas o descargadas, y luego vuelve aquí. Android advierte de que puede ver y controlar la pantalla. Handy lo usa solo para detectar que estás en un campo de texto y para escribir lo que dictas.",
+        "action": "Abrir ajustes de accesibilidad",
+        "helpTitle": "¿El interruptor está atenuado?",
+        "help": "Android restringe este ajuste para las apps instaladas desde un archivo. Toca una vez el interruptor atenuado para que Android muestre su aviso; después abre Información de la aplicación, toca los tres puntos de arriba a la derecha y elige «Permitir ajustes restringidos».",
+        "helpAction": "Abrir Información de la aplicación"
+      }
+    },
+    "tryLabel": "Pruébalo",
+    "tryPlaceholder": "Toca aquí y luego toca el micrófono",
+    "switchHint": "El botón de teclado del teclado de Handy te devuelve a tu teclado habitual. Para cambiar a Handy desde otro teclado, usa su botón de teclado o el del globo.",
+    "done": "Listo",
+    "later": "Ahora no",
+    "back": "Atrás",
+    "settingsRow": "Burbuja y teclado",
+    "new": "Nuevo",
+    "bubbleHint": "Toca la burbuja para empezar a dictar y tócala de nuevo para terminar, o mantenla pulsada mientras hablas. Mantenerla pulsada durante un dictado lo cancela. Arrástrala adonde te venga bien; se queda en el lado más cercano.",
+    "settingsBubbleOn": "Burbuja activada",
+    "settingsBubbleOff": "Burbuja desactivada",
+    "settingsKeyboardOn": "Teclado activado",
+    "settingsKeyboardOff": "Teclado desactivado"
+  }
+}

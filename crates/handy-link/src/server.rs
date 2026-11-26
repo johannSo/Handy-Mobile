@@ -143,6 +143,14 @@ pub trait Host: Send + Sync + 'static {
     fn state_changed(&self, _device_id: &str, _state: SessionState) {}
     /// A client is about to record; a good time to load the model.
     fn prepare(&self, _device_id: &str) {}
+    /// Whether this device may paste into the desktop, told to it when it
+    /// connects. `None` says nothing.
+    fn can_type(&self, _device_id: &str) -> Option<bool> {
+        None
+    }
+    /// The device forgot this desktop and asks to be forgotten in turn. Its
+    /// connection closes right after.
+    fn unpair(&self, _device_id: &str) {}
     fn transcribe(&self, recording: Recording) -> Result<Transcript, Failure>;
 }
 
@@ -168,8 +176,9 @@ struct Shared {
     next_connection: AtomicU64,
     pending: Arc<Semaphore>,
     kick: broadcast::Sender<Kick>,
-    /// Said to every connected device, such as a model change.
-    announce: broadcast::Sender<ServerMessage>,
+    /// Said to every connected device, such as a model change, or to one
+    /// device's connections when it is named.
+    announce: broadcast::Sender<(Option<String>, ServerMessage)>,
     max_recording_samples: usize,
 }
 
@@ -333,7 +342,16 @@ impl Server {
 
     /// Tells every connected device, such as that the model changed.
     pub fn announce(&self, message: ServerMessage) {
-        let _ = self.shared.announce.send(message);
+        let _ = self.shared.announce.send((None, message));
+    }
+
+    /// Tells one device, on every connection it holds. Nothing is kept for a
+    /// device that isn't connected.
+    pub fn tell(&self, device_id: &str, message: ServerMessage) {
+        let _ = self
+            .shared
+            .announce
+            .send((Some(device_id.to_string()), message));
     }
 
     /// Drops a phone's connections, such as after it was unpaired.
@@ -491,6 +509,7 @@ where
                         default_output: info.default_output,
                         features: info.features,
                         model: info.model,
+                        can_type: shared.host.can_type(&paired.device_id),
                     },
                 )
                 .await?;
@@ -514,6 +533,7 @@ where
                         default_output: info.default_output,
                         features: info.features,
                         model: info.model,
+                        can_type: shared.host.can_type(&device_id),
                     },
                 )
                 .await?;
@@ -589,7 +609,7 @@ async fn session<S>(
     channel: &str,
     connection: u64,
     kicks: &mut broadcast::Receiver<Kick>,
-    announcements: &mut broadcast::Receiver<ServerMessage>,
+    announcements: &mut broadcast::Receiver<(Option<String>, ServerMessage)>,
 ) -> Result<(), String>
 where
     S: AsyncRead + AsyncWrite + Unpin,
@@ -613,7 +633,11 @@ where
                 _ => return Ok(()),
             },
             announcement = announcements.recv() => match announcement {
-                Ok(message) => send(ws, &message).await?,
+                Ok((to, message)) => {
+                    if to.as_deref().is_none_or(|to| to == device_id) {
+                        send(ws, &message).await?;
+                    }
+                }
                 // A missed announcement is only stale information.
                 Err(broadcast::error::RecvError::Lagged(_)) => {}
                 Err(broadcast::error::RecvError::Closed) => return Ok(()),
@@ -716,6 +740,11 @@ where
                         }
                         Phase::Idle => {}
                     },
+                    Incoming::Control(ClientMessage::Unpair) => {
+                        // Whatever it was recording goes with it.
+                        shared.host.unpair(device_id);
+                        return Ok(());
+                    }
                     Incoming::Control(ClientMessage::Pair { .. } | ClientMessage::Auth { .. }) => {
                         send(ws, &ServerMessage::error(ErrorCode::BadRequest)).await?;
                     }

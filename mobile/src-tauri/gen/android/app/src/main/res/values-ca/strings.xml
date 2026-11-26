@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Dictat"</string>
+    <string name="keyboard_tap_to_dictate">"Toqueu per dictar"</string>
+    <string name="keyboard_listening">"Escoltant… toqueu per acabar"</string>
+    <string name="keyboard_transcribing">"S\'està transcrivint…"</string>
+    <string name="keyboard_connecting">"S\'està connectant amb %1$s…"</string>
+    <string name="keyboard_offline">"No es pot contactar amb %1$s. Toqueu per tornar-ho a provar."</string>
+    <string name="keyboard_your_computer">"el vostre ordinador"</string>
+    <string name="keyboard_unpaired">"Toqueu per vincular amb l\'ordinador"</string>
+    <string name="keyboard_rejected">"Ja no està vinculat. Toqueu per tornar a vincular."</string>
+    <string name="keyboard_incompatible">"Actualitzeu el Handy al telèfon i a l\'ordinador"</string>
+    <string name="keyboard_needs_microphone">"Toqueu per permetre el micròfon"</string>
+    <string name="keyboard_microphone_failed">"No s\'ha pogut iniciar el micròfon"</string>
+    <string name="keyboard_nothing_heard">"No s\'ha sentit res"</string>
+    <string name="keyboard_connection_lost">"S\'ha perdut la connexió. Torneu-ho a provar."</string>
+    <string name="keyboard_busy">"L\'ordinador està ocupat amb un altre dictat"</string>
+    <string name="keyboard_no_model">"El Handy de l\'ordinador no té cap model seleccionat"</string>
+    <string name="keyboard_too_long">"S\'ha arribat al límit de durada"</string>
+    <string name="keyboard_failed">"L\'ordinador no ho ha pogut transcriure"</string>
+    <string name="keyboard_dictate">"Comença a dictar"</string>
+    <string name="keyboard_finish">"Acaba de dictar"</string>
+    <string name="keyboard_cancel">"Cancel·la"</string>
+    <string name="keyboard_switch">"Canvia de teclat"</string>
+    <string name="keyboard_space">"espai"</string>
+    <string name="keyboard_backspace">"Esborra"</string>
+    <string name="keyboard_enter">"Retorn"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"Un micròfon flotant per dictar a qualsevol camp de text"</string>
+    <string name="bubble_description">"Mostra un micròfon flotant al costat de la pantalla mentre sou en un camp de text. Toqueu-lo o manteniu-lo premut per dictar; el que dieu es transcriu a l\'ordinador i s\'escriu al camp.\n\nEl Handy només fa servir aquest accés per detectar que s\'està fent servir un camp de text i per escriure-hi el dictat. No llegeix ni envia res més de la pantalla."</string>
+    <string name="bubble_dictate">"Dicta amb el Handy"</string>
+    <string name="bubble_cancelled">"Cancel·lat"</string>
+    <string name="bubble_offline">"No es pot contactar amb %1$s"</string>
+    <string name="bubble_copied">"Copiat. Enganxeu-lo on vulgueu."</string>
+</resources>

@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Đọc chính tả"</string>
+    <string name="keyboard_tap_to_dictate">"Nhấn để đọc chính tả"</string>
+    <string name="keyboard_listening">"Đang nghe… nhấn để kết thúc"</string>
+    <string name="keyboard_transcribing">"Đang phiên âm…"</string>
+    <string name="keyboard_connecting">"Đang kết nối tới %1$s…"</string>
+    <string name="keyboard_offline">"Không thể kết nối tới %1$s. Nhấn để thử lại."</string>
+    <string name="keyboard_your_computer">"máy tính của bạn"</string>
+    <string name="keyboard_unpaired">"Nhấn để ghép nối với máy tính"</string>
+    <string name="keyboard_rejected">"Không còn ghép nối. Nhấn để ghép nối lại."</string>
+    <string name="keyboard_incompatible">"Hãy cập nhật Handy trên điện thoại và máy tính"</string>
+    <string name="keyboard_needs_microphone">"Nhấn để cho phép micrô"</string>
+    <string name="keyboard_microphone_failed">"Không thể khởi động micrô"</string>
+    <string name="keyboard_nothing_heard">"Không nghe thấy gì"</string>
+    <string name="keyboard_connection_lost">"Kết nối bị ngắt. Hãy thử lại."</string>
+    <string name="keyboard_busy">"Máy tính của bạn đang bận với một lần đọc chính tả khác"</string>
+    <string name="keyboard_no_model">"Handy trên máy tính chưa chọn mô hình nào"</string>
+    <string name="keyboard_too_long">"Đã đạt giới hạn độ dài"</string>
+    <string name="keyboard_failed">"Máy tính của bạn không thể phiên âm nội dung đó"</string>
+    <string name="keyboard_dictate">"Bắt đầu đọc chính tả"</string>
+    <string name="keyboard_finish">"Kết thúc đọc chính tả"</string>
+    <string name="keyboard_cancel">"Hủy"</string>
+    <string name="keyboard_switch">"Đổi bàn phím"</string>
+    <string name="keyboard_space">"dấu cách"</string>
+    <string name="keyboard_backspace">"Xóa"</string>
+    <string name="keyboard_enter">"Enter"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"Micrô nổi để đọc chính tả vào mọi ô nhập văn bản"</string>
+    <string name="bubble_description">"Hiển thị một micrô nổi ở cạnh màn hình khi bạn đang ở trong ô nhập văn bản. Nhấn hoặc giữ micrô để đọc chính tả; lời bạn nói được phiên âm trên máy tính và nhập vào ô đó.\n\nHandy chỉ dùng quyền truy cập này để nhận biết có ô nhập văn bản đang được dùng và để nhập nội dung bạn đọc chính tả vào đó. Handy không đọc hay gửi bất kỳ thứ gì khác trên màn hình của bạn."</string>
+    <string name="bubble_dictate">"Đọc chính tả bằng Handy"</string>
+    <string name="bubble_cancelled">"Đã hủy"</string>
+    <string name="bubble_offline">"Không thể kết nối tới %1$s"</string>
+    <string name="bubble_copied">"Đã sao chép. Hãy dán vào nơi bạn muốn."</string>
+</resources>

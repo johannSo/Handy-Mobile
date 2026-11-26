@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "Vinculació amb l'ordinador",
+    "intro": "El telèfon fa de micròfon. El Handy de l'ordinador s'encarrega de transcriure.",
+    "step1": "Obriu el Handy a l'ordinador i aneu al Handy Remote.",
+    "step2": "Activeu «Permet les connexions remotes» i trieu «Vincula un telèfon».",
+    "step3": "Escanegeu el codi que es mostra. Tots dos dispositius han de ser a la mateixa xarxa.",
+    "scan": "Escaneja el codi de vinculació",
+    "manual": "Introdueix el codi",
+    "manualPlaceholder": "Enganxeu el codi de vinculació de l'ordinador",
+    "manualSubmit": "Vincula",
+    "pairing": "S'està vinculant…",
+    "scanHint": "Apunteu la càmera al codi que mostra l'ordinador",
+    "cancelScan": "Cancel·la",
+    "errors": {
+      "invalid_code": "Això no és un codi de vinculació del Handy.",
+      "expired_code": "Aquest codi ha caducat o ja s'ha fet servir. Genereu-ne un de nou a l'ordinador.",
+      "incompatible": "Aquesta aplicació i el Handy de l'ordinador tenen versions massa allunyades. Actualitzeu-los tots dos.",
+      "rate_limited": "Massa intents. Espereu un minut i torneu-ho a provar.",
+      "unreachable": "No es pot accedir a l'ordinador. Comproveu que tots dos dispositius siguin a la mateixa xarxa, que cap tallafoc bloquegi el Handy i que el Handy tingui permís per trobar dispositius propers a la configuració del telèfon.",
+      "untrusted": "Ha respost alguna cosa que no és el vostre ordinador. Genereu un codi nou i torneu-ho a provar.",
+      "failed": "No s'ha pogut vincular. Torneu-ho a provar.",
+      "camera_denied": "El Handy necessita la càmera per escanejar el codi. Permeteu-la a la configuració del telèfon o introduïu el codi.",
+      "scan_failed": "No s'ha pogut iniciar la càmera. Introduïu el codi."
+    },
+    "back": "Enrere"
+  },
+  "link": {
+    "connecting": "S'està connectant…",
+    "connected": "Connectat",
+    "notPaired": "No vinculat",
+    "updateNeeded": "Cal actualitzar",
+    "offline": "No es pot accedir a l'ordinador",
+    "offlineHint": "Comproveu que {{name}} tingui el Handy obert, que tots dos dispositius siguin a la mateixa xarxa i que el Handy tingui permís per trobar dispositius propers a la configuració del telèfon.",
+    "retry": "Torna-ho a provar",
+    "rejected": "Aquest telèfon ja no està vinculat amb {{name}}.",
+    "incompatible": "Aquesta aplicació i el Handy que té {{name}} tenen versions massa allunyades. Actualitzeu-los tots dos.",
+    "pairAgain": "Torna a vincular",
+    "yourComputer": "el vostre ordinador"
+  },
+  "record": {
+    "tapToStart": "Toqueu per dictar",
+    "starting": "S'està iniciant…",
+    "listening": "Escoltant… toqueu per acabar",
+    "finishing": "S'està acabant…",
+    "transcribing": "S'està transcrivint…",
+    "start": "Comença a dictar",
+    "stop": "Acaba de dictar",
+    "cancel": "Cancel·la"
+  },
+  "output": {
+    "label": "Envia el text a",
+    "desktop": "Ordinador",
+    "phone": "Només el telèfon",
+    "desktopHint": "L'escriu {{name}}, on hi ha el cursor.",
+    "phoneHint": "Es mostra aquí i es copia al porta-retalls.",
+    "notAllowedHint": "{{name}} no permet que aquest telèfon hi escrigui. Per canviar-ho, activeu «Pot escriure aquí» per a aquest telèfon al Handy Remote de l'ordinador."
+  },
+  "transcripts": {
+    "empty": "El que dicteu apareix aquí.",
+    "copy": "Copia",
+    "copied": "Copiat",
+    "share": "Comparteix",
+    "pasted": "Escrit a l'ordinador",
+    "notPasted": "No escrit a l'ordinador",
+    "clear": "Neteja"
+  },
+  "notices": {
+    "noSpeech": "No s'ha sentit res.",
+    "micDenied": "El Handy necessita el micròfon. Permeteu-lo a la configuració del telèfon.",
+    "micUnavailable": "No s'ha pogut iniciar el micròfon.",
+    "connectionLost": "S'ha perdut la connexió i aquest enregistrament no s'ha transcrit.",
+    "busy": "L'ordinador està ocupat amb un altre dictat.",
+    "no_model": "El Handy de l'ordinador no té cap model seleccionat.",
+    "transcription_failed": "L'ordinador no ho ha pogut transcriure.",
+    "paste_failed": "L'ordinador no ha pogut escriure el text, de manera que només és aquí.",
+    "too_long": "S'ha arribat al límit de durada i el dictat s'ha acabat automàticament.",
+    "generic": "Alguna cosa ha anat malament a l'ordinador."
+  },
+  "settings": {
+    "title": "Configuració",
+    "computer": "Ordinador vinculat",
+    "version": "Handy {{version}}",
+    "unpair": "Desvincula",
+    "unpairConfirm": "Voleu desfer la vinculació amb {{name}}? Haureu d'escanejar un codi nou per tornar a dictar.",
+    "unpairNote": "{{name}} traurà aquest telèfon de la seva llista si ara s'hi pot accedir. Si no, desvinculeu-lo allà, al Handy Remote.",
+    "confirm": "Desvincula",
+    "cancel": "Cancel·la",
+    "close": "Tanca"
+  },
+  "keyboard": {
+    "title": "Dicteu a qualsevol aplicació",
+    "intro": "Hi ha dues maneres de dictar allà on escriviu: una bombolla flotant que apareix al costat de qualsevol camp de text i un teclat amb un micròfon en lloc de les tecles. En tots dos casos, el que dieu es transcriu a l'ordinador i s'escriu al camp de text del telèfon. Configureu-ne una o totes dues.",
+    "steps": {
+      "microphone": {
+        "title": "Permeteu el micròfon",
+        "description": "Perquè la bombolla i el teclat us puguin sentir. Trieu «Mentre s'utilitza l'aplicació»; «Només aquesta vegada» no dura.",
+        "action": "Permet"
+      },
+      "localNetwork": {
+        "title": "Permeteu els dispositius propers",
+        "description": "Perquè el telèfon pugui accedir a l'ordinador per la vostra xarxa.",
+        "action": "Permet"
+      },
+      "enable": {
+        "title": "Activeu el teclat del Handy",
+        "description": "Activeu Handy a la llista que s'obre i confirmeu els dos avisos de l'Android; després torneu aquí. L'Android avisa que un teclat pot recollir el que escriviu. El teclat del Handy només envia la vostra veu, i només al vostre ordinador.",
+        "action": "Obre la configuració del teclat"
+      },
+      "select": {
+        "title": "Canvieu al teclat del Handy",
+        "description": "Trieu Handy a la llista de teclats.",
+        "action": "Tria el teclat"
+      },
+      "bubble": {
+        "title": "Activeu la bombolla flotant",
+        "description": "Activeu Handy Bubble a la configuració d'accessibilitat que s'obre, a les aplicacions instal·lades o baixades, i després torneu aquí. L'Android avisa que pot veure i controlar la pantalla. El Handy només ho fa servir per detectar que sou en un camp de text i per escriure el que dicteu.",
+        "action": "Obre la configuració d'accessibilitat",
+        "helpTitle": "L'interruptor surt en gris?",
+        "help": "L'Android restringeix aquesta opció per a les aplicacions instal·lades des d'un fitxer. Toqueu una vegada l'interruptor en gris perquè l'Android mostri l'avís; després obriu «Informació de l'aplicació», toqueu els tres punts de dalt a la dreta i trieu «Permet la configuració restringida».",
+        "helpAction": "Obre la informació de l'aplicació"
+      }
+    },
+    "tryLabel": "Proveu-ho",
+    "tryPlaceholder": "Toqueu aquí i després toqueu el micròfon",
+    "switchHint": "El botó del teclat que hi ha al teclat del Handy us torna al teclat habitual. Per canviar al Handy des d'un altre teclat, feu servir el seu botó del teclat o el del globus.",
+    "done": "Fet",
+    "later": "Ara no",
+    "back": "Enrere",
+    "settingsRow": "Bombolla i teclat",
+    "new": "Nou",
+    "bubbleHint": "Toqueu la bombolla per començar a dictar i torneu-la a tocar per acabar, o manteniu-la premuda mentre parleu. Si la manteniu premuda durant un dictat, es cancel·la. Arrossegueu-la on us vagi millor; es queda al costat més proper.",
+    "settingsBubbleOn": "Bombolla activada",
+    "settingsBubbleOff": "Bombolla desactivada",
+    "settingsKeyboardOn": "Teclat activat",
+    "settingsKeyboardOff": "Teclat desactivat"
+  }
+}

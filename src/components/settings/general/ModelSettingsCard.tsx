@@ -5,6 +5,8 @@ import { LanguageSelector } from "../LanguageSelector";
 import { TranslateToEnglish } from "../TranslateToEnglish";
 import { useModelStore } from "../../../stores/modelStore";
 import { remoteServerName, useRemoteStore } from "../../../stores/remoteStore";
+import { goTo } from "../../../stores/navigationStore";
+import { TextLink } from "../../ui/TextLink";
 import type { ModelInfo } from "@/bindings";
 
 /** The language and translation of the model another computer uses. */
@@ -21,6 +23,12 @@ const RemoteModelSettingsCard: React.FC = () => {
         model: model.name,
         computer: remoteServerName(status) ?? "",
       })}
+      // Where the computer that model runs on is chosen.
+      action={
+        <TextLink onClick={() => goTo("remote")} className="!text-xs">
+          {t("settings.remote.open")}
+        </TextLink>
+      }
     >
       {showLanguageSelector && (
         <LanguageSelector

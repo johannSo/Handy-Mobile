@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"डिक्टेसन"</string>
+    <string name="keyboard_tap_to_dictate">"डिक्टेट गर्न ट्याप गर्नुहोस्"</string>
+    <string name="keyboard_listening">"सुन्दैछ… अन्त्य गर्न ट्याप गर्नुहोस्"</string>
+    <string name="keyboard_transcribing">"ट्रान्सक्राइब हुँदैछ…"</string>
+    <string name="keyboard_connecting">"%1$s सँग जोडिँदैछ…"</string>
+    <string name="keyboard_offline">"%1$s मा पहुँच भएन। फेरि प्रयास गर्न ट्याप गर्नुहोस्।"</string>
+    <string name="keyboard_your_computer">"तपाईंको कम्प्युटर"</string>
+    <string name="keyboard_unpaired">"आफ्नो कम्प्युटरसँग पेयर गर्न ट्याप गर्नुहोस्"</string>
+    <string name="keyboard_rejected">"अब पेयर गरिएको छैन। फेरि पेयर गर्न ट्याप गर्नुहोस्।"</string>
+    <string name="keyboard_incompatible">"आफ्नो फोन र कम्प्युटरमा Handy अपडेट गर्नुहोस्"</string>
+    <string name="keyboard_needs_microphone">"माइक्रोफोनलाई अनुमति दिन ट्याप गर्नुहोस्"</string>
+    <string name="keyboard_microphone_failed">"माइक्रोफोन सुरु गर्न सकिएन"</string>
+    <string name="keyboard_nothing_heard">"केही सुनिएन"</string>
+    <string name="keyboard_connection_lost">"कनेक्सन टुट्यो। फेरि प्रयास गर्नुहोस्।"</string>
+    <string name="keyboard_busy">"तपाईंको कम्प्युटर अर्को डिक्टेसनमा व्यस्त छ"</string>
+    <string name="keyboard_no_model">"तपाईंको कम्प्युटरको Handy मा कुनै मोडेल छानिएको छैन"</string>
+    <string name="keyboard_too_long">"त्यो लम्बाइको सीमामा पुग्यो"</string>
+    <string name="keyboard_failed">"तपाईंको कम्प्युटरले त्यो ट्रान्सक्राइब गर्न सकेन"</string>
+    <string name="keyboard_dictate">"डिक्टेसन सुरु गर्नुहोस्"</string>
+    <string name="keyboard_finish">"डिक्टेसन अन्त्य गर्नुहोस्"</string>
+    <string name="keyboard_cancel">"रद्द गर्नुहोस्"</string>
+    <string name="keyboard_switch">"किबोर्ड बदल्नुहोस्"</string>
+    <string name="keyboard_space">"स्पेस"</string>
+    <string name="keyboard_backspace">"मेट्नुहोस्"</string>
+    <string name="keyboard_enter">"इन्टर"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"जुनसुकै टेक्स्ट फिल्डमा डिक्टेट गर्ने फ्लोटिङ माइक्रोफोन"</string>
+    <string name="bubble_description">"तपाईं टेक्स्ट फिल्डमा हुँदा स्क्रिनको छेउमा फ्लोटिङ माइक्रोफोन देखाउँछ। डिक्टेट गर्न त्यसमा ट्याप गर्नुहोस् वा थिचिराख्नुहोस्; तपाईंले बोलेको कुरा तपाईंको कम्प्युटरमा ट्रान्सक्राइब भई फिल्डमा टाइप हुन्छ।\n\nHandy ले यो पहुँच टेक्स्ट फिल्ड प्रयोगमा छ भनी थाहा पाउन र त्यसमा तपाईंको डिक्टेसन टाइप गर्न मात्र प्रयोग गर्छ। यसले तपाईंको स्क्रिनको अरू कुनै कुरा पढ्दैन र पठाउँदैन।"</string>
+    <string name="bubble_dictate">"Handy बाट डिक्टेट गर्नुहोस्"</string>
+    <string name="bubble_cancelled">"रद्द गरियो"</string>
+    <string name="bubble_offline">"%1$s मा पहुँच भएन"</string>
+    <string name="bubble_copied">"कपी भयो। चाहेको ठाउँमा पेस्ट गर्नुहोस्।"</string>
+</resources>

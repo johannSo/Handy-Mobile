@@ -22,7 +22,7 @@ import { DownloadStatus } from "./DownloadStatus";
 import { useOnboardingModels } from "./useOnboardingModels";
 import { useModelStore } from "@/stores/modelStore";
 import { remoteServerName, useRemoteStore } from "@/stores/remoteStore";
-import { linkText } from "../settings/remote/RemoteEnginePanel";
+import { linkText } from "../settings/remote/linkStatus";
 import { moveScreens } from "./screenTransitions";
 import { downloadPick } from "./downloadPick";
 import "./screenTransitions.css";

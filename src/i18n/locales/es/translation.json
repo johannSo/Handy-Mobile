@@ -13,17 +13,18 @@
     "otherLanguages": "Otros idiomas",
     "transcribeWith": "Transcribir con",
     "thisComputer": "Este equipo",
-    "offline": "Sin conexión"
+    "offline": "Sin conexión",
+    "remote": "Handy Remote..."
   },
   "sidebar": {
     "general": "General",
     "models": "Modelos",
-    "mobile": "Compartir",
     "advanced": "Avanzado",
     "postProcessing": "Post proceso",
     "history": "Historial",
     "debug": "Depuración",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "remote": "Handy Remote"
   },
   "onboarding": {
     "customModelDescription": "Sin soporte oficial",
@@ -444,17 +445,21 @@
       "rescan": {
         "label": "Volver a escanear",
         "tooltip": "Vuelve a escanear en busca de modelos añadidos a la carpeta de modelos o a la caché de Hugging Face fuera de Handy"
+      },
+      "remote": {
+        "withFallback": "{{name}} transcribe para este equipo. El modelo seleccionado aquí toma el relevo cuando no se puede acceder a él.",
+        "withoutFallback": "{{name}} transcribe para este equipo. Mientras lo haga, los modelos de aquí no se usan."
       }
     },
     "mobile": {
       "intro": "Los teléfonos y otros equipos de tu red pueden dictar con el modelo de este equipo. El teléfono graba y este equipo transcribe.",
       "groups": {
-        "connection": "Conexión",
-        "devices": "Dispositivos vinculados",
-        "dictation": "Dictado"
+        "connection": "Compartir este equipo",
+        "devices": "Conexiones remotas",
+        "dictation": "Dictado del teléfono"
       },
       "enabled": {
-        "label": "Handy Remote",
+        "label": "Permitir conexiones remotas",
         "description": "Permite que los dispositivos vinculados dicten a través de este equipo. Mientras esté activado, Handy los espera en tu red local."
       },
       "status": {
@@ -464,23 +469,27 @@
         "starting": "Iniciando…",
         "listening": "Escuchando en {{address}}",
         "noNetwork": "Sin conexión a ninguna red",
-        "failed": "No se pudo iniciar: {{error}}"
+        "failed": "No se pudo iniciar: {{error}}",
+        "alsoAt": "También en {{addresses}}"
       },
       "port": {
         "title": "Puerto",
-        "description": "El puerto de red al que se conectan los dispositivos vinculados. Permítelo en tu firewall si no pueden conectarse. Tendrás que volver a vincular los dispositivos después de cambiarlo."
+        "description": "El puerto de red al que se conectan los dispositivos vinculados. Permítelo en tu firewall si no pueden conectarse. Tendrás que volver a vincular los dispositivos después de cambiarlo.",
+        "confirmTitle": "¿Cambiar el puerto a {{port}}?",
+        "confirm": "Habrá que volver a vincular todos los dispositivos vinculados. Buscan este equipo en el puerto que tenía cuando se vincularon.",
+        "change": "Cambiar puerto"
       },
       "pair": {
         "button": "Vincular un teléfono",
         "hint": "Al vincular se muestra un código para escanear o pegar en el otro dispositivo.",
-        "turnOnFirst": "Activa Handy Remote para vincular un dispositivo.",
+        "turnOnFirst": "Permite las conexiones remotas para vincular un dispositivo.",
         "title": "Vincular un teléfono",
-        "description": "Abre Handy Mobile en tu teléfono y escanea este código. El teléfono debe estar en la misma red que este equipo.",
+        "description": "Abre Handy en tu teléfono y escanea este código. El teléfono debe estar en la misma red que este equipo.",
         "qrAlt": "Código de vinculación",
         "expires": "Este código caduca en {{time}}",
         "expired": "Este código ha caducado.",
         "newCode": "Nuevo código",
-        "manual": "¿No puedes escanearlo? Copia el código y pégalo en Handy Mobile.",
+        "manual": "¿No puedes escanearlo? Copia el código y pégalo en Handy.",
         "copy": "Copiar código",
         "copied": "Código de vinculación copiado",
         "copyFailed": "No se pudo copiar el código de vinculación",
@@ -488,11 +497,13 @@
         "failed": "No se pudo crear un código de vinculación",
         "computerButton": "Vincular un equipo",
         "computerTitle": "Vincular un equipo",
-        "computerDescription": "En el otro equipo, abre Handy, ve a Modelos, elige Otro equipo, luego Añadir un equipo, y pega este código.",
-        "computerNote": "Un equipo vinculado recibe su texto de vuelta. No puede escribir aquí a menos que lo permitas."
+        "computerDescription": "En el otro equipo, abre Handy, ve a Handy Remote, elige Conectar con un equipo y pega este código.",
+        "computerNote": "Un equipo vinculado recibe su texto de vuelta. No puede escribir aquí a menos que lo permitas.",
+        "turnOn": "Activar",
+        "computerCarry": "Llévalo allí por tu cuenta, por ejemplo en un mensaje o en una nota. Trátalo como una contraseña hasta que se use: funciona una sola vez."
       },
       "devices": {
-        "empty": "Aún no hay dispositivos vinculados.",
+        "empty": "Aún no hay nada vinculado con este equipo.",
         "connected": "Conectado",
         "dictating": "Dictando…",
         "lastSeen": "Última conexión: {{time}}",
@@ -506,27 +517,35 @@
         "removeFailed": "No se pudo desvincular el dispositivo",
         "cancel": "Cancelar",
         "transcribing": "Transcribiendo",
-        "canType": "Escribe aquí",
-        "canTypeDescription": "Pega en este equipo lo que dicta este dispositivo, cuando lo pida.",
+        "canType": "Puede escribir aquí",
         "canTypeLabel": "Permitir que {{name}} escriba en este equipo",
-        "canTypeFailed": "No se pudo cambiar"
+        "canTypeFailed": "No se pudo cambiar",
+        "emptyPhone": "Para dictar desde un teléfono, instala Handy en él y luego elige Vincular un teléfono.",
+        "canTypeNote": "La opción Puede escribir aquí permite que un dispositivo pegue en este equipo lo que dicta. Sin ella, el texto solo vuelve al dispositivo."
       },
       "outputMode": {
-        "title": "Enviar texto a",
-        "description": "A dónde va el texto cuando un teléfono dicta. El teléfono también lo muestra siempre.",
+        "title": "Destino del texto del teléfono",
+        "description": "El ajuste inicial de un teléfono. Cada teléfono puede cambiarlo en Handy, y solo escribe aquí mientras Puede escribir aquí esté activado para él.",
         "options": {
-          "desktop": "Este equipo",
+          "desktop": "Donde está el cursor",
           "phone": "Solo el teléfono"
         }
       },
       "postProcess": {
-        "label": "Post proceso",
-        "description": "Aplica Post proceso a lo que dictan los teléfonos."
+        "label": "Post proceso del dictado del teléfono",
+        "description": "Aplica Post proceso a lo que dictan los teléfonos.",
+        "unavailable": "Post proceso está desactivado. Es una función experimental de Avanzado.",
+        "openAdvanced": "Abrir Avanzado"
       },
       "model": {
         "title": "Modelo",
         "description": "Con qué transcriben los teléfonos y equipos vinculados: el modelo seleccionado en este equipo.",
-        "none": "Ninguno. Descarga uno en Modelos."
+        "none": "Ninguno",
+        "download": "Descarga uno en Modelos"
+      },
+      "certificate": {
+        "title": "Certificado",
+        "description": "El comienzo de la huella digital del certificado de este equipo. Un equipo vinculado con este muestra la misma en Detalles. Si las dos coinciden, se comunican entre sí y no hay nada entre ellos."
       }
     },
     "languages": {
@@ -963,7 +982,7 @@
         "failed": "El diagnóstico falló: {{error}}"
       },
       "remoteLink": {
-        "title": "Enlace remoto",
+        "title": "Conexión remota",
         "description": "El enlace con el equipo con el que transcribe este.",
         "simulateOffline": "Simular inaccesible",
         "simulateOfflineDescription": "Las solicitudes al otro equipo fallan como si no se pudiera acceder a él, para probar qué pasa entonces."
@@ -1017,7 +1036,8 @@
         "offline": "No accesible",
         "rejected": "Ya no está vinculado",
         "incompatible": "Necesita una actualización",
-        "unused": "Sin usar"
+        "unused": "Sin usar",
+        "available": "Disponible"
       },
       "row": {
         "use": "Transcribir con {{name}}",
@@ -1029,39 +1049,40 @@
         "reconnect": "Reintentar ahora",
         "pairAgain": "Vincular de nuevo",
         "details": "Detalles",
-        "hostName": "Nombre",
+        "hostName": "Nombre del equipo",
         "address": "Dirección",
         "fingerprint": "Certificado",
         "version": "Versión de Handy",
         "lastError": "Último error",
-        "forget": "Olvidar",
-        "forgetConfirmTitle": "¿Olvidar {{name}}?",
-        "forgetConfirm": "Este equipo dejará de transcribir con él. Para quitar también este equipo de su lista, desvincúlalo allí en Compartir.",
-        "forgetFailed": "No se pudo olvidar el equipo",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "fingerprintHint": "Muestra el mismo en Handy Remote.",
+        "unpairConfirm": "Este equipo dejará de transcribir con él. Si se puede acceder a él ahora, quitará este equipo de su propia lista; si no, desvincula este equipo allí, en Handy Remote.",
+        "unpairFailed": "No se pudo desvincular el equipo",
+        "unpair": "Desvincular",
+        "unpairConfirmTitle": "¿Desvincular {{name}}?"
       },
       "incompatible": "{{name}} usa una versión de Handy que no puede transcribir para este equipo. Actualiza Handy en ambos equipos.",
       "computers": {
-        "title": "Equipos",
-        "description": "Otro equipo con Handy puede transcribir para este con su modelo. Elige cuál usar.",
-        "empty": "Aún no hay equipos vinculados.",
-        "hint": "El otro equipo comparte su modelo en Compartir.",
-        "add": "Añadir un equipo"
+        "title": "Usar otro equipo",
+        "description": "Otro equipo con Handy puede transcribir lo que dictas aquí, con su modelo.",
+        "empty": "Aún no te has conectado a ningún equipo.",
+        "hint": "El otro equipo tiene que permitir las conexiones remotas, en Handy Remote.",
+        "add": "Conectar con un equipo"
       },
       "fallback": {
-        "group": "Cuando no esté accesible",
-        "label": "Usar el modelo de este equipo",
+        "label": "Recurrir al modelo de este equipo",
         "description": "Si el otro equipo está suspendido, ocupado o sin conexión, transcribe aquí en su lugar y lo indica.",
-        "noModel": "Este equipo no tiene ningún modelo de respaldo. Elige Este equipo arriba para descargar uno."
+        "noModel": "Este equipo no tiene ningún modelo al que recurrir.",
+        "getModel": "Descarga uno en Modelos"
       },
       "stays": "Solo el audio va al otro equipo, junto con tu idioma, tus palabras personalizadas y las muletillas. El post proceso, el historial y el pegado se quedan en este.",
       "decidedElsewhere": "Se configura en el equipo que transcribe",
       "add": {
-        "title": "Añadir un equipo",
+        "title": "Conectar con un equipo",
         "steps": {
-          "open": "En el otro equipo, abre Handy y ve a Compartir.",
-          "share": "Activa Compartir, elige Vincular un equipo y luego Copiar código.",
-          "paste": "Pega el código aquí."
+          "open": "En el otro equipo, abre Handy y ve a Handy Remote.",
+          "share": "Activa Permitir conexiones remotas, elige Vincular un equipo y luego Copiar código.",
+          "paste": "Trae el código a este equipo, por ejemplo en un mensaje o en una nota para ti, y pégalo aquí. Funciona una sola vez, durante cinco minutos."
         },
         "placeholder": "handy://pair?…",
         "codeLabel": "Código de vinculación",
@@ -1073,12 +1094,14 @@
           "expired_code": "Ese código ha caducado o ya se usó. Crea uno nuevo en el otro equipo.",
           "incompatible": "Handy en el otro equipo no puede transcribir para este. Actualiza Handy en ambos.",
           "rate_limited": "Demasiados intentos. Espera un minuto y vuelve a intentarlo.",
-          "unreachable": "No se puede acceder al otro equipo. Comprueba que ambos estén en la misma red y que Compartir esté activado allí.",
+          "unreachable": "No se puede acceder al otro equipo. Comprueba que ambos estén en la misma red y que permita las conexiones remotas.",
           "untrusted": "Otra cosa respondió en la dirección del otro equipo. Crea un código nuevo e inténtalo de nuevo.",
           "self": "Ese código es de este equipo. Pégalo en el otro.",
           "failed": "No se pudo vincular. Inténtalo de nuevo."
         }
-      }
+      },
+      "open": "Abrir Handy Remote",
+      "localOnly": "Solo se aplica cuando este equipo transcribe"
     }
   },
   "footer": {
@@ -1094,7 +1117,14 @@
     "portableUpdateMessage": "Las instalaciones portátiles no se pueden actualizar automáticamente. Descarga abajo el instalador para tu sistema, ejecútalo e instálalo en la misma carpeta: tu carpeta Data/ (ajustes, modelos, grabaciones) se conserva.",
     "portableUpdateButton": "Descargar instalador",
     "portableUpdateBrowseMessage": "Las instalaciones portátiles no se pueden actualizar automáticamente. Descarga la versión más reciente para tu sistema desde GitHub Releases e instálala en la misma carpeta: tu carpeta Data/ (ajustes, modelos, grabaciones) se conserva.",
-    "portableUpdateBrowseButton": "Abrir GitHub Releases"
+    "portableUpdateBrowseButton": "Abrir GitHub Releases",
+    "remote": {
+      "on": "Remote activado",
+      "connected": "Conectados: {{count}}",
+      "dictating": "{{name}} está dictando",
+      "failed": "Error en las conexiones remotas",
+      "manage": "Conexiones remotas…"
+    }
   },
   "whatsNew": {
     "title": "Nuevo en Handy v{{version}}"
@@ -1139,17 +1169,17 @@
     "filePostProcessFailed": "El post proceso no terminó, así que la transcripción se guardó tal cual.",
     "fileTranscriptionFailedTitle": "Error al transcribir el archivo",
     "mobileServerFailedTitle": "Handy Remote no pudo iniciarse",
-    "mobileServerFailed": "Los dispositivos vinculados no pueden conectarse. Puede que otra app esté usando el puerto; elige otro en la configuración de Compartir.",
+    "mobileServerFailed": "Los dispositivos vinculados no pueden conectarse. Puede que otra app esté usando el puerto; elige otro en Handy Remote.",
     "mobileTranscriptionFailedTitle": "Error en el dictado del teléfono",
     "transcriptionFailedTitle": "Error de transcripción",
     "remoteUnreachableTitle": "Otro equipo inaccesible",
-    "remoteUnreachable": "Handy no pudo acceder al equipo con el que transcribe. Comprueba que esté activo, en la misma red y compartiendo su modelo.",
+    "remoteUnreachable": "Handy no pudo acceder al equipo con el que transcribe. Comprueba que esté activo, en la misma red y que permita las conexiones remotas.",
     "remoteBusyTitle": "Otro equipo ocupado",
     "remoteBusy": "Alguien está dictando en el equipo con el que transcribe este. Inténtalo de nuevo en un momento.",
     "remoteNoModelTitle": "Otro equipo sin modelo",
     "remoteNoModel": "El equipo con el que transcribe este no tiene ningún modelo. Descarga uno allí.",
     "remoteRejectedTitle": "Vuelve a vincular el equipo",
-    "remoteRejected": "El otro equipo ya no reconoce a este. Vuelve a vincularlos en Modelos.",
+    "remoteRejected": "El otro equipo ya no reconoce a este. Vuelve a vincularlos en Handy Remote.",
     "remoteIncompatibleTitle": "Actualiza Handy en ambos",
     "remoteIncompatible": "Los dos equipos usan versiones de Handy que no pueden funcionar juntas. Actualiza ambos.",
     "remoteFellBackTitle": "Transcrito en este equipo",

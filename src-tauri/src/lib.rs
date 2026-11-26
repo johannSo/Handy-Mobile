@@ -312,6 +312,11 @@ fn initialize_core_logic(app_handle: &AppHandle) {
             "notice" => {
                 show_main_window(app);
             }
+            "open_remote" => {
+                show_main_window(app);
+                // The settings window turns to that page.
+                let _ = app.emit("open-section", "remote");
+            }
             "check_updates" => {
                 let settings = settings::get_settings(app);
                 if settings::update_checks_effectively_enabled(&settings) {
@@ -874,6 +879,7 @@ pub fn run(cli_args: CliArgs) {
             commands::remote::change_transcription_engine_setting,
             commands::remote::change_remote_fallback_setting,
             commands::remote::reconnect_remote_computer,
+            commands::remote::probe_remote_computers,
             commands::remote::set_remote_simulate_offline,
             helpers::clamshell::is_laptop,
             notices::get_active_notices,

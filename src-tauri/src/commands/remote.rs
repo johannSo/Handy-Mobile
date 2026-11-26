@@ -1,4 +1,5 @@
-//! Commands behind transcribing with another computer (the Models tab).
+//! Commands behind transcribing with another computer (the Handy Remote
+//! tab).
 
 use crate::managers::remote::{RemoteEngineManager, RemoteServer, RemoteStatus};
 use crate::managers::transcription::TranscriptionManager;
@@ -79,6 +80,9 @@ pub fn select_remote_computer(
     settings.transcription_engine = TranscriptionEngine::Remote;
     settings::write_settings(&app, settings);
     manager.apply_settings();
+    // Picking a computer also switches to transcribing with one, which the
+    // settings window shows.
+    manager.settings_changed();
     Ok(())
 }
 
@@ -116,6 +120,18 @@ pub fn change_remote_fallback_setting(app: AppHandle, enabled: bool) -> Result<(
 #[specta::specta]
 pub fn reconnect_remote_computer(manager: State<'_, Arc<RemoteEngineManager>>) {
     manager.reconnect();
+}
+
+/// Looks for the paired computers on the network; the status says which
+/// answered.
+#[tauri::command]
+#[specta::specta]
+pub async fn probe_remote_computers(
+    manager: State<'_, Arc<RemoteEngineManager>>,
+) -> Result<(), String> {
+    let manager = Arc::clone(&manager);
+    manager.probe().await;
+    Ok(())
 }
 
 /// Debug: act as if the other computer were unreachable.

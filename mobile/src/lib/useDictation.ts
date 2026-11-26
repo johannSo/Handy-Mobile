@@ -30,6 +30,8 @@ export interface Transcript {
   id: number;
   text: string;
   pasted: boolean;
+  /** Asked to be typed on the computer, which didn't. Absent on old entries. */
+  notTyped?: boolean;
   at: number;
 }
 
@@ -75,6 +77,9 @@ export const useDictation = (snapshot: Snapshot, output: OutputMode | null) => {
   const attempt = useRef(0);
   const micRef = useRef<MicPhase>("idle");
   micRef.current = mic;
+  // Where the dictation under way was meant to go, for when its text
+  // comes back.
+  const wanted = useRef<OutputMode | null>(null);
 
   const connected = snapshot.link === "connected";
 
@@ -109,6 +114,7 @@ export const useDictation = (snapshot: Snapshot, output: OutputMode | null) => {
     try {
       // The desktop first, so it can refuse before the microphone opens.
       await startRecording(output);
+      wanted.current = output;
       sending.current = Promise.resolve();
       const started = await startRecorder({
         onFrame: (pcm) => {
@@ -166,11 +172,12 @@ export const useDictation = (snapshot: Snapshot, output: OutputMode | null) => {
         setNotice("noSpeech");
         return;
       }
+      const notTyped = wanted.current === "desktop" && !pasted;
       setTranscripts((list) =>
-        [{ id: Date.now(), text, pasted, at: Date.now() }, ...list].slice(
-          0,
-          MAX_HISTORY,
-        ),
+        [
+          { id: Date.now(), text, pasted, notTyped, at: Date.now() },
+          ...list,
+        ].slice(0, MAX_HISTORY),
       );
     });
     const failure = onLinkError(({ code, text }) => {
@@ -179,7 +186,13 @@ export const useDictation = (snapshot: Snapshot, output: OutputMode | null) => {
       if (text) {
         setTranscripts((list) =>
           [
-            { id: Date.now(), text, pasted: false, at: Date.now() },
+            {
+              id: Date.now(),
+              text,
+              pasted: false,
+              notTyped: wanted.current === "desktop",
+              at: Date.now(),
+            },
             ...list,
           ].slice(0, MAX_HISTORY),
         );

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Laptop, Pencil, RotateCw, Trash2, X } from "lucide-react";
 import { commands, type RemoteServer, type RemoteStatus } from "@/bindings";
 import { useSettings } from "@/hooks/useSettings";
 import { useModelStore } from "@/stores/modelStore";
+import { goTo } from "@/stores/navigationStore";
 import { notify } from "@/stores/noticeStore";
 import { useRemoteStore } from "@/stores/remoteStore";
 import { formatRelativeTime } from "@/utils/dateFormat";
@@ -13,55 +14,21 @@ import { Dialog } from "../../ui/Dialog";
 import { Input } from "../../ui/Input";
 import { Radio } from "../../ui/Radio";
 import { SettingsGroup } from "../../ui/SettingsGroup";
+import { TextLink } from "../../ui/TextLink";
 import { ToggleSwitch } from "../../ui/ToggleSwitch";
 import { AddComputerDialog } from "./AddComputerDialog";
+import { EngineSwitch } from "./EngineSwitch";
+import { linkDot, linkText, reachDot, reachText } from "./linkStatus";
 
-/** What a row says about the selected computer's link. */
-export const linkText = (
-  status: RemoteStatus,
-  t: (key: string, options?: Record<string, unknown>) => string,
-): string => {
-  switch (status.link) {
-    case "connected":
-      if (status.busy) return t("settings.remote.state.transcribing");
-      return status.model
-        ? t("settings.remote.state.connectedModel", {
-            model: status.model.name,
-          })
-        : t("settings.remote.state.noModel");
-    case "connecting":
-      return t("settings.remote.state.connecting");
-    case "offline":
-      return t("settings.remote.state.offline");
-    case "rejected":
-      return t("settings.remote.state.rejected");
-    case "incompatible":
-      return t("settings.remote.state.incompatible");
-    case "unused":
-      return t("settings.remote.state.unused");
-  }
-};
-
-/** The dot's color for a link state, as the phone app draws it. */
-export const linkDot = (status: RemoteStatus): string => {
-  switch (status.link) {
-    case "connected":
-      return status.model ? "bg-moss" : "bg-warning";
-    case "connecting":
-      return "bg-warning animate-pulse motion-reduce:animate-none";
-    case "unused":
-      return "bg-ink-3";
-    default:
-      return "bg-error";
-  }
-};
+/** How often the paired computers are looked for while the page is up. */
+const PROBE_EVERY_MS = 20_000;
 
 const ServerRow: React.FC<{
   server: RemoteServer;
   status: RemoteStatus;
-  onForget: (server: RemoteServer) => void;
+  onUnpair: (server: RemoteServer) => void;
   onPairAgain: () => void;
-}> = ({ server, status, onForget, onPairAgain }) => {
+}> = ({ server, status, onUnpair, onPairAgain }) => {
   const { t, i18n } = useTranslation();
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(server.name);
@@ -97,11 +64,14 @@ const ServerRow: React.FC<{
     }
   };
 
+  // The one in use says how its link is; the others, whether they'd answer.
   const stateLine = selected
     ? linkText(status, t)
-    : t("settings.remote.row.pairedAt", {
+    : (reachText(server, t) ??
+      t("settings.remote.row.pairedAt", {
         time: formatRelativeTime(String(server.paired_at), i18n.language),
-      });
+      }));
+  const dot = selected ? linkDot(status) : reachDot(server);
 
   return (
     <div className="px-4 py-2">
@@ -143,10 +113,10 @@ const ServerRow: React.FC<{
             <p className="truncate text-sm font-medium">{server.name}</p>
           )}
           <p className="flex items-center gap-1.5 truncate text-xs text-ink-3">
-            {selected && (
+            {dot && (
               <span
                 aria-hidden="true"
-                className={`inline-block h-2 w-2 shrink-0 rounded-full ${linkDot(status)}`}
+                className={`inline-block h-2 w-2 shrink-0 rounded-full ${dot}`}
               />
             )}
             <span className="truncate">{stateLine}</span>
@@ -188,9 +158,9 @@ const ServerRow: React.FC<{
         </button>
         <button
           type="button"
-          onClick={() => onForget(server)}
-          title={t("settings.remote.row.forget")}
-          aria-label={t("settings.remote.row.forget")}
+          onClick={() => onUnpair(server)}
+          title={t("settings.remote.row.unpair")}
+          aria-label={t("settings.remote.row.unpair")}
           className="cursor-pointer rounded-md p-1.5 text-ink-3 transition-colors hover:text-error"
         >
           <Trash2 className="h-4 w-4" />
@@ -205,7 +175,12 @@ const ServerRow: React.FC<{
             {server.addresses.map((a) => `${a}:${server.port}`).join(", ")}
           </dd>
           <dt>{t("settings.remote.row.fingerprint")}</dt>
-          <dd className="truncate font-mono">{server.fingerprint}…</dd>
+          <dd>
+            <span className="font-mono select-text">{server.fingerprint}</span>
+            <span className="ms-2">
+              {t("settings.remote.row.fingerprintHint")}
+            </span>
+          </dd>
           {selected && status.version && (
             <>
               <dt>{t("settings.remote.row.version")}</dt>
@@ -224,41 +199,52 @@ const ServerRow: React.FC<{
   );
 };
 
-/** The Models page when another computer transcribes. */
-export const RemoteEnginePanel: React.FC<{
-  addOpen: boolean;
-  setAddOpen: (open: boolean) => void;
-}> = ({ addOpen, setAddOpen }) => {
+/**
+ * Transcribing with another computer: the switch, the computers this one is
+ * paired with, and what happens when the one in use can't be reached.
+ */
+export const UseAnotherComputer: React.FC = () => {
   const { t } = useTranslation();
   const status = useRemoteStore((s) => s.status);
   const { getSetting, updateSetting, isUpdating } = useSettings();
   const hasLocalModel = useModelStore((s) =>
     s.models.some((m) => m.id === s.currentModel && m.is_downloaded),
   );
-  const [forgetting, setForgetting] = useState<RemoteServer | null>(null);
+  const [addOpen, setAddOpen] = useState(false);
+  const [unpairing, setUnpairing] = useState<RemoteServer | null>(null);
 
   const servers = status?.servers ?? [];
+  const paired = servers.length > 0;
   const fallback = getSetting("remote_fallback") ?? true;
   const selected = servers.find((s) => s.id === status?.selected);
 
-  const confirmForget = async () => {
-    if (!forgetting) return;
-    const result = await commands.forgetRemoteComputer(forgetting.id);
+  // Whether each paired computer would answer, kept fresh while it's shown.
+  useEffect(() => {
+    if (!paired) return;
+    const probe = () => void commands.probeRemoteComputers().catch(() => {});
+    probe();
+    const timer = window.setInterval(probe, PROBE_EVERY_MS);
+    return () => window.clearInterval(timer);
+  }, [paired]);
+
+  const confirmUnpair = async () => {
+    if (!unpairing) return;
+    const result = await commands.forgetRemoteComputer(unpairing.id);
     if (result.status === "error") {
       notify({
         title:
           result.error === "busy"
             ? t("settings.remote.engine.busy")
-            : t("settings.remote.row.forgetFailed"),
+            : t("settings.remote.row.unpairFailed"),
         detail: result.error === "busy" ? undefined : result.error,
         level: "error",
       });
     }
-    setForgetting(null);
+    setUnpairing(null);
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-2">
       {status?.in_use && status.link === "incompatible" && selected && (
         <Alert variant="warning">
           {t("settings.remote.incompatible", { name: selected.name })}
@@ -269,18 +255,15 @@ export const RemoteEnginePanel: React.FC<{
         title={t("settings.remote.computers.title")}
         description={t("settings.remote.computers.description")}
       >
-        {status === null ? null : servers.length === 0 ? (
-          <p className="px-4 py-3 text-sm text-ink-3">
-            {t("settings.remote.computers.empty")}
-          </p>
-        ) : (
+        <EngineSwitch onAddComputer={() => setAddOpen(true)} />
+        {status !== null && paired && (
           <div role="radiogroup">
             {servers.map((server) => (
               <ServerRow
                 key={server.id}
                 server={server}
                 status={status}
-                onForget={setForgetting}
+                onUnpair={setUnpairing}
                 onPairAgain={() => setAddOpen(true)}
               />
             ))}
@@ -288,10 +271,12 @@ export const RemoteEnginePanel: React.FC<{
         )}
         <div className="flex items-center justify-between gap-3 px-4 py-2">
           <p className="text-xs text-ink-3">
-            {t("settings.remote.computers.hint")}
+            {paired
+              ? t("settings.remote.computers.hint")
+              : t("settings.remote.computers.empty")}
           </p>
           <Button
-            variant="primary"
+            variant={paired ? "secondary" : "primary"}
             size="md"
             onClick={() => setAddOpen(true)}
             className="shrink-0"
@@ -299,36 +284,42 @@ export const RemoteEnginePanel: React.FC<{
             {t("settings.remote.computers.add")}
           </Button>
         </div>
-      </SettingsGroup>
-
-      <SettingsGroup title={t("settings.remote.fallback.group")}>
-        <ToggleSwitch
-          checked={fallback}
-          onChange={(value) => updateSetting("remote_fallback", value)}
-          isUpdating={isUpdating("remote_fallback")}
-          label={t("settings.remote.fallback.label")}
-          description={t("settings.remote.fallback.description")}
-          descriptionMode="tooltip"
-          grouped
-        />
-        {fallback && !hasLocalModel && (
-          <p className="px-4 py-2 text-xs text-ink-3">
-            {t("settings.remote.fallback.noModel")}
-          </p>
+        {paired && (
+          <div>
+            <ToggleSwitch
+              checked={fallback}
+              onChange={(value) => updateSetting("remote_fallback", value)}
+              isUpdating={isUpdating("remote_fallback")}
+              label={t("settings.remote.fallback.label")}
+              description={t("settings.remote.fallback.description")}
+              descriptionMode="inline"
+              grouped
+            />
+            {fallback && !hasLocalModel && (
+              <p className="-mt-1 px-4 pb-2 text-xs text-warning">
+                {t("settings.remote.fallback.noModel")}{" "}
+                <TextLink onClick={() => goTo("models")}>
+                  {t("settings.remote.fallback.getModel")}
+                </TextLink>
+              </p>
+            )}
+          </div>
         )}
       </SettingsGroup>
 
-      <p className="px-4 text-xs text-ink-3">{t("settings.remote.stays")}</p>
+      {paired && (
+        <p className="px-4 text-xs text-ink-3">{t("settings.remote.stays")}</p>
+      )}
 
       <AddComputerDialog open={addOpen} onClose={() => setAddOpen(false)} />
 
       <Dialog
-        open={forgetting !== null}
-        title={t("settings.remote.row.forgetConfirmTitle", {
-          name: forgetting?.name ?? "",
+        open={unpairing !== null}
+        title={t("settings.remote.row.unpairConfirmTitle", {
+          name: unpairing?.name ?? "",
         })}
         onOpenChange={(open) => {
-          if (!open) setForgetting(null);
+          if (!open) setUnpairing(null);
         }}
         closeLabel={t("common.close")}
         contentFades={false}
@@ -338,7 +329,7 @@ export const RemoteEnginePanel: React.FC<{
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => setForgetting(null)}
+              onClick={() => setUnpairing(null)}
               className="inline-flex items-center gap-1.5"
             >
               <X className="h-3.5 w-3.5" />
@@ -347,15 +338,15 @@ export const RemoteEnginePanel: React.FC<{
             <Button
               variant="danger"
               size="sm"
-              onClick={() => void confirmForget()}
+              onClick={() => void confirmUnpair()}
             >
-              {t("settings.remote.row.forget")}
+              {t("settings.remote.row.unpair")}
             </Button>
           </>
         }
       >
         <p className="text-sm text-ink-2">
-          {t("settings.remote.row.forgetConfirm")}
+          {t("settings.remote.row.unpairConfirm")}
         </p>
       </Dialog>
     </div>

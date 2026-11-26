@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Dyktowanie"</string>
+    <string name="keyboard_tap_to_dictate">"Dotknij, aby dyktować"</string>
+    <string name="keyboard_listening">"Słucham… dotknij, aby zakończyć"</string>
+    <string name="keyboard_transcribing">"Transkrypcja…"</string>
+    <string name="keyboard_connecting">"%1$s: łączenie…"</string>
+    <string name="keyboard_offline">"%1$s jest nieosiągalny. Dotknij, aby spróbować ponownie."</string>
+    <string name="keyboard_your_computer">"Twój komputer"</string>
+    <string name="keyboard_unpaired">"Dotknij, aby sparować z komputerem"</string>
+    <string name="keyboard_rejected">"Parowanie usunięte. Dotknij, aby sparować ponownie."</string>
+    <string name="keyboard_incompatible">"Zaktualizuj Handy na telefonie i komputerze"</string>
+    <string name="keyboard_needs_microphone">"Dotknij, aby zezwolić na mikrofon"</string>
+    <string name="keyboard_microphone_failed">"Nie udało się uruchomić mikrofonu"</string>
+    <string name="keyboard_nothing_heard">"Nic nie usłyszano"</string>
+    <string name="keyboard_connection_lost">"Połączenie zostało przerwane. Spróbuj ponownie."</string>
+    <string name="keyboard_busy">"Twój komputer jest zajęty innym dyktowaniem"</string>
+    <string name="keyboard_no_model">"W Handy na komputerze nie wybrano modelu"</string>
+    <string name="keyboard_too_long">"Osiągnięto limit długości"</string>
+    <string name="keyboard_failed">"Komputer nie zdołał tego przetranskrybować"</string>
+    <string name="keyboard_dictate">"Zacznij dyktować"</string>
+    <string name="keyboard_finish">"Zakończ dyktowanie"</string>
+    <string name="keyboard_cancel">"Anuluj"</string>
+    <string name="keyboard_switch">"Przełącz klawiaturę"</string>
+    <string name="keyboard_space">"spacja"</string>
+    <string name="keyboard_backspace">"Usuń"</string>
+    <string name="keyboard_enter">"Enter"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"Pływający mikrofon do dyktowania w dowolnym polu tekstowym"</string>
+    <string name="bubble_description">"Wyświetla pływający mikrofon przy krawędzi ekranu, gdy jesteś w polu tekstowym. Dotknij go lub przytrzymaj, aby dyktować; to, co mówisz, jest transkrybowane na komputerze i wpisywane w pole.\n\nHandy używa tego dostępu tylko po to, by zauważyć, że pole tekstowe jest w użyciu, i wpisać w nie to, co dyktujesz. Nie odczytuje ani nie wysyła niczego innego z ekranu."</string>
+    <string name="bubble_dictate">"Dyktuj z Handy"</string>
+    <string name="bubble_cancelled">"Anulowano"</string>
+    <string name="bubble_offline">"%1$s jest nieosiągalny"</string>
+    <string name="bubble_copied">"Skopiowano. Wklej tam, gdzie chcesz."</string>
+</resources>

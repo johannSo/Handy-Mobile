@@ -13,17 +13,18 @@
     "otherLanguages": "其他語言",
     "transcribeWith": "轉錄裝置",
     "thisComputer": "這台電腦",
-    "offline": "離線"
+    "offline": "離線",
+    "remote": "Handy Remote..."
   },
   "sidebar": {
     "general": "一般",
     "models": "模型",
-    "mobile": "分享",
     "advanced": "進階",
     "postProcessing": "後處理",
     "history": "歷史紀錄",
     "debug": "偵錯",
-    "about": "關於"
+    "about": "關於",
+    "remote": "Handy Remote"
   },
   "onboarding": {
     "customModelDescription": "官方不支援",
@@ -444,17 +445,21 @@
       "rescan": {
         "label": "重新掃描",
         "tooltip": "重新掃描在 Handy 之外新增到模型資料夾或 Hugging Face 快取中的模型"
+      },
+      "remote": {
+        "withFallback": "{{name}} 為這台電腦轉錄。無法連線到它時，會改用這裡選擇的模型。",
+        "withoutFallback": "{{name}} 為這台電腦轉錄。在此期間不會使用這裡的模型。"
       }
     },
     "mobile": {
       "intro": "您網路中的手機和其他電腦可以使用這台電腦的模型聽寫。手機負責錄音，這台電腦負責轉錄。",
       "groups": {
-        "connection": "連線",
-        "devices": "已配對的裝置",
-        "dictation": "聽寫"
+        "connection": "分享這台電腦",
+        "devices": "遠端連線",
+        "dictation": "手機聽寫"
       },
       "enabled": {
-        "label": "Handy Remote",
+        "label": "允許遠端連線",
         "description": "允許已配對的裝置透過這台電腦聽寫。開啟後，Handy 會在區域網路中等待它們連線。"
       },
       "status": {
@@ -464,23 +469,27 @@
         "starting": "正在啟動…",
         "listening": "正在監聽 {{address}}",
         "noNetwork": "未連線到網路",
-        "failed": "無法啟動：{{error}}"
+        "failed": "無法啟動：{{error}}",
+        "alsoAt": "其他位址：{{addresses}}"
       },
       "port": {
         "title": "連接埠",
-        "description": "已配對裝置連線所用的網路連接埠。如果無法連線，請在防火牆中允許此連接埠。變更連接埠後，需要重新配對裝置。"
+        "description": "已配對裝置連線所用的網路連接埠。如果無法連線，請在防火牆中允許此連接埠。變更連接埠後，需要重新配對裝置。",
+        "confirmTitle": "要將連接埠變更為 {{port}} 嗎？",
+        "confirm": "所有已配對的裝置都需要重新配對。它們會在配對時的連接埠上尋找這台電腦。",
+        "change": "變更連接埠"
       },
       "pair": {
         "button": "配對手機",
         "hint": "配對時會顯示一組代碼，在另一台裝置上掃描或貼上即可。",
-        "turnOnFirst": "請先開啟 Handy Remote，再配對裝置。",
+        "turnOnFirst": "請先允許遠端連線，再配對裝置。",
         "title": "配對手機",
-        "description": "在手機上開啟 Handy Mobile 並掃描此 QR 碼。手機必須與這台電腦在同一個網路中。",
+        "description": "在手機上開啟 Handy 並掃描此 QR 碼。手機必須與這台電腦在同一個網路中。",
         "qrAlt": "配對碼",
         "expires": "此配對碼將在 {{time}} 後過期",
         "expired": "此配對碼已過期。",
         "newCode": "新配對碼",
-        "manual": "無法掃描？複製配對碼並貼到 Handy Mobile 中。",
+        "manual": "無法掃描？複製配對碼並貼到 Handy 中。",
         "copy": "複製配對碼",
         "copied": "配對碼已複製",
         "copyFailed": "無法複製配對碼",
@@ -488,11 +497,13 @@
         "failed": "無法建立配對碼",
         "computerButton": "配對電腦",
         "computerTitle": "配對電腦",
-        "computerDescription": "在另一台電腦上開啟 Handy，前往「模型」，選擇「另一台電腦」，再選擇「新增電腦」，然後貼上此配對碼。",
-        "computerNote": "已配對的電腦會收到傳回的文字。除非您允許，否則它無法在這裡輸入。"
+        "computerDescription": "在另一台電腦上開啟 Handy，前往 Handy Remote，選擇「連線到電腦」，然後貼上此配對碼。",
+        "computerNote": "已配對的電腦會收到傳回的文字。除非您允許，否則它無法在這裡輸入。",
+        "turnOn": "開啟",
+        "computerCarry": "請自行把它帶過去，例如透過訊息或備忘錄。在使用之前請像對待密碼一樣保管它：它只能使用一次。"
       },
       "devices": {
-        "empty": "尚未配對任何裝置。",
+        "empty": "尚未有任何裝置與這台電腦配對。",
         "connected": "已連線",
         "dictating": "正在聽寫…",
         "lastSeen": "上次上線：{{time}}",
@@ -507,26 +518,34 @@
         "cancel": "取消",
         "transcribing": "正在轉錄",
         "canType": "可在此輸入",
-        "canTypeDescription": "在此裝置要求時，將它聽寫的內容貼到這台電腦上。",
         "canTypeLabel": "允許 {{name}} 在這台電腦上輸入",
-        "canTypeFailed": "無法變更"
+        "canTypeFailed": "無法變更",
+        "emptyPhone": "若要用手機聽寫，請在手機上安裝 Handy，然後選擇「配對手機」。",
+        "canTypeNote": "開啟「可在此輸入」後，裝置可以把聽寫的內容貼到這台電腦上。關閉時，文字只會傳回該裝置。"
       },
       "outputMode": {
-        "title": "文字傳送到",
-        "description": "手機聽寫時文字的去向。手機上一律也會顯示文字。",
+        "title": "手機文字傳送到",
+        "description": "手機的初始設定。每支手機都可以在 Handy 中切換，而且只有在為它開啟「可在此輸入」時才會在這裡輸入。",
         "options": {
-          "desktop": "這台電腦",
+          "desktop": "游標所在位置",
           "phone": "僅手機"
         }
       },
       "postProcess": {
-        "label": "後處理",
-        "description": "對手機聽寫的內容進行後處理。"
+        "label": "對手機聽寫進行後處理",
+        "description": "對手機聽寫的內容進行後處理。",
+        "unavailable": "後處理已關閉。它是「進階」中的一項實驗性功能。",
+        "openAdvanced": "開啟「進階」"
       },
       "model": {
         "title": "模型",
         "description": "已配對的手機和電腦用來轉錄的模型，也就是這台電腦上選擇的模型。",
-        "none": "無。請在「模型」中下載一個。"
+        "none": "無",
+        "download": "在「模型」中下載一個"
+      },
+      "certificate": {
+        "title": "憑證",
+        "description": "這台電腦憑證指紋的開頭部分。與這台電腦配對的電腦會在「詳細資訊」中顯示相同的內容。如果兩者相符，表示它們是直接通訊，中間沒有任何第三方。"
       }
     },
     "languages": {
@@ -1017,7 +1036,8 @@
         "offline": "無法連線",
         "rejected": "已不再配對",
         "incompatible": "需要更新",
-        "unused": "未使用"
+        "unused": "未使用",
+        "available": "可用"
       },
       "row": {
         "use": "使用 {{name}} 轉錄",
@@ -1029,39 +1049,40 @@
         "reconnect": "立即重試",
         "pairAgain": "重新配對",
         "details": "詳細資訊",
-        "hostName": "名稱",
+        "hostName": "電腦名稱",
         "address": "位址",
         "fingerprint": "憑證",
         "version": "Handy 版本",
         "lastError": "上次錯誤",
-        "forget": "移除",
-        "forgetConfirmTitle": "要移除 {{name}} 嗎？",
-        "forgetConfirm": "這台電腦將不再使用它轉錄。若要同時從對方的清單中移除這台電腦，請在對方的「分享」中取消配對。",
-        "forgetFailed": "無法移除電腦",
-        "cancel": "取消"
+        "cancel": "取消",
+        "fingerprintHint": "對方的 Handy Remote 中會顯示相同的內容。",
+        "unpairConfirm": "這台電腦將不再使用它轉錄。如果現在能連線到它，它會把這台電腦從自己的清單中移除；否則請在對方的 Handy Remote 中取消與這台電腦的配對。",
+        "unpairFailed": "無法取消電腦配對",
+        "unpair": "取消配對",
+        "unpairConfirmTitle": "要取消與 {{name}} 的配對嗎？"
       },
       "incompatible": "{{name}} 執行的 Handy 版本無法為這台電腦轉錄。請在兩台電腦上更新 Handy。",
       "computers": {
-        "title": "電腦",
-        "description": "另一台執行 Handy 的電腦可以用它的模型為這台電腦轉錄。請選擇要使用的電腦。",
-        "empty": "尚未配對任何電腦。",
-        "hint": "另一台電腦會在「分享」中分享它的模型。",
-        "add": "新增電腦"
+        "title": "使用另一台電腦",
+        "description": "另一台執行 Handy 的電腦可以用它的模型轉錄您在這裡聽寫的內容。",
+        "empty": "您尚未連線到任何電腦。",
+        "hint": "另一台電腦必須在 Handy Remote 中允許遠端連線。",
+        "add": "連線到電腦"
       },
       "fallback": {
-        "group": "無法連線時",
-        "label": "使用這台電腦的模型",
+        "label": "以這台電腦的模型作為備用",
         "description": "如果另一台電腦處於睡眠、忙碌或離線狀態，則改為在這裡轉錄，並顯示提示。",
-        "noModel": "這台電腦沒有可備用的模型。請在上方選擇「這台電腦」來下載一個。"
+        "noModel": "這台電腦沒有可備用的模型。",
+        "getModel": "在「模型」中下載一個"
       },
       "stays": "只有音訊會傳送到另一台電腦，並附帶您的語言、自訂詞彙和語助詞設定。後處理、歷史紀錄和貼上都保留在這台電腦上。",
       "decidedElsewhere": "在負責轉錄的電腦上設定",
       "add": {
-        "title": "新增電腦",
+        "title": "連線到電腦",
         "steps": {
-          "open": "在另一台電腦上開啟 Handy，前往「分享」。",
-          "share": "開啟「分享」，選擇「配對電腦」，然後點選「複製配對碼」。",
-          "paste": "在這裡貼上配對碼。"
+          "open": "在另一台電腦上開啟 Handy，前往 Handy Remote。",
+          "share": "開啟「允許遠端連線」，選擇「配對電腦」，然後點選「複製配對碼」。",
+          "paste": "把配對碼帶到這台電腦上（例如透過訊息或給自己的備忘錄），然後貼到這裡。配對碼只能使用一次，五分鐘內有效。"
         },
         "placeholder": "handy://pair?…",
         "codeLabel": "配對碼",
@@ -1073,12 +1094,14 @@
           "expired_code": "此配對碼已過期或已被使用。請在另一台電腦上產生新的配對碼。",
           "incompatible": "另一台電腦上的 Handy 無法為這台電腦轉錄。請在兩台電腦上都更新 Handy。",
           "rate_limited": "嘗試次數過多。請等待一分鐘後再試一次。",
-          "unreachable": "無法連線到另一台電腦。請檢查兩台電腦是否在同一個網路中，以及對方是否已開啟「分享」。",
+          "unreachable": "無法連線到另一台電腦。請檢查兩台電腦是否在同一個網路中，以及對方是否允許遠端連線。",
           "untrusted": "另一台電腦的位址上有其他裝置做出了回應。請產生新的配對碼並再試一次。",
           "self": "這是這台電腦的配對碼。請將它貼到另一台電腦上。",
           "failed": "配對失敗。請再試一次。"
         }
-      }
+      },
+      "open": "開啟 Handy Remote",
+      "localOnly": "僅在這台電腦轉錄時適用"
     }
   },
   "footer": {
@@ -1094,7 +1117,14 @@
     "portableUpdateMessage": "可攜式安裝無法自動更新。請透過下方按鈕下載適用於你的系統的安裝程式，執行後安裝到相同資料夾，你的 Data/ 資料夾（設定、模型、錄音）會保留在原處。",
     "portableUpdateButton": "下載安裝程式",
     "portableUpdateBrowseMessage": "可攜式安裝無法自動更新。請從 GitHub Releases 下載適用於你的系統的最新版本，並安裝到相同資料夾，你的 Data/ 資料夾（設定、模型、錄音）會保留在原處。",
-    "portableUpdateBrowseButton": "開啟 GitHub Releases"
+    "portableUpdateBrowseButton": "開啟 GitHub Releases",
+    "remote": {
+      "on": "遠端已開啟",
+      "connected": "已連線 {{count}} 台",
+      "dictating": "{{name}} 正在聽寫",
+      "failed": "遠端連線失敗",
+      "manage": "遠端連線…"
+    }
   },
   "whatsNew": {
     "title": "Handy v{{version}} 新功能"
@@ -1139,17 +1169,17 @@
     "filePostProcessFailed": "後處理未完成，因此按原樣儲存轉錄內容。",
     "fileTranscriptionFailedTitle": "檔案轉錄失敗",
     "mobileServerFailedTitle": "Handy Remote 無法啟動",
-    "mobileServerFailed": "已配對的裝置無法連線。連接埠可能被其他應用程式佔用；請在分享設定中選擇其他連接埠。",
+    "mobileServerFailed": "已配對的裝置無法連線。連接埠可能被其他應用程式佔用；請在 Handy Remote 中選擇其他連接埠。",
     "mobileTranscriptionFailedTitle": "手機聽寫失敗",
     "transcriptionFailedTitle": "轉錄失敗",
     "remoteUnreachableTitle": "無法連線到另一台電腦",
-    "remoteUnreachable": "Handy 無法連線到用來轉錄的電腦。請檢查它是否已喚醒、是否在同一個網路中，以及是否正在分享模型。",
+    "remoteUnreachable": "Handy 無法連線到用來轉錄的電腦。請檢查它是否已喚醒、是否在同一個網路中，以及是否允許遠端連線。",
     "remoteBusyTitle": "另一台電腦忙碌中",
     "remoteBusy": "有人正在用來轉錄的那台電腦上聽寫。請稍後再試。",
     "remoteNoModelTitle": "另一台電腦沒有模型",
     "remoteNoModel": "用來轉錄的電腦沒有模型。請在那台電腦上下載一個。",
     "remoteRejectedTitle": "請重新配對電腦",
-    "remoteRejected": "另一台電腦已不再識別這台電腦。請在「模型」中重新配對。",
+    "remoteRejected": "另一台電腦已不再識別這台電腦。請在 Handy Remote 中重新配對。",
     "remoteIncompatibleTitle": "請更新兩端的 Handy",
     "remoteIncompatible": "兩台電腦執行的 Handy 版本無法搭配使用。請將兩者都更新。",
     "remoteFellBackTitle": "已在這台電腦上轉錄",

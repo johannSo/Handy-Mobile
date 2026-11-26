@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Dettatura"</string>
+    <string name="keyboard_tap_to_dictate">"Tocca per dettare"</string>
+    <string name="keyboard_listening">"In ascolto… tocca per terminare"</string>
+    <string name="keyboard_transcribing">"Trascrizione in corso…"</string>
+    <string name="keyboard_connecting">"Connessione con %1$s…"</string>
+    <string name="keyboard_offline">"Impossibile raggiungere %1$s. Tocca per riprovare."</string>
+    <string name="keyboard_your_computer">"il tuo computer"</string>
+    <string name="keyboard_unpaired">"Tocca per associare al tuo computer"</string>
+    <string name="keyboard_rejected">"Non più associato. Tocca per associare di nuovo."</string>
+    <string name="keyboard_incompatible">"Aggiorna Handy sul telefono e sul computer"</string>
+    <string name="keyboard_needs_microphone">"Tocca per consentire il microfono"</string>
+    <string name="keyboard_microphone_failed">"Impossibile avviare il microfono"</string>
+    <string name="keyboard_nothing_heard">"Non è stato sentito nulla"</string>
+    <string name="keyboard_connection_lost">"La connessione si è interrotta. Riprova."</string>
+    <string name="keyboard_busy">"Il tuo computer è occupato con un\'altra dettatura"</string>
+    <string name="keyboard_no_model">"Handy sul tuo computer non ha un modello selezionato"</string>
+    <string name="keyboard_too_long">"È stato raggiunto il limite di durata"</string>
+    <string name="keyboard_failed">"Il tuo computer non è riuscito a trascrivere"</string>
+    <string name="keyboard_dictate">"Inizia a dettare"</string>
+    <string name="keyboard_finish">"Termina la dettatura"</string>
+    <string name="keyboard_cancel">"Annulla"</string>
+    <string name="keyboard_switch">"Cambia tastiera"</string>
+    <string name="keyboard_space">"spazio"</string>
+    <string name="keyboard_backspace">"Cancella"</string>
+    <string name="keyboard_enter">"Invio"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"Un microfono flottante per dettare in qualsiasi campo di testo"</string>
+    <string name="bubble_description">"Mostra un microfono flottante sul lato dello schermo mentre sei in un campo di testo. Toccalo o tienilo premuto per dettare; ciò che dici viene trascritto sul tuo computer e scritto nel campo.\n\nHandy usa questo accesso solo per accorgersi che un campo di testo è in uso e per scriverci la tua dettatura. Non legge né invia nient\'altro di ciò che è sullo schermo."</string>
+    <string name="bubble_dictate">"Detta con Handy"</string>
+    <string name="bubble_cancelled">"Annullato"</string>
+    <string name="bubble_offline">"Impossibile raggiungere %1$s"</string>
+    <string name="bubble_copied">"Copiato. Incollalo dove vuoi."</string>
+</resources>

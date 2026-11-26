@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Ditado"</string>
+    <string name="keyboard_tap_to_dictate">"Toque para ditar"</string>
+    <string name="keyboard_listening">"Ouvindo… toque para terminar"</string>
+    <string name="keyboard_transcribing">"Transcrevendo…"</string>
+    <string name="keyboard_connecting">"Conectando a %1$s…"</string>
+    <string name="keyboard_offline">"Não foi possível alcançar %1$s. Toque para tentar de novo."</string>
+    <string name="keyboard_your_computer">"seu computador"</string>
+    <string name="keyboard_unpaired">"Toque para parear com seu computador"</string>
+    <string name="keyboard_rejected">"Não está mais pareado. Toque para parear de novo."</string>
+    <string name="keyboard_incompatible">"Atualize o Handy no celular e no computador"</string>
+    <string name="keyboard_needs_microphone">"Toque para permitir o microfone"</string>
+    <string name="keyboard_microphone_failed">"Não foi possível iniciar o microfone"</string>
+    <string name="keyboard_nothing_heard">"Nada foi ouvido"</string>
+    <string name="keyboard_connection_lost">"A conexão caiu. Tente de novo."</string>
+    <string name="keyboard_busy">"Seu computador está ocupado com outro ditado"</string>
+    <string name="keyboard_no_model">"O Handy no seu computador não tem um modelo selecionado"</string>
+    <string name="keyboard_too_long">"O limite de duração foi atingido"</string>
+    <string name="keyboard_failed">"Seu computador não conseguiu transcrever isso"</string>
+    <string name="keyboard_dictate">"Começar a ditar"</string>
+    <string name="keyboard_finish">"Terminar de ditar"</string>
+    <string name="keyboard_cancel">"Cancelar"</string>
+    <string name="keyboard_switch">"Trocar de teclado"</string>
+    <string name="keyboard_space">"espaço"</string>
+    <string name="keyboard_backspace">"Apagar"</string>
+    <string name="keyboard_enter">"Enter"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"Um microfone flutuante para ditar em qualquer campo de texto"</string>
+    <string name="bubble_description">"Mostra um microfone flutuante na lateral da tela enquanto você está em um campo de texto. Toque nele ou mantenha-o pressionado para ditar; o que você diz é transcrito no seu computador e digitado no campo.\n\nO Handy usa esse acesso só para perceber que um campo de texto está em uso e para digitar seu ditado nele. Ele não lê nem envia mais nada da sua tela."</string>
+    <string name="bubble_dictate">"Ditar com o Handy"</string>
+    <string name="bubble_cancelled">"Cancelado"</string>
+    <string name="bubble_offline">"Não foi possível alcançar %1$s"</string>
+    <string name="bubble_copied">"Copiado. Cole onde quiser."</string>
+</resources>

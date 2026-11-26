@@ -56,6 +56,9 @@ struct Snapshot {
     /// Where the desktop sends text unless this phone asks otherwise.
     default_output: Option<OutputMode>,
     session: SessionState,
+    /// Whether the desktop lets this phone paste into it. `None` until the
+    /// desktop has said, and from one too old to say.
+    can_type: Option<bool>,
     /// Why the last connection attempt failed, for the curious.
     detail: Option<String>,
 }
@@ -191,6 +194,7 @@ fn spawn_connection(app: AppHandle, core: Shared) {
                         s.desktop_version = Some(info.version);
                         s.default_output = Some(info.default_output);
                         s.session = SessionState::Idle;
+                        s.can_type = info.can_type;
                         s.detail = None;
                     });
                     pump(&app, &core, link, &current).await;
@@ -257,6 +261,10 @@ async fn pump(app: &AppHandle, core: &Shared, mut link: Link, current: &impl Fn(
                         text,
                     },
                 );
+            }
+            // Changed on the desktop while this phone was connected.
+            ServerMessage::Permissions { can_type } => {
+                publish(app, core, |s| s.can_type = Some(can_type));
             }
             ServerMessage::Paired { .. }
             | ServerMessage::Ready { .. }
@@ -330,18 +338,36 @@ async fn pair(
         s.desktop_version = Some(info.version);
         s.default_output = Some(info.default_output);
         s.session = SessionState::Idle;
+        s.can_type = info.can_type;
         s.detail = None;
     });
     spawn_connection(app.clone(), Arc::clone(&core));
     Ok(())
 }
 
-/// Forgets the desktop. It still lists this phone until unpaired there too,
-/// but nothing here can use that pairing any more.
+/// Forgets the desktop, and asks it to forget this phone. Nothing here can
+/// use that pairing any more, whether or not the desktop heard: one that
+/// can't be reached now keeps listing the phone until it's removed there.
 #[tauri::command]
 fn unpair(app: AppHandle, core: State<'_, Shared>) {
     core.generation.fetch_add(1, Ordering::AcqRel);
     save_desktop(&app, None);
+    let forgotten = {
+        let mut inner = lock(&core);
+        inner.desktop.take()
+    };
+    if let Some(mut desktop) = forgotten {
+        tauri::async_runtime::spawn(async move {
+            let me = client::ClientInfo {
+                device_kind: Some(handy_link::protocol::device_kind::PHONE.to_string()),
+                features: Vec::new(),
+            };
+            match client::unpair(&mut desktop, &me).await {
+                Ok(()) => log::info!("Told the desktop this phone is unpaired"),
+                Err(e) => log::info!("Couldn't tell the desktop this phone is unpaired: {e}"),
+            }
+        });
+    }
     {
         let mut inner = lock(&core);
         inner.desktop = None;
@@ -356,6 +382,7 @@ fn unpair(app: AppHandle, core: State<'_, Shared>) {
             desktop_version: None,
             default_output: None,
             session: SessionState::Idle,
+            can_type: None,
             detail: None,
         }
     });
@@ -432,6 +459,7 @@ pub fn run() {
                         desktop_version: None,
                         default_output: None,
                         session: SessionState::Idle,
+                        can_type: None,
                         detail: None,
                     },
                     desktop,

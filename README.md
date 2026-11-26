@@ -84,13 +84,13 @@ Control Handy from [Raycast](https://www.raycast.com) — start/stop recording, 
 
 ### Handy Mobile
 
-Handy Mobile turns a phone into a microphone for Handy on your computer. The phone records; your computer transcribes with the model it already has, then pastes the text where your cursor is or sends it back to the phone. Nothing leaves your local network.
+Handy Mobile turns a phone into a microphone for Handy on your computer. The phone records; your computer transcribes with the model it already has, then pastes the text where your cursor is or sends it back to the phone. Nothing leaves your local network. On the phone the app is called **Handy** and has the same icon as on your computer; "Handy Mobile" is the name of the project.
 
-1. On your computer, open **Sharing** in Handy's sidebar and turn on **Handy Remote**.
+1. On your computer, open **Handy Remote** in Handy's sidebar and turn on **Allow Remote Connections**.
 2. Choose **Pair a Phone**. Handy shows a QR code that is good for two minutes and for one phone.
-3. In Handy Mobile, scan the code (or paste it, if the camera can't be used).
+3. In Handy on your phone, scan the code (or paste it, if the camera can't be used).
 
-After that the phone connects on its own whenever both devices are on the same network, and finds the computer again if its address changes. **Sharing → Send Text To** chooses whether a phone's dictation is pasted on the computer or only shown on the phone; the phone can override it per dictation. Unpair a phone from the same tab.
+After that the phone connects on its own whenever both devices are on the same network, and finds the computer again if its address changes. **Handy Remote → Phone Text Goes To** chooses whether a phone's dictation is typed on the computer or only shown on the phone; the phone can override it per dictation. A phone only types on the computer while **Can Type Here** is on for it in the list of remote connections. Unpair a phone from the same tab, or from the phone: either side tells the other.
 
 #### The Handy keyboard (Android)
 
@@ -100,9 +100,9 @@ Handy Mobile walks you through setting it up after pairing, and again from its s
 
 Things to know:
 
-- Handy listens on TCP and UDP port `47823` (changeable in the Sharing tab) only while Handy Remote is on. If a paired device can't connect, allow that port through your firewall, for example `sudo ufw allow 47823` on Linux. Devices paired before a port change must be paired again.
+- Handy listens on TCP and UDP port `47823` (changeable in the Handy Remote tab) only while remote connections are allowed. If a paired device can't connect, allow that port through your firewall, for example `sudo ufw allow 47823` on Linux. Devices paired before a port change must be paired again.
 - The connection is TLS with a certificate the phone pins when it scans the code, so only the computer you paired with can receive your audio, and only phones you paired can send any.
-- On Android 17 and later, Handy Mobile asks to find nearby devices when it starts. It can't reach your computer without that; if you declined, allow **Nearby devices** for Handy Mobile in the phone's settings.
+- On Android 17 and later, Handy Mobile asks to find nearby devices when it starts. It can't reach your computer without that; if you declined, allow **Nearby devices** for Handy in the phone's settings.
 - Both devices have to reach each other directly. Away from home, a VPN such as Tailscale works; there is no relay server.
 - A phone's dictation waits for one you start on the computer, and one phone dictates at a time.
 - Recording runs while Handy Mobile, or its keyboard, is on screen; leaving finishes the dictation in the app and drops it in the keyboard.

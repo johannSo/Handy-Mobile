@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"الإملاء"</string>
+    <string name="keyboard_tap_to_dictate">"انقر للإملاء"</string>
+    <string name="keyboard_listening">"جارٍ الاستماع… انقر للإنهاء"</string>
+    <string name="keyboard_transcribing">"جارٍ التفريغ…"</string>
+    <string name="keyboard_connecting">"جارٍ الاتصال مع %1$s…"</string>
+    <string name="keyboard_offline">"يتعذّر الوصول إلى %1$s. انقر لإعادة المحاولة."</string>
+    <string name="keyboard_your_computer">"كمبيوترك"</string>
+    <string name="keyboard_unpaired">"انقر للإقران مع الكمبيوتر"</string>
+    <string name="keyboard_rejected">"لم يعد مقترنًا. انقر للإقران من جديد."</string>
+    <string name="keyboard_incompatible">"حدّث Handy على هاتفك والكمبيوتر"</string>
+    <string name="keyboard_needs_microphone">"انقر للسماح بالميكروفون"</string>
+    <string name="keyboard_microphone_failed">"تعذّر تشغيل الميكروفون"</string>
+    <string name="keyboard_nothing_heard">"لم يُسمع شيء"</string>
+    <string name="keyboard_connection_lost">"انقطع الاتصال. حاول مرة أخرى."</string>
+    <string name="keyboard_busy">"الكمبيوتر مشغول بإملاء آخر"</string>
+    <string name="keyboard_no_model">"لم يُحدَّد نموذج في Handy على الكمبيوتر"</string>
+    <string name="keyboard_too_long">"بلغ التسجيل الحد الأقصى للطول"</string>
+    <string name="keyboard_failed">"تعذّر على الكمبيوتر تفريغ ذلك"</string>
+    <string name="keyboard_dictate">"بدء الإملاء"</string>
+    <string name="keyboard_finish">"إنهاء الإملاء"</string>
+    <string name="keyboard_cancel">"إلغاء"</string>
+    <string name="keyboard_switch">"تبديل لوحة المفاتيح"</string>
+    <string name="keyboard_space">"مسافة"</string>
+    <string name="keyboard_backspace">"حذف"</string>
+    <string name="keyboard_enter">"إدخال"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"ميكروفون عائم للإملاء في أي حقل نص"</string>
+    <string name="bubble_description">"يعرض ميكروفونًا عائمًا على جانب الشاشة ما دمت في حقل نص. انقر عليه أو اضغط عليه مطوّلًا للإملاء؛ يُفرَّغ ما تقوله على الكمبيوتر ويُكتب في الحقل.\n\nيستخدم Handy هذا الإذن فقط ليعرف أن حقل نص قيد الاستخدام وليكتب إملاءك فيه. ولا يقرأ أو يرسل أي شيء آخر على شاشتك."</string>
+    <string name="bubble_dictate">"الإملاء باستخدام Handy"</string>
+    <string name="bubble_cancelled">"تم الإلغاء"</string>
+    <string name="bubble_offline">"يتعذّر الوصول إلى %1$s"</string>
+    <string name="bubble_copied">"تم النسخ. الصقه حيث تريد."</string>
+</resources>

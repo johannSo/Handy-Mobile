@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Diktering"</string>
+    <string name="keyboard_tap_to_dictate">"Tryck för att diktera"</string>
+    <string name="keyboard_listening">"Lyssnar… tryck för att avsluta"</string>
+    <string name="keyboard_transcribing">"Transkriberar…"</string>
+    <string name="keyboard_connecting">"Ansluter till %1$s…"</string>
+    <string name="keyboard_offline">"Det går inte att nå %1$s. Tryck för att försöka igen."</string>
+    <string name="keyboard_your_computer">"din dator"</string>
+    <string name="keyboard_unpaired">"Tryck för att parkoppla med din dator"</string>
+    <string name="keyboard_rejected">"Inte längre parkopplad. Tryck för att parkoppla igen."</string>
+    <string name="keyboard_incompatible">"Uppdatera Handy på telefonen och datorn"</string>
+    <string name="keyboard_needs_microphone">"Tryck för att tillåta mikrofonen"</string>
+    <string name="keyboard_microphone_failed">"Det gick inte att starta mikrofonen"</string>
+    <string name="keyboard_nothing_heard">"Inget hördes"</string>
+    <string name="keyboard_connection_lost">"Anslutningen bröts. Försök igen."</string>
+    <string name="keyboard_busy">"Din dator är upptagen med en annan diktering"</string>
+    <string name="keyboard_no_model">"Handy på din dator har ingen modell vald"</string>
+    <string name="keyboard_too_long">"Längdgränsen nåddes"</string>
+    <string name="keyboard_failed">"Din dator kunde inte transkribera det"</string>
+    <string name="keyboard_dictate">"Börja diktera"</string>
+    <string name="keyboard_finish">"Avsluta dikteringen"</string>
+    <string name="keyboard_cancel">"Avbryt"</string>
+    <string name="keyboard_switch">"Byt tangentbord"</string>
+    <string name="keyboard_space">"mellanslag"</string>
+    <string name="keyboard_backspace">"Radera"</string>
+    <string name="keyboard_enter">"Retur"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"En flytande mikrofon för att diktera i vilket textfält som helst"</string>
+    <string name="bubble_description">"Visar en flytande mikrofon vid skärmens kant medan du är i ett textfält. Tryck på den eller håll den nedtryckt för att diktera; det du säger transkriberas på din dator och skrivs i fältet.\n\nHandy använder den här åtkomsten bara för att märka att ett textfält används och för att skriva din diktering i det. Handy läser eller skickar inget annat på din skärm."</string>
+    <string name="bubble_dictate">"Diktera med Handy"</string>
+    <string name="bubble_cancelled">"Avbruten"</string>
+    <string name="bubble_offline">"Det går inte att nå %1$s"</string>
+    <string name="bubble_copied">"Kopierat. Klistra in det där du vill ha det."</string>
+</resources>

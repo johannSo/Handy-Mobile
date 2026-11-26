@@ -1,6 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import type { ModelInfo } from "@/bindings";
+import { commands, type ModelInfo } from "@/bindings";
+import { goTo } from "@/stores/navigationStore";
+import { notify } from "@/stores/noticeStore";
+import { useRemoteStore } from "@/stores/remoteStore";
 import {
   getTranslatedModelName,
   getTranslatedModelDescription,
@@ -12,6 +15,7 @@ interface ModelDropdownProps {
   // A file is transcribing: show the models, but don't let them be picked.
   locked?: boolean;
   onModelSelect: (modelId: string) => void;
+  onClose: () => void;
 }
 
 const ModelDropdown: React.FC<ModelDropdownProps> = ({
@@ -19,8 +23,20 @@ const ModelDropdown: React.FC<ModelDropdownProps> = ({
   currentModelId,
   locked = false,
   onModelSelect,
+  onClose,
 }) => {
   const { t } = useTranslation();
+  // The other way to transcribe: a paired computer, a click away from here
+  // as this computer's models are from its own dropdown.
+  const computers = useRemoteStore((s) => s.status?.servers ?? []);
+
+  const useComputer = async (id: string) => {
+    onClose();
+    const result = await commands.selectRemoteComputer(id);
+    if (result.status === "error") {
+      notify({ title: t("settings.remote.engine.busy"), level: "error" });
+    }
+  };
   const downloadedModels = models.filter((m) => m.is_downloaded);
 
   const handleModelClick = (modelId: string) => {
@@ -93,6 +109,36 @@ const ModelDropdown: React.FC<ModelDropdownProps> = ({
           {t("modelSelector.noModelsAvailable")}
         </div>
       )}
+      <div className="mt-1 border-t border-line pt-1">
+        {computers.length > 0 && (
+          <>
+            <p className="px-3 py-1 text-xs font-medium uppercase tracking-wide text-ink-3">
+              {t("settings.remote.engine.anotherComputer")}
+            </p>
+            {computers.map((computer) => (
+              <button
+                key={computer.id}
+                type="button"
+                disabled={locked}
+                onClick={() => void useComputer(computer.id)}
+                className="w-full truncate px-3 py-1.5 text-start text-sm text-text hover:bg-wash disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {computer.name}
+              </button>
+            ))}
+          </>
+        )}
+        <button
+          type="button"
+          onClick={() => {
+            onClose();
+            goTo("remote");
+          }}
+          className="w-full px-3 py-1.5 text-start text-sm text-ink-2 hover:bg-wash hover:text-text"
+        >
+          {t("footer.remote.manage")}
+        </button>
+      </div>
     </div>
   );
 };

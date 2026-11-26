@@ -13,17 +13,18 @@
     "otherLanguages": "Outros idiomas",
     "transcribeWith": "Transcrever com",
     "thisComputer": "Este Computador",
-    "offline": "Offline"
+    "offline": "Offline",
+    "remote": "Handy Remote..."
   },
   "sidebar": {
     "general": "Geral",
     "models": "Modelos",
-    "mobile": "Compartilhamento",
     "advanced": "Avançado",
     "postProcessing": "Pós-Processamento",
     "history": "Histórico",
     "debug": "Depuração",
-    "about": "Sobre"
+    "about": "Sobre",
+    "remote": "Handy Remote"
   },
   "onboarding": {
     "customModelDescription": "Não suportado oficialmente",
@@ -444,17 +445,21 @@
       "rescan": {
         "label": "Reescanear",
         "tooltip": "Reescaneia em busca de modelos adicionados à pasta de modelos ou ao cache do Hugging Face fora do Handy"
+      },
+      "remote": {
+        "withFallback": "{{name}} transcreve para este computador. O modelo selecionado aqui assume quando ele está inacessível.",
+        "withoutFallback": "{{name}} transcreve para este computador. Enquanto isso, os modelos daqui não são usados."
       }
     },
     "mobile": {
       "intro": "Celulares e outros computadores na sua rede podem ditar com o modelo deste computador. O celular grava, este computador transcreve.",
       "groups": {
-        "connection": "Conexão",
-        "devices": "Dispositivos Pareados",
-        "dictation": "Ditado"
+        "connection": "Compartilhar Este Computador",
+        "devices": "Conexões Remotas",
+        "dictation": "Ditado pelo Celular"
       },
       "enabled": {
-        "label": "Handy Remote",
+        "label": "Permitir Conexões Remotas",
         "description": "Permite que dispositivos pareados ditem por este computador. Enquanto estiver ativado, o Handy fica à espera deles na sua rede local."
       },
       "status": {
@@ -464,23 +469,27 @@
         "starting": "Iniciando…",
         "listening": "Escutando em {{address}}",
         "noNetwork": "Sem conexão com uma rede",
-        "failed": "Não foi possível iniciar: {{error}}"
+        "failed": "Não foi possível iniciar: {{error}}",
+        "alsoAt": "Também em {{addresses}}"
       },
       "port": {
         "title": "Porta",
-        "description": "A porta de rede à qual os dispositivos pareados se conectam. Libere-a no firewall se eles não conseguirem se conectar. Os dispositivos precisam ser pareados de novo depois que você a altera."
+        "description": "A porta de rede à qual os dispositivos pareados se conectam. Libere-a no firewall se eles não conseguirem se conectar. Os dispositivos precisam ser pareados de novo depois que você a altera.",
+        "confirmTitle": "Alterar a Porta para {{port}}?",
+        "confirm": "Todos os dispositivos pareados precisam ser pareados de novo. Eles procuram este computador na porta que ele tinha quando foram pareados.",
+        "change": "Alterar Porta"
       },
       "pair": {
         "button": "Parear um Celular",
         "hint": "O pareamento mostra um código para escanear ou colar no outro dispositivo.",
-        "turnOnFirst": "Ative o Handy Remote para parear um dispositivo.",
+        "turnOnFirst": "Permita conexões remotas para parear um dispositivo.",
         "title": "Parear um Celular",
-        "description": "Abra o Handy Mobile no celular e escaneie este código. O celular precisa estar na mesma rede que este computador.",
+        "description": "Abra o Handy no celular e escaneie este código. O celular precisa estar na mesma rede que este computador.",
         "qrAlt": "Código de pareamento",
         "expires": "Este código expira em {{time}}",
         "expired": "Este código expirou.",
         "newCode": "Novo Código",
-        "manual": "Não consegue escanear? Copie o código e cole no Handy Mobile.",
+        "manual": "Não consegue escanear? Copie o código e cole no Handy.",
         "copy": "Copiar Código",
         "copied": "Código de pareamento copiado",
         "copyFailed": "Não foi possível copiar o código de pareamento",
@@ -488,11 +497,13 @@
         "failed": "Não foi possível criar um código de pareamento",
         "computerButton": "Parear um Computador",
         "computerTitle": "Parear um Computador",
-        "computerDescription": "No outro computador, abra o Handy, vá em Modelos, escolha Outro Computador, depois Adicionar um Computador, e cole este código.",
-        "computerNote": "Um computador pareado recebe o texto de volta. Ele não pode digitar aqui a menos que você permita."
+        "computerDescription": "No outro computador, abra o Handy, vá até o Handy Remote, escolha Conectar a um Computador e cole este código.",
+        "computerNote": "Um computador pareado recebe o texto de volta. Ele não pode digitar aqui a menos que você permita.",
+        "turnOn": "Ativar",
+        "computerCarry": "Leve-o até lá por conta própria, por exemplo em uma mensagem ou em uma nota. Trate-o como uma senha até ser usado: ele funciona uma única vez."
       },
       "devices": {
-        "empty": "Nenhum dispositivo pareado ainda.",
+        "empty": "Nada foi pareado com este computador ainda.",
         "connected": "Conectado",
         "dictating": "Ditando…",
         "lastSeen": "Visto pela última vez {{time}}",
@@ -506,27 +517,35 @@
         "removeFailed": "Não foi possível desparear o dispositivo",
         "cancel": "Cancelar",
         "transcribing": "Transcrevendo",
-        "canType": "Digita aqui",
-        "canTypeDescription": "Cola neste computador o que este dispositivo dita, quando ele pedir.",
+        "canType": "Pode Digitar Aqui",
         "canTypeLabel": "Permitir que {{name}} digite neste computador",
-        "canTypeFailed": "Não foi possível alterar isso"
+        "canTypeFailed": "Não foi possível alterar isso",
+        "emptyPhone": "Para ditar de um celular, instale o Handy nele e depois escolha Parear um Celular.",
+        "canTypeNote": "Pode Digitar Aqui permite que um dispositivo cole neste computador o que ele dita. Sem isso, o texto só volta para o dispositivo."
       },
       "outputMode": {
-        "title": "Enviar Texto Para",
-        "description": "Para onde o texto vai quando um celular dita. O celular sempre o mostra também.",
+        "title": "Destino do Texto do Celular",
+        "description": "A opção inicial de um celular. Cada celular pode trocá-la no Handy, e só digita aqui enquanto Pode Digitar Aqui estiver ativado para ele.",
         "options": {
-          "desktop": "Este Computador",
+          "desktop": "Onde Está o Cursor",
           "phone": "Só no Celular"
         }
       },
       "postProcess": {
-        "label": "Pós-Processamento",
-        "description": "Aplica o Pós-Processamento ao que os celulares ditam."
+        "label": "Pós-Processamento do Ditado pelo Celular",
+        "description": "Aplica o Pós-Processamento ao que os celulares ditam.",
+        "unavailable": "O Pós-Processamento está desativado. É um recurso experimental em Avançado.",
+        "openAdvanced": "Abrir Avançado"
       },
       "model": {
         "title": "Modelo",
         "description": "Com o que celulares e computadores pareados transcrevem: o modelo selecionado neste computador.",
-        "none": "Nenhum. Baixe um em Modelos."
+        "none": "Nenhum",
+        "download": "Baixe um em Modelos"
+      },
+      "certificate": {
+        "title": "Certificado",
+        "description": "O começo da impressão digital do certificado deste computador. Um computador pareado com este mostra a mesma em Detalhes. Se as duas coincidirem, eles falam um com o outro e não há nada entre eles."
       }
     },
     "languages": {
@@ -1017,7 +1036,8 @@
         "offline": "Inacessível",
         "rejected": "Não está mais pareado",
         "incompatible": "Precisa de atualização",
-        "unused": "Não está em uso"
+        "unused": "Não está em uso",
+        "available": "Disponível"
       },
       "row": {
         "use": "Transcrever com {{name}}",
@@ -1029,39 +1049,40 @@
         "reconnect": "Tentar de novo agora",
         "pairAgain": "Parear de Novo",
         "details": "Detalhes",
-        "hostName": "Nome",
+        "hostName": "Nome do computador",
         "address": "Endereço",
         "fingerprint": "Certificado",
         "version": "Versão do Handy",
         "lastError": "Último erro",
-        "forget": "Esquecer",
-        "forgetConfirmTitle": "Esquecer {{name}}?",
-        "forgetConfirm": "Este computador deixa de transcrever com ele. Para tirar este computador da lista dele também, desfaça o pareamento lá em Compartilhamento.",
-        "forgetFailed": "Não foi possível esquecer o computador",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "fingerprintHint": "Ele mostra o mesmo no Handy Remote.",
+        "unpairConfirm": "Este computador deixa de transcrever com ele. Se estiver acessível agora, ele tira este computador da própria lista; caso contrário, despareie este computador lá, no Handy Remote.",
+        "unpairFailed": "Não foi possível desparear o computador",
+        "unpair": "Desparear",
+        "unpairConfirmTitle": "Desparear {{name}}?"
       },
       "incompatible": "{{name}} usa uma versão do Handy que não consegue transcrever para este computador. Atualize o Handy nos dois computadores.",
       "computers": {
-        "title": "Computadores",
-        "description": "Outro computador com o Handy pode transcrever para este com o modelo dele. Escolha qual usar.",
-        "empty": "Nenhum computador pareado ainda.",
-        "hint": "O outro computador compartilha o modelo dele em Compartilhamento.",
-        "add": "Adicionar um Computador"
+        "title": "Usar Outro Computador",
+        "description": "Outro computador com o Handy pode transcrever o que você dita aqui, com o modelo dele.",
+        "empty": "Você ainda não se conectou a nenhum computador.",
+        "hint": "O outro computador precisa permitir conexões remotas, no Handy Remote.",
+        "add": "Conectar a um Computador"
       },
       "fallback": {
-        "group": "Quando Estiver Inacessível",
-        "label": "Usar o Modelo Deste Computador",
+        "label": "Recorrer ao Modelo Deste Computador",
         "description": "Se o outro computador estiver em repouso, ocupado ou offline, transcreve aqui em vez disso e avisa.",
-        "noModel": "Este computador não tem um modelo para usar como alternativa. Escolha Este Computador acima para baixar um."
+        "noModel": "Este computador não tem um modelo ao qual recorrer.",
+        "getModel": "Baixe um em Modelos"
       },
       "stays": "Só o áudio vai para o outro computador, com seu idioma, suas palavras personalizadas e as palavras de preenchimento. Pós-processamento, histórico e colagem ficam neste.",
       "decidedElsewhere": "Definido no computador que transcreve",
       "add": {
-        "title": "Adicionar um Computador",
+        "title": "Conectar a um Computador",
         "steps": {
-          "open": "No outro computador, abra o Handy e vá em Compartilhamento.",
-          "share": "Ative o Compartilhamento, escolha Parear um Computador e depois Copiar Código.",
-          "paste": "Cole o código aqui."
+          "open": "No outro computador, abra o Handy e vá até o Handy Remote.",
+          "share": "Ative Permitir Conexões Remotas, escolha Parear um Computador e depois Copiar Código.",
+          "paste": "Traga o código para este computador, por exemplo em uma mensagem ou em uma nota para você, e cole-o aqui. Ele funciona uma única vez, por cinco minutos."
         },
         "placeholder": "handy://pair?…",
         "codeLabel": "Código de pareamento",
@@ -1073,12 +1094,14 @@
           "expired_code": "Esse código expirou ou já foi usado. Crie um novo no outro computador.",
           "incompatible": "O Handy do outro computador não consegue transcrever para este. Atualize o Handy nos dois.",
           "rate_limited": "Tentativas demais. Espere um minuto e tente de novo.",
-          "unreachable": "Não foi possível alcançar o outro computador. Verifique se os dois estão na mesma rede e se o Compartilhamento está ativado lá.",
+          "unreachable": "Não foi possível alcançar o outro computador. Verifique se os dois estão na mesma rede e se ele permite conexões remotas.",
           "untrusted": "Outra coisa respondeu no endereço do outro computador. Crie um novo código e tente de novo.",
           "self": "Esse código é deste computador. Cole-o no outro.",
           "failed": "O pareamento não funcionou. Tente de novo."
         }
-      }
+      },
+      "open": "Abrir o Handy Remote",
+      "localOnly": "Só vale quando este computador transcreve"
     }
   },
   "footer": {
@@ -1094,7 +1117,14 @@
     "portableUpdateMessage": "Instalações portáteis não podem ser atualizadas automaticamente. Baixe abaixo o instalador para o seu sistema, execute-o e instale na mesma pasta — a sua pasta Data/ (configurações, modelos, gravações) é mantida.",
     "portableUpdateButton": "Baixar instalador",
     "portableUpdateBrowseMessage": "Instalações portáteis não podem ser atualizadas automaticamente. Baixe a versão mais recente para o seu sistema no GitHub Releases e instale-a na mesma pasta — a sua pasta Data/ (configurações, modelos, gravações) é mantida.",
-    "portableUpdateBrowseButton": "Abrir GitHub Releases"
+    "portableUpdateBrowseButton": "Abrir GitHub Releases",
+    "remote": {
+      "on": "Remote ativado",
+      "connected": "Conectados: {{count}}",
+      "dictating": "{{name}} está ditando",
+      "failed": "Falha nas conexões remotas",
+      "manage": "Conexões Remotas…"
+    }
   },
   "whatsNew": {
     "title": "Novidades no Handy v{{version}}"
@@ -1139,17 +1169,17 @@
     "filePostProcessFailed": "O pós-processamento não terminou, então a transcrição foi salva como está.",
     "fileTranscriptionFailedTitle": "Falha na transcrição do arquivo",
     "mobileServerFailedTitle": "Falha ao iniciar o Handy Remote",
-    "mobileServerFailed": "Os dispositivos pareados não conseguem se conectar. Outro app pode estar usando a porta; escolha outra nas configurações de Compartilhamento.",
+    "mobileServerFailed": "Os dispositivos pareados não conseguem se conectar. Outro app pode estar usando a porta; escolha outra no Handy Remote.",
     "mobileTranscriptionFailedTitle": "Falha no ditado pelo celular",
     "transcriptionFailedTitle": "Falha na transcrição",
     "remoteUnreachableTitle": "Outro computador inacessível",
-    "remoteUnreachable": "O Handy não conseguiu alcançar o computador com que transcreve. Verifique se ele está ligado, na mesma rede e compartilhando o modelo.",
+    "remoteUnreachable": "O Handy não conseguiu alcançar o computador com que transcreve. Verifique se ele está ligado, na mesma rede e se permite conexões remotas.",
     "remoteBusyTitle": "Outro computador ocupado",
     "remoteBusy": "Alguém está ditando no computador com que este transcreve. Tente de novo em instantes.",
     "remoteNoModelTitle": "Outro computador sem modelo",
     "remoteNoModel": "O computador com que este transcreve não tem modelo. Baixe um lá.",
     "remoteRejectedTitle": "Pareie o computador de novo",
-    "remoteRejected": "O outro computador não reconhece mais este. Pareie os dois de novo em Modelos.",
+    "remoteRejected": "O outro computador não reconhece mais este. Pareie os dois de novo no Handy Remote.",
     "remoteIncompatibleTitle": "Atualize o Handy nos dois",
     "remoteIncompatible": "Os dois computadores usam versões do Handy que não funcionam juntas. Atualize os dois.",
     "remoteFellBackTitle": "Transcrito neste computador",

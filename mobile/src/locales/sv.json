@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "Parkoppla med din dator",
+    "intro": "Telefonen är mikrofonen. Handy på din dator sköter transkriberingen.",
+    "step1": "Öppna Handy på din dator och gå till Handy Remote.",
+    "step2": "Slå på Tillåt fjärranslutningar och välj Parkoppla en telefon.",
+    "step3": "Skanna koden som visas. Båda enheterna måste vara på samma nätverk.",
+    "scan": "Skanna parkopplingskod",
+    "manual": "Ange kod i stället",
+    "manualPlaceholder": "Klistra in parkopplingskoden från din dator",
+    "manualSubmit": "Parkoppla",
+    "pairing": "Parkopplar…",
+    "scanHint": "Rikta kameran mot koden på din dator",
+    "cancelScan": "Avbryt",
+    "errors": {
+      "invalid_code": "Det är ingen parkopplingskod för Handy.",
+      "expired_code": "Koden har gått ut eller har redan använts. Skapa en ny på din dator.",
+      "incompatible": "Den här appen och Handy på din dator har för olika versioner. Uppdatera båda.",
+      "rate_limited": "För många försök. Vänta en minut och försök sedan igen.",
+      "unreachable": "Det går inte att nå din dator. Kontrollera att båda enheterna är på samma nätverk, att ingen brandvägg blockerar Handy och att Handy får hitta enheter i närheten i telefonens inställningar.",
+      "untrusted": "Något som inte är din dator svarade. Skapa en ny kod och försök igen.",
+      "failed": "Parkopplingen misslyckades. Försök igen.",
+      "camera_denied": "Handy behöver kameran för att skanna koden. Tillåt den i telefonens inställningar eller ange koden i stället.",
+      "scan_failed": "Det gick inte att starta kameran. Ange koden i stället."
+    },
+    "back": "Tillbaka"
+  },
+  "link": {
+    "connecting": "Ansluter…",
+    "connected": "Ansluten",
+    "notPaired": "Inte parkopplad",
+    "updateNeeded": "Behöver uppdateras",
+    "offline": "Det går inte att nå din dator",
+    "offlineHint": "Kontrollera att Handy körs på {{name}}, att båda enheterna är på samma nätverk och att Handy får hitta enheter i närheten i telefonens inställningar.",
+    "retry": "Försök igen",
+    "rejected": "Den här telefonen är inte längre parkopplad med {{name}}.",
+    "incompatible": "Den här appen och Handy på {{name}} har för olika versioner. Uppdatera båda.",
+    "pairAgain": "Parkoppla igen",
+    "yourComputer": "din dator"
+  },
+  "record": {
+    "tapToStart": "Tryck för att diktera",
+    "starting": "Startar…",
+    "listening": "Lyssnar… tryck för att avsluta",
+    "finishing": "Avslutar…",
+    "transcribing": "Transkriberar…",
+    "start": "Börja diktera",
+    "stop": "Avsluta dikteringen",
+    "cancel": "Avbryt"
+  },
+  "output": {
+    "label": "Skicka text till",
+    "desktop": "Datorn",
+    "phone": "Endast telefonen",
+    "desktopHint": "Skrivs där markören är på {{name}}.",
+    "phoneHint": "Visas här och kopieras till urklipp.",
+    "notAllowedHint": "Den här telefonen får inte skriva på {{name}}. Om du vill ändra det slår du på Får skriva här för den här telefonen under Handy Remote på datorn."
+  },
+  "transcripts": {
+    "empty": "Det du dikterar visas här.",
+    "copy": "Kopiera",
+    "copied": "Kopierat",
+    "share": "Dela",
+    "pasted": "Skrevs på din dator",
+    "notPasted": "Skrevs inte på din dator",
+    "clear": "Rensa"
+  },
+  "notices": {
+    "noSpeech": "Inget hördes.",
+    "micDenied": "Handy behöver mikrofonen. Tillåt den i telefonens inställningar.",
+    "micUnavailable": "Det gick inte att starta mikrofonen.",
+    "connectionLost": "Anslutningen bröts, så inspelningen transkriberades inte.",
+    "busy": "Din dator är upptagen med en annan diktering.",
+    "no_model": "Handy på din dator har ingen modell vald.",
+    "transcription_failed": "Din dator kunde inte transkribera det.",
+    "paste_failed": "Din dator kunde inte skriva texten, så den finns bara här.",
+    "too_long": "Längdgränsen nåddes, så dikteringen avslutades åt dig.",
+    "generic": "Något gick fel på din dator."
+  },
+  "settings": {
+    "title": "Inställningar",
+    "computer": "Parkopplad dator",
+    "version": "Handy {{version}}",
+    "unpair": "Ta bort parkoppling",
+    "unpairConfirm": "Ta bort parkopplingen med {{name}}? Du måste skanna en ny kod för att diktera igen.",
+    "unpairNote": "Om {{name}} går att nå nu tas den här telefonen bort från listan där. Annars tar du bort parkopplingen där, under Handy Remote.",
+    "confirm": "Ta bort parkoppling",
+    "cancel": "Avbryt",
+    "close": "Stäng"
+  },
+  "keyboard": {
+    "title": "Diktera i vilken app som helst",
+    "intro": "Det finns två sätt att diktera var du än skriver: en flytande bubbla som dyker upp bredvid alla textfält, och ett tangentbord med en mikrofon i stället för tangenterna. I båda fallen transkriberas det du säger på din dator och skrivs i textfältet på telefonen. Ställ in det ena eller båda.",
+    "steps": {
+      "microphone": {
+        "title": "Tillåt mikrofonen",
+        "description": "Så att bubblan och tangentbordet kan höra dig. Välj ”När appen används”; ”Bara den här gången” slutar gälla.",
+        "action": "Tillåt"
+      },
+      "localNetwork": {
+        "title": "Tillåt enheter i närheten",
+        "description": "Så att telefonen kan nå din dator på ditt nätverk.",
+        "action": "Tillåt"
+      },
+      "enable": {
+        "title": "Slå på Handy-tangentbordet",
+        "description": "Slå på Handy i listan som öppnas, bekräfta Androids båda frågor och kom sedan tillbaka hit. Android varnar för att ett tangentbord kan samla in det du skriver. Handys tangentbord skickar bara din röst, och bara till din egen dator.",
+        "action": "Öppna tangentbordsinställningar"
+      },
+      "select": {
+        "title": "Byt till Handy-tangentbordet",
+        "description": "Välj Handy i listan över tangentbord.",
+        "action": "Välj tangentbord"
+      },
+      "bubble": {
+        "title": "Slå på den flytande bubblan",
+        "description": "Slå på Handy Bubble i tillgänglighetsinställningarna som öppnas, under installerade eller nedladdade appar, och kom sedan tillbaka hit. Android varnar för att appen kan se och styra skärmen. Handy använder det bara för att märka att du är i ett textfält och för att skriva det du dikterar.",
+        "action": "Öppna tillgänglighetsinställningar",
+        "helpTitle": "Är reglaget nedtonat?",
+        "help": "Android begränsar den här inställningen för appar som har installerats från en fil. Tryck en gång på det nedtonade reglaget så att Android visar sitt meddelande, öppna sedan Appinformation, tryck på de tre prickarna uppe till höger och välj ”Tillåt begränsade inställningar”.",
+        "helpAction": "Öppna Appinformation"
+      }
+    },
+    "tryLabel": "Prova",
+    "tryPlaceholder": "Tryck här och sedan på mikrofonen",
+    "switchHint": "Tangentbordsknappen på Handy-tangentbordet tar dig tillbaka till ditt vanliga tangentbord. För att byta till Handy från ett annat tangentbord använder du dess tangentbords- eller globknapp.",
+    "done": "Klar",
+    "later": "Inte nu",
+    "back": "Tillbaka",
+    "settingsRow": "Bubbla och tangentbord",
+    "new": "Nytt",
+    "bubbleHint": "Tryck på bubblan för att börja diktera och tryck igen för att avsluta, eller håll den nedtryckt medan du pratar. Om du håller den nedtryckt under en diktering avbryts den. Dra den dit det passar dig; den lägger sig vid närmaste kant.",
+    "settingsBubbleOn": "Bubbla på",
+    "settingsBubbleOff": "Bubbla av",
+    "settingsKeyboardOn": "Tangentbord på",
+    "settingsKeyboardOff": "Tangentbord av"
+  }
+}

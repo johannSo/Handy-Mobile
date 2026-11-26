@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Check,
@@ -11,101 +11,20 @@ import {
 } from "lucide-react";
 import {
   commands,
-  events,
   type DeviceKind,
   type MobileDevice,
-  type MobileOutputMode,
   type MobilePairing,
-  type MobileStatus,
 } from "@/bindings";
 import { useSettings } from "@/hooks/useSettings";
+import { useMobileStore } from "@/stores/mobileStore";
 import { notify } from "@/stores/noticeStore";
 import { formatRelativeTime } from "@/utils/dateFormat";
 import { Button } from "../../ui/Button";
 import { Dialog } from "../../ui/Dialog";
-import { Dropdown } from "../../ui/Dropdown";
 import { Input } from "../../ui/Input";
-import { SettingContainer } from "../../ui/SettingContainer";
 import { SettingsGroup } from "../../ui/SettingsGroup";
 import { Switch } from "../../ui/Switch";
-import { ToggleSwitch } from "../../ui/ToggleSwitch";
 import { copyToClipboard } from "../history/clipboard";
-
-const MIN_PORT = 1024;
-const MAX_PORT = 65535;
-
-/** The Mobile tab's view of the backend, refreshed whenever it changes. */
-const useMobileStatus = (onPaired: (deviceId: string) => void) => {
-  const [status, setStatus] = useState<MobileStatus | null>(null);
-  const onPairedRef = useRef(onPaired);
-  onPairedRef.current = onPaired;
-
-  const refresh = useCallback(async () => {
-    setStatus(await commands.getMobileStatus());
-  }, []);
-
-  useEffect(() => {
-    let cancelled = false;
-    void refresh();
-    const unlisten = events.mobileLinkChanged.listen((event) => {
-      if (cancelled) return;
-      void refresh();
-      if (event.payload.paired_device) {
-        onPairedRef.current(event.payload.paired_device);
-      }
-    });
-    return () => {
-      cancelled = true;
-      void unlisten.then((stop) => stop());
-    };
-  }, [refresh]);
-
-  return { status, refresh };
-};
-
-const PortSetting: React.FC<{ onChanged: () => void }> = ({ onChanged }) => {
-  const { t } = useTranslation();
-  const { getSetting, updateSetting, isUpdating } = useSettings();
-  const port = getSetting("mobile_port") ?? 47823;
-  const [draft, setDraft] = useState(String(port));
-
-  useEffect(() => setDraft(String(port)), [port]);
-
-  const commit = async () => {
-    const value = parseInt(draft, 10);
-    if (isNaN(value) || value < MIN_PORT || value > MAX_PORT) {
-      setDraft(String(port));
-      return;
-    }
-    if (value !== port) {
-      await updateSetting("mobile_port", value);
-      onChanged();
-    }
-  };
-
-  return (
-    <SettingContainer
-      title={t("settings.mobile.port.title")}
-      description={t("settings.mobile.port.description")}
-      descriptionMode="tooltip"
-      grouped
-    >
-      <Input
-        type="number"
-        min={MIN_PORT}
-        max={MAX_PORT}
-        value={draft}
-        onChange={(event) => setDraft(event.target.value)}
-        onBlur={() => void commit()}
-        onKeyDown={(event) => {
-          if (event.key === "Enter") event.currentTarget.blur();
-        }}
-        disabled={isUpdating("mobile_port")}
-        className="w-24"
-      />
-    </SettingContainer>
-  );
-};
 
 const PairingDialog: React.FC<{
   pairing: MobilePairing | null;
@@ -204,6 +123,10 @@ const PairingDialog: React.FC<{
               </Button>
             )}
           </div>
+          {/* How the code gets to the other computer, and what it's worth. */}
+          <p className="text-xs text-ink-3">
+            {t("settings.mobile.pair.computerCarry")}
+          </p>
           <p className="text-xs text-ink-3">
             {t("settings.mobile.pair.computerNote")}
           </p>
@@ -336,10 +259,7 @@ const DeviceRow: React.FC<{
         )}
         <p className="truncate text-xs text-ink-3">{state}</p>
       </div>
-      <div
-        className="flex items-center gap-2"
-        title={t("settings.mobile.devices.canTypeDescription")}
-      >
+      <label className="flex cursor-pointer items-center gap-2">
         <span className="text-xs text-ink-3">
           {t("settings.mobile.devices.canType")}
         </span>
@@ -350,7 +270,7 @@ const DeviceRow: React.FC<{
             name: device.name,
           })}
         />
-      </div>
+      </label>
       <button
         type="button"
         onClick={() => setEditing(true)}
@@ -373,30 +293,31 @@ const DeviceRow: React.FC<{
   );
 };
 
-export const MobileSettings: React.FC = () => {
+/**
+ * The phones and computers paired with this computer, and pairing another.
+ */
+export const RemoteConnections: React.FC = () => {
   const { t } = useTranslation();
   const { getSetting, updateSetting, isUpdating } = useSettings();
+  const status = useMobileStore((s) => s.status);
+  const refresh = useMobileStore((s) => s.refresh);
+  const pairedId = useMobileStore((s) => s.pairedDevice);
+  const clearPaired = useMobileStore((s) => s.clearPaired);
   const [pairing, setPairing] = useState<MobilePairing | null>(null);
   const [pairingKind, setPairingKind] = useState<DeviceKind>("phone");
-  const [pairedId, setPairedId] = useState<string | null>(null);
   const [removing, setRemoving] = useState<MobileDevice | null>(null);
 
-  const { status, refresh } = useMobileStatus(setPairedId);
-
   const enabled = getSetting("mobile_enabled") ?? false;
-  const outputMode = (getSetting("mobile_output_mode") ??
-    "desktop") as MobileOutputMode;
-  const postProcessAvailable = getSetting("post_process_enabled") ?? false;
-  const postProcess = getSetting("mobile_post_process") ?? false;
-
   const devices = status?.devices ?? [];
+  // Only a pairing this dialog started is its to announce.
+  // (And only once the list has it, so its name is there to show.)
   const pairedName =
-    pairedId !== null
-      ? (devices.find((device) => device.id === pairedId)?.name ?? "")
+    pairing !== null && pairedId !== null
+      ? (devices.find((device) => device.id === pairedId)?.name ?? null)
       : null;
 
   const startPairing = async (kind: DeviceKind) => {
-    setPairedId(null);
+    clearPaired();
     setPairingKind(kind);
     const result = await commands.startMobilePairing(kind);
     if (result.status === "ok") {
@@ -412,7 +333,7 @@ export const MobileSettings: React.FC = () => {
 
   const closePairing = () => {
     setPairing(null);
-    setPairedId(null);
+    clearPaired();
     void commands.cancelMobilePairing();
   };
 
@@ -429,136 +350,71 @@ export const MobileSettings: React.FC = () => {
     setRemoving(null);
   };
 
-  const statusText = !enabled
-    ? t("settings.mobile.status.off")
-    : status?.error
-      ? t("settings.mobile.status.failed", { error: status.error })
-      : !status?.running
-        ? t("settings.mobile.status.starting")
-        : status.addresses.length === 0
-          ? t("settings.mobile.status.noNetwork")
-          : t("settings.mobile.status.listening", {
-              address: `${status.addresses[0]}:${status.port}`,
-            });
-
   return (
-    <div className="max-w-3xl w-full mx-auto space-y-6">
-      <SettingsGroup
-        title={t("settings.mobile.groups.connection")}
-        description={t("settings.mobile.intro")}
-      >
-        <ToggleSwitch
-          checked={enabled}
-          onChange={async (value) => {
-            await updateSetting("mobile_enabled", value);
-            void refresh();
-          }}
-          isUpdating={isUpdating("mobile_enabled")}
-          label={t("settings.mobile.enabled.label")}
-          description={t("settings.mobile.enabled.description")}
-          descriptionMode="tooltip"
-          grouped
-          tooltipPosition="bottom"
-        />
-        <SettingContainer
-          title={t("settings.mobile.status.title")}
-          description={t("settings.mobile.status.description")}
-          descriptionMode="tooltip"
-          grouped
-        >
-          <span
-            className={`text-sm ${enabled && status?.error ? "text-error" : "text-ink-2"}`}
-          >
-            {statusText}
-          </span>
-        </SettingContainer>
-        <PortSetting onChanged={() => void refresh()} />
-        <SettingContainer
-          title={t("settings.mobile.model.title")}
-          description={t("settings.mobile.model.description")}
-          descriptionMode="tooltip"
-          grouped
-        >
-          <span
-            className={`text-sm ${status && !status.model_name ? "text-warning" : "text-ink-2"}`}
-          >
-            {status?.model_name ?? t("settings.mobile.model.none")}
-          </span>
-        </SettingContainer>
-      </SettingsGroup>
-
+    <>
       <SettingsGroup title={t("settings.mobile.groups.devices")}>
         {devices.length === 0 ? (
-          <p className="px-4 py-3 text-sm text-ink-3">
-            {t("settings.mobile.devices.empty")}
-          </p>
+          <div className="px-4 py-3 text-sm text-ink-3">
+            <p>{t("settings.mobile.devices.empty")}</p>
+            <p className="mt-1 text-xs">
+              {t("settings.mobile.devices.emptyPhone")}
+            </p>
+          </div>
         ) : (
           devices.map((device) => (
             <DeviceRow key={device.id} device={device} onRemove={setRemoving} />
           ))
         )}
-        <div className="flex items-center justify-between gap-3 px-4 py-2">
-          <p className="text-xs text-ink-3">
-            {status?.running
-              ? t("settings.mobile.pair.hint")
-              : t("settings.mobile.pair.turnOnFirst")}
+        {devices.length > 0 && (
+          // What the switch on every row means, where it can be read.
+          <p className="px-4 py-2 text-xs text-ink-3">
+            {t("settings.mobile.devices.canTypeNote")}
           </p>
-          <div className="flex shrink-0 gap-2">
-            <Button
-              variant="secondary"
-              size="md"
-              onClick={() => void startPairing("computer")}
-              disabled={!status?.running}
-            >
-              {t("settings.mobile.pair.computerButton")}
-            </Button>
+        )}
+        {enabled ? (
+          <div className="flex items-center justify-between gap-3 px-4 py-2">
+            <p className="text-xs text-ink-3">
+              {t("settings.mobile.pair.hint")}
+            </p>
+            <div className="flex shrink-0 gap-2">
+              <Button
+                variant="secondary"
+                size="md"
+                onClick={() => void startPairing("computer")}
+                disabled={!status?.running}
+              >
+                {t("settings.mobile.pair.computerButton")}
+              </Button>
+              <Button
+                variant="primary"
+                size="md"
+                onClick={() => void startPairing("phone")}
+                disabled={!status?.running}
+              >
+                {t("settings.mobile.pair.button")}
+              </Button>
+            </div>
+          </div>
+        ) : (
+          // Nothing can pair while this computer isn't listening, so the
+          // way forward is offered instead of two dead buttons.
+          <div className="flex items-center justify-between gap-3 px-4 py-2">
+            <p className="text-xs text-ink-3">
+              {t("settings.mobile.pair.turnOnFirst")}
+            </p>
             <Button
               variant="primary"
               size="md"
-              onClick={() => void startPairing("phone")}
-              disabled={!status?.running}
+              disabled={isUpdating("mobile_enabled")}
+              onClick={async () => {
+                await updateSetting("mobile_enabled", true);
+                void refresh();
+              }}
+              className="shrink-0"
             >
-              {t("settings.mobile.pair.button")}
+              {t("settings.mobile.pair.turnOn")}
             </Button>
           </div>
-        </div>
-      </SettingsGroup>
-
-      <SettingsGroup title={t("settings.mobile.groups.dictation")}>
-        <SettingContainer
-          title={t("settings.mobile.outputMode.title")}
-          description={t("settings.mobile.outputMode.description")}
-          descriptionMode="tooltip"
-          grouped
-        >
-          <Dropdown
-            options={[
-              {
-                value: "desktop",
-                label: t("settings.mobile.outputMode.options.desktop"),
-              },
-              {
-                value: "phone",
-                label: t("settings.mobile.outputMode.options.phone"),
-              },
-            ]}
-            selectedValue={outputMode}
-            onSelect={(value) =>
-              updateSetting("mobile_output_mode", value as MobileOutputMode)
-            }
-            disabled={isUpdating("mobile_output_mode")}
-          />
-        </SettingContainer>
-        {postProcessAvailable && (
-          <ToggleSwitch
-            checked={postProcess}
-            onChange={(value) => updateSetting("mobile_post_process", value)}
-            isUpdating={isUpdating("mobile_post_process")}
-            label={t("settings.mobile.postProcess.label")}
-            description={t("settings.mobile.postProcess.description")}
-            descriptionMode="tooltip"
-            grouped
-          />
         )}
       </SettingsGroup>
 
@@ -606,6 +462,6 @@ export const MobileSettings: React.FC = () => {
           {t("settings.mobile.devices.removeConfirm")}
         </p>
       </Dialog>
-    </div>
+    </>
   );
 };

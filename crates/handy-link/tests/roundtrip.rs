@@ -28,6 +28,8 @@ struct TestHost {
     no_model: AtomicBool,
     saw_cancel: AtomicBool,
     prepared: AtomicBool,
+    /// What `can_type` answers; `None` says nothing, as an older host does.
+    may_type: Mutex<Option<bool>>,
     kind: Mutex<Option<String>>,
     options: Mutex<Option<StartOptions>>,
 }
@@ -97,6 +99,14 @@ impl Host for TestHost {
 
     fn prepare(&self, _device_id: &str) {
         self.prepared.store(true, Ordering::Release);
+    }
+
+    fn can_type(&self, _device_id: &str) -> Option<bool> {
+        *self.may_type.lock().unwrap()
+    }
+
+    fn unpair(&self, device_id: &str) {
+        self.devices.lock().unwrap().remove(device_id);
     }
 
     fn transcribe(&self, recording: Recording) -> Result<Transcript, Failure> {
@@ -552,6 +562,57 @@ async fn a_model_change_reaches_every_device() {
     );
 }
 
+#[tokio::test(flavor = "multi_thread")]
+async fn a_device_that_forgets_is_forgotten() {
+    let fx = Fixture::start(ServerOptions::default()).await;
+    let (mut desktop, link) = fx.paired().await;
+    drop(link);
+    client::unpair(&mut desktop, &ClientInfo::default())
+        .await
+        .unwrap();
+    assert!(fx.host.devices.lock().unwrap().is_empty());
+    // Its secret stopped working.
+    assert!(matches!(
+        client::connect(&mut desktop, "app").await,
+        Err(LinkError::Refused(ErrorCode::Unauthorized))
+    ));
+}
+
+#[tokio::test(flavor = "multi_thread")]
+async fn a_device_hears_what_it_may_do() {
+    let fx = Fixture::start(ServerOptions::default()).await;
+    *fx.host.may_type.lock().unwrap() = Some(false);
+    let (mut first, first_link) = fx.paired().await;
+    drop(first_link);
+    let (info, mut first_link) = client::connect(&mut first, "app").await.unwrap();
+    assert_eq!(info.can_type, Some(false));
+    let (other, _, mut other_link) = client::pair(&fx.payload("tok2"), "Other").await.unwrap();
+    for _ in 0..100 {
+        if fx.server.connected_devices().len() == 2 {
+            break;
+        }
+        tokio::time::sleep(Duration::from_millis(10)).await;
+    }
+
+    // Only the device it is about hears a change.
+    fx.server.tell(
+        &first.device_id,
+        ServerMessage::Permissions { can_type: true },
+    );
+    assert_eq!(
+        next(&mut first_link).await,
+        ServerMessage::Permissions { can_type: true }
+    );
+    fx.server.tell(
+        &other.device_id,
+        ServerMessage::Permissions { can_type: false },
+    );
+    assert_eq!(
+        next(&mut other_link).await,
+        ServerMessage::Permissions { can_type: false }
+    );
+}
+
 #[test]
 fn old_and_new_peers_read_each_other() {
     // A new client's first message, as an old desktop parses it: the extra
@@ -575,6 +636,21 @@ fn old_and_new_peers_read_each_other() {
         ready,
         ServerMessage::Ready { ref features, model: None, .. } if features.is_empty()
     ));
+    assert!(matches!(ready, ServerMessage::Ready { can_type: None, .. }));
+    // A desktop that says nothing about typing sends what it always sent.
+    let json = serde_json::to_string(&ServerMessage::Ready {
+        desktop_name: "D".into(),
+        desktop_version: "0.11.0".into(),
+        default_output: OutputMode::Desktop,
+        features: Vec::new(),
+        model: None,
+        can_type: None,
+    })
+    .unwrap();
+    assert_eq!(
+        json,
+        r#"{"type":"ready","desktop_name":"D","desktop_version":"0.11.0","default_output":"desktop"}"#
+    );
     // An old phone's pairing, as a new desktop parses it.
     let pair: ClientMessage =
         serde_json::from_str(r#"{"type":"pair","protocol":2,"token":"t","device_name":"P"}"#)

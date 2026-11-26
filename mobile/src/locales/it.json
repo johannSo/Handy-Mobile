@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "Associa al tuo computer",
+    "intro": "Il telefono fa da microfono. Alla trascrizione pensa Handy sul tuo computer.",
+    "step1": "Apri Handy sul computer e vai su Handy Remote.",
+    "step2": "Attiva Consenti connessioni remote e scegli Associa un telefono.",
+    "step3": "Scansiona il codice mostrato. I due dispositivi devono essere sulla stessa rete.",
+    "scan": "Scansiona il codice di associazione",
+    "manual": "Inserisci il codice",
+    "manualPlaceholder": "Incolla il codice di associazione dal computer",
+    "manualSubmit": "Associa",
+    "pairing": "Associazione in corso…",
+    "scanHint": "Inquadra il codice mostrato sul computer",
+    "cancelScan": "Annulla",
+    "errors": {
+      "invalid_code": "Questo non è un codice di associazione di Handy.",
+      "expired_code": "Il codice è scaduto o è già stato usato. Creane uno nuovo sul computer.",
+      "incompatible": "Le versioni di questa app e di Handy sul computer sono troppo distanti. Aggiornale entrambe.",
+      "rate_limited": "Troppi tentativi. Attendi un minuto, poi riprova.",
+      "unreachable": "Il computer non è raggiungibile. Controlla che i due dispositivi siano sulla stessa rete, che un firewall non stia bloccando Handy e che Handy possa trovare i dispositivi nelle vicinanze nelle impostazioni del telefono.",
+      "untrusted": "Ha risposto qualcosa che non è il tuo computer. Crea un nuovo codice e riprova.",
+      "failed": "Associazione non riuscita. Riprova.",
+      "camera_denied": "Handy ha bisogno della fotocamera per scansionare il codice. Consentila nelle impostazioni del telefono, oppure inserisci il codice.",
+      "scan_failed": "Impossibile avviare la fotocamera. Inserisci il codice."
+    },
+    "back": "Indietro"
+  },
+  "link": {
+    "connecting": "Connessione in corso…",
+    "connected": "Connesso",
+    "notPaired": "Non associato",
+    "updateNeeded": "Aggiornamento necessario",
+    "offline": "Computer non raggiungibile",
+    "offlineHint": "Assicurati che {{name}} abbia Handy in esecuzione, che i due dispositivi siano sulla stessa rete e che Handy possa trovare i dispositivi nelle vicinanze nelle impostazioni del telefono.",
+    "retry": "Riprova",
+    "rejected": "Questo telefono non è più associato con {{name}}.",
+    "incompatible": "Questa app e la versione di Handy che ha {{name}} sono troppo distanti. Aggiornale entrambe.",
+    "pairAgain": "Associa di nuovo",
+    "yourComputer": "il tuo computer"
+  },
+  "record": {
+    "tapToStart": "Tocca per dettare",
+    "starting": "Avvio in corso…",
+    "listening": "In ascolto… tocca per terminare",
+    "finishing": "Chiusura in corso…",
+    "transcribing": "Trascrizione in corso…",
+    "start": "Inizia a dettare",
+    "stop": "Termina la dettatura",
+    "cancel": "Annulla"
+  },
+  "output": {
+    "label": "Invia il testo a",
+    "desktop": "Computer",
+    "phone": "Solo telefono",
+    "desktopHint": "Lo scrive {{name}}, dove si trova il cursore.",
+    "phoneHint": "Mostrato qui e copiato negli appunti.",
+    "notAllowedHint": "{{name}} non consente a questo telefono di scriverci. Per cambiare, attiva Può scrivere qui per questo telefono in Handy Remote, sul computer."
+  },
+  "transcripts": {
+    "empty": "Ciò che detti appare qui.",
+    "copy": "Copia",
+    "copied": "Copiato",
+    "share": "Condividi",
+    "pasted": "Scritto sul tuo computer",
+    "notPasted": "Non scritto sul tuo computer",
+    "clear": "Svuota"
+  },
+  "notices": {
+    "noSpeech": "Non è stato sentito nulla.",
+    "micDenied": "Handy ha bisogno del microfono. Consentilo nelle impostazioni del telefono.",
+    "micUnavailable": "Impossibile avviare il microfono.",
+    "connectionLost": "La connessione si è interrotta, quindi la registrazione non è stata trascritta.",
+    "busy": "Il tuo computer è occupato con un'altra dettatura.",
+    "no_model": "Handy sul tuo computer non ha un modello selezionato.",
+    "transcription_failed": "Il tuo computer non è riuscito a trascrivere.",
+    "paste_failed": "Il tuo computer non è riuscito a scrivere il testo, quindi è solo qui.",
+    "too_long": "È stato raggiunto il limite di durata, quindi la dettatura è stata terminata automaticamente.",
+    "generic": "Qualcosa è andato storto sul tuo computer."
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "computer": "Computer associato",
+    "version": "Handy {{version}}",
+    "unpair": "Dissocia",
+    "unpairConfirm": "Annullare l'associazione con {{name}}? Dovrai scansionare un nuovo codice per dettare di nuovo.",
+    "unpairNote": "{{name}} toglie questo telefono dal proprio elenco se è raggiungibile ora. Altrimenti dissocialo lì, in Handy Remote.",
+    "confirm": "Dissocia",
+    "cancel": "Annulla",
+    "close": "Chiudi"
+  },
+  "keyboard": {
+    "title": "Detta in qualsiasi app",
+    "intro": "Ci sono due modi per dettare ovunque scrivi: una bolla flottante che compare accanto a qualsiasi campo di testo e una tastiera con un microfono al posto dei tasti. In entrambi i casi, ciò che dici viene trascritto sul tuo computer e scritto nel campo di testo sul telefono. Configurane uno o entrambi.",
+    "steps": {
+      "microphone": {
+        "title": "Consenti il microfono",
+        "description": "Così la bolla e la tastiera possono sentirti. Scegli “Mentre usi l'app”; “Solo questa volta” non dura.",
+        "action": "Consenti"
+      },
+      "localNetwork": {
+        "title": "Consenti i dispositivi nelle vicinanze",
+        "description": "Così il telefono può raggiungere il computer sulla tua rete.",
+        "action": "Consenti"
+      },
+      "enable": {
+        "title": "Attiva la tastiera Handy",
+        "description": "Attiva Handy nell'elenco che si apre e conferma entrambi gli avvisi di Android, poi torna qui. Android avverte che una tastiera può raccogliere ciò che scrivi. La tastiera di Handy invia solo la tua voce, e solo al tuo computer.",
+        "action": "Apri le impostazioni della tastiera"
+      },
+      "select": {
+        "title": "Passa alla tastiera Handy",
+        "description": "Scegli Handy nell'elenco delle tastiere.",
+        "action": "Scegli tastiera"
+      },
+      "bubble": {
+        "title": "Attiva la bolla flottante",
+        "description": "Attiva Handy Bubble nelle impostazioni di accessibilità che si aprono, tra le app installate o scaricate, poi torna qui. Android avverte che può vedere e controllare lo schermo. Handy lo usa solo per accorgersi che sei in un campo di testo e per scrivere ciò che detti.",
+        "action": "Apri le impostazioni di accessibilità",
+        "helpTitle": "L'interruttore è in grigio?",
+        "help": "Android limita questa impostazione per le app installate da un file. Tocca una volta l'interruttore in grigio perché Android mostri il suo avviso, poi apri Informazioni app, tocca i tre puntini in alto a destra e scegli “Consenti impostazioni con limitazioni”.",
+        "helpAction": "Apri Informazioni app"
+      }
+    },
+    "tryLabel": "Prova",
+    "tryPlaceholder": "Tocca qui, poi tocca il microfono",
+    "switchHint": "Il pulsante della tastiera sulla tastiera Handy ti riporta alla tua tastiera abituale. Per passare a Handy da un'altra tastiera, usa il suo pulsante della tastiera o del globo.",
+    "done": "Fatto",
+    "later": "Non ora",
+    "back": "Indietro",
+    "settingsRow": "Bolla e tastiera",
+    "new": "Nuovo",
+    "bubbleHint": "Tocca la bolla per iniziare a dettare e toccala di nuovo per terminare, oppure tienila premuta mentre parli. Tenerla premuta durante una dettatura la annulla. Trascinala dove preferisci; si sistema sul lato più vicino.",
+    "settingsBubbleOn": "Bolla attiva",
+    "settingsBubbleOff": "Bolla disattivata",
+    "settingsKeyboardOn": "Tastiera attiva",
+    "settingsKeyboardOff": "Tastiera disattivata"
+  }
+}

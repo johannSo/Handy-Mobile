@@ -56,6 +56,8 @@ const COMPUTER_PAIRING_WINDOW: Duration = Duration::from_secs(300);
 /// How often a phone's transcription checks whether dictation here is done.
 const DICTATION_POLL: Duration = Duration::from_millis(200);
 const MAX_DEVICE_NAME_CHARS: usize = 40;
+/// How much of a certificate's fingerprint the UI shows on either computer.
+pub(crate) const FINGERPRINT_SHOWN: usize = 16;
 
 #[derive(Clone, Serialize, Deserialize)]
 struct StoredDevice {
@@ -125,7 +127,7 @@ struct PendingPairing {
     kind: DeviceKind,
 }
 
-/// A paired phone, as the Mobile tab lists it.
+/// A paired device, as the Handy Remote tab lists it.
 #[derive(Clone, Debug, Serialize, Deserialize, Type)]
 pub struct MobileDevice {
     pub id: String,
@@ -153,6 +155,10 @@ pub struct MobileStatus {
     pub devices: Vec<MobileDevice>,
     /// The model paired devices transcribe with, `None` without one.
     pub model_name: Option<String>,
+    /// The start of this computer's certificate fingerprint, as a paired
+    /// computer shows it, to check that the two are talking to each other.
+    /// `None` until remote connections were first turned on.
+    pub fingerprint: Option<String>,
 }
 
 /// What the pairing dialog shows.
@@ -165,7 +171,7 @@ pub struct MobilePairing {
     pub expires_in_secs: u32,
 }
 
-/// Something on the Mobile tab is out of date: a phone paired, connected,
+/// Something on the Handy Remote tab is out of date: a phone paired, connected,
 /// left, or started or finished dictating.
 #[derive(Clone, Debug, Serialize, Deserialize, Type, tauri_specta::Event)]
 pub struct MobileLinkChanged {
@@ -439,6 +445,14 @@ impl MobileLinkManager {
             error: state.error.clone(),
             devices,
             model_name: self.model_info().map(|model| model.name),
+            fingerprint: state.store.as_ref().map(|store| {
+                store
+                    .identity
+                    .fingerprint()
+                    .chars()
+                    .take(FINGERPRINT_SHOWN)
+                    .collect()
+            }),
         }
     }
 
@@ -505,6 +519,10 @@ impl MobileLinkManager {
                 .ok_or_else(|| anyhow!("That device isn't paired"))?;
             device.can_type = can_type;
             self.save(store)?;
+            // A connected device shows what it may do without reconnecting.
+            if let Some(server) = state.server.as_ref() {
+                server.tell(id, ServerMessage::Permissions { can_type });
+            }
         }
         self.changed(None);
         Ok(())
@@ -527,7 +545,7 @@ impl MobileLinkManager {
     pub fn start_pairing(&self, kind: DeviceKind) -> Result<MobilePairing> {
         let mut state = self.lock();
         let Some(server) = state.server.as_ref() else {
-            return Err(anyhow!("Turn on Handy Remote first"));
+            return Err(anyhow!("Turn on remote connections first"));
         };
         let port = server.local_addr().port();
         let addresses = reachable_addresses();
@@ -1005,6 +1023,20 @@ impl Host for MobileLinkManager {
                 .set_mobile_active(false);
         }
         self.changed(None);
+    }
+
+    fn can_type(&self, device_id: &str) -> Option<bool> {
+        Some(self.device_can_type(device_id))
+    }
+
+    fn unpair(&self, device_id: &str) {
+        info!(
+            "{} unpaired itself",
+            self.device_name(device_id).as_deref().unwrap_or(device_id)
+        );
+        if let Err(e) = self.remove_device(device_id) {
+            warn!("Failed to forget a device that unpaired itself: {e}");
+        }
     }
 
     fn prepare(&self, _device_id: &str) {

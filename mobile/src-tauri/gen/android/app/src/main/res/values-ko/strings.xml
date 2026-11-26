@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"받아쓰기"</string>
+    <string name="keyboard_tap_to_dictate">"탭하여 받아쓰기"</string>
+    <string name="keyboard_listening">"듣는 중… 탭하여 완료"</string>
+    <string name="keyboard_transcribing">"음성 인식 중…"</string>
+    <string name="keyboard_connecting">"%1$s에 연결하는 중…"</string>
+    <string name="keyboard_offline">"%1$s에 연결할 수 없습니다. 탭하여 다시 시도하세요."</string>
+    <string name="keyboard_your_computer">"내 컴퓨터"</string>
+    <string name="keyboard_unpaired">"탭하여 컴퓨터와 페어링"</string>
+    <string name="keyboard_rejected">"더 이상 페어링되어 있지 않습니다. 탭하여 다시 페어링하세요."</string>
+    <string name="keyboard_incompatible">"휴대폰과 컴퓨터의 Handy를 업데이트하세요"</string>
+    <string name="keyboard_needs_microphone">"탭하여 마이크 허용"</string>
+    <string name="keyboard_microphone_failed">"마이크를 시작할 수 없습니다"</string>
+    <string name="keyboard_nothing_heard">"들린 내용이 없습니다"</string>
+    <string name="keyboard_connection_lost">"연결이 끊겼습니다. 다시 시도하세요."</string>
+    <string name="keyboard_busy">"컴퓨터가 다른 받아쓰기를 처리하는 중입니다"</string>
+    <string name="keyboard_no_model">"컴퓨터의 Handy에 선택된 모델이 없습니다"</string>
+    <string name="keyboard_too_long">"길이 제한에 도달했습니다"</string>
+    <string name="keyboard_failed">"컴퓨터에서 음성 인식하지 못했습니다"</string>
+    <string name="keyboard_dictate">"받아쓰기 시작"</string>
+    <string name="keyboard_finish">"받아쓰기 완료"</string>
+    <string name="keyboard_cancel">"취소"</string>
+    <string name="keyboard_switch">"키보드 전환"</string>
+    <string name="keyboard_space">"스페이스"</string>
+    <string name="keyboard_backspace">"삭제"</string>
+    <string name="keyboard_enter">"엔터"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"어느 텍스트 입력란에나 받아쓰기할 수 있는 플로팅 마이크"</string>
+    <string name="bubble_description">"텍스트 입력란에 있는 동안 화면 가장자리에 플로팅 마이크를 표시합니다. 탭하거나 누르고 있으면 받아쓰기할 수 있으며, 말한 내용은 컴퓨터에서 음성 인식되어 입력란에 입력됩니다.\n\nHandy는 텍스트 입력란이 사용 중임을 알아차리고 받아쓴 내용을 거기에 입력하는 데에만 이 권한을 사용합니다. 화면의 다른 내용은 읽거나 전송하지 않습니다."</string>
+    <string name="bubble_dictate">"Handy로 받아쓰기"</string>
+    <string name="bubble_cancelled">"취소됨"</string>
+    <string name="bubble_offline">"%1$s에 연결할 수 없음"</string>
+    <string name="bubble_copied">"복사했습니다. 원하는 곳에 붙여넣으세요."</string>
+</resources>

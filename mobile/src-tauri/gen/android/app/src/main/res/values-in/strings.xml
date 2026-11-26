@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Dikte"</string>
+    <string name="keyboard_tap_to_dictate">"Ketuk untuk mendikte"</string>
+    <string name="keyboard_listening">"Mendengarkan… ketuk untuk selesai"</string>
+    <string name="keyboard_transcribing">"Mentranskripsi…"</string>
+    <string name="keyboard_connecting">"Menghubungkan ke %1$s…"</string>
+    <string name="keyboard_offline">"Tidak dapat menjangkau %1$s. Ketuk untuk mencoba lagi."</string>
+    <string name="keyboard_your_computer">"komputer Anda"</string>
+    <string name="keyboard_unpaired">"Ketuk untuk menyandingkan dengan komputer Anda"</string>
+    <string name="keyboard_rejected">"Tidak lagi tersanding. Ketuk untuk menyandingkan lagi."</string>
+    <string name="keyboard_incompatible">"Perbarui Handy di ponsel dan komputer Anda"</string>
+    <string name="keyboard_needs_microphone">"Ketuk untuk mengizinkan mikrofon"</string>
+    <string name="keyboard_microphone_failed">"Mikrofon tidak dapat dimulai"</string>
+    <string name="keyboard_nothing_heard">"Tidak ada yang terdengar"</string>
+    <string name="keyboard_connection_lost">"Koneksi terputus. Coba lagi."</string>
+    <string name="keyboard_busy">"Komputer Anda sedang sibuk dengan dikte lain"</string>
+    <string name="keyboard_no_model">"Belum ada model yang dipilih di Handy pada komputer Anda"</string>
+    <string name="keyboard_too_long">"Rekaman mencapai batas panjang"</string>
+    <string name="keyboard_failed">"Komputer Anda tidak dapat mentranskripsinya"</string>
+    <string name="keyboard_dictate">"Mulai mendikte"</string>
+    <string name="keyboard_finish">"Selesai mendikte"</string>
+    <string name="keyboard_cancel">"Batal"</string>
+    <string name="keyboard_switch">"Ganti keyboard"</string>
+    <string name="keyboard_space">"spasi"</string>
+    <string name="keyboard_backspace">"Hapus"</string>
+    <string name="keyboard_enter">"Enter"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"Mikrofon mengambang untuk mendikte ke kolom teks mana pun"</string>
+    <string name="bubble_description">"Menampilkan mikrofon mengambang di sisi layar saat Anda berada di kolom teks. Ketuk atau tahan untuk mendikte; ucapan Anda ditranskripsi di komputer Anda dan diketik ke kolom tersebut.\n\nHandy menggunakan akses ini hanya untuk mengetahui bahwa kolom teks sedang digunakan dan untuk mengetik hasil dikte Anda ke dalamnya. Handy tidak membaca atau mengirim hal lain di layar Anda."</string>
+    <string name="bubble_dictate">"Dikte dengan Handy"</string>
+    <string name="bubble_cancelled">"Dibatalkan"</string>
+    <string name="bubble_offline">"Tidak dapat menjangkau %1$s"</string>
+    <string name="bubble_copied">"Disalin. Tempelkan di tempat yang Anda inginkan."</string>
+</resources>

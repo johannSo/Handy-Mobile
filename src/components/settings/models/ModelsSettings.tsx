@@ -4,9 +4,9 @@ import { RefreshCw } from "lucide-react";
 import { Tooltip } from "@/components/ui/Tooltip";
 import { useModelStore } from "@/stores/modelStore";
 import { useSettings } from "@/hooks/useSettings";
-import { EngineSwitch } from "../remote/EngineSwitch";
-import { RemoteEnginePanel } from "../remote/RemoteEnginePanel";
-import { AddComputerDialog } from "../remote/AddComputerDialog";
+import { goTo } from "@/stores/navigationStore";
+import { remoteServerName, useRemoteStore } from "@/stores/remoteStore";
+import { TextLink } from "../../ui/TextLink";
 import {
   ModelTable,
   Note,
@@ -57,34 +57,12 @@ export const ModelsSettings: React.FC<ModelsSettingsProps> = ({
   const { facts, lists } = useModelEntries();
   const { filters, setFilters, searching, matches } = useModelFilters();
   const [more, setMore] = useState(false);
-  const [addComputer, setAddComputer] = useState(false);
   const { getSetting } = useSettings();
-  const remote = getSetting("transcription_engine") === "remote";
-
-  const engineSwitch = (
-    <div className="mx-[12px] mb-[16px] flex-none">
-      <EngineSwitch onAddComputer={() => setAddComputer(true)} />
-    </div>
+  // Another computer transcribes: the models here only stand in for it.
+  const remoteName = useRemoteStore((s) =>
+    s.status?.in_use ? remoteServerName(s.status) : null,
   );
-
-  if (remote) {
-    return (
-      <div className="mx-auto flex min-h-0 w-full max-w-3xl flex-1 flex-col">
-        <div className="mb-[16px] flex flex-none items-center justify-between gap-[12px] px-[12px]">
-          <h1 className="text-xl font-semibold">
-            {t("settings.models.title")}
-          </h1>
-        </div>
-        {engineSwitch}
-        <div className="min-h-0 flex-1 overflow-y-auto pb-4">
-          <RemoteEnginePanel
-            addOpen={addComputer}
-            setAddOpen={setAddComputer}
-          />
-        </div>
-      </div>
-    );
-  }
+  const fallback = getSetting("remote_fallback") ?? true;
 
   if (loading) {
     return (
@@ -183,7 +161,21 @@ export const ModelsSettings: React.FC<ModelsSettingsProps> = ({
           </button>
         )}
       </div>
-      {engineSwitch}
+      {remoteName !== null && (
+        <div className="mx-[12px] mb-[16px] flex flex-none items-center justify-between gap-[12px] rounded-lg bg-wash px-[14px] py-[10px] text-sm text-ink-2">
+          <span>
+            {t(
+              fallback
+                ? "settings.models.remote.withFallback"
+                : "settings.models.remote.withoutFallback",
+              { name: remoteName },
+            )}
+          </span>
+          <TextLink onClick={() => goTo("remote")} className="shrink-0">
+            {t("settings.remote.open")}
+          </TextLink>
+        </div>
+      )}
       <div className="mx-[12px] mb-[16px] flex-none empty:hidden">
         <RetiredModelsNotice />
       </div>
@@ -208,12 +200,6 @@ export const ModelsSettings: React.FC<ModelsSettingsProps> = ({
           )
         }
         thinEdge
-      />
-      {/* Picking another computer before any is paired starts here; pairing
-          one switches to it. */}
-      <AddComputerDialog
-        open={addComputer}
-        onClose={() => setAddComputer(false)}
       />
     </div>
   );

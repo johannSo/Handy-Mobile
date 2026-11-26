@@ -34,6 +34,8 @@ export interface Snapshot {
   desktop_version: string | null;
   default_output: OutputMode | null;
   session: SessionState;
+  /** Whether the computer lets this phone type on it; `null` if it didn't say. */
+  can_type: boolean | null;
   detail: string | null;
 }
 

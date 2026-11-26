@@ -13,17 +13,18 @@
     "otherLanguages": "기타 언어",
     "transcribeWith": "음성 인식 컴퓨터",
     "thisComputer": "이 컴퓨터",
-    "offline": "오프라인"
+    "offline": "오프라인",
+    "remote": "Handy Remote..."
   },
   "sidebar": {
     "general": "일반",
     "models": "모델",
-    "mobile": "공유",
     "advanced": "고급",
     "postProcessing": "후처리",
     "history": "히스토리",
     "debug": "디버그",
-    "about": "정보"
+    "about": "정보",
+    "remote": "Handy Remote"
   },
   "onboarding": {
     "customModelDescription": "공식 지원되지 않음",
@@ -444,17 +445,21 @@
       "rescan": {
         "label": "다시 스캔",
         "tooltip": "Handy 외부에서 모델 폴더 또는 Hugging Face 캐시에 추가된 모델을 다시 스캔합니다"
+      },
+      "remote": {
+        "withFallback": "{{name}}이(가) 이 컴퓨터의 음성 인식을 대신합니다. 연결할 수 없을 때는 여기서 선택한 모델이 대신 사용됩니다.",
+        "withoutFallback": "{{name}}이(가) 이 컴퓨터의 음성 인식을 대신합니다. 그동안 여기 있는 모델은 사용되지 않습니다."
       }
     },
     "mobile": {
       "intro": "네트워크에 있는 휴대폰과 다른 컴퓨터가 이 컴퓨터의 모델로 받아쓰기할 수 있습니다. 휴대폰이 녹음하고 이 컴퓨터가 텍스트로 변환합니다.",
       "groups": {
-        "connection": "연결",
-        "devices": "페어링된 기기",
-        "dictation": "받아쓰기"
+        "connection": "이 컴퓨터 공유",
+        "devices": "원격 연결",
+        "dictation": "휴대폰 받아쓰기"
       },
       "enabled": {
-        "label": "Handy Remote",
+        "label": "원격 연결 허용",
         "description": "페어링된 기기가 이 컴퓨터를 통해 받아쓰기할 수 있게 합니다. 켜져 있는 동안 Handy가 로컬 네트워크에서 기기의 연결을 기다립니다."
       },
       "status": {
@@ -464,23 +469,27 @@
         "starting": "시작하는 중…",
         "listening": "{{address}}에서 연결 대기 중",
         "noNetwork": "네트워크에 연결되어 있지 않음",
-        "failed": "시작할 수 없음: {{error}}"
+        "failed": "시작할 수 없음: {{error}}",
+        "alsoAt": "다른 주소: {{addresses}}"
       },
       "port": {
         "title": "포트",
-        "description": "페어링된 기기가 연결하는 네트워크 포트입니다. 기기가 연결되지 않으면 방화벽에서 이 포트를 허용하세요. 포트를 변경하면 기기를 다시 페어링해야 합니다."
+        "description": "페어링된 기기가 연결하는 네트워크 포트입니다. 기기가 연결되지 않으면 방화벽에서 이 포트를 허용하세요. 포트를 변경하면 기기를 다시 페어링해야 합니다.",
+        "confirmTitle": "포트를 {{port}}번으로 변경할까요?",
+        "confirm": "페어링된 모든 기기를 다시 페어링해야 합니다. 기기는 페어링할 때의 포트에서 이 컴퓨터를 찾습니다.",
+        "change": "포트 변경"
       },
       "pair": {
         "button": "휴대폰 페어링",
         "hint": "페어링하면 다른 기기에서 스캔하거나 붙여 넣을 코드가 표시됩니다.",
-        "turnOnFirst": "기기를 페어링하려면 Handy Remote를 켜세요.",
+        "turnOnFirst": "기기를 페어링하려면 원격 연결을 허용하세요.",
         "title": "휴대폰 페어링",
-        "description": "휴대폰에서 Handy Mobile을 열고 이 코드를 스캔하세요. 휴대폰이 이 컴퓨터와 같은 네트워크에 있어야 합니다.",
+        "description": "휴대폰에서 Handy를 열고 이 코드를 스캔하세요. 휴대폰이 이 컴퓨터와 같은 네트워크에 있어야 합니다.",
         "qrAlt": "페어링 코드",
         "expires": "이 코드는 {{time}} 후에 만료됩니다",
         "expired": "이 코드는 만료되었습니다.",
         "newCode": "새 코드",
-        "manual": "스캔할 수 없나요? 코드를 복사해 Handy Mobile에 붙여넣으세요.",
+        "manual": "스캔할 수 없나요? 코드를 복사해 Handy에 붙여넣으세요.",
         "copy": "코드 복사",
         "copied": "페어링 코드 복사됨",
         "copyFailed": "페어링 코드를 복사할 수 없음",
@@ -488,11 +497,13 @@
         "failed": "페어링 코드를 만들 수 없음",
         "computerButton": "컴퓨터 페어링",
         "computerTitle": "컴퓨터 페어링",
-        "computerDescription": "다른 컴퓨터에서 Handy를 열고 모델로 이동해 다른 컴퓨터를 선택한 다음, 컴퓨터 추가를 누르고 이 코드를 붙여넣으세요.",
-        "computerNote": "페어링된 컴퓨터는 텍스트를 돌려받습니다. 허용하지 않으면 이 컴퓨터에 입력할 수 없습니다."
+        "computerDescription": "다른 컴퓨터에서 Handy를 열고 Handy Remote로 이동해 컴퓨터에 연결을 선택한 다음 이 코드를 붙여넣으세요.",
+        "computerNote": "페어링된 컴퓨터는 텍스트를 돌려받습니다. 허용하지 않으면 이 컴퓨터에 입력할 수 없습니다.",
+        "turnOn": "켜기",
+        "computerCarry": "메시지나 메모 등으로 코드를 직접 옮기세요. 사용하기 전까지는 비밀번호처럼 다루세요. 한 번만 사용할 수 있습니다."
       },
       "devices": {
-        "empty": "아직 페어링된 기기가 없습니다.",
+        "empty": "아직 이 컴퓨터와 페어링된 것이 없습니다.",
         "connected": "연결됨",
         "dictating": "받아쓰는 중…",
         "lastSeen": "마지막 접속: {{time}}",
@@ -506,27 +517,35 @@
         "removeFailed": "기기 페어링을 해제할 수 없음",
         "cancel": "취소",
         "transcribing": "음성 인식 중",
-        "canType": "여기에 입력",
-        "canTypeDescription": "이 기기가 요청하면 받아쓴 내용을 이 컴퓨터에 붙여넣습니다.",
+        "canType": "여기에 입력 허용",
         "canTypeLabel": "{{name}}이(가) 이 컴퓨터에 입력하도록 허용",
-        "canTypeFailed": "변경할 수 없음"
+        "canTypeFailed": "변경할 수 없음",
+        "emptyPhone": "휴대폰으로 받아쓰기하려면 휴대폰에 Handy를 설치한 다음 휴대폰 페어링을 선택하세요.",
+        "canTypeNote": "여기에 입력 허용을 켜면 기기가 받아쓴 내용을 이 컴퓨터에 붙여넣을 수 있습니다. 꺼져 있으면 텍스트는 기기로만 돌아갑니다."
       },
       "outputMode": {
-        "title": "텍스트 보낼 곳",
-        "description": "휴대폰으로 받아쓰기할 때 텍스트가 전달되는 곳입니다. 휴대폰에는 항상 함께 표시됩니다.",
+        "title": "휴대폰 텍스트 보낼 곳",
+        "description": "휴대폰의 기본 설정입니다. 휴대폰마다 Handy에서 바꿀 수 있으며, 해당 휴대폰의 여기에 입력 허용이 켜져 있을 때만 여기에 입력합니다.",
         "options": {
-          "desktop": "이 컴퓨터",
+          "desktop": "커서 위치",
           "phone": "휴대폰만"
         }
       },
       "postProcess": {
-        "label": "후처리",
-        "description": "휴대폰으로 받아쓴 내용에 후처리를 실행합니다."
+        "label": "휴대폰 받아쓰기 후처리",
+        "description": "휴대폰으로 받아쓴 내용에 후처리를 실행합니다.",
+        "unavailable": "후처리가 꺼져 있습니다. 고급에 있는 실험적 기능입니다.",
+        "openAdvanced": "고급 열기"
       },
       "model": {
         "title": "모델",
         "description": "페어링된 휴대폰과 컴퓨터가 음성 인식에 사용하는 모델로, 이 컴퓨터에서 선택한 모델입니다.",
-        "none": "없음. 모델에서 다운로드하세요."
+        "none": "없음",
+        "download": "모델에서 다운로드"
+      },
+      "certificate": {
+        "title": "인증서",
+        "description": "이 컴퓨터 인증서 지문의 앞부분입니다. 이 컴퓨터와 페어링된 컴퓨터의 세부 정보에도 같은 값이 표시됩니다. 두 값이 일치하면 두 컴퓨터가 서로 직접 통신하며 중간에 끼어든 것이 없다는 뜻입니다."
       }
     },
     "languages": {
@@ -963,7 +982,7 @@
         "failed": "진단 실패: {{error}}"
       },
       "remoteLink": {
-        "title": "원격 링크",
+        "title": "원격 연결",
         "description": "이 컴퓨터가 음성 인식에 사용하는 컴퓨터와의 연결입니다.",
         "simulateOffline": "연결 불가 시뮬레이션",
         "simulateOfflineDescription": "다른 컴퓨터로 보내는 요청이 연결할 수 없는 것처럼 실패하게 하여, 그때 어떻게 되는지 확인합니다."
@@ -1017,7 +1036,8 @@
         "offline": "연결할 수 없음",
         "rejected": "더 이상 페어링되어 있지 않음",
         "incompatible": "업데이트 필요",
-        "unused": "사용 안 함"
+        "unused": "사용 안 함",
+        "available": "사용 가능"
       },
       "row": {
         "use": "{{name}}(으)로 음성 인식",
@@ -1029,39 +1049,40 @@
         "reconnect": "지금 다시 시도",
         "pairAgain": "다시 페어링",
         "details": "세부 정보",
-        "hostName": "이름",
+        "hostName": "컴퓨터 이름",
         "address": "주소",
         "fingerprint": "인증서",
         "version": "Handy 버전",
         "lastError": "마지막 오류",
-        "forget": "삭제",
-        "forgetConfirmTitle": "{{name}}을(를) 삭제할까요?",
-        "forgetConfirm": "이 컴퓨터는 더 이상 해당 컴퓨터로 음성 인식하지 않습니다. 그쪽 목록에서도 이 컴퓨터를 빼려면 해당 컴퓨터의 공유에서 페어링을 해제하세요.",
-        "forgetFailed": "컴퓨터를 삭제할 수 없음",
-        "cancel": "취소"
+        "cancel": "취소",
+        "fingerprintHint": "그 컴퓨터의 Handy Remote에도 같은 값이 표시됩니다.",
+        "unpairConfirm": "이 컴퓨터는 더 이상 해당 컴퓨터로 음성 인식하지 않습니다. 지금 연결할 수 있으면 해당 컴퓨터가 자기 목록에서 이 컴퓨터를 뺍니다. 그렇지 않으면 그쪽 Handy Remote에서 이 컴퓨터의 페어링을 해제하세요.",
+        "unpairFailed": "컴퓨터 페어링을 해제할 수 없음",
+        "unpair": "페어링 해제",
+        "unpairConfirmTitle": "{{name}} 페어링을 해제할까요?"
       },
       "incompatible": "{{name}}에서 실행 중인 Handy 버전으로는 이 컴퓨터의 음성 인식을 할 수 없습니다. 두 컴퓨터 모두 Handy를 업데이트하세요.",
       "computers": {
-        "title": "컴퓨터",
-        "description": "Handy를 실행 중인 다른 컴퓨터가 자신의 모델로 이 컴퓨터의 음성 인식을 대신할 수 있습니다. 사용할 컴퓨터를 선택하세요.",
-        "empty": "아직 페어링된 컴퓨터가 없습니다.",
-        "hint": "다른 컴퓨터는 공유에서 모델을 공유합니다.",
-        "add": "컴퓨터 추가"
+        "title": "다른 컴퓨터 사용",
+        "description": "Handy를 실행 중인 다른 컴퓨터가 여기서 받아쓰는 내용을 자신의 모델로 음성 인식할 수 있습니다.",
+        "empty": "아직 연결한 컴퓨터가 없습니다.",
+        "hint": "다른 컴퓨터의 Handy Remote에서 원격 연결을 허용해야 합니다.",
+        "add": "컴퓨터에 연결"
       },
       "fallback": {
-        "group": "연결할 수 없을 때",
-        "label": "이 컴퓨터의 모델 사용",
+        "label": "이 컴퓨터의 모델로 대체",
         "description": "다른 컴퓨터가 절전 중이거나 사용 중이거나 오프라인이면 대신 여기서 음성 인식하고 그 사실을 알려 줍니다.",
-        "noModel": "이 컴퓨터에는 대신 사용할 모델이 없습니다. 위에서 이 컴퓨터를 선택해 모델을 다운로드하세요."
+        "noModel": "이 컴퓨터에는 대신 사용할 모델이 없습니다.",
+        "getModel": "모델에서 다운로드"
       },
       "stays": "다른 컴퓨터로는 오디오와 함께 언어, 사용자 정의 단어, 군더더기 표현 설정만 전송됩니다. 후처리, 히스토리, 붙여넣기는 이 컴퓨터에서 이루어집니다.",
       "decidedElsewhere": "음성 인식하는 컴퓨터에서 설정됨",
       "add": {
-        "title": "컴퓨터 추가",
+        "title": "컴퓨터에 연결",
         "steps": {
-          "open": "다른 컴퓨터에서 Handy를 열고 공유로 이동하세요.",
-          "share": "공유를 켜고 컴퓨터 페어링을 선택한 다음 코드 복사를 누르세요.",
-          "paste": "여기에 코드를 붙여넣으세요."
+          "open": "다른 컴퓨터에서 Handy를 열고 Handy Remote로 이동하세요.",
+          "share": "원격 연결 허용을 켜고 컴퓨터 페어링을 선택한 다음 코드 복사를 누르세요.",
+          "paste": "메시지나 나에게 쓰는 메모 등으로 코드를 이 컴퓨터로 가져와 여기에 붙여넣으세요. 코드는 5분 동안 한 번만 사용할 수 있습니다."
         },
         "placeholder": "handy://pair?…",
         "codeLabel": "페어링 코드",
@@ -1073,12 +1094,14 @@
           "expired_code": "만료되었거나 이미 사용된 코드입니다. 다른 컴퓨터에서 새 코드를 만드세요.",
           "incompatible": "다른 컴퓨터의 Handy로는 이 컴퓨터의 음성 인식을 할 수 없습니다. 두 컴퓨터 모두 Handy를 업데이트하세요.",
           "rate_limited": "시도 횟수가 너무 많습니다. 1분 정도 기다린 후 다시 시도하세요.",
-          "unreachable": "다른 컴퓨터에 연결할 수 없습니다. 두 컴퓨터가 같은 네트워크에 있고 그쪽에서 공유가 켜져 있는지 확인하세요.",
+          "unreachable": "다른 컴퓨터에 연결할 수 없습니다. 두 컴퓨터가 같은 네트워크에 있고 그쪽에서 원격 연결을 허용하는지 확인하세요.",
           "untrusted": "다른 컴퓨터의 주소에서 다른 기기가 응답했습니다. 새 코드를 만들어 다시 시도하세요.",
           "self": "이 컴퓨터에서 만든 코드입니다. 다른 컴퓨터에 붙여넣으세요.",
           "failed": "페어링하지 못했습니다. 다시 시도하세요."
         }
-      }
+      },
+      "open": "Handy Remote 열기",
+      "localOnly": "이 컴퓨터가 음성 인식할 때만 적용됩니다"
     }
   },
   "footer": {
@@ -1094,7 +1117,14 @@
     "portableUpdateMessage": "포터블 설치는 자동으로 업데이트할 수 없습니다. 아래에서 사용 중인 시스템에 맞는 설치 프로그램을 다운로드해 실행하고 같은 폴더에 설치하세요. Data/ 폴더(설정, 모델, 녹음)는 그대로 유지됩니다.",
     "portableUpdateButton": "설치 프로그램 다운로드",
     "portableUpdateBrowseMessage": "포터블 설치는 자동으로 업데이트할 수 없습니다. GitHub Releases에서 사용 중인 시스템에 맞는 최신 버전을 다운로드해 같은 폴더에 설치하세요. Data/ 폴더(설정, 모델, 녹음)는 그대로 유지됩니다.",
-    "portableUpdateBrowseButton": "GitHub Releases 열기"
+    "portableUpdateBrowseButton": "GitHub Releases 열기",
+    "remote": {
+      "on": "원격 켜짐",
+      "connected": "{{count}}대 연결됨",
+      "dictating": "{{name}} 받아쓰는 중",
+      "failed": "원격 연결 실패",
+      "manage": "원격 연결…"
+    }
   },
   "whatsNew": {
     "title": "Handy v{{version}}의 새 소식"
@@ -1139,17 +1169,17 @@
     "filePostProcessFailed": "후처리가 완료되지 않아 받아쓰기 결과를 그대로 저장했습니다.",
     "fileTranscriptionFailedTitle": "파일 음성 인식 실패",
     "mobileServerFailedTitle": "Handy Remote 시작 실패",
-    "mobileServerFailed": "페어링된 기기가 연결할 수 없습니다. 다른 앱이 포트를 사용 중일 수 있습니다. 공유 설정에서 다른 포트를 선택하세요.",
+    "mobileServerFailed": "페어링된 기기가 연결할 수 없습니다. 다른 앱이 포트를 사용 중일 수 있습니다. Handy Remote에서 다른 포트를 선택하세요.",
     "mobileTranscriptionFailedTitle": "휴대폰 받아쓰기 실패",
     "transcriptionFailedTitle": "음성 인식 실패",
     "remoteUnreachableTitle": "다른 컴퓨터에 연결 불가",
-    "remoteUnreachable": "Handy가 음성 인식에 사용하는 컴퓨터에 연결할 수 없습니다. 그 컴퓨터가 켜져 있고 같은 네트워크에 있으며 모델을 공유 중인지 확인하세요.",
+    "remoteUnreachable": "Handy가 음성 인식에 사용하는 컴퓨터에 연결할 수 없습니다. 그 컴퓨터가 켜져 있고 같은 네트워크에 있으며 원격 연결을 허용하는지 확인하세요.",
     "remoteBusyTitle": "다른 컴퓨터 사용 중",
     "remoteBusy": "음성 인식에 사용하는 컴퓨터에서 누군가 받아쓰기 중입니다. 잠시 후 다시 시도하세요.",
     "remoteNoModelTitle": "다른 컴퓨터에 모델 없음",
     "remoteNoModel": "음성 인식에 사용하는 컴퓨터에 모델이 없습니다. 그 컴퓨터에서 모델을 다운로드하세요.",
     "remoteRejectedTitle": "컴퓨터를 다시 페어링하세요",
-    "remoteRejected": "다른 컴퓨터가 더 이상 이 컴퓨터를 인식하지 않습니다. 모델에서 다시 페어링하세요.",
+    "remoteRejected": "다른 컴퓨터가 더 이상 이 컴퓨터를 인식하지 않습니다. Handy Remote에서 다시 페어링하세요.",
     "remoteIncompatibleTitle": "두 컴퓨터의 Handy 업데이트",
     "remoteIncompatible": "두 컴퓨터의 Handy 버전이 서로 호환되지 않습니다. 둘 다 업데이트하세요.",
     "remoteFellBackTitle": "이 컴퓨터에서 음성 인식함",

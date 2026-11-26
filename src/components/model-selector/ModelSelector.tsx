@@ -244,6 +244,7 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ onError }) => {
             currentModelId={displayModelId}
             locked={modelsLocked}
             onModelSelect={handleModelSelect}
+            onClose={() => setShowModelDropdown(false)}
           />
         )}
       </div>

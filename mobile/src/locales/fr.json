@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "Associer à votre ordinateur",
+    "intro": "Votre téléphone sert de microphone. Handy, sur votre ordinateur, se charge de la transcription.",
+    "step1": "Ouvrez Handy sur votre ordinateur et allez dans Handy Remote.",
+    "step2": "Activez Autoriser les connexions à distance et choisissez Associer un téléphone.",
+    "step3": "Scannez le code affiché. Les deux appareils doivent être sur le même réseau.",
+    "scan": "Scanner le code d'association",
+    "manual": "Saisir le code à la place",
+    "manualPlaceholder": "Collez le code d'association de votre ordinateur",
+    "manualSubmit": "Associer",
+    "pairing": "Association…",
+    "scanHint": "Pointez l'appareil photo vers le code affiché sur votre ordinateur",
+    "cancelScan": "Annuler",
+    "errors": {
+      "invalid_code": "Ce n'est pas un code d'association Handy.",
+      "expired_code": "Ce code a expiré ou a déjà été utilisé. Créez-en un nouveau sur votre ordinateur.",
+      "incompatible": "Les versions de cette application et de Handy sur votre ordinateur sont trop éloignées. Mettez à jour les deux.",
+      "rate_limited": "Trop de tentatives. Attendez une minute, puis réessayez.",
+      "unreachable": "Votre ordinateur est injoignable. Vérifiez que les deux appareils sont sur le même réseau, qu'aucun pare-feu ne bloque Handy et que Handy est autorisé à détecter les appareils à proximité dans les réglages de votre téléphone.",
+      "untrusted": "Quelque chose a répondu, mais ce n'est pas votre ordinateur. Créez un nouveau code et réessayez.",
+      "failed": "L'association a échoué. Réessayez.",
+      "camera_denied": "Handy a besoin de l'appareil photo pour scanner le code. Autorisez-le dans les réglages de votre téléphone, ou saisissez le code à la place.",
+      "scan_failed": "Impossible de démarrer l'appareil photo. Saisissez le code à la place."
+    },
+    "back": "Retour"
+  },
+  "link": {
+    "connecting": "Connexion…",
+    "connected": "Connecté",
+    "notPaired": "Non associé",
+    "updateNeeded": "Mise à jour requise",
+    "offline": "Impossible de joindre votre ordinateur",
+    "offlineHint": "Vérifiez que Handy est ouvert sur {{name}}, que les deux appareils sont sur le même réseau et que Handy est autorisé à détecter les appareils à proximité dans les réglages de votre téléphone.",
+    "retry": "Réessayer",
+    "rejected": "Ce téléphone n'est plus associé à {{name}}.",
+    "incompatible": "Les versions de cette application et de Handy sur {{name}} sont trop éloignées. Mettez à jour les deux.",
+    "pairAgain": "Associer de nouveau",
+    "yourComputer": "votre ordinateur"
+  },
+  "record": {
+    "tapToStart": "Touchez pour dicter",
+    "starting": "Démarrage…",
+    "listening": "Écoute… touchez pour terminer",
+    "finishing": "Finalisation…",
+    "transcribing": "Transcription…",
+    "start": "Commencer à dicter",
+    "stop": "Terminer la dictée",
+    "cancel": "Annuler"
+  },
+  "output": {
+    "label": "Envoyer le texte vers",
+    "desktop": "Ordinateur",
+    "phone": "Téléphone uniquement",
+    "desktopHint": "Écrit là où se trouve le curseur sur {{name}}.",
+    "phoneHint": "Affiché ici et copié dans le presse-papiers.",
+    "notAllowedHint": "{{name}} n'autorise pas ce téléphone à y écrire. Pour changer cela, activez Peut écrire ici pour ce téléphone dans Handy Remote sur l'ordinateur."
+  },
+  "transcripts": {
+    "empty": "Ce que vous dictez apparaît ici.",
+    "copy": "Copier",
+    "copied": "Copié",
+    "share": "Partager",
+    "pasted": "Écrit sur votre ordinateur",
+    "notPasted": "Non écrit sur votre ordinateur",
+    "clear": "Effacer"
+  },
+  "notices": {
+    "noSpeech": "Rien n'a été entendu.",
+    "micDenied": "Handy a besoin du microphone. Autorisez-le dans les réglages de votre téléphone.",
+    "micUnavailable": "Impossible de démarrer le microphone.",
+    "connectionLost": "La connexion a été interrompue, cet enregistrement n'a donc pas été transcrit.",
+    "busy": "Votre ordinateur est occupé par une autre dictée.",
+    "no_model": "Aucun modèle n'est sélectionné dans Handy sur votre ordinateur.",
+    "transcription_failed": "Votre ordinateur n'a pas pu transcrire cet enregistrement.",
+    "paste_failed": "Votre ordinateur n'a pas pu écrire le texte, il n'est donc disponible qu'ici.",
+    "too_long": "La durée maximale a été atteinte, la dictée a donc été terminée pour vous.",
+    "generic": "Un problème est survenu sur votre ordinateur."
+  },
+  "settings": {
+    "title": "Réglages",
+    "computer": "Ordinateur associé",
+    "version": "Handy {{version}}",
+    "unpair": "Dissocier",
+    "unpairConfirm": "Dissocier de {{name}} ? Vous devrez scanner un nouveau code pour dicter de nouveau.",
+    "unpairNote": "{{name}} retire ce téléphone de sa liste s'il est joignable maintenant. Sinon, dissociez-le là-bas, dans Handy Remote.",
+    "confirm": "Dissocier",
+    "cancel": "Annuler",
+    "close": "Fermer"
+  },
+  "keyboard": {
+    "title": "Dicter dans n'importe quelle application",
+    "intro": "Il y a deux façons de dicter partout où vous écrivez : une bulle flottante qui apparaît à côté de n'importe quel champ de texte, et un clavier avec un microphone à la place des touches. Dans les deux cas, ce que vous dites est transcrit sur votre ordinateur et écrit dans le champ de texte de votre téléphone. Configurez l'un, l'autre ou les deux.",
+    "steps": {
+      "microphone": {
+        "title": "Autoriser le microphone",
+        "description": "Pour que la bulle et le clavier puissent vous entendre. Choisissez « Lorsque vous utilisez l'appli » ; « Uniquement cette fois-ci » ne dure pas.",
+        "action": "Autoriser"
+      },
+      "localNetwork": {
+        "title": "Autoriser les appareils à proximité",
+        "description": "Pour que votre téléphone puisse joindre votre ordinateur sur votre réseau.",
+        "action": "Autoriser"
+      },
+      "enable": {
+        "title": "Activer le clavier Handy",
+        "description": "Activez Handy dans la liste qui s'ouvre et confirmez les deux messages d'Android, puis revenez ici. Android avertit qu'un clavier peut collecter ce que vous écrivez. Le clavier de Handy n'envoie que votre voix, et uniquement à votre propre ordinateur.",
+        "action": "Ouvrir les réglages du clavier"
+      },
+      "select": {
+        "title": "Passer au clavier Handy",
+        "description": "Choisissez Handy dans la liste des claviers.",
+        "action": "Choisir le clavier"
+      },
+      "bubble": {
+        "title": "Activer la bulle flottante",
+        "description": "Activez Handy Bubble dans les réglages d'accessibilité qui s'ouvrent, sous les applications installées ou téléchargées, puis revenez ici. Android avertit qu'il peut voir et contrôler l'écran. Handy s'en sert uniquement pour détecter que vous êtes dans un champ de texte et pour écrire ce que vous dictez.",
+        "action": "Ouvrir les réglages d'accessibilité",
+        "helpTitle": "L'interrupteur est grisé ?",
+        "help": "Android restreint ce réglage pour les applications installées à partir d'un fichier. Touchez une fois l'interrupteur grisé pour qu'Android affiche son avertissement, puis ouvrez Infos sur l'appli, touchez les trois points en haut à droite et choisissez « Autoriser les paramètres restreints ».",
+        "helpAction": "Ouvrir Infos sur l'appli"
+      }
+    },
+    "tryLabel": "Essayer",
+    "tryPlaceholder": "Touchez ici, puis touchez le microphone",
+    "switchHint": "Le bouton clavier du clavier Handy vous ramène à votre clavier habituel. Pour passer à Handy depuis un autre clavier, utilisez son bouton clavier ou globe.",
+    "done": "Terminé",
+    "later": "Plus tard",
+    "back": "Retour",
+    "settingsRow": "Bulle et clavier",
+    "new": "Nouveau",
+    "bubbleHint": "Touchez la bulle pour commencer à dicter et touchez-la de nouveau pour terminer, ou maintenez-la enfoncée pendant que vous parlez. La maintenir pendant une dictée annule celle-ci. Faites-la glisser où cela vous convient ; elle se place sur le bord le plus proche.",
+    "settingsBubbleOn": "Bulle activée",
+    "settingsBubbleOff": "Bulle désactivée",
+    "settingsKeyboardOn": "Clavier activé",
+    "settingsKeyboardOff": "Clavier désactivé"
+  }
+}

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "../../ui/Button";
 import { OnboardingShell, ScreenHeader, ScreenMain } from "../OnboardingShell";
 import { AddComputerForm } from "../../settings/remote/AddComputerDialog";
-import { linkText } from "../../settings/remote/RemoteEnginePanel";
+import { linkText } from "../../settings/remote/linkStatus";
 import { remoteServerName, useRemoteStore } from "@/stores/remoteStore";
 
 interface ConnectProps {

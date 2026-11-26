@@ -138,6 +138,9 @@ pub enum ClientMessage {
     /// A recording is about to start: load the model now, so the text isn't
     /// kept waiting for it. Only sent to a desktop with [`feature::PREPARE`].
     Prepare,
+    /// This device is forgetting the desktop: take it off the desktop's list
+    /// too, and close. An older desktop ignores it and keeps the entry.
+    Unpair,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -188,6 +191,10 @@ pub enum ServerMessage {
         features: Vec<String>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         model: Option<ModelInfo>,
+        /// Whether this device may paste into the desktop. `None` from a
+        /// desktop that doesn't say.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        can_type: Option<bool>,
     },
     /// `auth` worked.
     Ready {
@@ -198,6 +205,10 @@ pub enum ServerMessage {
         features: Vec<String>,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         model: Option<ModelInfo>,
+        /// Whether this device may paste into the desktop. `None` from a
+        /// desktop that doesn't say.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        can_type: Option<bool>,
     },
     State {
         state: SessionState,
@@ -219,6 +230,11 @@ pub enum ServerMessage {
     ModelChanged {
         #[serde(default)]
         model: Option<ModelInfo>,
+    },
+    /// What this device may do changed while it was connected. Older
+    /// clients ignore it.
+    Permissions {
+        can_type: bool,
     },
     Error {
         code: ErrorCode,

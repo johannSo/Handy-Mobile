@@ -13,17 +13,18 @@
     "otherLanguages": "Andere talen",
     "transcribeWith": "Transcriberen met",
     "thisComputer": "Deze computer",
-    "offline": "Offline"
+    "offline": "Offline",
+    "remote": "Handy Remote..."
   },
   "sidebar": {
     "general": "Algemeen",
     "models": "Modellen",
-    "mobile": "Delen",
     "advanced": "Geavanceerd",
     "postProcessing": "Naverwerking",
     "history": "Geschiedenis",
     "debug": "Probleemoplossing",
-    "about": "Over Handy"
+    "about": "Over Handy",
+    "remote": "Handy Remote"
   },
   "onboarding": {
     "customModelDescription": "Niet officieel ondersteund",
@@ -444,17 +445,21 @@
       "rescan": {
         "label": "Opnieuw scannen",
         "tooltip": "Scannen naar modellen die buiten Handy om zijn toegevoegd aan de modellenmap of Hugging Face-cache"
+      },
+      "remote": {
+        "withFallback": "{{name}} transcribeert voor deze computer. Het model dat hier is geselecteerd, neemt het over als de andere computer onbereikbaar is.",
+        "withoutFallback": "{{name}} transcribeert voor deze computer. De modellen hier worden intussen niet gebruikt."
       }
     },
     "mobile": {
       "intro": "Telefoons en andere computers in je netwerk kunnen dicteren met het model van deze computer. Een telefoon neemt op, deze computer transcribeert.",
       "groups": {
-        "connection": "Verbinding",
-        "devices": "Gekoppelde apparaten",
-        "dictation": "Dicteren"
+        "connection": "Deze computer delen",
+        "devices": "Externe verbindingen",
+        "dictation": "Dicteren via telefoon"
       },
       "enabled": {
-        "label": "Handy Remote",
+        "label": "Externe verbindingen toestaan",
         "description": "Laat gekoppelde apparaten via deze computer dicteren. Zolang dit aanstaat, wacht Handy op ze in je lokale netwerk."
       },
       "status": {
@@ -464,23 +469,27 @@
         "starting": "Starten…",
         "listening": "Bereikbaar op {{address}}",
         "noNetwork": "Niet verbonden met een netwerk",
-        "failed": "Starten mislukt: {{error}}"
+        "failed": "Starten mislukt: {{error}}",
+        "alsoAt": "Ook op {{addresses}}"
       },
       "port": {
         "title": "Poort",
-        "description": "De netwerkpoort waarmee gekoppelde apparaten verbinding maken. Sta deze toe in je firewall als ze geen verbinding kunnen maken. Na een wijziging moeten apparaten opnieuw worden gekoppeld."
+        "description": "De netwerkpoort waarmee gekoppelde apparaten verbinding maken. Sta deze toe in je firewall als ze geen verbinding kunnen maken. Na een wijziging moeten apparaten opnieuw worden gekoppeld.",
+        "confirmTitle": "Poort wijzigen naar {{port}}?",
+        "confirm": "Elk gekoppeld apparaat moet opnieuw worden gekoppeld. Ze zoeken deze computer op de poort die hij had toen ze werden gekoppeld.",
+        "change": "Poort wijzigen"
       },
       "pair": {
         "button": "Telefoon koppelen",
         "hint": "Bij het koppelen verschijnt een code om te scannen of te plakken op het andere apparaat.",
-        "turnOnFirst": "Zet Handy Remote aan om een apparaat te koppelen.",
+        "turnOnFirst": "Sta externe verbindingen toe om een apparaat te koppelen.",
         "title": "Telefoon koppelen",
-        "description": "Open Handy Mobile op je telefoon en scan deze code. De telefoon moet op hetzelfde netwerk zitten als deze computer.",
+        "description": "Open Handy op je telefoon en scan deze code. De telefoon moet op hetzelfde netwerk zitten als deze computer.",
         "qrAlt": "Koppelcode",
         "expires": "Deze code verloopt over {{time}}",
         "expired": "Deze code is verlopen.",
         "newCode": "Nieuwe code",
-        "manual": "Lukt scannen niet? Kopieer de code en plak hem in Handy Mobile.",
+        "manual": "Lukt scannen niet? Kopieer de code en plak hem in Handy.",
         "copy": "Code kopiëren",
         "copied": "Koppelcode gekopieerd",
         "copyFailed": "Koppelcode kopiëren mislukt",
@@ -488,11 +497,13 @@
         "failed": "Koppelcode maken mislukt",
         "computerButton": "Computer koppelen",
         "computerTitle": "Computer koppelen",
-        "computerDescription": "Open Handy op de andere computer, ga naar Modellen, kies Andere computer en daarna Computer toevoegen, en plak deze code.",
-        "computerNote": "Een gekoppelde computer krijgt zijn tekst terug. Hij kan hier alleen typen als je dat toestaat."
+        "computerDescription": "Open Handy op de andere computer, ga naar Handy Remote, kies Verbinden met een computer en plak deze code.",
+        "computerNote": "Een gekoppelde computer krijgt zijn tekst terug. Hij kan hier alleen typen als je dat toestaat.",
+        "turnOn": "Aanzetten",
+        "computerCarry": "Breng hem er zelf naartoe, bijvoorbeeld in een bericht of een notitie. Behandel hem als een wachtwoord totdat hij is gebruikt: hij werkt één keer."
       },
       "devices": {
-        "empty": "Er zijn nog geen apparaten gekoppeld.",
+        "empty": "Er is nog niets gekoppeld met deze computer.",
         "connected": "Verbonden",
         "dictating": "Dicteert…",
         "lastSeen": "Laatst gezien: {{time}}",
@@ -506,27 +517,35 @@
         "removeFailed": "Apparaat ontkoppelen mislukt",
         "cancel": "Annuleren",
         "transcribing": "Transcribeert",
-        "canType": "Typt hier",
-        "canTypeDescription": "Plak wat dit apparaat dicteert op deze computer, als het daarom vraagt.",
+        "canType": "Mag hier typen",
         "canTypeLabel": "{{name}} toestaan om op deze computer te typen",
-        "canTypeFailed": "Wijzigen mislukt"
+        "canTypeFailed": "Wijzigen mislukt",
+        "emptyPhone": "Wil je dicteren vanaf een telefoon, installeer er dan Handy op en kies Telefoon koppelen.",
+        "canTypeNote": "Met Mag hier typen kan een apparaat wat het dicteert op deze computer plakken. Zonder gaat de tekst alleen terug naar het apparaat."
       },
       "outputMode": {
-        "title": "Tekst sturen naar",
-        "description": "Waar de tekst naartoe gaat als een telefoon dicteert. De telefoon toont de tekst ook altijd.",
+        "title": "Telefoontekst gaat naar",
+        "description": "Waar een telefoon mee begint. Elke telefoon kan wisselen in Handy en typt hier alleen zolang Mag hier typen ervoor aanstaat.",
         "options": {
-          "desktop": "Deze computer",
+          "desktop": "Waar de cursor staat",
           "phone": "Alleen telefoon"
         }
       },
       "postProcess": {
-        "label": "Naverwerking",
-        "description": "Pas naverwerking toe op wat telefoons dicteren."
+        "label": "Dicteren via telefoon naverwerken",
+        "description": "Pas naverwerking toe op wat telefoons dicteren.",
+        "unavailable": "Naverwerking staat uit. Het is een experimentele functie onder Geavanceerd.",
+        "openAdvanced": "Geavanceerd openen"
       },
       "model": {
         "title": "Model",
         "description": "Waarmee gekoppelde telefoons en computers transcriberen: het model dat op deze computer is geselecteerd.",
-        "none": "Geen. Download er een onder Modellen."
+        "none": "Geen",
+        "download": "Download er een onder Modellen"
+      },
+      "certificate": {
+        "title": "Certificaat",
+        "description": "Het begin van de certificaatvingerafdruk van deze computer. Een computer die met deze is gekoppeld, toont hetzelfde onder Details. Als de twee overeenkomen, praten ze met elkaar en zit er niets tussen."
       }
     },
     "languages": {
@@ -963,7 +982,7 @@
         "failed": "Diagnose mislukt: {{error}}"
       },
       "remoteLink": {
-        "title": "Externe koppeling",
+        "title": "Externe verbinding",
         "description": "De koppeling met de computer waarmee deze computer transcribeert.",
         "simulateOffline": "Onbereikbaar simuleren",
         "simulateOfflineDescription": "Verzoeken aan de andere computer mislukken alsof hij onbereikbaar is, zodat je kunt zien wat er dan gebeurt."
@@ -1017,7 +1036,8 @@
         "offline": "Onbereikbaar",
         "rejected": "Niet meer gekoppeld",
         "incompatible": "Update nodig",
-        "unused": "Niet in gebruik"
+        "unused": "Niet in gebruik",
+        "available": "Beschikbaar"
       },
       "row": {
         "use": "Transcriberen met {{name}}",
@@ -1029,39 +1049,40 @@
         "reconnect": "Nu opnieuw proberen",
         "pairAgain": "Opnieuw koppelen",
         "details": "Details",
-        "hostName": "Naam",
+        "hostName": "Computernaam",
         "address": "Adres",
         "fingerprint": "Certificaat",
         "version": "Handy-versie",
         "lastError": "Laatste fout",
-        "forget": "Vergeten",
-        "forgetConfirmTitle": "{{name}} vergeten?",
-        "forgetConfirm": "Deze computer transcribeert er dan niet meer mee. Wil je deze computer ook van de lijst daar halen, ontkoppel hem dan daar onder Delen.",
-        "forgetFailed": "Computer vergeten mislukt",
-        "cancel": "Annuleren"
+        "cancel": "Annuleren",
+        "fingerprintHint": "Daar staat hetzelfde onder Handy Remote.",
+        "unpairConfirm": "Deze computer transcribeert er dan niet meer mee. Als de andere computer nu bereikbaar is, haalt die deze computer van zijn eigen lijst; ontkoppel deze computer anders daar, onder Handy Remote.",
+        "unpairFailed": "Computer ontkoppelen mislukt",
+        "unpair": "Ontkoppelen",
+        "unpairConfirmTitle": "{{name}} ontkoppelen?"
       },
       "incompatible": "{{name}} draait een versie van Handy die niet voor deze computer kan transcriberen. Update Handy op beide computers.",
       "computers": {
-        "title": "Computers",
-        "description": "Een andere computer met Handy kan met zijn model voor deze computer transcriberen. Kies welke je wilt gebruiken.",
-        "empty": "Er zijn nog geen computers gekoppeld.",
-        "hint": "De andere computer deelt zijn model onder Delen.",
-        "add": "Computer toevoegen"
+        "title": "Een andere computer gebruiken",
+        "description": "Een andere computer met Handy kan met zijn model transcriberen wat je hier dicteert.",
+        "empty": "Je hebt nog geen verbinding gemaakt met een computer.",
+        "hint": "De andere computer moet externe verbindingen toestaan, onder Handy Remote.",
+        "add": "Verbinden met een computer"
       },
       "fallback": {
-        "group": "Als hij onbereikbaar is",
-        "label": "Model van deze computer gebruiken",
+        "label": "Terugvallen op het model van deze computer",
         "description": "Als de andere computer slaapt, bezet of offline is, transcribeer dan hier en meld dat.",
-        "noModel": "Deze computer heeft geen model om op terug te vallen. Kies hierboven Deze computer om er een te downloaden."
+        "noModel": "Deze computer heeft geen model om op terug te vallen.",
+        "getModel": "Download er een onder Modellen"
       },
       "stays": "Alleen de audio gaat naar de andere computer, samen met je taal, eigen woorden en opvulwoorden. Naverwerking, geschiedenis en plakken blijven op deze computer.",
       "decidedElsewhere": "Ingesteld op de computer die transcribeert",
       "add": {
-        "title": "Computer toevoegen",
+        "title": "Verbinden met een computer",
         "steps": {
-          "open": "Open Handy op de andere computer en ga naar Delen.",
-          "share": "Zet Delen aan, kies Computer koppelen en daarna Code kopiëren.",
-          "paste": "Plak de code hier."
+          "open": "Open Handy op de andere computer en ga naar Handy Remote.",
+          "share": "Zet Externe verbindingen toestaan aan, kies Computer koppelen en daarna Code kopiëren.",
+          "paste": "Breng de code naar deze computer, bijvoorbeeld in een bericht of een notitie aan jezelf, en plak hem hier. Hij werkt één keer, vijf minuten lang."
         },
         "placeholder": "handy://pair?…",
         "codeLabel": "Koppelcode",
@@ -1073,12 +1094,14 @@
           "expired_code": "Die code is verlopen of al gebruikt. Maak een nieuwe op de andere computer.",
           "incompatible": "Handy op de andere computer kan niet voor deze computer transcriberen. Update Handy op beide.",
           "rate_limited": "Te veel pogingen. Wacht een minuut en probeer het dan opnieuw.",
-          "unreachable": "De andere computer is onbereikbaar. Controleer of beide op hetzelfde netwerk zitten en of Delen daar aanstaat.",
+          "unreachable": "De andere computer is onbereikbaar. Controleer of beide op hetzelfde netwerk zitten en of hij externe verbindingen toestaat.",
           "untrusted": "Er reageerde iets anders op het adres van de andere computer. Maak een nieuwe code en probeer het opnieuw.",
           "self": "Die code komt van deze computer. Plak hem op de andere.",
           "failed": "Koppelen mislukt. Probeer het opnieuw."
         }
-      }
+      },
+      "open": "Handy Remote openen",
+      "localOnly": "Geldt alleen als deze computer transcribeert"
     }
   },
   "footer": {
@@ -1094,7 +1117,14 @@
     "portableUpdateMessage": "Draagbare (portable) installaties kunnen niet automatisch worden bijgewerkt. Download hieronder het installatiebestand voor je systeem, voer het uit en installeer in dezelfde map — je Data/-map (instellingen, modellen, opnames) blijft behouden.",
     "portableUpdateButton": "Installatiebestand downloaden",
     "portableUpdateBrowseMessage": "Draagbare (portable) installaties kunnen niet automatisch worden bijgewerkt. Download de nieuwste versie voor je systeem van GitHub Releases en installeer die in dezelfde map — je Data/-map (instellingen, modellen, opnames) blijft behouden.",
-    "portableUpdateBrowseButton": "GitHub Releases openen"
+    "portableUpdateBrowseButton": "GitHub Releases openen",
+    "remote": {
+      "on": "Remote aan",
+      "connected": "{{count}} verbonden",
+      "dictating": "{{name}} dicteert",
+      "failed": "Externe verbindingen mislukt",
+      "manage": "Externe verbindingen…"
+    }
   },
   "whatsNew": {
     "title": "Nieuw in Handy v{{version}}"
@@ -1139,17 +1169,17 @@
     "filePostProcessFailed": "De naverwerking is niet voltooid, dus de transcriptie is ongewijzigd opgeslagen.",
     "fileTranscriptionFailedTitle": "Transcriptie van bestand mislukt",
     "mobileServerFailedTitle": "Handy Remote starten mislukt",
-    "mobileServerFailed": "Gekoppelde apparaten kunnen geen verbinding maken. Mogelijk gebruikt een andere app de poort; kies een andere in de instellingen voor Delen.",
+    "mobileServerFailed": "Gekoppelde apparaten kunnen geen verbinding maken. Mogelijk gebruikt een andere app de poort; kies een andere in Handy Remote.",
     "mobileTranscriptionFailedTitle": "Dicteren via telefoon mislukt",
     "transcriptionFailedTitle": "Transcriptie mislukt",
     "remoteUnreachableTitle": "Andere computer onbereikbaar",
-    "remoteUnreachable": "Handy kon de computer waarmee het transcribeert niet bereiken. Controleer of die wakker is, op hetzelfde netwerk zit en zijn model deelt.",
+    "remoteUnreachable": "Handy kon de computer waarmee het transcribeert niet bereiken. Controleer of die wakker is, op hetzelfde netwerk zit en externe verbindingen toestaat.",
     "remoteBusyTitle": "Andere computer bezet",
     "remoteBusy": "Iemand dicteert op de computer waarmee deze transcribeert. Probeer het zo opnieuw.",
     "remoteNoModelTitle": "Andere computer zonder model",
     "remoteNoModel": "De computer waarmee deze transcribeert heeft geen model. Download er daar een.",
     "remoteRejectedTitle": "Koppel de computer opnieuw",
-    "remoteRejected": "De andere computer kent deze niet meer. Koppel ze opnieuw via Modellen.",
+    "remoteRejected": "De andere computer kent deze niet meer. Koppel ze opnieuw in Handy Remote.",
     "remoteIncompatibleTitle": "Update Handy op beide",
     "remoteIncompatible": "De twee computers draaien versies van Handy die niet samenwerken. Update ze allebei.",
     "remoteFellBackTitle": "Lokaal getranscribeerd",

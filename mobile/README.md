@@ -2,6 +2,8 @@
 
 The phone half of [Handy Mobile](../README.md#handy-mobile): pair it with Handy on your computer, tap, talk, and the computer transcribes.
 
+On the phone it is called **Handy** and carries Handy's icon: the launcher name, the keyboard's name in Android's list and every string the user reads say Handy. "Handy Mobile" stays the project's name: this directory, the crate `handy-mobile` and the application id `com.pais.handy.mobile`, which must not change or the app stops being an update of itself.
+
 It is a separate Tauri 2 app. The Rust core (`src-tauri/src/lib.rs`) keeps the link to the desktop, using the `handy-link` crate shared with the desktop app. The WebView (`src/`) captures the microphone as 16 kHz mono PCM, hands each frame to the core, and draws the screens.
 
 ## The keyboard
@@ -74,9 +76,13 @@ keyAlias=handy-mobile
 
 Without that file a release build comes out unsigned.
 
+### Release builds in CI
+
+`.github/workflows/android.yml` builds and signs the release APK when a `v*` release is published (or when run by hand), and attaches `Handy-Mobile_<version>_android.apk` to the release. It signs with the key in the repository secrets `ANDROID_KEYSTORE_BASE64` (the keystore, base64-encoded), `ANDROID_KEYSTORE_PASSWORD` and `ANDROID_KEY_ALIAS`. That's a different key from a locally built APK's, and Android won't update an app signed with one key using an APK signed with the other: uninstall first when switching.
+
 ## Testing without a phone
 
-`handy-link` ships a phone in a terminal. Turn on **Handy Remote** in the desktop's Sharing tab, choose **Pair a Phone**, copy the code, then:
+`handy-link` ships a phone in a terminal. Turn on **Allow Remote Connections** in the desktop's Handy Remote tab, choose **Pair a Phone**, copy the code, then:
 
 ```bash
 cd crates/handy-link
@@ -92,5 +98,7 @@ cargo run --features client --example link-cli -- send speech.wav phone
 - The QR scanner uses ML Kit with the barcode model bundled in the app (`com.google.mlkit:barcode-scanning` in `gen/android/app/build.gradle.kts`), so it works offline and without Google Play services. Release builds are minified; the keep rules ML Kit needs are in `gen/android/app/proguard-rules.pro`. Without them a release build can't start the scanner while a debug build can.
 
 - Recording only runs while the app is on screen: Android stops a WebView's microphone in the background, so leaving the app finishes the dictation.
+- The app follows the phone's language. Its strings are in `src/locales/<code>.json` (English is the source; a new file is a new language) and, for the keyboard and the bubble, which have no WebView, in `gen/android/app/src/main/res/values-<code>/strings.xml`. Android spells three codes its own way: `iw` for Hebrew, `in` for Indonesian and `zh-rTW` for Traditional Chinese.
+- The launcher icon is an adaptive icon (`res/mipmap-anydpi-v26/`): the hand from `src-tauri/icons/logo.png` as the foreground (`mipmap-*/ic_launcher_foreground.png`, 58 of the 108 dp so every launcher's mask clears it) over the icon's pink (`ic_launcher_background` in `values/colors.xml`).
 - The pairing secret is kept in the app's private storage.
-- Unpairing on the phone forgets the computer. The computer keeps listing the phone until it is unpaired there too.
+- Unpairing on the phone forgets the computer and asks it to forget the phone. A computer that can't be reached at that moment keeps listing the phone until it is unpaired there too.

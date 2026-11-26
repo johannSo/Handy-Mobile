@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"音声入力"</string>
+    <string name="keyboard_tap_to_dictate">"タップして音声入力"</string>
+    <string name="keyboard_listening">"聞き取り中… タップして終了"</string>
+    <string name="keyboard_transcribing">"文字起こし中…"</string>
+    <string name="keyboard_connecting">"%1$s に接続中…"</string>
+    <string name="keyboard_offline">"%1$s に接続できません。タップして再試行。"</string>
+    <string name="keyboard_your_computer">"お使いのコンピューター"</string>
+    <string name="keyboard_unpaired">"タップしてコンピューターとペアリング"</string>
+    <string name="keyboard_rejected">"ペアリングが解除されています。タップして再度ペアリング。"</string>
+    <string name="keyboard_incompatible">"スマートフォンとコンピューターの Handy をアップデートしてください"</string>
+    <string name="keyboard_needs_microphone">"タップしてマイクを許可"</string>
+    <string name="keyboard_microphone_failed">"マイクを起動できませんでした"</string>
+    <string name="keyboard_nothing_heard">"何も聞き取れませんでした"</string>
+    <string name="keyboard_connection_lost">"接続が切れました。もう一度お試しください。"</string>
+    <string name="keyboard_busy">"コンピューターは別の音声入力を処理中です"</string>
+    <string name="keyboard_no_model">"コンピューターの Handy でモデルが選択されていません"</string>
+    <string name="keyboard_too_long">"長さの上限に達しました"</string>
+    <string name="keyboard_failed">"コンピューターで文字起こしできませんでした"</string>
+    <string name="keyboard_dictate">"音声入力を開始"</string>
+    <string name="keyboard_finish">"音声入力を終了"</string>
+    <string name="keyboard_cancel">"キャンセル"</string>
+    <string name="keyboard_switch">"キーボードを切り替え"</string>
+    <string name="keyboard_space">"空白"</string>
+    <string name="keyboard_backspace">"削除"</string>
+    <string name="keyboard_enter">"改行"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"どの入力欄にも音声入力できるフローティングマイク"</string>
+    <string name="bubble_description">"入力欄にいる間、画面の端にフローティングマイクを表示します。タップするか押し続けて音声入力すると、話した内容がコンピューターで文字起こしされ、入力欄に入力されます。\n\nHandy がこのアクセスを使うのは、入力欄が使用中であることを検知し、音声入力した内容をそこに入力するためだけです。画面上のそれ以外の内容を読み取ったり送信したりすることはありません。"</string>
+    <string name="bubble_dictate">"Handy で音声入力"</string>
+    <string name="bubble_cancelled">"キャンセルしました"</string>
+    <string name="bubble_offline">"%1$s に接続できません"</string>
+    <string name="bubble_copied">"コピーしました。好きな場所に貼り付けてください。"</string>
+</resources>

@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"הכתבה"</string>
+    <string name="keyboard_tap_to_dictate">"הקש כדי להכתיב"</string>
+    <string name="keyboard_listening">"מאזין… הקש כדי לסיים"</string>
+    <string name="keyboard_transcribing">"מתמלל…"</string>
+    <string name="keyboard_connecting">"מתחבר אל %1$s…"</string>
+    <string name="keyboard_offline">"אין גישה אל %1$s. הקש כדי לנסות שוב."</string>
+    <string name="keyboard_your_computer">"המחשב שלך"</string>
+    <string name="keyboard_unpaired">"הקש כדי לצמד עם המחשב שלך"</string>
+    <string name="keyboard_rejected">"כבר לא מצומד. הקש כדי לצמד מחדש."</string>
+    <string name="keyboard_incompatible">"עדכן את Handy בטלפון ובמחשב"</string>
+    <string name="keyboard_needs_microphone">"הקש כדי לאפשר את המיקרופון"</string>
+    <string name="keyboard_microphone_failed">"לא ניתן היה להפעיל את המיקרופון"</string>
+    <string name="keyboard_nothing_heard">"לא נשמע דבר"</string>
+    <string name="keyboard_connection_lost">"החיבור נותק. נסה שוב."</string>
+    <string name="keyboard_busy">"המחשב עסוק בהכתבה אחרת"</string>
+    <string name="keyboard_no_model">"לא נבחר מודל ב-Handy במחשב"</string>
+    <string name="keyboard_too_long">"ההכתבה הגיעה למגבלת האורך"</string>
+    <string name="keyboard_failed">"המחשב לא הצליח לתמלל את זה"</string>
+    <string name="keyboard_dictate">"התחל להכתיב"</string>
+    <string name="keyboard_finish">"סיים להכתיב"</string>
+    <string name="keyboard_cancel">"ביטול"</string>
+    <string name="keyboard_switch">"החלף מקלדת"</string>
+    <string name="keyboard_space">"רווח"</string>
+    <string name="keyboard_backspace">"מחק"</string>
+    <string name="keyboard_enter">"אנטר"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"מיקרופון צף להכתבה בכל שדה טקסט"</string>
+    <string name="bubble_description">"מציג מיקרופון צף בצד המסך כל עוד אתה בשדה טקסט. הקש עליו או החזק אותו כדי להכתיב; מה שאתה אומר מתומלל במחשב ומוקלד בשדה.\n\nHandy משתמש בגישה הזו רק כדי לזהות ששדה טקסט נמצא בשימוש ולהקליד בו את ההכתבה שלך. הוא לא קורא ולא שולח שום דבר אחר מהמסך שלך."</string>
+    <string name="bubble_dictate">"הכתב עם Handy"</string>
+    <string name="bubble_cancelled">"בוטל"</string>
+    <string name="bubble_offline">"אין גישה אל %1$s"</string>
+    <string name="bubble_copied">"הועתק. הדבק אותו היכן שתרצה."</string>
+</resources>

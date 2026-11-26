@@ -13,17 +13,18 @@
     "otherLanguages": "Weitere Sprachen",
     "transcribeWith": "Transkribieren mit",
     "thisComputer": "Dieser Computer",
-    "offline": "Offline"
+    "offline": "Offline",
+    "remote": "Handy Remote..."
   },
   "sidebar": {
     "general": "Allgemein",
     "models": "Modelle",
-    "mobile": "Freigabe",
     "advanced": "Erweitert",
     "postProcessing": "Nachbearbeitung",
     "history": "Verlauf",
     "debug": "Debug",
-    "about": "Info"
+    "about": "Info",
+    "remote": "Handy Remote"
   },
   "onboarding": {
     "customModelDescription": "Nicht offiziell unterstützt",
@@ -444,17 +445,21 @@
       "rescan": {
         "label": "Neu scannen",
         "tooltip": "Erneut nach Modellen scannen, die außerhalb von Handy zum Modellordner oder Hugging-Face-Cache hinzugefügt wurden"
+      },
+      "remote": {
+        "withFallback": "{{name}} transkribiert für diesen Computer. Das hier ausgewählte Modell springt ein, wenn der andere Computer nicht erreichbar ist.",
+        "withoutFallback": "{{name}} transkribiert für diesen Computer. Die Modelle hier werden währenddessen nicht verwendet."
       }
     },
     "mobile": {
       "intro": "Smartphones und andere Computer in deinem Netzwerk können mit dem Modell dieses Computers diktieren. Ein Smartphone nimmt auf, dieser Computer transkribiert.",
       "groups": {
-        "connection": "Verbindung",
-        "devices": "Gekoppelte Geräte",
-        "dictation": "Diktat"
+        "connection": "Diesen Computer freigeben",
+        "devices": "Remote-Verbindungen",
+        "dictation": "Smartphone-Diktat"
       },
       "enabled": {
-        "label": "Handy Remote",
+        "label": "Remote-Verbindungen zulassen",
         "description": "Gekoppelte Geräte können über diesen Computer diktieren. Solange dies aktiviert ist, wartet Handy in deinem lokalen Netzwerk auf sie."
       },
       "status": {
@@ -464,23 +469,27 @@
         "starting": "Wird gestartet…",
         "listening": "Erreichbar unter {{address}}",
         "noNetwork": "Mit keinem Netzwerk verbunden",
-        "failed": "Start fehlgeschlagen: {{error}}"
+        "failed": "Start fehlgeschlagen: {{error}}",
+        "alsoAt": "Auch unter {{addresses}}"
       },
       "port": {
         "title": "Port",
-        "description": "Der Netzwerkport, über den sich gekoppelte Geräte verbinden. Gib ihn in deiner Firewall frei, falls sie keine Verbindung herstellen können. Nach einer Änderung müssen Geräte neu gekoppelt werden."
+        "description": "Der Netzwerkport, über den sich gekoppelte Geräte verbinden. Gib ihn in deiner Firewall frei, falls sie keine Verbindung herstellen können. Nach einer Änderung müssen Geräte neu gekoppelt werden.",
+        "confirmTitle": "Port auf {{port}} ändern?",
+        "confirm": "Jedes gekoppelte Gerät muss neu gekoppelt werden. Die Geräte suchen diesen Computer unter dem Port, den er beim Koppeln hatte.",
+        "change": "Port ändern"
       },
       "pair": {
         "button": "Smartphone koppeln",
         "hint": "Beim Koppeln wird ein Code angezeigt, den du auf dem anderen Gerät scannst oder einfügst.",
-        "turnOnFirst": "Aktiviere Handy Remote, um ein Gerät zu koppeln.",
+        "turnOnFirst": "Lass Remote-Verbindungen zu, um ein Gerät zu koppeln.",
         "title": "Smartphone koppeln",
-        "description": "Öffne Handy Mobile auf deinem Smartphone und scanne diesen Code. Das Smartphone muss im selben Netzwerk wie dieser Computer sein.",
+        "description": "Öffne Handy auf deinem Smartphone und scanne diesen Code. Das Smartphone muss im selben Netzwerk wie dieser Computer sein.",
         "qrAlt": "Kopplungscode",
         "expires": "Dieser Code läuft in {{time}} ab",
         "expired": "Dieser Code ist abgelaufen.",
         "newCode": "Neuer Code",
-        "manual": "Scannen klappt nicht? Kopiere den Code und füge ihn in Handy Mobile ein.",
+        "manual": "Scannen klappt nicht? Kopiere den Code und füge ihn in Handy ein.",
         "copy": "Code kopieren",
         "copied": "Kopplungscode kopiert",
         "copyFailed": "Kopplungscode konnte nicht kopiert werden",
@@ -488,11 +497,13 @@
         "failed": "Kopplungscode konnte nicht erstellt werden",
         "computerButton": "Computer koppeln",
         "computerTitle": "Computer koppeln",
-        "computerDescription": "Öffne Handy auf dem anderen Computer, gehe zu Modelle, wähle Anderer Computer, dann Computer hinzufügen, und füge diesen Code ein.",
-        "computerNote": "Ein gekoppelter Computer erhält seinen Text zurück. Er kann hier nur tippen, wenn du es erlaubst."
+        "computerDescription": "Öffne Handy auf dem anderen Computer, gehe zu Handy Remote, wähle Mit Computer verbinden und füge diesen Code ein.",
+        "computerNote": "Ein gekoppelter Computer erhält seinen Text zurück. Er kann hier nur tippen, wenn du es erlaubst.",
+        "turnOn": "Aktivieren",
+        "computerCarry": "Bring ihn selbst dorthin, zum Beispiel in einer Nachricht oder Notiz. Behandle ihn wie ein Passwort, bis er verwendet wurde: Er funktioniert einmal."
       },
       "devices": {
-        "empty": "Noch keine Geräte gekoppelt.",
+        "empty": "Mit diesem Computer ist noch nichts gekoppelt.",
         "connected": "Verbunden",
         "dictating": "Diktiert…",
         "lastSeen": "Zuletzt gesehen: {{time}}",
@@ -506,27 +517,35 @@
         "removeFailed": "Gerät konnte nicht entkoppelt werden",
         "cancel": "Abbrechen",
         "transcribing": "Transkribiert",
-        "canType": "Tippt hier",
-        "canTypeDescription": "Fügt das, was dieses Gerät diktiert, auf diesem Computer ein, wenn es darum bittet.",
+        "canType": "Darf hier tippen",
         "canTypeLabel": "{{name}} erlauben, auf diesem Computer zu tippen",
-        "canTypeFailed": "Das konnte nicht geändert werden"
+        "canTypeFailed": "Das konnte nicht geändert werden",
+        "emptyPhone": "Um mit einem Smartphone zu diktieren, installiere darauf Handy und wähle dann Smartphone koppeln.",
+        "canTypeNote": "Mit Darf hier tippen kann ein Gerät das, was es diktiert, auf diesem Computer einfügen. Ohne geht der Text nur an das Gerät zurück."
       },
       "outputMode": {
-        "title": "Text senden an",
-        "description": "Wohin der Text geht, wenn ein Smartphone diktiert. Das Smartphone zeigt ihn immer zusätzlich an.",
+        "title": "Ziel für Smartphone-Text",
+        "description": "Womit ein Smartphone startet. Jedes Smartphone kann in Handy wechseln und tippt hier nur, solange Darf hier tippen dafür aktiviert ist.",
         "options": {
-          "desktop": "Dieser Computer",
+          "desktop": "Cursorposition",
           "phone": "Nur Smartphone"
         }
       },
       "postProcess": {
-        "label": "Nachbearbeitung",
-        "description": "Wendet die Nachbearbeitung auf das an, was Smartphones diktieren."
+        "label": "Smartphone-Diktat nachbearbeiten",
+        "description": "Wendet die Nachbearbeitung auf das an, was Smartphones diktieren.",
+        "unavailable": "Die Nachbearbeitung ist aus. Sie ist eine experimentelle Funktion unter Erweitert.",
+        "openAdvanced": "Erweitert öffnen"
       },
       "model": {
         "title": "Modell",
         "description": "Womit gekoppelte Smartphones und Computer transkribieren: das auf diesem Computer ausgewählte Modell.",
-        "none": "Keins. Lade eines unter Modelle herunter."
+        "none": "Keins",
+        "download": "Unter Modelle eines herunterladen"
+      },
+      "certificate": {
+        "title": "Zertifikat",
+        "description": "Der Anfang des Zertifikat-Fingerabdrucks dieses Computers. Ein mit diesem gekoppelter Computer zeigt unter Details dasselbe an. Stimmen beide überein, sprechen die zwei Computer miteinander und nichts sitzt dazwischen."
       }
     },
     "languages": {
@@ -1017,7 +1036,8 @@
         "offline": "Nicht erreichbar",
         "rejected": "Nicht mehr gekoppelt",
         "incompatible": "Update erforderlich",
-        "unused": "Nicht verwendet"
+        "unused": "Nicht verwendet",
+        "available": "Verfügbar"
       },
       "row": {
         "use": "Mit {{name}} transkribieren",
@@ -1029,39 +1049,40 @@
         "reconnect": "Jetzt erneut versuchen",
         "pairAgain": "Erneut koppeln",
         "details": "Details",
-        "hostName": "Name",
+        "hostName": "Computername",
         "address": "Adresse",
         "fingerprint": "Zertifikat",
         "version": "Handy-Version",
         "lastError": "Letzter Fehler",
-        "forget": "Vergessen",
-        "forgetConfirmTitle": "{{name}} vergessen?",
-        "forgetConfirm": "Dieser Computer transkribiert dann nicht mehr damit. Um diesen Computer auch von dessen Liste zu entfernen, entkopple ihn dort unter Freigabe.",
-        "forgetFailed": "Computer konnte nicht vergessen werden",
-        "cancel": "Abbrechen"
+        "cancel": "Abbrechen",
+        "fingerprintHint": "Er zeigt unter Handy Remote dasselbe an.",
+        "unpairConfirm": "Dieser Computer transkribiert dann nicht mehr damit. Ist der andere gerade erreichbar, entfernt er diesen Computer von seiner Liste; sonst entkopple diesen Computer dort unter Handy Remote.",
+        "unpairFailed": "Computer konnte nicht entkoppelt werden",
+        "unpair": "Entkoppeln",
+        "unpairConfirmTitle": "{{name}} entkoppeln?"
       },
       "incompatible": "Auf {{name}} läuft eine Handy-Version, die nicht für diesen Computer transkribieren kann. Aktualisiere Handy auf beiden Computern.",
       "computers": {
-        "title": "Computer",
-        "description": "Ein anderer Computer mit Handy kann mit seinem Modell für diesen transkribieren. Wähle aus, welcher verwendet werden soll.",
-        "empty": "Noch keine Computer gekoppelt.",
-        "hint": "Der andere Computer gibt sein Modell unter Freigabe frei.",
-        "add": "Computer hinzufügen"
+        "title": "Anderen Computer verwenden",
+        "description": "Ein anderer Computer mit Handy kann mit seinem Modell transkribieren, was du hier diktierst.",
+        "empty": "Du hast dich noch mit keinem Computer verbunden.",
+        "hint": "Der andere Computer muss Remote-Verbindungen zulassen. Das geht dort unter Handy Remote.",
+        "add": "Mit Computer verbinden"
       },
       "fallback": {
-        "group": "Wenn er nicht erreichbar ist",
-        "label": "Modell dieses Computers verwenden",
+        "label": "Auf das Modell dieses Computers ausweichen",
         "description": "Wenn der andere Computer im Ruhezustand, beschäftigt oder offline ist, wird stattdessen hier transkribiert – mit Hinweis.",
-        "noModel": "Dieser Computer hat kein Modell zum Ausweichen. Wähle oben Dieser Computer, um eines herunterzuladen."
+        "noModel": "Dieser Computer hat kein Modell zum Ausweichen.",
+        "getModel": "Unter Modelle eines herunterladen"
       },
       "stays": "Nur das Audio geht an den anderen Computer, zusammen mit deiner Sprache, deinen benutzerdefinierten Wörtern und Füllwörtern. Nachbearbeitung, Verlauf und Einfügen bleiben auf diesem.",
       "decidedElsewhere": "Wird auf dem transkribierenden Computer festgelegt",
       "add": {
-        "title": "Computer hinzufügen",
+        "title": "Mit Computer verbinden",
         "steps": {
-          "open": "Öffne Handy auf dem anderen Computer und gehe zu Freigabe.",
-          "share": "Aktiviere Freigabe, wähle Computer koppeln und dann Code kopieren.",
-          "paste": "Füge den Code hier ein."
+          "open": "Öffne Handy auf dem anderen Computer und gehe zu Handy Remote.",
+          "share": "Aktiviere Remote-Verbindungen zulassen, wähle Computer koppeln und dann Code kopieren.",
+          "paste": "Bring den Code auf diesen Computer, zum Beispiel in einer Nachricht oder einer Notiz an dich selbst, und füge ihn hier ein. Er funktioniert einmal, fünf Minuten lang."
         },
         "placeholder": "handy://pair?…",
         "codeLabel": "Kopplungscode",
@@ -1073,12 +1094,14 @@
           "expired_code": "Dieser Code ist abgelaufen oder wurde schon verwendet. Erstelle auf dem anderen Computer einen neuen.",
           "incompatible": "Handy auf dem anderen Computer kann nicht für diesen transkribieren. Aktualisiere Handy auf beiden.",
           "rate_limited": "Zu viele Versuche. Warte eine Minute und versuche es dann erneut.",
-          "unreachable": "Der andere Computer ist nicht erreichbar. Prüfe, ob beide im selben Netzwerk sind und Freigabe dort aktiviert ist.",
+          "unreachable": "Der andere Computer ist nicht erreichbar. Prüfe, ob beide im selben Netzwerk sind und er Remote-Verbindungen zulässt.",
           "untrusted": "Unter der Adresse des anderen Computers hat etwas anderes geantwortet. Erstelle einen neuen Code und versuche es erneut.",
           "self": "Dieser Code stammt von diesem Computer. Füge ihn auf dem anderen ein.",
           "failed": "Koppeln hat nicht geklappt. Versuche es erneut."
         }
-      }
+      },
+      "open": "Handy Remote öffnen",
+      "localOnly": "Gilt nur, wenn dieser Computer transkribiert"
     }
   },
   "footer": {
@@ -1094,7 +1117,14 @@
     "portableUpdateMessage": "Portable Installationen können nicht automatisch aktualisiert werden. Lade unten den Installer für dein System herunter, führe ihn aus und installiere in denselben Ordner — dein Data/-Ordner (Einstellungen, Modelle, Aufnahmen) bleibt erhalten.",
     "portableUpdateButton": "Installer herunterladen",
     "portableUpdateBrowseMessage": "Portable Installationen können nicht automatisch aktualisiert werden. Lade die neueste Version für dein System von GitHub Releases herunter und installiere sie in denselben Ordner — dein Data/-Ordner (Einstellungen, Modelle, Aufnahmen) bleibt erhalten.",
-    "portableUpdateBrowseButton": "GitHub Releases öffnen"
+    "portableUpdateBrowseButton": "GitHub Releases öffnen",
+    "remote": {
+      "on": "Remote an",
+      "connected": "{{count}} verbunden",
+      "dictating": "{{name}} diktiert",
+      "failed": "Remote-Verbindungen fehlgeschlagen",
+      "manage": "Remote-Verbindungen…"
+    }
   },
   "whatsNew": {
     "title": "Neu in Handy v{{version}}"
@@ -1139,17 +1169,17 @@
     "filePostProcessFailed": "Die Nachbearbeitung wurde nicht abgeschlossen, daher wurde das Transkript unverändert gespeichert.",
     "fileTranscriptionFailedTitle": "Dateitranskription fehlgeschlagen",
     "mobileServerFailedTitle": "Handy Remote konnte nicht starten",
-    "mobileServerFailed": "Gekoppelte Geräte können sich nicht verbinden. Möglicherweise verwendet eine andere App den Port; wähle in den Freigabe-Einstellungen einen anderen.",
+    "mobileServerFailed": "Gekoppelte Geräte können sich nicht verbinden. Möglicherweise verwendet eine andere App den Port; wähle unter Handy Remote einen anderen.",
     "mobileTranscriptionFailedTitle": "Smartphone-Diktat fehlgeschlagen",
     "transcriptionFailedTitle": "Transkription fehlgeschlagen",
     "remoteUnreachableTitle": "Computer nicht erreichbar",
-    "remoteUnreachable": "Handy konnte den Computer, mit dem es transkribiert, nicht erreichen. Prüfe, ob er wach ist, im selben Netzwerk ist und sein Modell freigibt.",
+    "remoteUnreachable": "Handy konnte den Computer, mit dem es transkribiert, nicht erreichen. Prüfe, ob er wach ist, im selben Netzwerk ist und Remote-Verbindungen zulässt.",
     "remoteBusyTitle": "Anderer Computer belegt",
     "remoteBusy": "Auf dem Computer, mit dem dieser transkribiert, diktiert gerade jemand. Versuche es gleich noch einmal.",
     "remoteNoModelTitle": "Anderer Computer ohne Modell",
     "remoteNoModel": "Der Computer, mit dem dieser transkribiert, hat kein Modell. Lade dort eines herunter.",
     "remoteRejectedTitle": "Computer erneut koppeln",
-    "remoteRejected": "Der andere Computer kennt diesen nicht mehr. Kopple sie unter Modelle erneut.",
+    "remoteRejected": "Der andere Computer kennt diesen nicht mehr. Kopple sie unter Handy Remote erneut.",
     "remoteIncompatibleTitle": "Handy auf beiden aktualisieren",
     "remoteIncompatible": "Die beiden Computer verwenden Handy-Versionen, die nicht zusammenarbeiten können. Aktualisiere beide.",
     "remoteFellBackTitle": "Lokal transkribiert",

@@ -7,6 +7,7 @@ const INITIAL: Snapshot = {
   desktop_version: null,
   default_output: null,
   session: "idle",
+  can_type: null,
   detail: null,
 };
 

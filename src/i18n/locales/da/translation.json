@@ -13,17 +13,18 @@
     "otherLanguages": "Andre sprog",
     "transcribeWith": "Transskribér med",
     "thisComputer": "Denne computer",
-    "offline": "Offline"
+    "offline": "Offline",
+    "remote": "Handy Remote..."
   },
   "sidebar": {
     "general": "Generelt",
     "models": "Modeller",
-    "mobile": "Deling",
     "advanced": "Avanceret",
     "postProcessing": "Efterbehandling",
     "history": "Historik",
     "debug": "Fejlfinding",
-    "about": "Om"
+    "about": "Om",
+    "remote": "Handy Remote"
   },
   "onboarding": {
     "customModelDescription": "Ikke officielt understøttet",
@@ -444,17 +445,21 @@
       "rescan": {
         "label": "Søg igen",
         "tooltip": "Søg igen efter modeller, der er tilføjet til modelmappen eller Hugging Face-cachen uden for Handy"
+      },
+      "remote": {
+        "withFallback": "{{name}} transskriberer for denne computer. Den model, der er valgt her, tager over, når den anden computer ikke kan nås.",
+        "withoutFallback": "{{name}} transskriberer for denne computer. Modellerne her bruges ikke imens."
       }
     },
     "mobile": {
       "intro": "Telefoner og andre computere på dit netværk kan diktere med denne computers model. En telefon optager, denne computer transskriberer.",
       "groups": {
-        "connection": "Forbindelse",
-        "devices": "Parrede enheder",
-        "dictation": "Diktering"
+        "connection": "Del denne computer",
+        "devices": "Fjernforbindelser",
+        "dictation": "Diktering fra telefon"
       },
       "enabled": {
-        "label": "Handy Remote",
+        "label": "Tillad fjernforbindelser",
         "description": "Lad parrede enheder diktere via denne computer. Mens dette er slået til, lytter Handy efter dem på dit lokale netværk."
       },
       "status": {
@@ -464,23 +469,27 @@
         "starting": "Starter…",
         "listening": "Lytter på {{address}}",
         "noNetwork": "Ikke forbundet til et netværk",
-        "failed": "Kunne ikke starte: {{error}}"
+        "failed": "Kunne ikke starte: {{error}}",
+        "alsoAt": "Også på {{addresses}}"
       },
       "port": {
         "title": "Port",
-        "description": "Netværksporten, som parrede enheder opretter forbindelse til. Tillad den i din firewall, hvis de ikke kan oprette forbindelse. Enheder skal parres igen, når du har ændret den."
+        "description": "Netværksporten, som parrede enheder opretter forbindelse til. Tillad den i din firewall, hvis de ikke kan oprette forbindelse. Enheder skal parres igen, når du har ændret den.",
+        "confirmTitle": "Skift port til {{port}}?",
+        "confirm": "Alle parrede enheder skal parres igen. De leder efter denne computer på den port, den havde, da de blev parret.",
+        "change": "Skift port"
       },
       "pair": {
         "button": "Par en telefon",
         "hint": "Ved parring vises en kode, som du scanner eller indsætter på den anden enhed.",
-        "turnOnFirst": "Slå Handy Remote til for at parre en enhed.",
+        "turnOnFirst": "Tillad fjernforbindelser for at parre en enhed.",
         "title": "Par en telefon",
-        "description": "Åbn Handy Mobile på din telefon, og scan denne kode. Telefonen skal være på samme netværk som denne computer.",
+        "description": "Åbn Handy på din telefon, og scan denne kode. Telefonen skal være på samme netværk som denne computer.",
         "qrAlt": "Parringskode",
         "expires": "Koden udløber om {{time}}",
         "expired": "Koden er udløbet.",
         "newCode": "Ny kode",
-        "manual": "Kan du ikke scanne den? Kopiér koden, og indsæt den i Handy Mobile.",
+        "manual": "Kan du ikke scanne den? Kopiér koden, og indsæt den i Handy.",
         "copy": "Kopiér kode",
         "copied": "Parringskoden er kopieret",
         "copyFailed": "Kunne ikke kopiere parringskoden",
@@ -488,11 +497,13 @@
         "failed": "Kunne ikke oprette en parringskode",
         "computerButton": "Par en computer",
         "computerTitle": "Par en computer",
-        "computerDescription": "Åbn Handy på den anden computer, gå til Modeller, vælg En anden computer og derefter Tilføj en computer, og indsæt denne kode.",
-        "computerNote": "En parret computer får sin tekst tilbage. Den kan ikke skrive her, medmindre du tillader det."
+        "computerDescription": "Åbn Handy på den anden computer, gå til Handy Remote, vælg Opret forbindelse til en computer, og indsæt denne kode.",
+        "computerNote": "En parret computer får sin tekst tilbage. Den kan ikke skrive her, medmindre du tillader det.",
+        "turnOn": "Slå til",
+        "computerCarry": "Tag den selv med derhen, for eksempel i en besked eller en note. Behandl den som en adgangskode, indtil den er brugt: den virker én gang."
       },
       "devices": {
-        "empty": "Ingen enheder er parret endnu.",
+        "empty": "Intet er parret med denne computer endnu.",
         "connected": "Forbundet",
         "dictating": "Dikterer…",
         "lastSeen": "Sidst set {{time}}",
@@ -506,27 +517,35 @@
         "removeFailed": "Kunne ikke fjerne parringen",
         "cancel": "Annuller",
         "transcribing": "Transskriberer",
-        "canType": "Skriver her",
-        "canTypeDescription": "Indsæt det, denne enhed dikterer, på denne computer, når den beder om det.",
+        "canType": "Må skrive her",
         "canTypeLabel": "Tillad {{name}} at skrive på denne computer",
-        "canTypeFailed": "Kunne ikke ændre det"
+        "canTypeFailed": "Kunne ikke ændre det",
+        "emptyPhone": "Hvis du vil diktere fra en telefon, skal du installere Handy på den og derefter vælge Par en telefon.",
+        "canTypeNote": "Med Må skrive her kan en enhed indsætte det, den dikterer, på denne computer. Uden det går teksten kun tilbage til enheden."
       },
       "outputMode": {
-        "title": "Send tekst til",
-        "description": "Hvor teksten ender, når en telefon dikterer. Telefonen viser den også altid.",
+        "title": "Telefontekst sendes til",
+        "description": "Det, en telefon starter med. Hver telefon kan skifte i Handy og skriver kun her, mens Må skrive her er slået til for den.",
         "options": {
-          "desktop": "Denne computer",
+          "desktop": "Der, hvor markøren er",
           "phone": "Kun telefonen"
         }
       },
       "postProcess": {
-        "label": "Efterbehandling",
-        "description": "Kør efterbehandling på det, telefoner dikterer."
+        "label": "Efterbehandl diktering fra telefon",
+        "description": "Kør efterbehandling på det, telefoner dikterer.",
+        "unavailable": "Efterbehandling er slået fra. Det er en eksperimentel funktion under Avanceret.",
+        "openAdvanced": "Åbn Avanceret"
       },
       "model": {
         "title": "Model",
         "description": "Det, parrede telefoner og computere transskriberer med: den model, der er valgt på denne computer.",
-        "none": "Ingen. Download en under Modeller."
+        "none": "Ingen",
+        "download": "Download en under Modeller"
+      },
+      "certificate": {
+        "title": "Certifikat",
+        "description": "Begyndelsen af denne computers certifikatfingeraftryk. En computer, der er parret med denne, viser det samme under Detaljer. Hvis de to stemmer overens, taler de med hinanden, og intet sidder imellem dem."
       }
     },
     "languages": {
@@ -1017,7 +1036,8 @@
         "offline": "Kan ikke nås",
         "rejected": "Ikke længere parret",
         "incompatible": "Skal opdateres",
-        "unused": "Ikke i brug"
+        "unused": "Ikke i brug",
+        "available": "Tilgængelig"
       },
       "row": {
         "use": "Transskribér med {{name}}",
@@ -1029,39 +1049,40 @@
         "reconnect": "Prøv igen nu",
         "pairAgain": "Par igen",
         "details": "Detaljer",
-        "hostName": "Navn",
+        "hostName": "Computernavn",
         "address": "Adresse",
         "fingerprint": "Certifikat",
         "version": "Handy-version",
         "lastError": "Seneste fejl",
-        "forget": "Glem",
-        "forgetConfirmTitle": "Glem {{name}}?",
-        "forgetConfirm": "Denne computer holder op med at transskribere med den. Hvis denne computer også skal fjernes fra dens liste, skal du fjerne parringen der under Deling.",
-        "forgetFailed": "Kunne ikke glemme computeren",
-        "cancel": "Annuller"
+        "cancel": "Annuller",
+        "fingerprintHint": "Den viser det samme under Handy Remote.",
+        "unpairConfirm": "Denne computer holder op med at transskribere med den. Den fjerner denne computer fra sin egen liste, hvis den kan nås nu; ellers skal du fjerne parringen med denne computer der, under Handy Remote.",
+        "unpairFailed": "Kunne ikke fjerne parringen med computeren",
+        "unpair": "Fjern parring",
+        "unpairConfirmTitle": "Fjern parringen med {{name}}?"
       },
       "incompatible": "{{name}} kører en version af Handy, der ikke kan transskribere for denne computer. Opdater Handy på begge computere.",
       "computers": {
-        "title": "Computere",
-        "description": "En anden computer, der kører Handy, kan transskribere for denne med sin model. Vælg den, der skal bruges.",
-        "empty": "Ingen computere er parret endnu.",
-        "hint": "Den anden computer deler sin model under Deling.",
-        "add": "Tilføj en computer"
+        "title": "Brug en anden computer",
+        "description": "En anden computer, der kører Handy, kan transskribere det, du dikterer her, med sin model.",
+        "empty": "Du har ikke oprettet forbindelse til en computer endnu.",
+        "hint": "Den anden computer skal tillade fjernforbindelser, under Handy Remote.",
+        "add": "Opret forbindelse til en computer"
       },
       "fallback": {
-        "group": "Når den ikke kan nås",
-        "label": "Brug denne computers model",
+        "label": "Fald tilbage på denne computers model",
         "description": "Hvis den anden computer sover, er optaget eller offline, transskriberes der her i stedet, og det bliver vist.",
-        "noModel": "Denne computer har ingen model at falde tilbage på. Vælg Denne computer ovenfor for at downloade en."
+        "noModel": "Denne computer har ingen model at falde tilbage på.",
+        "getModel": "Download en under Modeller"
       },
       "stays": "Kun lyden sendes til den anden computer sammen med dit sprog, dine brugerdefinerede ord og fyldord. Efterbehandling, historik og indsættelse bliver på denne computer.",
       "decidedElsewhere": "Indstilles på den computer, der transskriberer",
       "add": {
-        "title": "Tilføj en computer",
+        "title": "Opret forbindelse til en computer",
         "steps": {
-          "open": "Åbn Handy på den anden computer, og gå til Deling.",
-          "share": "Slå Deling til, vælg Par en computer og derefter Kopiér kode.",
-          "paste": "Indsæt koden her."
+          "open": "Åbn Handy på den anden computer, og gå til Handy Remote.",
+          "share": "Slå Tillad fjernforbindelser til, vælg Par en computer og derefter Kopiér kode.",
+          "paste": "Tag koden med til denne computer, for eksempel i en besked eller en note til dig selv, og indsæt den her. Den virker én gang, i fem minutter."
         },
         "placeholder": "handy://pair?…",
         "codeLabel": "Parringskode",
@@ -1073,12 +1094,14 @@
           "expired_code": "Koden er udløbet eller allerede brugt. Opret en ny på den anden computer.",
           "incompatible": "Handy på den anden computer kan ikke transskribere for denne. Opdater Handy på begge.",
           "rate_limited": "For mange forsøg. Vent et minut, og prøv så igen.",
-          "unreachable": "Den anden computer kan ikke nås. Tjek, at begge er på samme netværk, og at Deling er slået til der.",
+          "unreachable": "Den anden computer kan ikke nås. Tjek, at begge er på samme netværk, og at den tillader fjernforbindelser.",
           "untrusted": "Noget andet svarede på den anden computers adresse. Opret en ny kode, og prøv igen.",
           "self": "Koden er fra denne computer. Indsæt den på den anden.",
           "failed": "Parringen mislykkedes. Prøv igen."
         }
-      }
+      },
+      "open": "Åbn Handy Remote",
+      "localOnly": "Gælder kun, når denne computer transskriberer"
     }
   },
   "footer": {
@@ -1094,7 +1117,14 @@
     "portableUpdateMessage": "Flytbare installationer kan ikke opdateres automatisk. Download installeren til dit system nedenfor, kør den, og installer i den samme mappe — din Data/-mappe (indstillinger, modeller, optagelser) bliver bevaret.",
     "portableUpdateButton": "Download installer",
     "portableUpdateBrowseMessage": "Flytbare installationer kan ikke opdateres automatisk. Download den nyeste version til dit system fra GitHub Releases, og installer den i den samme mappe — din Data/-mappe (indstillinger, modeller, optagelser) bliver bevaret.",
-    "portableUpdateBrowseButton": "Åbn GitHub Releases"
+    "portableUpdateBrowseButton": "Åbn GitHub Releases",
+    "remote": {
+      "on": "Remote til",
+      "connected": "Forbundet: {{count}}",
+      "dictating": "{{name}} dikterer",
+      "failed": "Fjernforbindelser mislykkedes",
+      "manage": "Fjernforbindelser…"
+    }
   },
   "whatsNew": {
     "title": "Nyt i Handy v{{version}}"
@@ -1139,17 +1169,17 @@
     "filePostProcessFailed": "Efterbehandlingen blev ikke færdig, så transskriptionen blev gemt, som den er.",
     "fileTranscriptionFailedTitle": "Transskription af fil mislykkedes",
     "mobileServerFailedTitle": "Handy Remote kunne ikke starte",
-    "mobileServerFailed": "Parrede enheder kan ikke oprette forbindelse. En anden app bruger måske porten; vælg en anden i indstillingerne for Deling.",
+    "mobileServerFailed": "Parrede enheder kan ikke oprette forbindelse. En anden app bruger måske porten; vælg en anden i Handy Remote.",
     "mobileTranscriptionFailedTitle": "Diktering fra telefon mislykkedes",
     "transcriptionFailedTitle": "Transskription mislykkedes",
     "remoteUnreachableTitle": "Anden computer kan ikke nås",
-    "remoteUnreachable": "Handy kunne ikke nå den computer, den transskriberer med. Tjek, at den er vågen, på samme netværk og deler sin model.",
+    "remoteUnreachable": "Handy kunne ikke nå den computer, den transskriberer med. Tjek, at den er vågen, på samme netværk og tillader fjernforbindelser.",
     "remoteBusyTitle": "Anden computer er optaget",
     "remoteBusy": "Nogen dikterer på den computer, som denne transskriberer med. Prøv igen om lidt.",
     "remoteNoModelTitle": "Anden computer mangler model",
     "remoteNoModel": "Den computer, som denne transskriberer med, har ingen model. Download en der.",
     "remoteRejectedTitle": "Par computeren igen",
-    "remoteRejected": "Den anden computer kender ikke længere denne. Par dem igen under Modeller.",
+    "remoteRejected": "Den anden computer kender ikke længere denne. Par dem igen i Handy Remote.",
     "remoteIncompatibleTitle": "Opdater Handy på begge",
     "remoteIncompatible": "De to computere kører versioner af Handy, der ikke kan arbejde sammen. Opdater begge.",
     "remoteFellBackTitle": "Transskriberet lokalt",

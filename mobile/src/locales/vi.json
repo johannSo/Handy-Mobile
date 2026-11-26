@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "Ghép nối với máy tính của bạn",
+    "intro": "Điện thoại của bạn là micrô. Handy trên máy tính sẽ phiên âm.",
+    "step1": "Mở Handy trên máy tính và vào Handy Remote.",
+    "step2": "Bật Cho phép kết nối từ xa rồi chọn Ghép nối điện thoại.",
+    "step3": "Quét mã hiện ra. Cả hai thiết bị phải ở cùng một mạng.",
+    "scan": "Quét mã ghép nối",
+    "manual": "Nhập mã thay vì quét",
+    "manualPlaceholder": "Dán mã ghép nối từ máy tính của bạn",
+    "manualSubmit": "Ghép nối",
+    "pairing": "Đang ghép nối…",
+    "scanHint": "Hướng camera vào mã trên máy tính",
+    "cancelScan": "Hủy",
+    "errors": {
+      "invalid_code": "Đây không phải mã ghép nối Handy.",
+      "expired_code": "Mã này đã hết hạn hoặc đã được dùng. Hãy tạo mã mới trên máy tính.",
+      "incompatible": "Phiên bản của ứng dụng này và của Handy trên máy tính cách nhau quá xa. Hãy cập nhật cả hai.",
+      "rate_limited": "Thử quá nhiều lần. Hãy đợi một phút rồi thử lại.",
+      "unreachable": "Không thể kết nối tới máy tính của bạn. Hãy đảm bảo cả hai thiết bị cùng mạng, tường lửa không chặn Handy và Handy được phép tìm thiết bị ở gần trong cài đặt điện thoại.",
+      "untrusted": "Có thứ gì đó không phải máy tính của bạn đã phản hồi. Hãy tạo mã mới và thử lại.",
+      "failed": "Ghép nối không thành công. Hãy thử lại.",
+      "camera_denied": "Handy cần camera để quét mã. Hãy cho phép trong cài đặt điện thoại, hoặc nhập mã thay vì quét.",
+      "scan_failed": "Không thể khởi động camera. Hãy nhập mã thay vì quét."
+    },
+    "back": "Quay lại"
+  },
+  "link": {
+    "connecting": "Đang kết nối…",
+    "connected": "Đã kết nối",
+    "notPaired": "Chưa ghép nối",
+    "updateNeeded": "Cần cập nhật",
+    "offline": "Không thể kết nối tới máy tính",
+    "offlineHint": "Hãy đảm bảo Handy đang chạy trên {{name}}, cả hai thiết bị cùng mạng và Handy được phép tìm thiết bị ở gần trong cài đặt điện thoại.",
+    "retry": "Thử lại",
+    "rejected": "Điện thoại này không còn ghép nối với {{name}}.",
+    "incompatible": "Phiên bản của ứng dụng này và của Handy trên {{name}} cách nhau quá xa. Hãy cập nhật cả hai.",
+    "pairAgain": "Ghép nối lại",
+    "yourComputer": "máy tính của bạn"
+  },
+  "record": {
+    "tapToStart": "Nhấn để đọc chính tả",
+    "starting": "Đang bắt đầu…",
+    "listening": "Đang nghe… nhấn để kết thúc",
+    "finishing": "Đang kết thúc…",
+    "transcribing": "Đang phiên âm…",
+    "start": "Bắt đầu đọc chính tả",
+    "stop": "Kết thúc đọc chính tả",
+    "cancel": "Hủy"
+  },
+  "output": {
+    "label": "Gửi văn bản tới",
+    "desktop": "Máy tính",
+    "phone": "Chỉ điện thoại",
+    "desktopHint": "Được nhập tại vị trí con trỏ trên {{name}}.",
+    "phoneHint": "Hiển thị tại đây và được sao chép vào bộ nhớ tạm.",
+    "notAllowedHint": "{{name}} không cho phép điện thoại này nhập trên máy đó. Để thay đổi, hãy bật Có thể nhập tại đây cho điện thoại này trong mục Handy Remote trên máy tính."
+  },
+  "transcripts": {
+    "empty": "Nội dung bạn đọc chính tả sẽ hiện ở đây.",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "share": "Chia sẻ",
+    "pasted": "Đã nhập trên máy tính",
+    "notPasted": "Không nhập trên máy tính",
+    "clear": "Xóa"
+  },
+  "notices": {
+    "noSpeech": "Không nghe thấy gì.",
+    "micDenied": "Handy cần micrô. Hãy cho phép trong cài đặt điện thoại.",
+    "micUnavailable": "Không thể khởi động micrô.",
+    "connectionLost": "Kết nối bị ngắt nên bản ghi đó không được phiên âm.",
+    "busy": "Máy tính của bạn đang bận với một lần đọc chính tả khác.",
+    "no_model": "Handy trên máy tính chưa chọn mô hình nào.",
+    "transcription_failed": "Máy tính của bạn không thể phiên âm nội dung đó.",
+    "paste_failed": "Máy tính của bạn không thể nhập văn bản, nên văn bản chỉ có ở đây.",
+    "too_long": "Đã đạt giới hạn độ dài nên phần đọc chính tả được tự động kết thúc.",
+    "generic": "Đã xảy ra lỗi trên máy tính của bạn."
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "computer": "Máy tính đã ghép nối",
+    "version": "Handy {{version}}",
+    "unpair": "Hủy ghép nối",
+    "unpairConfirm": "Hủy ghép nối với {{name}}? Bạn sẽ cần quét mã mới để đọc chính tả lại.",
+    "unpairNote": "Nếu kết nối được ngay lúc này, {{name}} sẽ xóa điện thoại này khỏi danh sách của nó. Nếu không, hãy hủy ghép nối điện thoại trên máy đó, trong mục Handy Remote.",
+    "confirm": "Hủy ghép nối",
+    "cancel": "Hủy",
+    "close": "Đóng"
+  },
+  "keyboard": {
+    "title": "Đọc chính tả trong mọi ứng dụng",
+    "intro": "Có hai cách để đọc chính tả ở bất cứ nơi nào bạn gõ: một bong bóng nổi xuất hiện bên cạnh mọi ô nhập văn bản, và một bàn phím có micrô thay cho các phím. Dù dùng cách nào, lời bạn nói đều được phiên âm trên máy tính và nhập vào ô văn bản trên điện thoại. Hãy thiết lập một hoặc cả hai.",
+    "steps": {
+      "microphone": {
+        "title": "Cho phép micrô",
+        "description": "Để bong bóng và bàn phím có thể nghe bạn nói. Hãy chọn “Trong khi dùng ứng dụng”; “Chỉ lần này” sẽ hết hiệu lực.",
+        "action": "Cho phép"
+      },
+      "localNetwork": {
+        "title": "Cho phép thiết bị ở gần",
+        "description": "Để điện thoại có thể kết nối tới máy tính trong mạng của bạn.",
+        "action": "Cho phép"
+      },
+      "enable": {
+        "title": "Bật bàn phím Handy",
+        "description": "Bật Handy trong danh sách hiện ra và xác nhận cả hai lời nhắc của Android, rồi quay lại đây. Android cảnh báo rằng bàn phím có thể thu thập nội dung bạn gõ. Bàn phím của Handy chỉ gửi giọng nói của bạn, và chỉ gửi tới máy tính của chính bạn.",
+        "action": "Mở cài đặt bàn phím"
+      },
+      "select": {
+        "title": "Chuyển sang bàn phím Handy",
+        "description": "Chọn Handy trong danh sách bàn phím.",
+        "action": "Chọn bàn phím"
+      },
+      "bubble": {
+        "title": "Bật bong bóng nổi",
+        "description": "Bật Handy Bubble trong cài đặt hỗ trợ tiếp cận hiện ra, trong mục ứng dụng đã cài đặt hoặc đã tải xuống, rồi quay lại đây. Android cảnh báo rằng nó có thể xem và điều khiển màn hình. Handy chỉ dùng quyền này để nhận biết bạn đang ở trong ô nhập văn bản và để nhập nội dung bạn đọc chính tả.",
+        "action": "Mở cài đặt hỗ trợ tiếp cận",
+        "helpTitle": "Công tắc bị mờ đi?",
+        "help": "Android hạn chế cài đặt này đối với ứng dụng được cài từ tệp. Hãy nhấn một lần vào công tắc bị mờ để Android hiện thông báo, sau đó mở Thông tin ứng dụng, nhấn vào dấu ba chấm ở trên cùng bên phải và chọn “Cho phép các chế độ cài đặt bị hạn chế”.",
+        "helpAction": "Mở Thông tin ứng dụng"
+      }
+    },
+    "tryLabel": "Thử ngay",
+    "tryPlaceholder": "Nhấn vào đây, rồi nhấn vào micrô",
+    "switchHint": "Nút bàn phím trên bàn phím Handy đưa bạn trở lại bàn phím thường dùng. Để chuyển sang Handy từ bàn phím khác, hãy dùng nút bàn phím hoặc nút quả địa cầu của bàn phím đó.",
+    "done": "Xong",
+    "later": "Để sau",
+    "back": "Quay lại",
+    "settingsRow": "Bong bóng và bàn phím",
+    "new": "Mới",
+    "bubbleHint": "Nhấn vào bong bóng để bắt đầu đọc chính tả và nhấn lần nữa để kết thúc, hoặc giữ bong bóng trong lúc bạn nói. Giữ bong bóng khi đang đọc chính tả sẽ hủy. Kéo bong bóng tới chỗ bạn thấy tiện; nó sẽ dính vào cạnh gần nhất.",
+    "settingsBubbleOn": "Bong bóng đang bật",
+    "settingsBubbleOff": "Bong bóng đang tắt",
+    "settingsKeyboardOn": "Bàn phím đang bật",
+    "settingsKeyboardOff": "Bàn phím đang tắt"
+  }
+}

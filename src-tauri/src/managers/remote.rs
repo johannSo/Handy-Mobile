@@ -25,6 +25,7 @@ use handy_link::protocol::{
 use log::{debug, info, warn};
 use serde::{Deserialize, Serialize};
 use specta::Type;
+use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Mutex, MutexGuard, PoisonError};
@@ -103,7 +104,7 @@ pub enum RemoteLinkState {
     Incompatible,
 }
 
-/// A paired computer, as the Models tab lists it.
+/// A paired computer, as the Handy Remote tab lists it.
 #[derive(Clone, Debug, Serialize, Deserialize, Type)]
 pub struct RemoteServer {
     pub id: String,
@@ -116,6 +117,9 @@ pub struct RemoteServer {
     pub fingerprint: String,
     /// Unix seconds.
     pub paired_at: i64,
+    /// Whether it answered when last looked for, `None` until then. For the
+    /// computer in use the link says more.
+    pub reachable: Option<bool>,
 }
 
 /// The model a computer transcribes with.
@@ -206,6 +210,8 @@ struct Inner {
     status: RemoteStatus,
     /// Whether the connected computer answers `prepare`.
     can_prepare: bool,
+    /// Which paired computers answered when last looked for, by id.
+    reachable: HashMap<String, bool>,
 }
 
 pub struct RemoteEngineManager {
@@ -242,8 +248,14 @@ fn server_view(server: &StoredServer) -> RemoteServer {
             .map(ToString::to_string)
             .collect(),
         port: server.desktop.port,
-        fingerprint: server.desktop.fingerprint.chars().take(16).collect(),
+        fingerprint: server
+            .desktop
+            .fingerprint
+            .chars()
+            .take(crate::managers::mobile::FINGERPRINT_SHOWN)
+            .collect(),
         paired_at: server.paired_at,
+        reachable: None,
     }
 }
 
@@ -337,6 +349,7 @@ impl RemoteEngineManager {
                     simulate_offline: false,
                 },
                 can_prepare: false,
+                reachable: HashMap::new(),
             }),
             generation: AtomicU64::new(0),
             retry_now: Notify::new(),
@@ -416,17 +429,22 @@ impl RemoteEngineManager {
         self.selected(&get_settings(&self.app)).is_some()
     }
 
+    /// The paired computers as the UI lists them.
+    fn views(&self, inner: &mut Inner) -> Vec<RemoteServer> {
+        let mut servers: Vec<RemoteServer> =
+            self.store(inner).servers.iter().map(server_view).collect();
+        for server in &mut servers {
+            server.reachable = inner.reachable.get(&server.id).copied();
+        }
+        servers
+    }
+
     /// Changes the status and tells the UI and the tray.
     fn publish(&self, change: impl FnOnce(&mut RemoteStatus)) {
         let status = {
             let mut inner = self.lock();
             change(&mut inner.status);
-            let servers: Vec<RemoteServer> = self
-                .store(&mut inner)
-                .servers
-                .iter()
-                .map(server_view)
-                .collect();
+            let servers = self.views(&mut inner);
             inner.status.servers = servers;
             inner.status.simulate_offline = self.simulate_offline.load(Ordering::Acquire);
             inner.status.clone()
@@ -440,12 +458,7 @@ impl RemoteEngineManager {
 
     pub fn status(&self) -> RemoteStatus {
         let mut inner = self.lock();
-        let servers: Vec<RemoteServer> = self
-            .store(&mut inner)
-            .servers
-            .iter()
-            .map(server_view)
-            .collect();
+        let servers = self.views(&mut inner);
         inner.status.servers = servers;
         inner.status.simulate_offline = self.simulate_offline.load(Ordering::Acquire);
         inner.status.clone()
@@ -640,6 +653,46 @@ impl RemoteEngineManager {
         }
     }
 
+    /// Looks for every paired computer on the network, so the list can say
+    /// which would answer before one is switched to. Nothing is asked of
+    /// them: a connection that is closed at once, or the broadcast a
+    /// reconnect uses.
+    pub async fn probe(self: &Arc<Self>) {
+        let servers: Vec<Desktop> = {
+            let mut inner = self.lock();
+            self.store(&mut inner)
+                .servers
+                .iter()
+                .map(|server| server.desktop.clone())
+                .collect()
+        };
+        let simulated = self.simulate_offline.load(Ordering::Acquire);
+        let checks: Vec<_> = servers
+            .into_iter()
+            .map(|desktop| {
+                tauri::async_runtime::spawn(async move {
+                    let found = !simulated && answers(&desktop).await;
+                    (desktop.desktop_id, found)
+                })
+            })
+            .collect();
+        let mut found = HashMap::new();
+        for check in checks {
+            if let Ok((id, reachable)) = check.await {
+                found.insert(id, reachable);
+            }
+        }
+        let changed = {
+            let mut inner = self.lock();
+            let changed = inner.reachable != found;
+            inner.reachable = found;
+            changed
+        };
+        if changed {
+            self.publish(|_| {});
+        }
+    }
+
     /// Tries to reach the selected computer now instead of at the next
     /// retry, and starts over after a refusal.
     pub fn reconnect(self: &Arc<Self>) {
@@ -742,20 +795,40 @@ impl RemoteEngineManager {
         Ok(view)
     }
 
-    /// Forgets a computer. It still lists this one until unpaired there too,
-    /// but nothing here can use that pairing any more.
+    /// Forgets a computer, and asks it to forget this one. Nothing here can
+    /// use that pairing any more, whether or not it heard.
     pub fn forget(self: &Arc<Self>, id: &str) -> Result<()> {
-        let remaining: Vec<String> = {
+        let (forgotten, remaining): (Option<StoredServer>, Vec<String>) = {
             let mut inner = self.lock();
+            inner.reachable.remove(id);
             let store = self.store(&mut inner);
-            store.servers.retain(|s| s.desktop.desktop_id != id);
-            self.save(store)?;
-            store
+            let forgotten = store
                 .servers
                 .iter()
-                .map(|s| s.desktop.desktop_id.clone())
-                .collect()
+                .find(|s| s.desktop.desktop_id == id)
+                .cloned();
+            store.servers.retain(|s| s.desktop.desktop_id != id);
+            self.save(store)?;
+            (
+                forgotten,
+                store
+                    .servers
+                    .iter()
+                    .map(|s| s.desktop.desktop_id.clone())
+                    .collect(),
+            )
         };
+        // So it doesn't keep listing a computer that can no longer use it.
+        // If it can't be reached now, it keeps the entry until removed there.
+        if let Some(server) = forgotten {
+            tauri::async_runtime::spawn(async move {
+                let mut desktop = server.desktop;
+                match client::unpair(&mut desktop, &client_info()).await {
+                    Ok(()) => info!("Told {} it is unpaired", desktop.desktop_name),
+                    Err(e) => debug!("Couldn't tell {} it is unpaired: {e}", desktop.desktop_name),
+                }
+            });
+        }
         let mut settings = get_settings(&self.app);
         if settings.remote_server_id.as_deref() == Some(id) {
             // Another paired computer takes its place, or this one's model.
@@ -772,7 +845,7 @@ impl RemoteEngineManager {
     }
 
     /// The settings window re-reads the settings this changed.
-    fn settings_changed(&self) {
+    pub fn settings_changed(&self) {
         use tauri::Emitter;
         let _ = self.app.emit(
             "settings-changed",
@@ -1185,6 +1258,28 @@ pub fn transcribe_file(
         text: paragraphs.join("\n\n"),
         language,
     }))
+}
+
+/// How long a look for a paired computer waits at each address.
+const PROBE_WAIT: Duration = Duration::from_millis(1500);
+
+/// Whether something listens where a paired computer was last seen, or the
+/// computer says where it is now.
+async fn answers(desktop: &Desktop) -> bool {
+    for &ip in &desktop.addresses {
+        let connect = tokio::net::TcpStream::connect((ip, desktop.port));
+        if matches!(tokio::time::timeout(PROBE_WAIT, connect).await, Ok(Ok(_))) {
+            return true;
+        }
+    }
+    handy_link::discovery::find(
+        &desktop.desktop_id,
+        desktop.port,
+        &desktop.addresses,
+        PROBE_WAIT,
+    )
+    .await
+    .is_some()
 }
 
 fn client_info() -> ClientInfo {

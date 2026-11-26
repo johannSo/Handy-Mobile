@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Diktat"</string>
+    <string name="keyboard_tap_to_dictate">"Zum Diktieren tippen"</string>
+    <string name="keyboard_listening">"Hört zu… zum Beenden tippen"</string>
+    <string name="keyboard_transcribing">"Transkribiert…"</string>
+    <string name="keyboard_connecting">"Verbindet mit %1$s…"</string>
+    <string name="keyboard_offline">"Keine Verbindung zu %1$s. Tippen, um es erneut zu versuchen."</string>
+    <string name="keyboard_your_computer">"deinem Computer"</string>
+    <string name="keyboard_unpaired">"Tippen, um mit deinem Computer zu koppeln"</string>
+    <string name="keyboard_rejected">"Nicht mehr gekoppelt. Tippen, um erneut zu koppeln."</string>
+    <string name="keyboard_incompatible">"Aktualisiere Handy auf Smartphone und Computer"</string>
+    <string name="keyboard_needs_microphone">"Tippen, um das Mikrofon zu erlauben"</string>
+    <string name="keyboard_microphone_failed">"Das Mikrofon konnte nicht gestartet werden"</string>
+    <string name="keyboard_nothing_heard">"Es wurde nichts gehört"</string>
+    <string name="keyboard_connection_lost">"Die Verbindung ist abgebrochen. Versuche es erneut."</string>
+    <string name="keyboard_busy">"Dein Computer ist mit einem anderen Diktat beschäftigt"</string>
+    <string name="keyboard_no_model">"In Handy auf deinem Computer ist kein Modell ausgewählt"</string>
+    <string name="keyboard_too_long">"Die maximale Länge wurde erreicht"</string>
+    <string name="keyboard_failed">"Dein Computer konnte das nicht transkribieren"</string>
+    <string name="keyboard_dictate">"Diktat starten"</string>
+    <string name="keyboard_finish">"Diktat beenden"</string>
+    <string name="keyboard_cancel">"Abbrechen"</string>
+    <string name="keyboard_switch">"Tastatur wechseln"</string>
+    <string name="keyboard_space">"leerzeichen"</string>
+    <string name="keyboard_backspace">"Löschen"</string>
+    <string name="keyboard_enter">"Eingabe"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"Ein schwebendes Mikrofon zum Diktieren in jedes Textfeld"</string>
+    <string name="bubble_description">"Zeigt ein schwebendes Mikrofon am Bildschirmrand, während du in einem Textfeld bist. Tippe darauf oder halte es gedrückt, um zu diktieren; was du sagst, wird auf deinem Computer transkribiert und in das Feld getippt.\n\nHandy nutzt diesen Zugriff nur, um zu erkennen, dass ein Textfeld verwendet wird, und um dein Diktat dort einzutippen. Es liest oder sendet nichts anderes von deinem Bildschirm."</string>
+    <string name="bubble_dictate">"Mit Handy diktieren"</string>
+    <string name="bubble_cancelled">"Abgebrochen"</string>
+    <string name="bubble_offline">"Keine Verbindung zu %1$s"</string>
+    <string name="bubble_copied">"Kopiert. Füge es ein, wo du es brauchst."</string>
+</resources>

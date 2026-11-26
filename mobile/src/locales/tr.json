@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "Bilgisayarınızla Eşleştirin",
+    "intro": "Telefonunuz mikrofon görevi görür. Yazıya dökme işini bilgisayarınızdaki Handy yapar.",
+    "step1": "Bilgisayarınızda Handy'yi açın ve Handy Remote'a gidin.",
+    "step2": "Uzak Bağlantılara İzin Ver'i açın ve Telefon Eşleştir'i seçin.",
+    "step3": "Gösterilen kodu tarayın. İki cihaz da aynı ağda olmalıdır.",
+    "scan": "Eşleştirme Kodunu Tara",
+    "manual": "Bunun Yerine Kodu Gir",
+    "manualPlaceholder": "Bilgisayarınızdaki eşleştirme kodunu yapıştırın",
+    "manualSubmit": "Eşleştir",
+    "pairing": "Eşleştiriliyor…",
+    "scanHint": "Kamerayı bilgisayarınızdaki koda doğrultun",
+    "cancelScan": "İptal",
+    "errors": {
+      "invalid_code": "Bu bir Handy eşleştirme kodu değil.",
+      "expired_code": "Bu kodun süresi dolmuş ya da kod zaten kullanılmış. Bilgisayarınızda yeni bir kod oluşturun.",
+      "incompatible": "Bu uygulamanın sürümü ile bilgisayarınızdaki Handy'nin sürümü birbirinden çok farklı. İkisini de güncelleyin.",
+      "rate_limited": "Çok fazla deneme yapıldı. Bir dakika bekleyip tekrar deneyin.",
+      "unreachable": "Bilgisayarınıza ulaşılamıyor. İki cihazın da aynı ağda olduğundan, bir güvenlik duvarının Handy'yi engellemediğinden ve telefonunuzun ayarlarında Handy'nin yakındaki cihazları bulmasına izin verildiğinden emin olun.",
+      "untrusted": "Bilgisayarınız olmayan bir şey yanıt verdi. Yeni bir kod oluşturup tekrar deneyin.",
+      "failed": "Eşleştirme başarısız oldu. Tekrar deneyin.",
+      "camera_denied": "Handy'nin kodu taramak için kameraya ihtiyacı var. Telefonunuzun ayarlarından izin verin veya bunun yerine kodu girin.",
+      "scan_failed": "Kamera başlatılamadı. Bunun yerine kodu girin."
+    },
+    "back": "Geri"
+  },
+  "link": {
+    "connecting": "Bağlanıyor…",
+    "connected": "Bağlı",
+    "notPaired": "Eşleştirilmedi",
+    "updateNeeded": "Güncelleme gerekli",
+    "offline": "Bilgisayarınıza ulaşılamıyor",
+    "offlineHint": "Handy'nin {{name}} üzerinde çalıştığından, iki cihazın da aynı ağda olduğundan ve telefonunuzun ayarlarında Handy'nin yakındaki cihazları bulmasına izin verildiğinden emin olun.",
+    "retry": "Tekrar Dene",
+    "rejected": "Bu telefon artık {{name}} ile eşleştirilmiş değil.",
+    "incompatible": "Bu uygulamanın sürümü ile {{name}} üzerindeki Handy'nin sürümü birbirinden çok farklı. İkisini de güncelleyin.",
+    "pairAgain": "Yeniden Eşleştir",
+    "yourComputer": "bilgisayarınız"
+  },
+  "record": {
+    "tapToStart": "Dikte etmek için dokunun",
+    "starting": "Başlatılıyor…",
+    "listening": "Dinleniyor… bitirmek için dokunun",
+    "finishing": "Bitiriliyor…",
+    "transcribing": "Yazıya dökülüyor…",
+    "start": "Dikteyi başlat",
+    "stop": "Dikteyi bitir",
+    "cancel": "İptal"
+  },
+  "output": {
+    "label": "Metni şuraya gönder",
+    "desktop": "Bilgisayar",
+    "phone": "Yalnızca telefon",
+    "desktopHint": "{{name}} üzerinde imlecin olduğu yere yazılır.",
+    "phoneHint": "Burada gösterilir ve panoya kopyalanır.",
+    "notAllowedHint": "{{name}}, bu telefonun kendisine yazmasına izin vermiyor. Bunu değiştirmek için bilgisayarda Handy Remote altından bu telefon için Buraya Yazabilir'i açın."
+  },
+  "transcripts": {
+    "empty": "Dikte ettikleriniz burada görünür.",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "share": "Paylaş",
+    "pasted": "Bilgisayarınıza yazıldı",
+    "notPasted": "Bilgisayarınıza yazılmadı",
+    "clear": "Temizle"
+  },
+  "notices": {
+    "noSpeech": "Hiçbir şey duyulmadı.",
+    "micDenied": "Handy'nin mikrofona ihtiyacı var. Telefonunuzun ayarlarından izin verin.",
+    "micUnavailable": "Mikrofon başlatılamadı.",
+    "connectionLost": "Bağlantı koptuğu için bu kayıt yazıya dökülmedi.",
+    "busy": "Bilgisayarınız başka bir dikteyle meşgul.",
+    "no_model": "Bilgisayarınızdaki Handy'de seçili model yok.",
+    "transcription_failed": "Bilgisayarınız bunu yazıya dökemedi.",
+    "paste_failed": "Bilgisayarınız metni yazamadı, bu yüzden metin yalnızca burada.",
+    "too_long": "Uzunluk sınırına ulaşıldığı için dikte sizin yerinize bitirildi.",
+    "generic": "Bilgisayarınızda bir sorun oluştu."
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "computer": "Eşleştirilmiş bilgisayar",
+    "version": "Handy {{version}}",
+    "unpair": "Eşleştirmeyi Kaldır",
+    "unpairConfirm": "{{name}} ile eşleştirme kaldırılsın mı? Yeniden dikte etmek için yeni bir kod taramanız gerekecek.",
+    "unpairNote": "Şu anda ulaşılabiliyorsa {{name}} bu telefonu listesinden kaldırır. Ulaşılamıyorsa telefonun eşleştirmesini orada, Handy Remote altından kaldırın.",
+    "confirm": "Eşleştirmeyi Kaldır",
+    "cancel": "İptal",
+    "close": "Kapat"
+  },
+  "keyboard": {
+    "title": "Her Uygulamada Dikte Edin",
+    "intro": "Yazı yazdığınız her yerde dikte etmenin iki yolu var: herhangi bir metin alanının yanında beliren kayan bir balon ve tuşların yerinde mikrofon bulunan bir klavye. Her iki durumda da söyledikleriniz bilgisayarınızda yazıya dökülür ve telefonunuzdaki metin alanına yazılır. Birini veya ikisini birden kurun.",
+    "steps": {
+      "microphone": {
+        "title": "Mikrofona İzin Verin",
+        "description": "Balonun ve klavyenin sizi duyabilmesi için. “Uygulamayı kullanırken” seçeneğini seçin; “Yalnız bu sefer” izni kalıcı değildir.",
+        "action": "İzin Ver"
+      },
+      "localNetwork": {
+        "title": "Yakındaki Cihazlara İzin Verin",
+        "description": "Telefonunuzun ağınızdaki bilgisayarınıza ulaşabilmesi için.",
+        "action": "İzin Ver"
+      },
+      "enable": {
+        "title": "Handy Klavyesini Açın",
+        "description": "Açılan listede Handy'yi açın ve Android'in iki uyarısını da onaylayın, sonra buraya dönün. Android, bir klavyenin yazdıklarınızı toplayabileceği konusunda uyarır. Handy'nin klavyesi yalnızca sesinizi, yalnızca kendi bilgisayarınıza gönderir.",
+        "action": "Klavye Ayarlarını Aç"
+      },
+      "select": {
+        "title": "Handy Klavyesine Geçin",
+        "description": "Klavye listesinden Handy'yi seçin.",
+        "action": "Klavye Seç"
+      },
+      "bubble": {
+        "title": "Kayan Balonu Açın",
+        "description": "Açılan erişilebilirlik ayarlarında, yüklü veya indirilen uygulamalar altında Handy Bubble'ı açın, sonra buraya dönün. Android, bunun ekranı görüp kontrol edebileceği konusunda uyarır. Handy bunu yalnızca bir metin alanında olduğunuzu fark etmek ve dikte ettiklerinizi yazmak için kullanır.",
+        "action": "Erişilebilirlik Ayarlarını Aç",
+        "helpTitle": "Anahtar gri mi görünüyor?",
+        "help": "Android, dosyadan yüklenen uygulamalar için bu ayarı kısıtlar. Android'in bildirimini göstermesi için gri görünen anahtara bir kez dokunun, ardından Uygulama Bilgileri'ni açın, sağ üstteki üç noktaya dokunun ve “Kısıtlanmış ayarlara izin verme” seçeneğini belirleyin.",
+        "helpAction": "Uygulama Bilgilerini Aç"
+      }
+    },
+    "tryLabel": "Deneyin",
+    "tryPlaceholder": "Buraya dokunun, sonra mikrofona dokunun",
+    "switchHint": "Handy klavyesindeki klavye düğmesi sizi her zamanki klavyenize geri götürür. Başka bir klavyeden Handy'ye geçmek için o klavyenin klavye veya küre düğmesini kullanın.",
+    "done": "Bitti",
+    "later": "Şimdi Değil",
+    "back": "Geri",
+    "settingsRow": "Balon ve Klavye",
+    "new": "Yeni",
+    "bubbleHint": "Dikteyi başlatmak için balona dokunun, bitirmek için tekrar dokunun veya konuşurken basılı tutun. Dikte sırasında basılı tutmak dikteyi iptal eder. Balonu size uygun yere sürükleyin; en yakın kenara yerleşir.",
+    "settingsBubbleOn": "Balon açık",
+    "settingsBubbleOff": "Balon kapalı",
+    "settingsKeyboardOn": "Klavye açık",
+    "settingsKeyboardOff": "Klavye kapalı"
+  }
+}

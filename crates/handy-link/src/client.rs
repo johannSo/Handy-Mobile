@@ -151,6 +151,10 @@ pub struct DesktopInfo {
     /// [`crate::protocol::feature`].
     pub features: Vec<String>,
     pub model: Option<ModelInfo>,
+    /// Whether the desktop lets this device paste into it. `None` from a
+    /// desktop that doesn't say.
+    #[serde(default)]
+    pub can_type: Option<bool>,
 }
 
 impl DesktopInfo {
@@ -230,6 +234,7 @@ pub async fn pair_with(
             default_output,
             features,
             model,
+            can_type,
         } => {
             let mut addresses = payload.addresses.clone();
             prefer(&mut addresses, ip);
@@ -248,6 +253,7 @@ pub async fn pair_with(
                 default_output,
                 features,
                 model,
+                can_type,
             };
             Ok((desktop, info, Link::start(ws)))
         }
@@ -317,6 +323,7 @@ pub async fn connect_with(
             default_output,
             features,
             model,
+            can_type,
         } => {
             prefer(&mut desktop.addresses, ip);
             desktop.desktop_name = desktop_name.clone();
@@ -326,12 +333,33 @@ pub async fn connect_with(
                 default_output,
                 features,
                 model,
+                can_type,
             };
             Ok((info, Link::start(ws)))
         }
         ServerMessage::Error { code, .. } => Err(LinkError::Refused(code)),
         _ => Err(LinkError::Handshake("unexpected answer to login".into())),
     }
+}
+
+/// Asks a paired desktop to forget this device, for when the device forgets
+/// the desktop. Best effort: a desktop that can't be reached, or is too old
+/// to know the message, keeps its entry until it's removed there.
+pub async fn unpair(desktop: &mut Desktop, client: &ClientInfo) -> Result<(), LinkError> {
+    let options = ConnectOptions {
+        client: client.clone(),
+        discover: true,
+    };
+    // A channel of its own, so no connection in use is replaced by this one.
+    let (_, link) = connect_with(desktop, "unpair", &options).await?;
+    link.send(ClientMessage::Unpair)?;
+    // The desktop closes once it has done it.
+    let mut link = link;
+    let _ = timeout(Duration::from_secs(3), async {
+        while link.recv().await.is_some() {}
+    })
+    .await;
+    Ok(())
 }
 
 enum Outgoing {

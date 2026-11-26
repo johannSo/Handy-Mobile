@@ -408,7 +408,7 @@ pub enum TranscriptionEngine {
     /// A model on this computer.
     #[default]
     Local,
-    /// Another computer running Handy, paired from the Models tab.
+    /// Another computer running Handy, paired from the Handy Remote tab.
     Remote,
 }
 

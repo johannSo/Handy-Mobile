@@ -7,11 +7,12 @@ import {
   Info,
   Sparkles,
   Cpu,
-  Smartphone,
+  MonitorSmartphone,
 } from "lucide-react";
 import HandyTextLogo from "./icons/HandyTextLogo";
 import HandyHand from "./icons/HandyHand";
 import { useSettings } from "../hooks/useSettings";
+import type { SectionId } from "../stores/navigationStore";
 import {
   GeneralSettings,
   AdvancedSettings,
@@ -19,10 +20,10 @@ import {
   AboutSettings,
   PostProcessingSettings,
   ModelsSettings,
-  MobileSettings,
+  RemoteSettings,
 } from "./settings";
 
-export type SidebarSection = keyof typeof SECTIONS_CONFIG;
+export type SidebarSection = SectionId;
 
 interface IconProps {
   width?: number | string;
@@ -59,10 +60,10 @@ export const SECTIONS_CONFIG = {
     component: ModelsSettings,
     enabled: () => true,
   },
-  mobile: {
-    labelKey: "sidebar.mobile",
-    icon: Smartphone,
-    component: MobileSettings,
+  remote: {
+    labelKey: "sidebar.remote",
+    icon: MonitorSmartphone,
+    component: RemoteSettings,
     enabled: () => true,
   },
   advanced: {
@@ -89,7 +90,7 @@ export const SECTIONS_CONFIG = {
     component: AboutSettings,
     enabled: () => true,
   },
-} as const satisfies Record<string, SectionConfig>;
+} as const satisfies Record<SectionId, SectionConfig>;
 
 interface SidebarProps {
   activeSection: SidebarSection;

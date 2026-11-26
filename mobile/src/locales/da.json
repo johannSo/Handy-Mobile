@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "Par med din computer",
+    "intro": "Din telefon er mikrofonen. Handy på din computer står for transskriberingen.",
+    "step1": "Åbn Handy på din computer, og gå til Handy Remote.",
+    "step2": "Slå Tillad fjernforbindelser til, og vælg Par en telefon.",
+    "step3": "Scan den kode, der vises. Begge enheder skal være på samme netværk.",
+    "scan": "Scan parringskode",
+    "manual": "Indtast kode i stedet",
+    "manualPlaceholder": "Indsæt parringskoden fra din computer",
+    "manualSubmit": "Par",
+    "pairing": "Parrer…",
+    "scanHint": "Ret kameraet mod koden på din computer",
+    "cancelScan": "Annuller",
+    "errors": {
+      "invalid_code": "Det er ikke en Handy-parringskode.",
+      "expired_code": "Koden er udløbet eller allerede brugt. Opret en ny på din computer.",
+      "incompatible": "Denne app og Handy på din computer er for langt fra hinanden i version. Opdater begge.",
+      "rate_limited": "For mange forsøg. Vent et minut, og prøv så igen.",
+      "unreachable": "Din computer kan ikke nås. Sørg for, at begge enheder er på samme netværk, at en firewall ikke blokerer Handy, og at Handy har tilladelse til at finde enheder i nærheden i telefonens indstillinger.",
+      "untrusted": "Noget, der ikke er din computer, svarede. Opret en ny kode, og prøv igen.",
+      "failed": "Parringen mislykkedes. Prøv igen.",
+      "camera_denied": "Handy skal bruge kameraet til at scanne koden. Giv tilladelse i telefonens indstillinger, eller indtast koden i stedet.",
+      "scan_failed": "Kameraet kunne ikke startes. Indtast koden i stedet."
+    },
+    "back": "Tilbage"
+  },
+  "link": {
+    "connecting": "Forbinder…",
+    "connected": "Forbundet",
+    "notPaired": "Ikke parret",
+    "updateNeeded": "Skal opdateres",
+    "offline": "Din computer kan ikke nås",
+    "offlineHint": "Sørg for, at Handy kører på {{name}}, at begge enheder er på samme netværk, og at Handy har tilladelse til at finde enheder i nærheden i telefonens indstillinger.",
+    "retry": "Prøv igen",
+    "rejected": "Denne telefon er ikke længere parret med {{name}}.",
+    "incompatible": "Denne app og Handy på {{name}} er for langt fra hinanden i version. Opdater begge.",
+    "pairAgain": "Par igen",
+    "yourComputer": "din computer"
+  },
+  "record": {
+    "tapToStart": "Tryk for at diktere",
+    "starting": "Starter…",
+    "listening": "Lytter… tryk for at afslutte",
+    "finishing": "Afslutter…",
+    "transcribing": "Transskriberer…",
+    "start": "Start diktering",
+    "stop": "Afslut diktering",
+    "cancel": "Annuller"
+  },
+  "output": {
+    "label": "Send tekst til",
+    "desktop": "Computeren",
+    "phone": "Kun telefonen",
+    "desktopHint": "Skrives der, hvor markøren er på {{name}}.",
+    "phoneHint": "Vises her og kopieres til udklipsholderen.",
+    "notAllowedHint": "Denne telefon må ikke skrive på {{name}}. Hvis du vil ændre det, skal du slå Må skrive her til for denne telefon under Handy Remote på computeren."
+  },
+  "transcripts": {
+    "empty": "Det, du dikterer, vises her.",
+    "copy": "Kopiér",
+    "copied": "Kopieret",
+    "share": "Del",
+    "pasted": "Skrevet på din computer",
+    "notPasted": "Ikke skrevet på din computer",
+    "clear": "Ryd"
+  },
+  "notices": {
+    "noSpeech": "Der blev ikke hørt noget.",
+    "micDenied": "Handy skal bruge mikrofonen. Giv tilladelse i telefonens indstillinger.",
+    "micUnavailable": "Mikrofonen kunne ikke startes.",
+    "connectionLost": "Forbindelsen blev afbrudt, så optagelsen blev ikke transskriberet.",
+    "busy": "Din computer er optaget af en anden diktering.",
+    "no_model": "Handy på din computer har ingen model valgt.",
+    "transcription_failed": "Din computer kunne ikke transskribere det.",
+    "paste_failed": "Din computer kunne ikke skrive teksten, så den er kun her.",
+    "too_long": "Længdegrænsen blev nået, så dikteringen blev afsluttet for dig.",
+    "generic": "Noget gik galt på din computer."
+  },
+  "settings": {
+    "title": "Indstillinger",
+    "computer": "Parret computer",
+    "version": "Handy {{version}}",
+    "unpair": "Fjern parring",
+    "unpairConfirm": "Fjern parringen med {{name}}? Du skal scanne en ny kode for at diktere igen.",
+    "unpairNote": "Hvis {{name}} kan nås nu, bliver denne telefon fjernet fra listen der. Ellers skal du fjerne parringen der, under Handy Remote.",
+    "confirm": "Fjern parring",
+    "cancel": "Annuller",
+    "close": "Luk"
+  },
+  "keyboard": {
+    "title": "Diktér i enhver app",
+    "intro": "Der er to måder at diktere på, uanset hvor du skriver: en svævende boble, der dukker op ved siden af ethvert tekstfelt, og et tastatur med en mikrofon i stedet for tasterne. I begge tilfælde bliver det, du siger, transskriberet på din computer og skrevet i tekstfeltet på din telefon. Sæt den ene eller begge op.",
+    "steps": {
+      "microphone": {
+        "title": "Tillad mikrofonen",
+        "description": "Så boblen og tastaturet kan høre dig. Vælg »Mens appen er i brug«; »Kun denne gang« holder ikke.",
+        "action": "Tillad"
+      },
+      "localNetwork": {
+        "title": "Tillad enheder i nærheden",
+        "description": "Så din telefon kan nå din computer på dit netværk.",
+        "action": "Tillad"
+      },
+      "enable": {
+        "title": "Slå Handy-tastaturet til",
+        "description": "Slå Handy til på den liste, der åbnes, bekræft begge Androids meddelelser, og kom så tilbage hertil. Android advarer om, at et tastatur kan indsamle det, du skriver. Handys tastatur sender kun din stemme, og kun til din egen computer.",
+        "action": "Åbn tastaturindstillinger"
+      },
+      "select": {
+        "title": "Skift til Handy-tastaturet",
+        "description": "Vælg Handy på listen over tastaturer.",
+        "action": "Vælg tastatur"
+      },
+      "bubble": {
+        "title": "Slå den svævende boble til",
+        "description": "Slå Handy Bubble til i de indstillinger for hjælpefunktioner, der åbnes, under installerede eller downloadede apps, og kom så tilbage hertil. Android advarer om, at appen kan se og styre skærmen. Handy bruger kun dette til at registrere, at du er i et tekstfelt, og til at skrive det, du dikterer.",
+        "action": "Åbn hjælpefunktioner",
+        "helpTitle": "Er kontakten nedtonet?",
+        "help": "Android begrænser denne indstilling for apps, der er installeret fra en fil. Tryk én gang på den nedtonede kontakt, så Android viser sin meddelelse, åbn derefter Appinfo, tryk på de tre prikker øverst til højre, og vælg »Tillad begrænsede indstillinger«.",
+        "helpAction": "Åbn Appinfo"
+      }
+    },
+    "tryLabel": "Prøv det",
+    "tryPlaceholder": "Tryk her, og tryk så på mikrofonen",
+    "switchHint": "Tastaturknappen på Handy-tastaturet fører dig tilbage til dit sædvanlige tastatur. Hvis du vil skifte til Handy fra et andet tastatur, skal du bruge dets tastatur- eller globusknap.",
+    "done": "Færdig",
+    "later": "Ikke nu",
+    "back": "Tilbage",
+    "settingsRow": "Boble og tastatur",
+    "new": "Nyt",
+    "bubbleHint": "Tryk på boblen for at begynde at diktere, og tryk igen for at afslutte, eller hold den nede, mens du taler. Holder du den nede under en diktering, annulleres den. Træk den hen, hvor det passer dig; den lægger sig ved den nærmeste side.",
+    "settingsBubbleOn": "Boble til",
+    "settingsBubbleOff": "Boble fra",
+    "settingsKeyboardOn": "Tastatur til",
+    "settingsKeyboardOff": "Tastatur fra"
+  }
+}

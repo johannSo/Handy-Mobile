@@ -399,7 +399,6 @@ fn compute_desired(app: &AppHandle, icon_state: TrayIconState) -> TrayDesired {
     let remote = app
         .try_state::<Arc<crate::managers::remote::RemoteEngineManager>>()
         .map(|manager| manager.status())
-        .filter(|status| !status.servers.is_empty())
         .map(|status| {
             use crate::managers::remote::RemoteLinkState;
             RemoteMenu {
@@ -845,7 +844,8 @@ fn build_menu(app: &AppHandle, inputs: &MenuInputs) -> tauri::Result<(Menu<tauri
     Ok((menu, tooltip))
 }
 
-/// "Transcribe With": this computer, or one of the paired computers.
+/// "Transcribe With": this computer, or one of the paired computers, and
+/// the way to Handy Remote, where they are paired.
 fn engine_submenu(
     app: &AppHandle,
     strings: &crate::tray_i18n::TrayStrings,
@@ -889,6 +889,15 @@ fn engine_submenu(
             None::<&str>,
         )?)?;
     }
+    // Where computers are paired: the way in before any is, too.
+    submenu.append(&PredefinedMenuItem::separator(app)?)?;
+    submenu.append(&MenuItem::with_id(
+        app,
+        "open_remote",
+        &strings.remote,
+        true,
+        None::<&str>,
+    )?)?;
     Ok(submenu)
 }
 

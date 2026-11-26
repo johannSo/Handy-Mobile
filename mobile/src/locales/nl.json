@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "Koppelen met je computer",
+    "intro": "Je telefoon is de microfoon. Handy op je computer doet het transcriberen.",
+    "step1": "Open Handy op je computer en ga naar Handy Remote.",
+    "step2": "Zet Externe verbindingen toestaan aan en kies Telefoon koppelen.",
+    "step3": "Scan de code die verschijnt. Beide apparaten moeten op hetzelfde netwerk zitten.",
+    "scan": "Koppelcode scannen",
+    "manual": "Code invoeren",
+    "manualPlaceholder": "Plak de koppelcode van je computer",
+    "manualSubmit": "Koppelen",
+    "pairing": "Koppelen…",
+    "scanHint": "Richt de camera op de code op je computer",
+    "cancelScan": "Annuleren",
+    "errors": {
+      "invalid_code": "Dat is geen koppelcode van Handy.",
+      "expired_code": "Die code is verlopen of al gebruikt. Maak een nieuwe op je computer.",
+      "incompatible": "De versies van deze app en van Handy op je computer liggen te ver uit elkaar. Update beide.",
+      "rate_limited": "Te veel pogingen. Wacht een minuut en probeer het dan opnieuw.",
+      "unreachable": "Je computer is onbereikbaar. Controleer of beide apparaten op hetzelfde netwerk zitten, of een firewall Handy niet blokkeert en of Handy in de instellingen van je telefoon apparaten in de buurt mag vinden.",
+      "untrusted": "Er reageerde iets dat niet je computer is. Maak een nieuwe code en probeer het opnieuw.",
+      "failed": "Koppelen mislukt. Probeer het opnieuw.",
+      "camera_denied": "Handy heeft de camera nodig om de code te scannen. Sta dat toe in de instellingen van je telefoon of voer de code in.",
+      "scan_failed": "De camera kon niet worden gestart. Voer de code in."
+    },
+    "back": "Terug"
+  },
+  "link": {
+    "connecting": "Verbinden…",
+    "connected": "Verbonden",
+    "notPaired": "Niet gekoppeld",
+    "updateNeeded": "Update nodig",
+    "offline": "Je computer is onbereikbaar",
+    "offlineHint": "Controleer of Handy actief is op {{name}}, of beide apparaten op hetzelfde netwerk zitten en of Handy in de instellingen van je telefoon apparaten in de buurt mag vinden.",
+    "retry": "Opnieuw proberen",
+    "rejected": "Deze telefoon is niet meer gekoppeld met {{name}}.",
+    "incompatible": "De versies van deze app en van Handy op {{name}} liggen te ver uit elkaar. Update beide.",
+    "pairAgain": "Opnieuw koppelen",
+    "yourComputer": "je computer"
+  },
+  "record": {
+    "tapToStart": "Tik om te dicteren",
+    "starting": "Starten…",
+    "listening": "Luisteren… tik om af te ronden",
+    "finishing": "Afronden…",
+    "transcribing": "Transcriberen…",
+    "start": "Dicteren starten",
+    "stop": "Dicteren afronden",
+    "cancel": "Annuleren"
+  },
+  "output": {
+    "label": "Tekst sturen naar",
+    "desktop": "Computer",
+    "phone": "Alleen telefoon",
+    "desktopHint": "Wordt getypt waar de cursor staat op {{name}}.",
+    "phoneHint": "Wordt hier getoond en naar het klembord gekopieerd.",
+    "notAllowedHint": "Deze telefoon mag niet typen op {{name}}. Wil je dat wijzigen, zet dan op de computer onder Handy Remote Mag hier typen aan voor deze telefoon."
+  },
+  "transcripts": {
+    "empty": "Wat je dicteert, verschijnt hier.",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd",
+    "share": "Delen",
+    "pasted": "Getypt op je computer",
+    "notPasted": "Niet getypt op je computer",
+    "clear": "Wissen"
+  },
+  "notices": {
+    "noSpeech": "Er is niets gehoord.",
+    "micDenied": "Handy heeft de microfoon nodig. Sta dat toe in de instellingen van je telefoon.",
+    "micUnavailable": "De microfoon kon niet worden gestart.",
+    "connectionLost": "De verbinding viel weg, dus die opname is niet getranscribeerd.",
+    "busy": "Je computer is bezig met een ander dictaat.",
+    "no_model": "In Handy op je computer is geen model geselecteerd.",
+    "transcription_failed": "Je computer kon dat niet transcriberen.",
+    "paste_failed": "Je computer kon de tekst niet typen, dus die staat alleen hier.",
+    "too_long": "De maximale lengte is bereikt, dus het dicteren is voor je afgerond.",
+    "generic": "Er ging iets mis op je computer."
+  },
+  "settings": {
+    "title": "Instellingen",
+    "computer": "Gekoppelde computer",
+    "version": "Handy {{version}}",
+    "unpair": "Ontkoppelen",
+    "unpairConfirm": "Ontkoppelen van {{name}}? Je moet een nieuwe code scannen om weer te dicteren.",
+    "unpairNote": "Als {{name}} nu bereikbaar is, wordt deze telefoon daar van de lijst gehaald. Ontkoppel hem anders daar, onder Handy Remote.",
+    "confirm": "Ontkoppelen",
+    "cancel": "Annuleren",
+    "close": "Sluiten"
+  },
+  "keyboard": {
+    "title": "Dicteren in elke app",
+    "intro": "Er zijn twee manieren om te dicteren waar je ook typt: een zwevende bubbel die naast elk tekstveld verschijnt, en een toetsenbord met een microfoon in plaats van de toetsen. In beide gevallen wordt wat je zegt op je computer getranscribeerd en in het tekstveld op je telefoon getypt. Stel er één of allebei in.",
+    "steps": {
+      "microphone": {
+        "title": "De microfoon toestaan",
+        "description": "Zodat de bubbel en het toetsenbord je kunnen horen. Kies „Tijdens gebruik van de app”; „Alleen deze keer” vervalt weer.",
+        "action": "Toestaan"
+      },
+      "localNetwork": {
+        "title": "Apparaten in de buurt toestaan",
+        "description": "Zodat je telefoon je computer kan bereiken op je netwerk.",
+        "action": "Toestaan"
+      },
+      "enable": {
+        "title": "Het Handy-toetsenbord aanzetten",
+        "description": "Zet Handy aan in de lijst die opent, bevestig beide meldingen van Android en kom dan hier terug. Android waarschuwt dat een toetsenbord kan verzamelen wat je typt. Het toetsenbord van Handy verstuurt alleen je stem, en alleen naar je eigen computer.",
+        "action": "Toetsenbordinstellingen openen"
+      },
+      "select": {
+        "title": "Overschakelen naar het Handy-toetsenbord",
+        "description": "Kies Handy in de lijst met toetsenborden.",
+        "action": "Toetsenbord kiezen"
+      },
+      "bubble": {
+        "title": "De zwevende bubbel aanzetten",
+        "description": "Zet Handy Bubble aan in de toegankelijkheidsinstellingen die openen, onder geïnstalleerde of gedownloade apps, en kom dan hier terug. Android waarschuwt dat de app het scherm kan zien en bedienen. Handy gebruikt dit alleen om te merken dat je in een tekstveld zit en om te typen wat je dicteert.",
+        "action": "Toegankelijkheidsinstellingen openen",
+        "helpTitle": "Is de schakelaar grijs?",
+        "help": "Android beperkt deze instelling voor apps die vanuit een bestand zijn geïnstalleerd. Tik één keer op de grijze schakelaar zodat Android de melding toont, open daarna App-info, tik rechtsboven op de drie puntjes en kies „Beperkte instellingen toestaan”.",
+        "helpAction": "App-info openen"
+      }
+    },
+    "tryLabel": "Probeer het",
+    "tryPlaceholder": "Tik hier en tik dan op de microfoon",
+    "switchHint": "Met de toetsenbordknop op het Handy-toetsenbord ga je terug naar je gewone toetsenbord. Wil je vanaf een ander toetsenbord naar Handy, gebruik dan de toetsenbord- of wereldbolknop daarvan.",
+    "done": "Klaar",
+    "later": "Niet nu",
+    "back": "Terug",
+    "settingsRow": "Bubbel en toetsenbord",
+    "new": "Nieuw",
+    "bubbleHint": "Tik op de bubbel om te beginnen met dicteren en tik er nog eens op om af te ronden, of houd hem ingedrukt terwijl je praat. Houd je hem ingedrukt tijdens het dicteren, dan wordt het geannuleerd. Sleep hem naar waar het je uitkomt; hij blijft aan de dichtstbijzijnde kant staan.",
+    "settingsBubbleOn": "Bubbel aan",
+    "settingsBubbleOff": "Bubbel uit",
+    "settingsKeyboardOn": "Toetsenbord aan",
+    "settingsKeyboardOff": "Toetsenbord uit"
+  }
+}

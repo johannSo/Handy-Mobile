@@ -7,7 +7,8 @@ import { useModelsLocked } from "@/stores/transcriptionJobsStore";
 import { commands } from "@/bindings";
 import { notify } from "@/stores/noticeStore";
 import { getTranslatedModelName } from "../../lib/utils/modelTranslation";
-import { linkDot, linkText } from "../settings/remote/RemoteEnginePanel";
+import { goTo } from "@/stores/navigationStore";
+import { linkDot, linkText } from "../settings/remote/linkStatus";
 
 /**
  * The footer's engine status while another computer transcribes: which
@@ -119,6 +120,16 @@ const RemoteEngineStatus: React.FC = () => {
               </button>
             );
           })}
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              goTo("remote");
+            }}
+            className="mt-1 w-full border-t border-line px-3 pt-2 pb-1.5 text-start text-sm text-ink-2 hover:bg-logo-primary/10 hover:text-text"
+          >
+            {t("footer.remote.manage")}
+          </button>
         </div>
       )}
     </div>

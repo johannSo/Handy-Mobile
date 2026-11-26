@@ -13,17 +13,18 @@
     "otherLanguages": "Diğer Diller",
     "transcribeWith": "Yazıya Dökecek Bilgisayar",
     "thisComputer": "Bu Bilgisayar",
-    "offline": "Çevrimdışı"
+    "offline": "Çevrimdışı",
+    "remote": "Handy Remote..."
   },
   "sidebar": {
     "general": "Genel",
     "models": "Modeller",
-    "mobile": "Paylaşım",
     "advanced": "Gelişmiş",
     "postProcessing": "Son İşlem",
     "history": "Geçmiş",
     "debug": "Hata Ayıklama",
-    "about": "Hakkında"
+    "about": "Hakkında",
+    "remote": "Handy Remote"
   },
   "onboarding": {
     "customModelDescription": "Resmi olarak desteklenmiyor",
@@ -444,17 +445,21 @@
       "rescan": {
         "label": "Yeniden Tara",
         "tooltip": "Handy dışında modeller klasörüne veya Hugging Face önbelleğine eklenen modelleri yeniden tara"
+      },
+      "remote": {
+        "withFallback": "{{name}} bu bilgisayar için yazıya döküyor. Ona ulaşılamadığında burada seçili model devreye girer.",
+        "withoutFallback": "{{name}} bu bilgisayar için yazıya döküyor. Bu sürede buradaki modeller kullanılmaz."
       }
     },
     "mobile": {
       "intro": "Ağınızdaki telefonlar ve diğer bilgisayarlar, bu bilgisayarın modeliyle dikte edebilir. Telefon kaydeder, bu bilgisayar metne dönüştürür.",
       "groups": {
-        "connection": "Bağlantı",
-        "devices": "Eşleştirilmiş Cihazlar",
-        "dictation": "Dikte"
+        "connection": "Bu Bilgisayarı Paylaş",
+        "devices": "Uzak Bağlantılar",
+        "dictation": "Telefon Diktesi"
       },
       "enabled": {
-        "label": "Handy Remote",
+        "label": "Uzak Bağlantılara İzin Ver",
         "description": "Eşleştirilmiş cihazların bu bilgisayar üzerinden dikte etmesine izin verir. Bu açıkken Handy, yerel ağınızda onları bekler."
       },
       "status": {
@@ -464,23 +469,27 @@
         "starting": "Başlatılıyor…",
         "listening": "{{address}} adresinde dinleniyor",
         "noNetwork": "Bir ağa bağlı değil",
-        "failed": "Başlatılamadı: {{error}}"
+        "failed": "Başlatılamadı: {{error}}",
+        "alsoAt": "Ayrıca: {{addresses}}"
       },
       "port": {
         "title": "Port",
-        "description": "Eşleştirilmiş cihazların bağlandığı ağ portu. Bağlanamıyorlarsa güvenlik duvarınızda bu porta izin verin. Portu değiştirdikten sonra cihazların yeniden eşleştirilmesi gerekir."
+        "description": "Eşleştirilmiş cihazların bağlandığı ağ portu. Bağlanamıyorlarsa güvenlik duvarınızda bu porta izin verin. Portu değiştirdikten sonra cihazların yeniden eşleştirilmesi gerekir.",
+        "confirmTitle": "Port {{port}} Olarak Değiştirilsin mi?",
+        "confirm": "Eşleştirilmiş her cihazın yeniden eşleştirilmesi gerekir. Cihazlar bu bilgisayarı, eşleştirildikleri sırada kullandığı portta arar.",
+        "change": "Portu Değiştir"
       },
       "pair": {
         "button": "Telefon Eşleştir",
         "hint": "Eşleştirme sırasında diğer cihazda taranacak veya yapıştırılacak bir kod gösterilir.",
-        "turnOnFirst": "Cihaz eşleştirmek için Handy Remote'u açın.",
+        "turnOnFirst": "Cihaz eşleştirmek için uzak bağlantılara izin verin.",
         "title": "Telefon Eşleştir",
-        "description": "Telefonunuzda Handy Mobile'ı açın ve bu kodu tarayın. Telefon, bu bilgisayarla aynı ağda olmalıdır.",
+        "description": "Telefonunuzda Handy'yi açın ve bu kodu tarayın. Telefon, bu bilgisayarla aynı ağda olmalıdır.",
         "qrAlt": "Eşleştirme kodu",
         "expires": "Bu kodun süresi {{time}} sonra doluyor",
         "expired": "Bu kodun süresi doldu.",
         "newCode": "Yeni Kod",
-        "manual": "Tarayamıyor musunuz? Kodu kopyalayıp Handy Mobile'a yapıştırın.",
+        "manual": "Tarayamıyor musunuz? Kodu kopyalayıp Handy'ye yapıştırın.",
         "copy": "Kodu Kopyala",
         "copied": "Eşleştirme kodu kopyalandı",
         "copyFailed": "Eşleştirme kodu kopyalanamadı",
@@ -488,11 +497,13 @@
         "failed": "Eşleştirme kodu oluşturulamadı",
         "computerButton": "Bilgisayar Eşleştir",
         "computerTitle": "Bilgisayar Eşleştir",
-        "computerDescription": "Diğer bilgisayarda Handy'yi açın, Modeller'e gidin, Başka Bir Bilgisayar'ı, ardından Bilgisayar Ekle'yi seçin ve bu kodu yapıştırın.",
-        "computerNote": "Eşleştirilmiş bir bilgisayar metni geri alır. Siz izin vermedikçe buraya yazamaz."
+        "computerDescription": "Diğer bilgisayarda Handy'yi açın, Handy Remote'a gidin, Bir Bilgisayara Bağlan'ı seçin ve bu kodu yapıştırın.",
+        "computerNote": "Eşleştirilmiş bir bilgisayar metni geri alır. Siz izin vermedikçe buraya yazamaz.",
+        "turnOn": "Aç",
+        "computerCarry": "Kodu oraya kendiniz götürün, örneğin bir mesaj veya notla. Kullanılana kadar ona parola gibi davranın: yalnızca bir kez kullanılabilir."
       },
       "devices": {
-        "empty": "Henüz eşleştirilmiş cihaz yok.",
+        "empty": "Bu bilgisayarla henüz hiçbir şey eşleştirilmedi.",
         "connected": "Bağlı",
         "dictating": "Dikte ediliyor…",
         "lastSeen": "Son görülme: {{time}}",
@@ -506,27 +517,35 @@
         "removeFailed": "Cihazın eşleştirmesi kaldırılamadı",
         "cancel": "İptal",
         "transcribing": "Yazıya dökülüyor",
-        "canType": "Buraya yazar",
-        "canTypeDescription": "Bu cihazın dikte ettiklerini, istediğinde bu bilgisayara yapıştırır.",
+        "canType": "Buraya Yazabilir",
         "canTypeLabel": "{{name}} cihazının bu bilgisayara yazmasına izin ver",
-        "canTypeFailed": "Bu ayar değiştirilemedi"
+        "canTypeFailed": "Bu ayar değiştirilemedi",
+        "emptyPhone": "Bir telefondan dikte etmek için telefona Handy'yi yükleyin, ardından Telefon Eşleştir'i seçin.",
+        "canTypeNote": "Buraya Yazabilir, bir cihazın dikte ettiklerini bu bilgisayara yapıştırmasına izin verir. Bu olmadan metin yalnızca cihaza geri gider."
       },
       "outputMode": {
-        "title": "Metni Şuraya Gönder",
-        "description": "Bir telefon dikte ettiğinde metnin gideceği yer. Telefon metni her zaman ayrıca gösterir.",
+        "title": "Telefon Metninin Gideceği Yer",
+        "description": "Bir telefonun başlangıçta kullandığı seçenek. Her telefon bunu Handy'de değiştirebilir ve yalnızca kendisi için Buraya Yazabilir açıkken buraya yazar.",
         "options": {
-          "desktop": "Bu Bilgisayar",
+          "desktop": "İmlecin Olduğu Yer",
           "phone": "Yalnızca Telefon"
         }
       },
       "postProcess": {
-        "label": "Son İşlem",
-        "description": "Telefonların dikte ettiği metne Son İşlem uygular."
+        "label": "Telefon Diktesine Son İşlem Uygula",
+        "description": "Telefonların dikte ettiği metne Son İşlem uygular.",
+        "unavailable": "Son İşlem kapalı. Bu, Gelişmiş bölümündeki deneysel bir özelliktir.",
+        "openAdvanced": "Gelişmiş'i Aç"
       },
       "model": {
         "title": "Model",
         "description": "Eşleştirilmiş telefon ve bilgisayarların yazıya dökmek için kullandığı model: bu bilgisayarda seçili olan model.",
-        "none": "Yok. Modeller bölümünden bir model indirin."
+        "none": "Yok",
+        "download": "Modeller bölümünden bir model indirin"
+      },
+      "certificate": {
+        "title": "Sertifika",
+        "description": "Bu bilgisayarın sertifika parmak izinin başlangıcı. Bu bilgisayarla eşleştirilmiş bir bilgisayar, Ayrıntılar altında aynısını gösterir. İkisi eşleşiyorsa bilgisayarlar doğrudan birbiriyle konuşuyordur ve aralarında başka hiçbir şey yoktur."
       }
     },
     "languages": {
@@ -1017,7 +1036,8 @@
         "offline": "Ulaşılamıyor",
         "rejected": "Artık eşleştirilmiş değil",
         "incompatible": "Güncelleme gerekli",
-        "unused": "Kullanılmıyor"
+        "unused": "Kullanılmıyor",
+        "available": "Kullanılabilir"
       },
       "row": {
         "use": "{{name}} ile yazıya dök",
@@ -1029,39 +1049,40 @@
         "reconnect": "Şimdi Tekrar Dene",
         "pairAgain": "Yeniden Eşleştir",
         "details": "Ayrıntılar",
-        "hostName": "Ad",
+        "hostName": "Bilgisayar adı",
         "address": "Adres",
         "fingerprint": "Sertifika",
         "version": "Handy sürümü",
         "lastError": "Son hata",
-        "forget": "Unut",
-        "forgetConfirmTitle": "{{name}} unutulsun mu?",
-        "forgetConfirm": "Bu bilgisayar artık onunla yazıya dökmez. Bu bilgisayarı onun listesinden de kaldırmak için orada Paylaşım bölümünden eşleştirmeyi kaldırın.",
-        "forgetFailed": "Bilgisayar unutulamadı",
-        "cancel": "İptal"
+        "cancel": "İptal",
+        "fingerprintHint": "Diğer bilgisayar, Handy Remote altında aynısını gösterir.",
+        "unpairConfirm": "Bu bilgisayar artık onunla yazıya dökmez. Şu anda ulaşılabiliyorsa bu bilgisayarı kendi listesinden kaldırır; ulaşılamıyorsa bu bilgisayarın eşleştirmesini orada, Handy Remote altından kaldırın.",
+        "unpairFailed": "Bilgisayarın eşleştirmesi kaldırılamadı",
+        "unpair": "Eşleştirmeyi Kaldır",
+        "unpairConfirmTitle": "{{name}} eşleştirmesi kaldırılsın mı?"
       },
       "incompatible": "{{name}}, bu bilgisayar için yazıya dökemeyen bir Handy sürümü çalıştırıyor. Her iki bilgisayarda da Handy'yi güncelleyin.",
       "computers": {
-        "title": "Bilgisayarlar",
-        "description": "Handy çalıştıran başka bir bilgisayar, kendi modeliyle bu bilgisayar için yazıya dökebilir. Kullanılacak olanı seçin.",
-        "empty": "Henüz eşleştirilmiş bilgisayar yok.",
-        "hint": "Diğer bilgisayar, modelini Paylaşım bölümünden paylaşır.",
-        "add": "Bilgisayar Ekle"
+        "title": "Başka Bir Bilgisayar Kullan",
+        "description": "Handy çalıştıran başka bir bilgisayar, burada dikte ettiklerinizi kendi modeliyle yazıya dökebilir.",
+        "empty": "Henüz bir bilgisayara bağlanmadınız.",
+        "hint": "Diğer bilgisayarın, Handy Remote altından uzak bağlantılara izin vermesi gerekir.",
+        "add": "Bir Bilgisayara Bağlan"
       },
       "fallback": {
-        "group": "Ulaşılamadığında",
-        "label": "Bu Bilgisayarın Modelini Kullan",
+        "label": "Yedek Olarak Bu Bilgisayarın Modelini Kullan",
         "description": "Diğer bilgisayar uykudaysa, meşgulse veya çevrimdışıysa bunun yerine burada yazıya döker ve bunu belirtir.",
-        "noModel": "Bu bilgisayarda yedek olarak kullanılacak model yok. Bir model indirmek için yukarıdan Bu Bilgisayar'ı seçin."
+        "noModel": "Bu bilgisayarda yedek olarak kullanılacak model yok.",
+        "getModel": "Modeller bölümünden bir model indirin"
       },
       "stays": "Diğer bilgisayara yalnızca ses gider; diliniz, özel kelimeleriniz ve dolgu sözcükleriyle birlikte. Son işlem, geçmiş ve yapıştırma bu bilgisayarda kalır.",
       "decidedElsewhere": "Yazıya döken bilgisayarda ayarlanır",
       "add": {
-        "title": "Bilgisayar Ekle",
+        "title": "Bir Bilgisayara Bağlan",
         "steps": {
-          "open": "Diğer bilgisayarda Handy'yi açın ve Paylaşım'a gidin.",
-          "share": "Paylaşım'ı açın, Bilgisayar Eşleştir'i, ardından Kodu Kopyala'yı seçin.",
-          "paste": "Kodu buraya yapıştırın."
+          "open": "Diğer bilgisayarda Handy'yi açın ve Handy Remote'a gidin.",
+          "share": "Uzak Bağlantılara İzin Ver'i açın, Bilgisayar Eşleştir'i, ardından Kodu Kopyala'yı seçin.",
+          "paste": "Kodu, örneğin kendinize yazdığınız bir mesaj veya notla bu bilgisayara getirin ve buraya yapıştırın. Kod bir kez, beş dakika boyunca kullanılabilir."
         },
         "placeholder": "handy://pair?…",
         "codeLabel": "Eşleştirme kodu",
@@ -1073,12 +1094,14 @@
           "expired_code": "Bu kodun süresi dolmuş ya da kod zaten kullanılmış. Diğer bilgisayarda yeni bir kod oluşturun.",
           "incompatible": "Diğer bilgisayardaki Handy bu bilgisayar için yazıya dökemiyor. Her ikisinde de Handy'yi güncelleyin.",
           "rate_limited": "Çok fazla deneme yapıldı. Bir dakika bekleyip tekrar deneyin.",
-          "unreachable": "Diğer bilgisayara ulaşılamıyor. İkisinin de aynı ağda olduğunu ve orada Paylaşım'ın açık olduğunu kontrol edin.",
+          "unreachable": "Diğer bilgisayara ulaşılamıyor. İkisinin de aynı ağda olduğunu ve diğerinin uzak bağlantılara izin verdiğini kontrol edin.",
           "untrusted": "Diğer bilgisayarın adresinden başka bir şey yanıt verdi. Yeni bir kod oluşturup tekrar deneyin.",
           "self": "Bu kod bu bilgisayara ait. Diğer bilgisayara yapıştırın.",
           "failed": "Eşleştirme başarısız oldu. Tekrar deneyin."
         }
-      }
+      },
+      "open": "Handy Remote'u Aç",
+      "localOnly": "Yalnızca bu bilgisayar yazıya dökerken geçerlidir"
     }
   },
   "footer": {
@@ -1094,7 +1117,14 @@
     "portableUpdateMessage": "Taşınabilir kurulumlar otomatik olarak güncellenemez. Aşağıdan sisteminize uygun yükleyiciyi indirin, çalıştırın ve aynı klasöre kurun — Data/ klasörünüz (ayarlar, modeller, kayıtlar) yerinde kalır.",
     "portableUpdateButton": "Yükleyiciyi indir",
     "portableUpdateBrowseMessage": "Taşınabilir kurulumlar otomatik olarak güncellenemez. Sisteminize uygun en son sürümü GitHub Releases’ten indirin ve aynı klasöre kurun — Data/ klasörünüz (ayarlar, modeller, kayıtlar) yerinde kalır.",
-    "portableUpdateBrowseButton": "GitHub Releases’i aç"
+    "portableUpdateBrowseButton": "GitHub Releases’i aç",
+    "remote": {
+      "on": "Remote açık",
+      "connected": "{{count}} bağlı",
+      "dictating": "{{name}} dikte ediyor",
+      "failed": "Uzak bağlantılar başarısız",
+      "manage": "Uzak Bağlantılar…"
+    }
   },
   "whatsNew": {
     "title": "Handy v{{version}} yenilikleri"
@@ -1139,17 +1169,17 @@
     "filePostProcessFailed": "Son işlem tamamlanmadı, bu yüzden metin olduğu gibi kaydedildi.",
     "fileTranscriptionFailedTitle": "Dosya transkripsiyonu başarısız oldu",
     "mobileServerFailedTitle": "Handy Remote başlatılamadı",
-    "mobileServerFailed": "Eşleştirilmiş cihazlar bağlanamıyor. Portu başka bir uygulama kullanıyor olabilir; Paylaşım ayarlarından farklı bir port seçin.",
+    "mobileServerFailed": "Eşleştirilmiş cihazlar bağlanamıyor. Portu başka bir uygulama kullanıyor olabilir; Handy Remote'ta farklı bir port seçin.",
     "mobileTranscriptionFailedTitle": "Telefon diktesi başarısız oldu",
     "transcriptionFailedTitle": "Transkripsiyon başarısız oldu",
     "remoteUnreachableTitle": "Bilgisayara ulaşılamıyor",
-    "remoteUnreachable": "Handy, yazıya dökmek için kullandığı bilgisayara ulaşamadı. Bilgisayarın uyanık, aynı ağda ve modelini paylaşıyor olduğunu kontrol edin.",
+    "remoteUnreachable": "Handy, yazıya dökmek için kullandığı bilgisayara ulaşamadı. Bilgisayarın uyanık ve aynı ağda olduğunu, uzak bağlantılara izin verdiğini kontrol edin.",
     "remoteBusyTitle": "Bilgisayar meşgul",
     "remoteBusy": "Bu bilgisayarın yazıya dökmek için kullandığı bilgisayarda biri dikte ediyor. Birazdan tekrar deneyin.",
     "remoteNoModelTitle": "Bilgisayarda model yok",
     "remoteNoModel": "Bu bilgisayarın yazıya dökmek için kullandığı bilgisayarda model yok. Orada bir model indirin.",
     "remoteRejectedTitle": "Yeniden eşleştirme gerekli",
-    "remoteRejected": "Diğer bilgisayar artık bu bilgisayarı tanımıyor. Modeller bölümünden onları yeniden eşleştirin.",
+    "remoteRejected": "Diğer bilgisayar artık bu bilgisayarı tanımıyor. Handy Remote'ta onları yeniden eşleştirin.",
     "remoteIncompatibleTitle": "İki Handy'yi de güncelleyin",
     "remoteIncompatible": "İki bilgisayar, birlikte çalışamayan Handy sürümleri kullanıyor. İkisini de güncelleyin.",
     "remoteFellBackTitle": "Burada yazıya döküldü",

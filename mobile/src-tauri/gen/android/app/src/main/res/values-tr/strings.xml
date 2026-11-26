@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Dikte"</string>
+    <string name="keyboard_tap_to_dictate">"Dikte etmek için dokunun"</string>
+    <string name="keyboard_listening">"Dinleniyor… bitirmek için dokunun"</string>
+    <string name="keyboard_transcribing">"Yazıya dökülüyor…"</string>
+    <string name="keyboard_connecting">"Bağlanılıyor: %1$s…"</string>
+    <string name="keyboard_offline">"Ulaşılamıyor: %1$s. Tekrar denemek için dokunun."</string>
+    <string name="keyboard_your_computer">"bilgisayarınız"</string>
+    <string name="keyboard_unpaired">"Bilgisayarınızla eşleştirmek için dokunun"</string>
+    <string name="keyboard_rejected">"Artık eşleştirilmiş değil. Yeniden eşleştirmek için dokunun."</string>
+    <string name="keyboard_incompatible">"Telefonunuzda ve bilgisayarınızda Handy\'yi güncelleyin"</string>
+    <string name="keyboard_needs_microphone">"Mikrofona izin vermek için dokunun"</string>
+    <string name="keyboard_microphone_failed">"Mikrofon başlatılamadı"</string>
+    <string name="keyboard_nothing_heard">"Hiçbir şey duyulmadı"</string>
+    <string name="keyboard_connection_lost">"Bağlantı koptu. Tekrar deneyin."</string>
+    <string name="keyboard_busy">"Bilgisayarınız başka bir dikteyle meşgul"</string>
+    <string name="keyboard_no_model">"Bilgisayarınızdaki Handy\'de seçili model yok"</string>
+    <string name="keyboard_too_long">"Uzunluk sınırına ulaşıldı"</string>
+    <string name="keyboard_failed">"Bilgisayarınız bunu yazıya dökemedi"</string>
+    <string name="keyboard_dictate">"Dikteyi başlat"</string>
+    <string name="keyboard_finish">"Dikteyi bitir"</string>
+    <string name="keyboard_cancel">"İptal"</string>
+    <string name="keyboard_switch">"Klavyeyi değiştir"</string>
+    <string name="keyboard_space">"boşluk"</string>
+    <string name="keyboard_backspace">"Sil"</string>
+    <string name="keyboard_enter">"Enter"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"Herhangi bir metin alanına dikte etmek için kayan bir mikrofon"</string>
+    <string name="bubble_description">"Bir metin alanındayken ekranın kenarında kayan bir mikrofon gösterir. Dikte etmek için mikrofona dokunun veya basılı tutun; söyledikleriniz bilgisayarınızda yazıya dökülür ve alana yazılır.\n\nHandy bu erişimi yalnızca bir metin alanının kullanıldığını fark etmek ve diktenizi o alana yazmak için kullanır. Ekranınızdaki başka hiçbir şeyi okumaz veya göndermez."</string>
+    <string name="bubble_dictate">"Handy ile dikte et"</string>
+    <string name="bubble_cancelled">"İptal edildi"</string>
+    <string name="bubble_offline">"Ulaşılamıyor: %1$s"</string>
+    <string name="bubble_copied">"Kopyalandı. İstediğiniz yere yapıştırın."</string>
+</resources>

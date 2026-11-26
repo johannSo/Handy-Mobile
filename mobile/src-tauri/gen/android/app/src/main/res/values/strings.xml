@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">"Handy Mobile"</string>
-    <string name="main_activity_title">"Handy Mobile"</string>
+    <string name="app_name" translatable="false">"Handy"</string>
+    <string name="main_activity_title" translatable="false">"Handy"</string>
 
     <!-- The keyboard (HandyKeyboardService.kt). -->
-    <string name="keyboard_name">"Handy Mobile"</string>
+    <string name="keyboard_name" translatable="false">"Handy"</string>
     <string name="keyboard_subtype">"Dictation"</string>
     <string name="keyboard_tap_to_dictate">"Tap to dictate"</string>
     <string name="keyboard_listening">"Listening… tap to finish"</string>
@@ -31,7 +31,7 @@
     <string name="keyboard_enter">"Enter"</string>
 
     <!-- The floating bubble (HandyBubbleService.kt). -->
-    <string name="bubble_name">"Handy Bubble"</string>
+    <string name="bubble_name" translatable="false">"Handy Bubble"</string>
     <string name="bubble_summary">"A floating microphone for dictating into any text field"</string>
     <string name="bubble_description">"Shows a floating microphone at the side of the screen while you are in a text field. Tap it or hold it to dictate; what you say is transcribed on your computer and typed into the field.\n\nHandy uses this access only to notice that a text field is in use and to type your dictation into it. It does not read or send anything else on your screen."</string>
     <string name="bubble_dictate">"Dictate with Handy"</string>

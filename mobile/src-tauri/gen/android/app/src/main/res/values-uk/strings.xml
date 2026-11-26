@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Диктування"</string>
+    <string name="keyboard_tap_to_dictate">"Торкніться, щоб диктувати"</string>
+    <string name="keyboard_listening">"Слухаю… торкніться, щоб завершити"</string>
+    <string name="keyboard_transcribing">"Триває транскрипція…"</string>
+    <string name="keyboard_connecting">"%1$s: підключення…"</string>
+    <string name="keyboard_offline">"%1$s недоступний. Торкніться, щоб спробувати знову."</string>
+    <string name="keyboard_your_computer">"Ваш комп\'ютер"</string>
+    <string name="keyboard_unpaired">"Торкніться, щоб сполучити з комп\'ютером"</string>
+    <string name="keyboard_rejected">"Сполучення скасовано. Торкніться, щоб сполучити знову."</string>
+    <string name="keyboard_incompatible">"Оновіть Handy на телефоні й комп\'ютері"</string>
+    <string name="keyboard_needs_microphone">"Торкніться, щоб дозволити мікрофон"</string>
+    <string name="keyboard_microphone_failed">"Не вдалося запустити мікрофон"</string>
+    <string name="keyboard_nothing_heard">"Нічого не вдалося розчути"</string>
+    <string name="keyboard_connection_lost">"З\'єднання перервалося. Спробуйте знову."</string>
+    <string name="keyboard_busy">"Комп\'ютер зайнятий іншим диктуванням"</string>
+    <string name="keyboard_no_model">"У Handy на комп\'ютері не вибрано модель"</string>
+    <string name="keyboard_too_long">"Досягнуто межі тривалості"</string>
+    <string name="keyboard_failed">"Комп\'ютеру не вдалося це транскрибувати"</string>
+    <string name="keyboard_dictate">"Почати диктування"</string>
+    <string name="keyboard_finish">"Завершити диктування"</string>
+    <string name="keyboard_cancel">"Скасувати"</string>
+    <string name="keyboard_switch">"Змінити клавіатуру"</string>
+    <string name="keyboard_space">"пробіл"</string>
+    <string name="keyboard_backspace">"Видалити"</string>
+    <string name="keyboard_enter">"Ввід"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"Плаваючий мікрофон для диктування в будь-яке текстове поле"</string>
+    <string name="bubble_description">"Показує плаваючий мікрофон біля краю екрана, поки ви перебуваєте в текстовому полі. Торкніться його або утримуйте, щоб диктувати; сказане транскрибується на комп\'ютері й друкується в полі.\n\nHandy використовує цей доступ лише для того, щоб помітити, що використовується текстове поле, і надрукувати в ньому ваше диктування. Більше нічого з екрана він не читає й не надсилає."</string>
+    <string name="bubble_dictate">"Диктувати з Handy"</string>
+    <string name="bubble_cancelled">"Скасовано"</string>
+    <string name="bubble_offline">"%1$s недоступний"</string>
+    <string name="bubble_copied">"Скопійовано. Вставте куди потрібно."</string>
+</resources>

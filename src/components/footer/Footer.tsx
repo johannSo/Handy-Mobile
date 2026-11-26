@@ -6,6 +6,7 @@ import RemoteEngineStatus from "../model-selector/RemoteEngineStatus";
 import { useRemoteInUse } from "@/stores/remoteStore";
 import UpdateChecker from "../update-checker";
 import NoticeChip from "./NoticeChip";
+import RemoteConnectionsStatus from "./RemoteConnectionsStatus";
 import TranscriptionStatus from "./TranscriptionStatus";
 
 interface FooterProps {
@@ -36,6 +37,7 @@ const Footer: React.FC<FooterProps> = ({ onShowHistory }) => {
         <div className="flex items-center gap-4">
           {remote ? <RemoteEngineStatus /> : <ModelSelector />}
           <TranscriptionStatus onShowHistory={onShowHistory} />
+          <RemoteConnectionsStatus />
         </div>
 
         <div className="flex items-center gap-3">

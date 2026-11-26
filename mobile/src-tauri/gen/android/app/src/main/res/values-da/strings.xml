@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Diktering"</string>
+    <string name="keyboard_tap_to_dictate">"Tryk for at diktere"</string>
+    <string name="keyboard_listening">"Lytter… tryk for at afslutte"</string>
+    <string name="keyboard_transcribing">"Transskriberer…"</string>
+    <string name="keyboard_connecting">"Forbinder til %1$s…"</string>
+    <string name="keyboard_offline">"Kan ikke nå %1$s. Tryk for at prøve igen."</string>
+    <string name="keyboard_your_computer">"din computer"</string>
+    <string name="keyboard_unpaired">"Tryk for at parre med din computer"</string>
+    <string name="keyboard_rejected">"Ikke længere parret. Tryk for at parre igen."</string>
+    <string name="keyboard_incompatible">"Opdater Handy på din telefon og computer"</string>
+    <string name="keyboard_needs_microphone">"Tryk for at tillade mikrofonen"</string>
+    <string name="keyboard_microphone_failed">"Mikrofonen kunne ikke startes"</string>
+    <string name="keyboard_nothing_heard">"Der blev ikke hørt noget"</string>
+    <string name="keyboard_connection_lost">"Forbindelsen blev afbrudt. Prøv igen."</string>
+    <string name="keyboard_busy">"Din computer er optaget af en anden diktering"</string>
+    <string name="keyboard_no_model">"Handy på din computer har ingen model valgt"</string>
+    <string name="keyboard_too_long">"Længdegrænsen blev nået"</string>
+    <string name="keyboard_failed">"Din computer kunne ikke transskribere det"</string>
+    <string name="keyboard_dictate">"Start diktering"</string>
+    <string name="keyboard_finish">"Afslut diktering"</string>
+    <string name="keyboard_cancel">"Annuller"</string>
+    <string name="keyboard_switch">"Skift tastatur"</string>
+    <string name="keyboard_space">"mellemrum"</string>
+    <string name="keyboard_backspace">"Slet"</string>
+    <string name="keyboard_enter">"Enter"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"En svævende mikrofon til at diktere i ethvert tekstfelt"</string>
+    <string name="bubble_description">"Viser en svævende mikrofon i siden af skærmen, mens du er i et tekstfelt. Tryk på den, eller hold den nede for at diktere; det, du siger, bliver transskriberet på din computer og skrevet i feltet.\n\nHandy bruger kun denne adgang til at registrere, at et tekstfelt er i brug, og til at skrive din diktering i det. Handy læser eller sender ikke andet på din skærm."</string>
+    <string name="bubble_dictate">"Diktér med Handy"</string>
+    <string name="bubble_cancelled">"Annulleret"</string>
+    <string name="bubble_offline">"Kan ikke nå %1$s"</string>
+    <string name="bubble_copied">"Kopieret. Indsæt det, hvor du vil have det."</string>
+</resources>

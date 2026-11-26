@@ -1175,6 +1175,18 @@ async reconnectRemoteComputer() : Promise<void> {
     await TAURI_INVOKE("reconnect_remote_computer");
 },
 /**
+ * Looks for the paired computers on the network; the status says which
+ * answered.
+ */
+async probeRemoteComputers() : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("probe_remote_computers") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
  * Debug: act as if the other computer were unreachable.
  */
 async setRemoteSimulateOffline(enabled: boolean) : Promise<void> {
@@ -1565,7 +1577,13 @@ error: string | null; devices: MobileDevice[];
 /**
  * The model paired devices transcribe with, `None` without one.
  */
-model_name: string | null }
+model_name: string | null; 
+/**
+ * The start of this computer's certificate fingerprint, as a paired
+ * computer shows it, to check that the two are talking to each other.
+ * `None` until remote connections were first turned on.
+ */
+fingerprint: string | null }
 export type ModelInfo = { id: string; name: string; description: string; filename: string; source: ModelSource; size_mb: number; is_downloaded: boolean; is_downloading: boolean; partial_size: number; accuracy_score: number; speed_score: number; supports_translation: boolean; is_recommended: boolean; supported_languages: string[]; supports_language_selection: boolean; is_custom: boolean; supports_streaming: boolean; supports_language_detection: boolean }
 export type ModelLoadStatus = { is_loaded: boolean; current_model: string | null }
 /**
@@ -1742,7 +1760,12 @@ fingerprint: string;
 /**
  * Unix seconds.
  */
-paired_at: number }
+paired_at: number; 
+/**
+ * Whether it answered when last looked for, `None` until then. For the
+ * computer in use the link says more.
+ */
+reachable: boolean | null }
 /**
  * Everything the UI shows about transcribing with another computer.
  */

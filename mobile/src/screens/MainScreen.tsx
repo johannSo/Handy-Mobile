@@ -72,11 +72,15 @@ const TranscriptCard: React.FC<{ transcript: Transcript }> = ({
       </p>
       <div className="mt-2 flex items-center justify-between gap-2">
         <span className="flex items-center gap-1 text-xs text-ink-3">
-          {transcript.pasted && (
+          {transcript.pasted ? (
             <>
               <Laptop className="h-3.5 w-3.5" />
               {t("transcripts.pasted")}
             </>
+          ) : (
+            // Meant for the computer, which didn't type it: said, so the
+            // text isn't looked for over there.
+            transcript.notTyped && t("transcripts.notPasted")
           )}
         </span>
         <div className="flex gap-1">
@@ -192,7 +196,9 @@ const SettingsSheet: React.FC<{
               <p className="text-sm text-ink-2">
                 {t("settings.unpairConfirm", { name })}
               </p>
-              <p className="text-xs text-ink-3">{t("settings.unpairNote")}</p>
+              <p className="text-xs text-ink-3">
+                {t("settings.unpairNote", { name })}
+              </p>
               <div className="flex gap-3">
                 <button
                   type="button"
@@ -242,9 +248,13 @@ export const MainScreen: React.FC<MainScreenProps> = ({
   );
   const [settingsOpen, setSettingsOpen] = useState(false);
 
+  // The computer decides whether this phone may type on it. While it may
+  // not, the text can only stay here, whatever was picked.
+  const mayType = snapshot.can_type !== false;
   // Until the user picks here, follow what the desktop is set to.
-  const output: OutputMode =
-    chosenOutput ?? snapshot.default_output ?? "desktop";
+  const output: OutputMode = mayType
+    ? (chosenOutput ?? snapshot.default_output ?? "desktop")
+    : "phone";
   const dictation = useDictation(snapshot, output);
   const elapsed = useElapsed(dictation.startedAt);
 
@@ -421,9 +431,11 @@ export const MainScreen: React.FC<MainScreenProps> = ({
               type="button"
               role="radio"
               aria-checked={output === mode}
-              disabled={phase !== "idle"}
+              disabled={phase !== "idle" || (mode === "desktop" && !mayType)}
               onClick={() => chooseOutput(mode)}
               className={`flex flex-1 items-center justify-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium transition-colors ${
+                mode === "desktop" && !mayType ? "opacity-50" : ""
+              } ${
                 output === mode
                   ? "bg-background text-text shadow-sm"
                   : "text-ink-3"
@@ -435,9 +447,11 @@ export const MainScreen: React.FC<MainScreenProps> = ({
           ))}
         </div>
         <p className="mt-1.5 text-center text-xs text-ink-3">
-          {output === "desktop"
-            ? t("output.desktopHint", { name })
-            : t("output.phoneHint")}
+          {!mayType
+            ? t("output.notAllowedHint", { name })
+            : output === "desktop"
+              ? t("output.desktopHint", { name })
+              : t("output.phoneHint")}
         </p>
 
         <div className="mt-4 flex flex-col items-center">

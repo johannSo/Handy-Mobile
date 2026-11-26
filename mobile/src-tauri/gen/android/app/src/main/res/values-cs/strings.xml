@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Diktování"</string>
+    <string name="keyboard_tap_to_dictate">"Klepnutím začnete diktovat"</string>
+    <string name="keyboard_listening">"Poslouchám… klepnutím dokončíte"</string>
+    <string name="keyboard_transcribing">"Přepisuje se…"</string>
+    <string name="keyboard_connecting">"%1$s: připojování…"</string>
+    <string name="keyboard_offline">"%1$s není dostupný. Klepnutím to zkusíte znovu."</string>
+    <string name="keyboard_your_computer">"Váš počítač"</string>
+    <string name="keyboard_unpaired">"Klepnutím spárujete s počítačem"</string>
+    <string name="keyboard_rejected">"Už není spárováno. Klepnutím spárujete znovu."</string>
+    <string name="keyboard_incompatible">"Aktualizujte Handy v telefonu i na počítači"</string>
+    <string name="keyboard_needs_microphone">"Klepnutím povolíte mikrofon"</string>
+    <string name="keyboard_microphone_failed">"Mikrofon se nepodařilo spustit"</string>
+    <string name="keyboard_nothing_heard">"Nic nebylo slyšet"</string>
+    <string name="keyboard_connection_lost">"Spojení se přerušilo. Zkuste to znovu."</string>
+    <string name="keyboard_busy">"Váš počítač je zaneprázdněn jiným diktováním"</string>
+    <string name="keyboard_no_model">"Handy na vašem počítači nemá vybraný žádný model"</string>
+    <string name="keyboard_too_long">"Byl dosažen limit délky"</string>
+    <string name="keyboard_failed">"Váš počítač to nedokázal přepsat"</string>
+    <string name="keyboard_dictate">"Začít diktovat"</string>
+    <string name="keyboard_finish">"Dokončit diktování"</string>
+    <string name="keyboard_cancel">"Zrušit"</string>
+    <string name="keyboard_switch">"Přepnout klávesnici"</string>
+    <string name="keyboard_space">"mezerník"</string>
+    <string name="keyboard_backspace">"Smazat"</string>
+    <string name="keyboard_enter">"Enter"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"Plovoucí mikrofon pro diktování do libovolného textového pole"</string>
+    <string name="bubble_description">"Zobrazuje plovoucí mikrofon u okraje obrazovky, když jste v textovém poli. Klepnutím nebo podržením diktujete; co řeknete, se přepíše na vašem počítači a napíše do pole.\n\nHandy tento přístup používá jen k tomu, aby poznal, že se používá textové pole, a napsal do něj váš diktát. Nic jiného z obrazovky nečte ani neodesílá."</string>
+    <string name="bubble_dictate">"Diktovat s Handy"</string>
+    <string name="bubble_cancelled">"Zrušeno"</string>
+    <string name="bubble_offline">"%1$s není dostupný"</string>
+    <string name="bubble_copied">"Zkopírováno. Vložte, kam potřebujete."</string>
+</resources>

@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "Sparuj z komputerem",
+    "intro": "Telefon jest mikrofonem. Transkrypcją zajmuje się Handy na komputerze.",
+    "step1": "Otwórz Handy na komputerze i przejdź do zakładki Handy Remote.",
+    "step2": "Włącz opcję Zezwalaj na połączenia zdalne i wybierz Sparuj telefon.",
+    "step3": "Zeskanuj wyświetlony kod. Oba urządzenia muszą być w tej samej sieci.",
+    "scan": "Skanuj kod parowania",
+    "manual": "Wpisz kod ręcznie",
+    "manualPlaceholder": "Wklej kod parowania z komputera",
+    "manualSubmit": "Sparuj",
+    "pairing": "Parowanie…",
+    "scanHint": "Skieruj aparat na kod na komputerze",
+    "cancelScan": "Anuluj",
+    "errors": {
+      "invalid_code": "To nie jest kod parowania Handy.",
+      "expired_code": "Ten kod wygasł lub został już użyty. Utwórz nowy na komputerze.",
+      "incompatible": "Wersje tej aplikacji i Handy na komputerze zbyt się różnią. Zaktualizuj obie.",
+      "rate_limited": "Zbyt wiele prób. Odczekaj minutę i spróbuj ponownie.",
+      "unreachable": "Nie można połączyć się z komputerem. Upewnij się, że oba urządzenia są w tej samej sieci, że zapora nie blokuje Handy i że w ustawieniach telefonu Handy może wyszukiwać urządzenia w pobliżu.",
+      "untrusted": "Odpowiedziało coś, co nie jest Twoim komputerem. Utwórz nowy kod i spróbuj ponownie.",
+      "failed": "Parowanie nie powiodło się. Spróbuj ponownie.",
+      "camera_denied": "Handy potrzebuje aparatu, aby zeskanować kod. Zezwól na dostęp w ustawieniach telefonu albo wpisz kod ręcznie.",
+      "scan_failed": "Nie udało się uruchomić aparatu. Wpisz kod ręcznie."
+    },
+    "back": "Wstecz"
+  },
+  "link": {
+    "connecting": "Łączenie…",
+    "connected": "Połączono",
+    "notPaired": "Nie sparowano",
+    "updateNeeded": "Wymagana aktualizacja",
+    "offline": "Nie można połączyć się z komputerem",
+    "offlineHint": "Upewnij się, że {{name}} jest włączony i działa na nim Handy, że oba urządzenia są w tej samej sieci i że w ustawieniach telefonu Handy może wyszukiwać urządzenia w pobliżu.",
+    "retry": "Spróbuj ponownie",
+    "rejected": "{{name}} nie jest już sparowany z tym telefonem.",
+    "incompatible": "Wersja Handy, której używa {{name}}, zbyt różni się od wersji tej aplikacji. Zaktualizuj obie.",
+    "pairAgain": "Sparuj ponownie",
+    "yourComputer": "Twój komputer"
+  },
+  "record": {
+    "tapToStart": "Dotknij, aby dyktować",
+    "starting": "Uruchamianie…",
+    "listening": "Słucham… dotknij, aby zakończyć",
+    "finishing": "Kończenie…",
+    "transcribing": "Transkrypcja…",
+    "start": "Zacznij dyktować",
+    "stop": "Zakończ dyktowanie",
+    "cancel": "Anuluj"
+  },
+  "output": {
+    "label": "Wyślij tekst do",
+    "desktop": "Komputer",
+    "phone": "Tylko telefon",
+    "desktopHint": "Wpisywany tam, gdzie jest kursor ({{name}}).",
+    "phoneHint": "Wyświetlany tutaj i kopiowany do schowka.",
+    "notAllowedHint": "{{name}} nie pozwala temu telefonowi na nim pisać. Aby to zmienić, włącz dla tego telefonu opcję Może tu pisać w zakładce Handy Remote na komputerze."
+  },
+  "transcripts": {
+    "empty": "Tutaj pojawi się to, co podyktujesz.",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano",
+    "share": "Udostępnij",
+    "pasted": "Wpisano na komputerze",
+    "notPasted": "Nie wpisano na komputerze",
+    "clear": "Wyczyść"
+  },
+  "notices": {
+    "noSpeech": "Nic nie usłyszano.",
+    "micDenied": "Handy potrzebuje mikrofonu. Zezwól na dostęp w ustawieniach telefonu.",
+    "micUnavailable": "Nie udało się uruchomić mikrofonu.",
+    "connectionLost": "Połączenie zostało przerwane, więc to nagranie nie zostało przetranskrybowane.",
+    "busy": "Twój komputer jest zajęty innym dyktowaniem.",
+    "no_model": "W Handy na komputerze nie wybrano modelu.",
+    "transcription_failed": "Komputer nie zdołał tego przetranskrybować.",
+    "paste_failed": "Komputer nie zdołał wpisać tekstu, więc jest on tylko tutaj.",
+    "too_long": "Osiągnięto limit długości, więc dyktowanie zostało zakończone automatycznie.",
+    "generic": "Coś poszło nie tak na komputerze."
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "computer": "Sparowany komputer",
+    "version": "Handy {{version}}",
+    "unpair": "Usuń parowanie",
+    "unpairConfirm": "Usunąć parowanie ({{name}})? Aby znów dyktować, trzeba będzie zeskanować nowy kod.",
+    "unpairNote": "Jeśli {{name}} jest teraz osiągalny, usunie ten telefon ze swojej listy. W przeciwnym razie usuń parowanie tam, w zakładce Handy Remote.",
+    "confirm": "Usuń parowanie",
+    "cancel": "Anuluj",
+    "close": "Zamknij"
+  },
+  "keyboard": {
+    "title": "Dyktuj w dowolnej aplikacji",
+    "intro": "Są dwa sposoby dyktowania wszędzie tam, gdzie piszesz: pływający dymek, który pojawia się obok każdego pola tekstowego, oraz klawiatura z mikrofonem zamiast klawiszy. W obu przypadkach to, co mówisz, jest transkrybowane na komputerze i wpisywane w pole tekstowe na telefonie. Skonfiguruj jeden lub oba.",
+    "steps": {
+      "microphone": {
+        "title": "Zezwól na mikrofon",
+        "description": "Aby dymek i klawiatura mogły Cię słyszeć. Wybierz „Podczas używania aplikacji”; opcja „Tylko tym razem” przestaje działać.",
+        "action": "Zezwól"
+      },
+      "localNetwork": {
+        "title": "Zezwól na urządzenia w pobliżu",
+        "description": "Aby telefon mógł połączyć się z komputerem w Twojej sieci.",
+        "action": "Zezwól"
+      },
+      "enable": {
+        "title": "Włącz klawiaturę Handy",
+        "description": "Na liście, która się otworzy, włącz Handy, potwierdź oba komunikaty systemu Android i wróć tutaj. Android ostrzega, że klawiatura może zbierać to, co piszesz. Klawiatura Handy wysyła tylko Twój głos i tylko do Twojego komputera.",
+        "action": "Otwórz ustawienia klawiatury"
+      },
+      "select": {
+        "title": "Przełącz na klawiaturę Handy",
+        "description": "Wybierz Handy na liście klawiatur.",
+        "action": "Wybierz klawiaturę"
+      },
+      "bubble": {
+        "title": "Włącz pływający dymek",
+        "description": "W ustawieniach ułatwień dostępu, które się otworzą, włącz Handy Bubble w sekcji zainstalowanych lub pobranych aplikacji i wróć tutaj. Android ostrzega, że usługa może widzieć ekran i nim sterować. Handy używa tego tylko po to, by zauważyć, że jesteś w polu tekstowym, i wpisać to, co dyktujesz.",
+        "action": "Otwórz ułatwienia dostępu",
+        "helpTitle": "Przełącznik jest wyszarzony?",
+        "help": "Android ogranicza to ustawienie w przypadku aplikacji zainstalowanych z pliku. Dotknij raz wyszarzonego przełącznika, aby Android wyświetlił komunikat, potem otwórz „Informacje o aplikacji”, dotknij trzech kropek w prawym górnym rogu i wybierz „Zezwól na ustawienia z ograniczeniami”.",
+        "helpAction": "Otwórz informacje o aplikacji"
+      }
+    },
+    "tryLabel": "Wypróbuj",
+    "tryPlaceholder": "Dotknij tutaj, a potem mikrofonu",
+    "switchHint": "Przycisk klawiatury na klawiaturze Handy przenosi z powrotem do Twojej zwykłej klawiatury. Aby przełączyć się na Handy z innej klawiatury, użyj jej przycisku klawiatury lub globusa.",
+    "done": "Gotowe",
+    "later": "Nie teraz",
+    "back": "Wstecz",
+    "settingsRow": "Dymek i klawiatura",
+    "new": "Nowość",
+    "bubbleHint": "Dotknij dymka, aby zacząć dyktować, i dotknij go ponownie, aby zakończyć, albo przytrzymaj go, gdy mówisz. Przytrzymanie w trakcie dyktowania anuluje je. Przeciągnij dymek tam, gdzie Ci wygodnie; ustawi się przy najbliższej krawędzi.",
+    "settingsBubbleOn": "Dymek włączony",
+    "settingsBubbleOff": "Dymek wyłączony",
+    "settingsKeyboardOn": "Klawiatura włączona",
+    "settingsKeyboardOff": "Klawiatura wyłączona"
+  }
+}

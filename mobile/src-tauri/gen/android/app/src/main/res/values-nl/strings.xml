@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"Dicteren"</string>
+    <string name="keyboard_tap_to_dictate">"Tik om te dicteren"</string>
+    <string name="keyboard_listening">"Luisteren… tik om af te ronden"</string>
+    <string name="keyboard_transcribing">"Transcriberen…"</string>
+    <string name="keyboard_connecting">"Verbinden met %1$s…"</string>
+    <string name="keyboard_offline">"Kan %1$s niet bereiken. Tik om het opnieuw te proberen."</string>
+    <string name="keyboard_your_computer">"je computer"</string>
+    <string name="keyboard_unpaired">"Tik om te koppelen met je computer"</string>
+    <string name="keyboard_rejected">"Niet meer gekoppeld. Tik om opnieuw te koppelen."</string>
+    <string name="keyboard_incompatible">"Update Handy op je telefoon en computer"</string>
+    <string name="keyboard_needs_microphone">"Tik om de microfoon toe te staan"</string>
+    <string name="keyboard_microphone_failed">"De microfoon kon niet worden gestart"</string>
+    <string name="keyboard_nothing_heard">"Er is niets gehoord"</string>
+    <string name="keyboard_connection_lost">"De verbinding viel weg. Probeer het opnieuw."</string>
+    <string name="keyboard_busy">"Je computer is bezig met een ander dictaat"</string>
+    <string name="keyboard_no_model">"In Handy op je computer is geen model geselecteerd"</string>
+    <string name="keyboard_too_long">"De maximale lengte is bereikt"</string>
+    <string name="keyboard_failed">"Je computer kon dat niet transcriberen"</string>
+    <string name="keyboard_dictate">"Dicteren starten"</string>
+    <string name="keyboard_finish">"Dicteren afronden"</string>
+    <string name="keyboard_cancel">"Annuleren"</string>
+    <string name="keyboard_switch">"Toetsenbord wisselen"</string>
+    <string name="keyboard_space">"spatie"</string>
+    <string name="keyboard_backspace">"Wissen"</string>
+    <string name="keyboard_enter">"Enter"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"Een zwevende microfoon om in elk tekstveld te dicteren"</string>
+    <string name="bubble_description">"Toont een zwevende microfoon aan de zijkant van het scherm terwijl je in een tekstveld zit. Tik erop of houd hem ingedrukt om te dicteren; wat je zegt wordt op je computer getranscribeerd en in het veld getypt.\n\nHandy gebruikt deze toegang alleen om te merken dat er een tekstveld in gebruik is en om je dictaat erin te typen. Het leest of verstuurt verder niets van je scherm."</string>
+    <string name="bubble_dictate">"Dicteren met Handy"</string>
+    <string name="bubble_cancelled">"Geannuleerd"</string>
+    <string name="bubble_offline">"Kan %1$s niet bereiken"</string>
+    <string name="bubble_copied">"Gekopieerd. Plak het waar je het wilt hebben."</string>
+</resources>

@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "与电脑配对",
+    "intro": "手机充当麦克风，电脑上的 Handy 负责转录。",
+    "step1": "在电脑上打开 Handy，进入 Handy Remote。",
+    "step2": "开启“允许远程连接”，然后选择“配对手机”。",
+    "step3": "扫描它显示的二维码。两台设备必须在同一网络中。",
+    "scan": "扫描配对码",
+    "manual": "改为输入配对码",
+    "manualPlaceholder": "粘贴电脑上的配对码",
+    "manualSubmit": "配对",
+    "pairing": "正在配对…",
+    "scanHint": "将摄像头对准电脑上的二维码",
+    "cancelScan": "取消",
+    "errors": {
+      "invalid_code": "这不是 Handy 配对码。",
+      "expired_code": "该配对码已过期或已被使用。请在电脑上生成新的配对码。",
+      "incompatible": "此应用与电脑上的 Handy 版本相差太大。请将两者都更新。",
+      "rate_limited": "尝试次数过多。请等待一分钟后重试。",
+      "unreachable": "无法连接到您的电脑。请确保两台设备在同一网络中、防火墙没有拦截 Handy，并且已在手机设置中允许 Handy 查找附近的设备。",
+      "untrusted": "作出响应的不是您的电脑。请生成新的配对码并重试。",
+      "failed": "配对失败。请重试。",
+      "camera_denied": "Handy 需要使用摄像头来扫描配对码。请在手机设置中允许，或改为输入配对码。",
+      "scan_failed": "无法启动摄像头。请改为输入配对码。"
+    },
+    "back": "返回"
+  },
+  "link": {
+    "connecting": "正在连接…",
+    "connected": "已连接",
+    "notPaired": "未配对",
+    "updateNeeded": "需要更新",
+    "offline": "无法连接到您的电脑",
+    "offlineHint": "请确保 Handy 正在 {{name}} 上运行、两台设备在同一网络中，并且已在手机设置中允许 Handy 查找附近的设备。",
+    "retry": "重试",
+    "rejected": "这部手机已不再与 {{name}} 配对。",
+    "incompatible": "此应用与 {{name}} 上的 Handy 版本相差太大。请将两者都更新。",
+    "pairAgain": "重新配对",
+    "yourComputer": "您的电脑"
+  },
+  "record": {
+    "tapToStart": "轻触开始听写",
+    "starting": "正在启动…",
+    "listening": "正在聆听… 轻触结束",
+    "finishing": "正在结束…",
+    "transcribing": "正在转录…",
+    "start": "开始听写",
+    "stop": "结束听写",
+    "cancel": "取消"
+  },
+  "output": {
+    "label": "文本发送到",
+    "desktop": "电脑",
+    "phone": "仅手机",
+    "desktopHint": "输入到 {{name}} 上光标所在的位置。",
+    "phoneHint": "显示在这里，并复制到剪贴板。",
+    "notAllowedHint": "{{name}} 不允许这部手机在它上面输入。要更改此设置，请在电脑的 Handy Remote 中为这部手机开启“可在此输入”。"
+  },
+  "transcripts": {
+    "empty": "您听写的内容会显示在这里。",
+    "copy": "复制",
+    "copied": "已复制",
+    "share": "分享",
+    "pasted": "已输入到电脑",
+    "notPasted": "未输入到电脑",
+    "clear": "清除"
+  },
+  "notices": {
+    "noSpeech": "没有听到任何内容。",
+    "micDenied": "Handy 需要使用麦克风。请在手机设置中允许。",
+    "micUnavailable": "无法启动麦克风。",
+    "connectionLost": "连接已断开，因此该录音未被转录。",
+    "busy": "您的电脑正忙于另一次听写。",
+    "no_model": "电脑上的 Handy 尚未选择模型。",
+    "transcription_failed": "您的电脑无法转录这段内容。",
+    "paste_failed": "您的电脑无法输入这段文本，因此它只保留在这里。",
+    "too_long": "已达到长度上限，因此已自动结束。",
+    "generic": "您的电脑出了点问题。"
+  },
+  "settings": {
+    "title": "设置",
+    "computer": "已配对的电脑",
+    "version": "Handy {{version}}",
+    "unpair": "取消配对",
+    "unpairConfirm": "取消与 {{name}} 的配对？之后需要扫描新的配对码才能再次听写。",
+    "unpairNote": "如果现在能连接到 {{name}}，它会把这部手机从自己的列表中移除。否则请在那台电脑的 Handy Remote 中取消配对。",
+    "confirm": "取消配对",
+    "cancel": "取消",
+    "close": "关闭"
+  },
+  "keyboard": {
+    "title": "在任何应用中听写",
+    "intro": "有两种方式可以在任何输入文字的地方听写：出现在文本框旁边的悬浮气泡，以及用麦克风代替按键的键盘。无论哪种方式，您说的话都会在电脑上转录，并输入到手机的文本框中。可以只设置其中一种，也可以两种都设置。",
+    "steps": {
+      "microphone": {
+        "title": "允许使用麦克风",
+        "description": "这样气泡和键盘才能听到您的声音。请选择“仅在使用该应用时允许”；“仅限这一次”过后会失效。",
+        "action": "允许"
+      },
+      "localNetwork": {
+        "title": "允许访问附近的设备",
+        "description": "这样手机才能在您的网络中连接到电脑。",
+        "action": "允许"
+      },
+      "enable": {
+        "title": "开启 Handy 键盘",
+        "description": "在打开的列表中开启 Handy，确认 Android 的两个提示，然后回到这里。Android 会警告键盘可能收集您输入的内容。Handy 的键盘只发送您的语音，而且只发送到您自己的电脑。",
+        "action": "打开键盘设置"
+      },
+      "select": {
+        "title": "切换到 Handy 键盘",
+        "description": "在键盘列表中选择 Handy。",
+        "action": "选择键盘"
+      },
+      "bubble": {
+        "title": "开启悬浮气泡",
+        "description": "在打开的无障碍设置中，于已安装或已下载的应用下开启 Handy Bubble，然后回到这里。Android 会警告它可以查看和控制屏幕。Handy 仅用它来感知您正处于文本框中，并输入您听写的内容。",
+        "action": "打开无障碍设置",
+        "helpTitle": "开关显示为灰色？",
+        "help": "对于通过文件安装的应用，Android 会限制此设置。请先轻触一次灰色的开关，让 Android 显示提示，然后打开应用信息，轻触右上角的三个点，选择“允许受限制的设置”。",
+        "helpAction": "打开应用信息"
+      }
+    },
+    "tryLabel": "试一试",
+    "tryPlaceholder": "轻触这里，然后轻触麦克风",
+    "switchHint": "轻触 Handy 键盘上的键盘按钮可回到您常用的键盘。要从其他键盘切换到 Handy，请使用该键盘上的键盘按钮或地球按钮。",
+    "done": "完成",
+    "later": "以后再说",
+    "back": "返回",
+    "settingsRow": "气泡和键盘",
+    "new": "新功能",
+    "bubbleHint": "轻触气泡开始听写，再次轻触结束，也可以在说话时一直按住它。听写过程中按住它会取消。可以把它拖到合适的位置，它会停靠在最近的一侧。",
+    "settingsBubbleOn": "气泡已开启",
+    "settingsBubbleOff": "气泡已关闭",
+    "settingsKeyboardOn": "键盘已开启",
+    "settingsKeyboardOff": "键盘已关闭"
+  }
+}

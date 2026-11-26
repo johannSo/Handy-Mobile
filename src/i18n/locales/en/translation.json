@@ -13,17 +13,18 @@
     "otherLanguages": "Other Languages",
     "transcribeWith": "Transcribe With",
     "thisComputer": "This Computer",
-    "offline": "Offline"
+    "offline": "Offline",
+    "remote": "Handy Remote..."
   },
   "sidebar": {
     "general": "General",
     "models": "Models",
-    "mobile": "Sharing",
     "advanced": "Advanced",
     "postProcessing": "Post Process",
     "history": "History",
     "debug": "Debug",
-    "about": "About"
+    "about": "About",
+    "remote": "Handy Remote"
   },
   "onboarding": {
     "customModelDescription": "Not officially supported",
@@ -444,17 +445,21 @@
       "rescan": {
         "label": "Rescan",
         "tooltip": "Rescan for models added to the models folder or Hugging Face cache outside Handy"
+      },
+      "remote": {
+        "withFallback": "{{name}} transcribes for this computer. The model selected here steps in when it can't be reached.",
+        "withoutFallback": "{{name}} transcribes for this computer. The models here aren't used while it does."
       }
     },
     "mobile": {
       "intro": "Phones and other computers on your network can dictate with this computer's model. A phone records, this computer transcribes.",
       "groups": {
-        "connection": "Connection",
-        "devices": "Paired Devices",
-        "dictation": "Dictation"
+        "connection": "Share This Computer",
+        "devices": "Remote Connections",
+        "dictation": "Phone Dictation"
       },
       "enabled": {
-        "label": "Handy Remote",
+        "label": "Allow Remote Connections",
         "description": "Let paired devices dictate through this computer. While this is on, Handy listens for them on your local network."
       },
       "status": {
@@ -464,23 +469,27 @@
         "starting": "Starting…",
         "listening": "Listening on {{address}}",
         "noNetwork": "Not connected to a network",
-        "failed": "Couldn't start: {{error}}"
+        "failed": "Couldn't start: {{error}}",
+        "alsoAt": "Also at {{addresses}}"
       },
       "port": {
         "title": "Port",
-        "description": "The network port paired devices connect to. Allow it through your firewall if they can't connect. Devices have to be paired again after you change it."
+        "description": "The network port paired devices connect to. Allow it through your firewall if they can't connect. Devices have to be paired again after you change it.",
+        "confirmTitle": "Change the Port to {{port}}?",
+        "confirm": "Every paired device has to be paired again. They look for this computer on the port it had when they paired.",
+        "change": "Change Port"
       },
       "pair": {
         "button": "Pair a Phone",
         "hint": "Pairing shows a code to scan or paste on the other device.",
-        "turnOnFirst": "Turn on Handy Remote to pair a device.",
+        "turnOnFirst": "Allow remote connections to pair a device.",
         "title": "Pair a Phone",
-        "description": "Open Handy Mobile on your phone and scan this code. The phone must be on the same network as this computer.",
+        "description": "Open Handy on your phone and scan this code. The phone must be on the same network as this computer.",
         "qrAlt": "Pairing code",
         "expires": "This code expires in {{time}}",
         "expired": "This code has expired.",
         "newCode": "New Code",
-        "manual": "Can't scan it? Copy the code and paste it into Handy Mobile.",
+        "manual": "Can't scan it? Copy the code and paste it into Handy on the phone.",
         "copy": "Copy Code",
         "copied": "Pairing code copied",
         "copyFailed": "Couldn't copy the pairing code",
@@ -488,11 +497,13 @@
         "failed": "Couldn't Create a Pairing Code",
         "computerButton": "Pair a Computer",
         "computerTitle": "Pair a Computer",
-        "computerDescription": "On the other computer, open Handy, go to Models, choose Another Computer, then Add a Computer, and paste this code.",
-        "computerNote": "A paired computer gets its text back. It can't type here unless you allow it."
+        "computerDescription": "On the other computer, open Handy, go to Handy Remote, choose Connect to a Computer, and paste this code.",
+        "computerNote": "A paired computer gets its text back. It can't type here unless you allow it.",
+        "turnOn": "Turn On",
+        "computerCarry": "Bring it there yourself, for example in a message or a note. Treat it like a password until it's used: it works once."
       },
       "devices": {
-        "empty": "No devices are paired yet.",
+        "empty": "Nothing is paired with this computer yet.",
         "connected": "Connected",
         "dictating": "Dictating…",
         "lastSeen": "Last seen {{time}}",
@@ -506,27 +517,35 @@
         "removeFailed": "Couldn't Unpair the Device",
         "cancel": "Cancel",
         "transcribing": "Transcribing",
-        "canType": "Types here",
-        "canTypeDescription": "Paste what this device dictates into this computer, when it asks to.",
+        "canType": "Can Type Here",
         "canTypeLabel": "Allow {{name}} to type on this computer",
-        "canTypeFailed": "Couldn't change that"
+        "canTypeFailed": "Couldn't change that",
+        "emptyPhone": "To dictate from a phone, install Handy on it, then choose Pair a Phone.",
+        "canTypeNote": "Can Type Here lets a device paste what it dictates into this computer. Without it, the text only goes back to the device."
       },
       "outputMode": {
-        "title": "Send Text To",
-        "description": "Where the text goes when a phone dictates. The phone always shows it too.",
+        "title": "Phone Text Goes To",
+        "description": "What a phone starts with. Each phone can switch on its own screen, and only types here while Can Type Here is on for it.",
         "options": {
-          "desktop": "This Computer",
+          "desktop": "Where the Cursor Is",
           "phone": "Phone Only"
         }
       },
       "postProcess": {
-        "label": "Post Process",
-        "description": "Run Post Process on what phones dictate."
+        "label": "Post Process Phone Dictation",
+        "description": "Run Post Process on what phones dictate.",
+        "unavailable": "Post Process is off. It's an experimental feature in Advanced.",
+        "openAdvanced": "Open Advanced"
       },
       "model": {
         "title": "Model",
         "description": "What paired phones and computers transcribe with: the model selected on this computer.",
-        "none": "None. Download one under Models."
+        "none": "None",
+        "download": "Download one in Models"
+      },
+      "certificate": {
+        "title": "Certificate",
+        "description": "The start of this computer's certificate fingerprint. A computer paired with this one shows the same under Details. If the two match, they talk to each other and nothing sits between them."
       }
     },
     "languages": {
@@ -963,7 +982,7 @@
         "failed": "Diagnostic failed: {{error}}"
       },
       "remoteLink": {
-        "title": "Remote Link",
+        "title": "Remote Connection",
         "description": "The link to the computer this one transcribes with.",
         "simulateOffline": "Simulate Unreachable",
         "simulateOfflineDescription": "Requests to the other computer fail as if it couldn't be reached, to try what happens then."
@@ -1017,7 +1036,8 @@
         "offline": "Can't be reached",
         "rejected": "No longer paired",
         "incompatible": "Needs an update",
-        "unused": "Not in use"
+        "unused": "Not in use",
+        "available": "Available"
       },
       "row": {
         "use": "Transcribe with {{name}}",
@@ -1029,39 +1049,40 @@
         "reconnect": "Try again now",
         "pairAgain": "Pair Again",
         "details": "Details",
-        "hostName": "Name",
+        "hostName": "Computer name",
         "address": "Address",
         "fingerprint": "Certificate",
         "version": "Handy version",
         "lastError": "Last error",
-        "forget": "Forget",
-        "forgetConfirmTitle": "Forget {{name}}?",
-        "forgetConfirm": "This computer stops transcribing with it. To take this computer off its list too, unpair it there under Sharing.",
-        "forgetFailed": "Couldn't forget the computer",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "fingerprintHint": "It shows the same under Handy Remote.",
+        "unpairConfirm": "This computer stops transcribing with it. It takes this computer off its own list if it can be reached now; otherwise unpair this computer there, under Handy Remote.",
+        "unpairFailed": "Couldn't unpair the computer",
+        "unpair": "Unpair",
+        "unpairConfirmTitle": "Unpair {{name}}?"
       },
       "incompatible": "{{name}} runs a version of Handy that can't transcribe for this computer. Update Handy on both computers.",
       "computers": {
-        "title": "Computers",
-        "description": "Another computer running Handy can transcribe for this one with its model. Pick the one to use.",
-        "empty": "No computers are paired yet.",
-        "hint": "The other computer shares its model under Sharing.",
-        "add": "Add a Computer"
+        "title": "Use Another Computer",
+        "description": "Another computer running Handy can transcribe what you dictate here, with its model.",
+        "empty": "You haven't connected to a computer yet.",
+        "hint": "The other computer has to allow remote connections, under Handy Remote.",
+        "add": "Connect to a Computer"
       },
       "fallback": {
-        "group": "When It Can't Be Reached",
-        "label": "Use This Computer's Model",
+        "label": "Fall Back to This Computer's Model",
         "description": "If the other computer is asleep, busy or offline, transcribe here instead, and say so.",
-        "noModel": "This computer has no model to fall back on. Choose This Computer above to download one."
+        "noModel": "This computer has no model to fall back on.",
+        "getModel": "Download one in Models"
       },
       "stays": "Only the audio goes to the other computer, with your language, custom words and filler words. Post-processing, history and pasting stay on this one.",
       "decidedElsewhere": "Set on the computer that transcribes",
       "add": {
-        "title": "Add a Computer",
+        "title": "Connect to a Computer",
         "steps": {
-          "open": "On the other computer, open Handy and go to Sharing.",
-          "share": "Turn on Sharing, choose Pair a Computer, then Copy Code.",
-          "paste": "Paste the code here."
+          "open": "On the other computer, open Handy and go to Handy Remote.",
+          "share": "Turn on Allow Remote Connections, choose Pair a Computer, then Copy Code.",
+          "paste": "Bring the code to this computer, for example in a message or a note to yourself, and paste it here. It works once, for five minutes."
         },
         "placeholder": "handy://pair?…",
         "codeLabel": "Pairing code",
@@ -1073,12 +1094,14 @@
           "expired_code": "That code has expired or was already used. Make a new one on the other computer.",
           "incompatible": "The other computer's Handy can't transcribe for this one. Update Handy on both.",
           "rate_limited": "Too many tries. Wait a minute, then try again.",
-          "unreachable": "The other computer can't be reached. Check that both are on the same network and Sharing is on there.",
+          "unreachable": "The other computer can't be reached. Check that both are on the same network and that it allows remote connections.",
           "untrusted": "Something else answered at the other computer's address. Make a new code and try again.",
           "self": "That code is from this computer. Paste it on the other one.",
           "failed": "Pairing didn't work. Try again."
         }
-      }
+      },
+      "open": "Open Handy Remote",
+      "localOnly": "Only applies when this computer transcribes"
     }
   },
   "footer": {
@@ -1094,7 +1117,14 @@
     "portableUpdateMessage": "Portable installs cannot be updated automatically. Download the installer for your system below, run it, and install to the same folder — your Data/ folder (settings, models, recordings) is kept in place.",
     "portableUpdateButton": "Download installer",
     "portableUpdateBrowseMessage": "Portable installs cannot be updated automatically. Download the latest version for your system from GitHub Releases and install it to the same folder — your Data/ folder (settings, models, recordings) is kept in place.",
-    "portableUpdateBrowseButton": "Open GitHub Releases"
+    "portableUpdateBrowseButton": "Open GitHub Releases",
+    "remote": {
+      "on": "Remote on",
+      "connected": "{{count}} connected",
+      "dictating": "{{name}} is dictating",
+      "failed": "Remote connections failed",
+      "manage": "Remote Connections…"
+    }
   },
   "whatsNew": {
     "title": "New in Handy v{{version}}"
@@ -1139,17 +1169,17 @@
     "filePostProcessFailed": "Post Process didn't finish, so the transcript was saved as is.",
     "fileTranscriptionFailedTitle": "File Transcription Failed",
     "mobileServerFailedTitle": "Handy Remote Couldn't Start",
-    "mobileServerFailed": "Paired devices can't connect. Another app may be using the port; choose a different one in Sharing settings.",
+    "mobileServerFailed": "Paired devices can't connect. Another app may be using the port; choose a different one in Handy Remote.",
     "mobileTranscriptionFailedTitle": "Phone Dictation Failed",
     "transcriptionFailedTitle": "Transcription Failed",
     "remoteUnreachableTitle": "Other Computer Unreachable",
-    "remoteUnreachable": "Handy couldn't reach the computer it transcribes with. Check that it's awake, on the same network, and sharing its model.",
+    "remoteUnreachable": "Handy couldn't reach the computer it transcribes with. Check that it's awake, on the same network, and allows remote connections.",
     "remoteBusyTitle": "Other Computer Busy",
     "remoteBusy": "Someone is dictating on the computer this one transcribes with. Try again in a moment.",
     "remoteNoModelTitle": "Other Computer Has No Model",
     "remoteNoModel": "The computer this one transcribes with has no model. Download one there.",
     "remoteRejectedTitle": "Pair the Computer Again",
-    "remoteRejected": "The other computer no longer knows this one. Pair them again in Models.",
+    "remoteRejected": "The other computer no longer knows this one. Pair them again in Handy Remote.",
     "remoteIncompatibleTitle": "Update Handy on Both Computers",
     "remoteIncompatible": "The two computers run versions of Handy that can't work together. Update both.",
     "remoteFellBackTitle": "Transcribed on This Computer",

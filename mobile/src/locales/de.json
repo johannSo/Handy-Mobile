@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "Mit deinem Computer koppeln",
+    "intro": "Dein Smartphone ist das Mikrofon. Handy auf deinem Computer übernimmt das Transkribieren.",
+    "step1": "Öffne Handy auf deinem Computer und gehe zu Handy Remote.",
+    "step2": "Aktiviere Remote-Verbindungen zulassen und wähle Smartphone koppeln.",
+    "step3": "Scanne den angezeigten Code. Beide Geräte müssen im selben Netzwerk sein.",
+    "scan": "Kopplungscode scannen",
+    "manual": "Code stattdessen eingeben",
+    "manualPlaceholder": "Füge den Kopplungscode von deinem Computer ein",
+    "manualSubmit": "Koppeln",
+    "pairing": "Wird gekoppelt…",
+    "scanHint": "Richte die Kamera auf den Code auf deinem Computer",
+    "cancelScan": "Abbrechen",
+    "errors": {
+      "invalid_code": "Das ist kein Handy-Kopplungscode.",
+      "expired_code": "Dieser Code ist abgelaufen oder wurde schon verwendet. Erstelle auf deinem Computer einen neuen.",
+      "incompatible": "Die Versionen dieser App und von Handy auf deinem Computer liegen zu weit auseinander. Aktualisiere beide.",
+      "rate_limited": "Zu viele Versuche. Warte eine Minute und versuche es dann erneut.",
+      "unreachable": "Dein Computer ist nicht erreichbar. Stelle sicher, dass beide Geräte im selben Netzwerk sind, keine Firewall Handy blockiert und Handy in den Einstellungen deines Smartphones Geräte in der Nähe finden darf.",
+      "untrusted": "Es hat etwas geantwortet, das nicht dein Computer ist. Erstelle einen neuen Code und versuche es erneut.",
+      "failed": "Koppeln hat nicht geklappt. Versuche es erneut.",
+      "camera_denied": "Handy braucht die Kamera, um den Code zu scannen. Erlaube sie in den Einstellungen deines Smartphones oder gib den Code stattdessen ein.",
+      "scan_failed": "Die Kamera konnte nicht gestartet werden. Gib den Code stattdessen ein."
+    },
+    "back": "Zurück"
+  },
+  "link": {
+    "connecting": "Verbindet…",
+    "connected": "Verbunden",
+    "notPaired": "Nicht gekoppelt",
+    "updateNeeded": "Update erforderlich",
+    "offline": "Dein Computer ist nicht erreichbar",
+    "offlineHint": "Stelle sicher, dass Handy auf {{name}} läuft, beide Geräte im selben Netzwerk sind und Handy in den Einstellungen deines Smartphones Geräte in der Nähe finden darf.",
+    "retry": "Erneut versuchen",
+    "rejected": "Dieses Smartphone ist nicht mehr mit {{name}} gekoppelt.",
+    "incompatible": "Die Versionen dieser App und von Handy auf {{name}} liegen zu weit auseinander. Aktualisiere beide.",
+    "pairAgain": "Erneut koppeln",
+    "yourComputer": "deinem Computer"
+  },
+  "record": {
+    "tapToStart": "Zum Diktieren tippen",
+    "starting": "Wird gestartet…",
+    "listening": "Hört zu… zum Beenden tippen",
+    "finishing": "Wird beendet…",
+    "transcribing": "Transkribiert…",
+    "start": "Diktat starten",
+    "stop": "Diktat beenden",
+    "cancel": "Abbrechen"
+  },
+  "output": {
+    "label": "Text senden an",
+    "desktop": "Computer",
+    "phone": "Nur Smartphone",
+    "desktopHint": "Wird auf {{name}} an der Cursorposition getippt.",
+    "phoneHint": "Wird hier angezeigt und in die Zwischenablage kopiert.",
+    "notAllowedHint": "Auf {{name}} darf dieses Smartphone nicht tippen. Um das zu ändern, aktiviere am Computer unter Handy Remote Darf hier tippen für dieses Smartphone."
+  },
+  "transcripts": {
+    "empty": "Was du diktierst, erscheint hier.",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "share": "Teilen",
+    "pasted": "Auf deinem Computer getippt",
+    "notPasted": "Nicht auf deinem Computer getippt",
+    "clear": "Leeren"
+  },
+  "notices": {
+    "noSpeech": "Es wurde nichts gehört.",
+    "micDenied": "Handy braucht das Mikrofon. Erlaube es in den Einstellungen deines Smartphones.",
+    "micUnavailable": "Das Mikrofon konnte nicht gestartet werden.",
+    "connectionLost": "Die Verbindung ist abgebrochen, daher wurde diese Aufnahme nicht transkribiert.",
+    "busy": "Dein Computer ist mit einem anderen Diktat beschäftigt.",
+    "no_model": "In Handy auf deinem Computer ist kein Modell ausgewählt.",
+    "transcription_failed": "Dein Computer konnte das nicht transkribieren.",
+    "paste_failed": "Dein Computer konnte den Text nicht tippen, daher steht er nur hier.",
+    "too_long": "Die maximale Länge wurde erreicht, daher wurde das Diktat für dich beendet.",
+    "generic": "Auf deinem Computer ist etwas schiefgegangen."
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "computer": "Gekoppelter Computer",
+    "version": "Handy {{version}}",
+    "unpair": "Entkoppeln",
+    "unpairConfirm": "Von {{name}} entkoppeln? Du musst einen neuen Code scannen, um wieder zu diktieren.",
+    "unpairNote": "Auf {{name}} wird dieses Smartphone von der Liste entfernt, wenn der Computer gerade erreichbar ist. Sonst entkopple es dort unter Handy Remote.",
+    "confirm": "Entkoppeln",
+    "cancel": "Abbrechen",
+    "close": "Schließen"
+  },
+  "keyboard": {
+    "title": "In jeder App diktieren",
+    "intro": "Es gibt zwei Wege, überall zu diktieren, wo du tippst: eine schwebende Bubble, die neben jedem Textfeld erscheint, und eine Tastatur mit einem Mikrofon anstelle der Tasten. In beiden Fällen wird das, was du sagst, auf deinem Computer transkribiert und in das Textfeld auf deinem Smartphone getippt. Richte eines oder beides ein.",
+    "steps": {
+      "microphone": {
+        "title": "Mikrofon erlauben",
+        "description": "Damit die Bubble und die Tastatur dich hören können. Wähle „Bei Nutzung der App“; „Nur dieses Mal“ gilt nicht dauerhaft.",
+        "action": "Erlauben"
+      },
+      "localNetwork": {
+        "title": "Geräte in der Nähe erlauben",
+        "description": "Damit dein Smartphone deinen Computer in deinem Netzwerk erreichen kann.",
+        "action": "Erlauben"
+      },
+      "enable": {
+        "title": "Handy-Tastatur aktivieren",
+        "description": "Aktiviere Handy in der Liste, die sich öffnet, bestätige beide Abfragen von Android und komm dann hierher zurück. Android warnt, dass eine Tastatur erfassen kann, was du tippst. Die Handy-Tastatur sendet nur deine Stimme, und nur an deinen eigenen Computer.",
+        "action": "Tastatureinstellungen öffnen"
+      },
+      "select": {
+        "title": "Zur Handy-Tastatur wechseln",
+        "description": "Wähle Handy in der Liste der Tastaturen.",
+        "action": "Tastatur auswählen"
+      },
+      "bubble": {
+        "title": "Schwebende Bubble aktivieren",
+        "description": "Aktiviere Handy Bubble in den Bedienungshilfen, die sich öffnen, unter den installierten oder heruntergeladenen Apps, und komm dann hierher zurück. Android warnt, dass die App den Bildschirm sehen und steuern kann. Handy nutzt das nur, um zu erkennen, dass du in einem Textfeld bist, und um zu tippen, was du diktierst.",
+        "action": "Bedienungshilfen öffnen",
+        "helpTitle": "Ist der Schalter ausgegraut?",
+        "help": "Android schränkt diese Einstellung für Apps ein, die aus einer Datei installiert wurden. Tippe einmal auf den ausgegrauten Schalter, damit Android seinen Hinweis anzeigt, öffne dann die App-Info, tippe oben rechts auf die drei Punkte und wähle „Eingeschränkte Einstellungen zulassen“.",
+        "helpAction": "App-Info öffnen"
+      }
+    },
+    "tryLabel": "Ausprobieren",
+    "tryPlaceholder": "Tippe hier und dann auf das Mikrofon",
+    "switchHint": "Die Tastaturtaste auf der Handy-Tastatur bringt dich zurück zu deiner gewohnten Tastatur. Um von einer anderen Tastatur zu Handy zu wechseln, nutze deren Tastatur- oder Globustaste.",
+    "done": "Fertig",
+    "later": "Nicht jetzt",
+    "back": "Zurück",
+    "settingsRow": "Bubble und Tastatur",
+    "new": "Neu",
+    "bubbleHint": "Tippe auf die Bubble, um das Diktat zu starten, und tippe erneut, um es zu beenden, oder halte sie gedrückt, während du sprichst. Hältst du sie während eines Diktats gedrückt, wird es abgebrochen. Zieh sie dorthin, wo sie dir passt; sie rastet an der nächstgelegenen Seite ein.",
+    "settingsBubbleOn": "Bubble an",
+    "settingsBubbleOff": "Bubble aus",
+    "settingsKeyboardOn": "Tastatur an",
+    "settingsKeyboardOff": "Tastatur aus"
+  }
+}

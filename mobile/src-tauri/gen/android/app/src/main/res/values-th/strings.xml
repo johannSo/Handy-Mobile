@@ -1,0 +1,36 @@
+<resources>
+    <!-- The keyboard (HandyKeyboardService.kt). -->
+    <string name="keyboard_subtype">"การพิมพ์ด้วยเสียง"</string>
+    <string name="keyboard_tap_to_dictate">"แตะเพื่อพิมพ์ด้วยเสียง"</string>
+    <string name="keyboard_listening">"กำลังฟัง… แตะเพื่อเสร็จสิ้น"</string>
+    <string name="keyboard_transcribing">"กำลังถอดเสียง…"</string>
+    <string name="keyboard_connecting">"กำลังเชื่อมต่อกับ %1$s…"</string>
+    <string name="keyboard_offline">"เชื่อมต่อ %1$s ไม่ได้ แตะเพื่อลองอีกครั้ง"</string>
+    <string name="keyboard_your_computer">"คอมพิวเตอร์ของคุณ"</string>
+    <string name="keyboard_unpaired">"แตะเพื่อจับคู่กับคอมพิวเตอร์ของคุณ"</string>
+    <string name="keyboard_rejected">"ไม่ได้จับคู่แล้ว แตะเพื่อจับคู่อีกครั้ง"</string>
+    <string name="keyboard_incompatible">"อัปเดต Handy บนโทรศัพท์และคอมพิวเตอร์ของคุณ"</string>
+    <string name="keyboard_needs_microphone">"แตะเพื่ออนุญาตไมโครโฟน"</string>
+    <string name="keyboard_microphone_failed">"เปิดไมโครโฟนไม่สำเร็จ"</string>
+    <string name="keyboard_nothing_heard">"ไม่ได้ยินเสียงใดๆ"</string>
+    <string name="keyboard_connection_lost">"การเชื่อมต่อขาดหาย ลองอีกครั้ง"</string>
+    <string name="keyboard_busy">"คอมพิวเตอร์ของคุณไม่ว่างเพราะมีการพิมพ์ด้วยเสียงอื่นอยู่"</string>
+    <string name="keyboard_no_model">"Handy บนคอมพิวเตอร์ของคุณยังไม่ได้เลือกโมเดล"</string>
+    <string name="keyboard_too_long">"เสียงที่บันทึกยาวถึงขีดจำกัดแล้ว"</string>
+    <string name="keyboard_failed">"คอมพิวเตอร์ของคุณถอดเสียงนั้นไม่สำเร็จ"</string>
+    <string name="keyboard_dictate">"เริ่มพิมพ์ด้วยเสียง"</string>
+    <string name="keyboard_finish">"เสร็จสิ้นการพิมพ์ด้วยเสียง"</string>
+    <string name="keyboard_cancel">"ยกเลิก"</string>
+    <string name="keyboard_switch">"สลับแป้นพิมพ์"</string>
+    <string name="keyboard_space">"เว้นวรรค"</string>
+    <string name="keyboard_backspace">"ลบ"</string>
+    <string name="keyboard_enter">"Enter"</string>
+
+    <!-- The floating bubble (HandyBubbleService.kt). -->
+    <string name="bubble_summary">"ไมโครโฟนลอยสำหรับพิมพ์ด้วยเสียงในช่องข้อความใดก็ได้"</string>
+    <string name="bubble_description">"แสดงไมโครโฟนลอยที่ขอบหน้าจอขณะที่คุณอยู่ในช่องข้อความ แตะหรือกดค้างเพื่อพิมพ์ด้วยเสียง สิ่งที่คุณพูดจะถูกถอดเสียงบนคอมพิวเตอร์ของคุณแล้วพิมพ์ลงในช่องนั้น\n\nHandy ใช้สิทธิ์เข้าถึงนี้เพื่อตรวจจับว่ามีการใช้งานช่องข้อความ และเพื่อพิมพ์สิ่งที่คุณพูดลงในช่องนั้นเท่านั้น Handy จะไม่อ่านหรือส่งสิ่งอื่นใดบนหน้าจอของคุณ"</string>
+    <string name="bubble_dictate">"พิมพ์ด้วยเสียงด้วย Handy"</string>
+    <string name="bubble_cancelled">"ยกเลิกแล้ว"</string>
+    <string name="bubble_offline">"เชื่อมต่อ %1$s ไม่ได้"</string>
+    <string name="bubble_copied">"คัดลอกแล้ว วางในตำแหน่งที่ต้องการได้เลย"</string>
+</resources>

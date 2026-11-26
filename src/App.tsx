@@ -8,6 +8,7 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { platform } from "@tauri-apps/plugin-os";
+import { listen } from "@tauri-apps/api/event";
 import {
   checkAccessibilityPermission,
   checkMicrophonePermission,
@@ -32,6 +33,7 @@ import { Sidebar, SidebarSection, SECTIONS_CONFIG } from "./components/Sidebar";
 import { WhatsNewGate } from "./components/whats-new";
 import { useSettings } from "./hooks/useSettings";
 import { useSettingsStore } from "./stores/settingsStore";
+import { useNavigationStore } from "./stores/navigationStore";
 import { commands } from "@/bindings";
 import { deleteRetiredModel } from "@/lib/models/retired";
 import { NoticePanel } from "@/components/notices/NoticePanel";
@@ -82,9 +84,12 @@ function App() {
   // Set when a returning user's selected model is a retired (ONNX) model that
   // is still on disk: they must update it before the app can transcribe.
   const [migrationModelId, setMigrationModelId] = useState<string | null>(null);
-  const [currentSection, setCurrentSection] =
-    useState<SidebarSection>("general");
-  const showHistory = useCallback(() => setCurrentSection("history"), []);
+  const currentSection = useNavigationStore((s) => s.section);
+  const setCurrentSection = useNavigationStore((s) => s.go);
+  const showHistory = useCallback(
+    () => setCurrentSection("history"),
+    [setCurrentSection],
+  );
   const { settings, updateSetting } = useSettings();
   const direction = getLanguageDirection(i18n.language);
   const refreshAudioDevices = useSettingsStore(
@@ -103,6 +108,18 @@ function App() {
   useEffect(() => {
     checkOnboardingStatus();
   }, []);
+
+  // The tray can ask for a page, such as Handy Remote.
+  useEffect(() => {
+    const unlisten = listen<string>("open-section", (event) => {
+      if (event.payload in SECTIONS_CONFIG) {
+        setCurrentSection(event.payload as SidebarSection);
+      }
+    });
+    return () => {
+      void unlisten.then((stop) => stop());
+    };
+  }, [setCurrentSection]);
 
   // Initialize RTL direction when language changes
   useEffect(() => {

@@ -26,7 +26,7 @@ import { LazyStreamClose } from "../LazyStreamClose";
 import { AirPodsMode } from "../AirPodsMode";
 import { FillerWordRemoval } from "../FillerWordRemoval";
 import { VadBackendSelector } from "../VadBackendSelector";
-import { DecidedElsewhere } from "../remote/DecidedElsewhere";
+import { DecidedElsewhere, LocalOnly } from "../remote/DecidedElsewhere";
 
 export const AdvancedSettings: React.FC = () => {
   const { t } = useTranslation();
@@ -40,7 +40,9 @@ export const AdvancedSettings: React.FC = () => {
         <AutostartToggle descriptionMode="tooltip" grouped={true} />
         <ShowTrayIcon descriptionMode="tooltip" grouped={true} />
         <ShowOverlay descriptionMode="tooltip" grouped={true} />
-        <ModelUnloadTimeoutSetting descriptionMode="tooltip" grouped={true} />
+        <LocalOnly>
+          <ModelUnloadTimeoutSetting descriptionMode="tooltip" grouped={true} />
+        </LocalOnly>
         <ExperimentalToggle descriptionMode="tooltip" grouped={true} />
       </SettingsGroup>
 
@@ -76,7 +78,9 @@ export const AdvancedSettings: React.FC = () => {
             descriptionMode="tooltip"
             grouped={true}
           />
-          <AccelerationSelector descriptionMode="tooltip" grouped={true} />
+          <LocalOnly>
+            <AccelerationSelector descriptionMode="tooltip" grouped={true} />
+          </LocalOnly>
           <LazyStreamClose descriptionMode="tooltip" grouped={true} />
           <AirPodsMode descriptionMode="tooltip" grouped={true} />
           <VadBackendSelector descriptionMode="tooltip" grouped={true} />

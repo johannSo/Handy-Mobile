@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "Parear com Seu Computador",
+    "intro": "Seu celular é o microfone. O Handy no seu computador faz a transcrição.",
+    "step1": "Abra o Handy no seu computador e vá até o Handy Remote.",
+    "step2": "Ative Permitir Conexões Remotas e escolha Parear um Celular.",
+    "step3": "Escaneie o código que aparecer. Os dois dispositivos precisam estar na mesma rede.",
+    "scan": "Escanear Código de Pareamento",
+    "manual": "Inserir o Código",
+    "manualPlaceholder": "Cole o código de pareamento do seu computador",
+    "manualSubmit": "Parear",
+    "pairing": "Pareando…",
+    "scanHint": "Aponte a câmera para o código no seu computador",
+    "cancelScan": "Cancelar",
+    "errors": {
+      "invalid_code": "Isso não é um código de pareamento do Handy.",
+      "expired_code": "Esse código expirou ou já foi usado. Crie um novo no seu computador.",
+      "incompatible": "As versões deste app e do Handy no seu computador estão distantes demais. Atualize os dois.",
+      "rate_limited": "Tentativas demais. Espere um minuto e tente de novo.",
+      "unreachable": "Não foi possível alcançar seu computador. Verifique se os dois dispositivos estão na mesma rede, se um firewall não está bloqueando o Handy e se o Handy tem permissão para encontrar dispositivos próximos nas configurações do celular.",
+      "untrusted": "Algo respondeu, mas não é o seu computador. Crie um novo código e tente de novo.",
+      "failed": "O pareamento não funcionou. Tente de novo.",
+      "camera_denied": "O Handy precisa da câmera para escanear o código. Permita nas configurações do celular ou insira o código.",
+      "scan_failed": "Não foi possível iniciar a câmera. Insira o código."
+    },
+    "back": "Voltar"
+  },
+  "link": {
+    "connecting": "Conectando…",
+    "connected": "Conectado",
+    "notPaired": "Não pareado",
+    "updateNeeded": "Atualização necessária",
+    "offline": "Não foi possível alcançar seu computador",
+    "offlineHint": "Verifique se o Handy está aberto em {{name}}, se os dois dispositivos estão na mesma rede e se o Handy tem permissão para encontrar dispositivos próximos nas configurações do celular.",
+    "retry": "Tentar de Novo",
+    "rejected": "Este celular não está mais pareado com {{name}}.",
+    "incompatible": "As versões deste app e do Handy em {{name}} estão distantes demais. Atualize os dois.",
+    "pairAgain": "Parear de Novo",
+    "yourComputer": "seu computador"
+  },
+  "record": {
+    "tapToStart": "Toque para ditar",
+    "starting": "Iniciando…",
+    "listening": "Ouvindo… toque para terminar",
+    "finishing": "Finalizando…",
+    "transcribing": "Transcrevendo…",
+    "start": "Começar a ditar",
+    "stop": "Terminar de ditar",
+    "cancel": "Cancelar"
+  },
+  "output": {
+    "label": "Enviar texto para",
+    "desktop": "Computador",
+    "phone": "Só no celular",
+    "desktopHint": "Digitado onde está o cursor em {{name}}.",
+    "phoneHint": "Mostrado aqui e copiado para a área de transferência.",
+    "notAllowedHint": "{{name}} não permite que este celular digite nele. Para mudar isso, ative Pode Digitar Aqui para este celular no Handy Remote do computador."
+  },
+  "transcripts": {
+    "empty": "O que você ditar aparece aqui.",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "share": "Compartilhar",
+    "pasted": "Digitado no seu computador",
+    "notPasted": "Não digitado no seu computador",
+    "clear": "Limpar"
+  },
+  "notices": {
+    "noSpeech": "Nada foi ouvido.",
+    "micDenied": "O Handy precisa do microfone. Permita nas configurações do celular.",
+    "micUnavailable": "Não foi possível iniciar o microfone.",
+    "connectionLost": "A conexão caiu, então essa gravação não foi transcrita.",
+    "busy": "Seu computador está ocupado com outro ditado.",
+    "no_model": "O Handy no seu computador não tem um modelo selecionado.",
+    "transcription_failed": "Seu computador não conseguiu transcrever isso.",
+    "paste_failed": "Seu computador não conseguiu digitar o texto, então ele está só aqui.",
+    "too_long": "O limite de duração foi atingido, então o ditado foi finalizado para você.",
+    "generic": "Algo deu errado no seu computador."
+  },
+  "settings": {
+    "title": "Configurações",
+    "computer": "Computador pareado",
+    "version": "Handy {{version}}",
+    "unpair": "Desparear",
+    "unpairConfirm": "Desparear de {{name}}? Você vai precisar escanear um novo código para ditar de novo.",
+    "unpairNote": "{{name}} tira este celular da própria lista se estiver acessível agora. Caso contrário, despareie-o lá, no Handy Remote.",
+    "confirm": "Desparear",
+    "cancel": "Cancelar",
+    "close": "Fechar"
+  },
+  "keyboard": {
+    "title": "Dite em Qualquer App",
+    "intro": "Há duas formas de ditar onde quer que você digite: uma bolha flutuante que aparece ao lado de qualquer campo de texto e um teclado com um microfone no lugar das teclas. Nos dois casos, o que você diz é transcrito no seu computador e digitado no campo de texto do celular. Configure uma ou as duas.",
+    "steps": {
+      "microphone": {
+        "title": "Permitir o Microfone",
+        "description": "Para que a bolha e o teclado possam ouvir você. Escolha “Durante o uso do app”; “Apenas esta vez” não dura.",
+        "action": "Permitir"
+      },
+      "localNetwork": {
+        "title": "Permitir Dispositivos Próximos",
+        "description": "Para que seu celular consiga alcançar seu computador na sua rede.",
+        "action": "Permitir"
+      },
+      "enable": {
+        "title": "Ativar o Teclado do Handy",
+        "description": "Ative o Handy na lista que se abre e confirme os dois avisos do Android, depois volte aqui. O Android avisa que um teclado pode coletar o que você digita. O teclado do Handy envia só a sua voz, e só para o seu próprio computador.",
+        "action": "Abrir Configurações do Teclado"
+      },
+      "select": {
+        "title": "Mudar para o Teclado do Handy",
+        "description": "Escolha o Handy na lista de teclados.",
+        "action": "Escolher Teclado"
+      },
+      "bubble": {
+        "title": "Ativar a Bolha Flutuante",
+        "description": "Ative o Handy Bubble nas configurações de acessibilidade que se abrem, em apps instalados ou baixados, depois volte aqui. O Android avisa que ele pode ver e controlar a tela. O Handy usa isso só para perceber que você está em um campo de texto e para digitar o que você dita.",
+        "action": "Abrir Configurações de Acessibilidade",
+        "helpTitle": "A chave está esmaecida?",
+        "help": "O Android restringe essa configuração para apps instalados a partir de um arquivo. Toque uma vez na chave esmaecida para o Android mostrar o aviso, depois abra Informações do app, toque nos três pontos no canto superior direito e escolha “Permitir configurações restritas”.",
+        "helpAction": "Abrir Informações do App"
+      }
+    },
+    "tryLabel": "Experimente",
+    "tryPlaceholder": "Toque aqui e depois toque no microfone",
+    "switchHint": "O botão de teclado no teclado do Handy leva você de volta ao seu teclado habitual. Para mudar para o Handy a partir de outro teclado, use o botão de teclado ou de globo dele.",
+    "done": "Concluído",
+    "later": "Agora Não",
+    "back": "Voltar",
+    "settingsRow": "Bolha e Teclado",
+    "new": "Novo",
+    "bubbleHint": "Toque na bolha para começar a ditar e toque de novo para terminar, ou mantenha-a pressionada enquanto fala. Mantê-la pressionada durante um ditado cancela. Arraste-a para onde for melhor; ela se acomoda no lado mais próximo.",
+    "settingsBubbleOn": "Bolha ativada",
+    "settingsBubbleOff": "Bolha desativada",
+    "settingsKeyboardOn": "Teclado ativado",
+    "settingsKeyboardOff": "Teclado desativado"
+  }
+}

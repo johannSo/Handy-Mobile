@@ -1,0 +1,141 @@
+{
+  "app": {
+    "name": "Handy"
+  },
+  "pair": {
+    "title": "Sandingkan dengan Komputer Anda",
+    "intro": "Ponsel Anda menjadi mikrofonnya. Handy di komputer Anda yang mentranskripsi.",
+    "step1": "Buka Handy di komputer Anda dan masuk ke Handy Remote.",
+    "step2": "Aktifkan Izinkan Koneksi Jarak Jauh dan pilih Sandingkan Ponsel.",
+    "step3": "Pindai kode yang ditampilkan. Kedua perangkat harus berada di jaringan yang sama.",
+    "scan": "Pindai Kode Penyandingan",
+    "manual": "Masukkan Kode Saja",
+    "manualPlaceholder": "Tempelkan kode penyandingan dari komputer Anda",
+    "manualSubmit": "Sandingkan",
+    "pairing": "Menyandingkan…",
+    "scanHint": "Arahkan kamera ke kode di komputer Anda",
+    "cancelScan": "Batal",
+    "errors": {
+      "invalid_code": "Itu bukan kode penyandingan Handy.",
+      "expired_code": "Kode itu sudah kedaluwarsa atau sudah digunakan. Buat kode baru di komputer Anda.",
+      "incompatible": "Versi aplikasi ini dan Handy di komputer Anda terpaut terlalu jauh. Perbarui keduanya.",
+      "rate_limited": "Terlalu banyak percobaan. Tunggu sebentar, lalu coba lagi.",
+      "unreachable": "Komputer Anda tidak dapat dijangkau. Pastikan kedua perangkat berada di jaringan yang sama, firewall tidak memblokir Handy, dan Handy diizinkan menemukan perangkat di sekitar di pengaturan ponsel Anda.",
+      "untrusted": "Yang menjawab bukan komputer Anda. Buat kode baru dan coba lagi.",
+      "failed": "Penyandingan gagal. Coba lagi.",
+      "camera_denied": "Handy memerlukan kamera untuk memindai kode. Izinkan di pengaturan ponsel Anda, atau masukkan kodenya saja.",
+      "scan_failed": "Kamera tidak dapat dimulai. Masukkan kodenya saja."
+    },
+    "back": "Kembali"
+  },
+  "link": {
+    "connecting": "Menghubungkan…",
+    "connected": "Terhubung",
+    "notPaired": "Belum tersanding",
+    "updateNeeded": "Perlu diperbarui",
+    "offline": "Komputer Anda tidak dapat dijangkau",
+    "offlineHint": "Pastikan Handy berjalan di {{name}}, kedua perangkat berada di jaringan yang sama, dan Handy diizinkan menemukan perangkat di sekitar di pengaturan ponsel Anda.",
+    "retry": "Coba Lagi",
+    "rejected": "Ponsel ini tidak lagi tersanding dengan {{name}}.",
+    "incompatible": "Versi aplikasi ini dan Handy di {{name}} terpaut terlalu jauh. Perbarui keduanya.",
+    "pairAgain": "Sandingkan Lagi",
+    "yourComputer": "komputer Anda"
+  },
+  "record": {
+    "tapToStart": "Ketuk untuk mendikte",
+    "starting": "Memulai…",
+    "listening": "Mendengarkan… ketuk untuk selesai",
+    "finishing": "Menyelesaikan…",
+    "transcribing": "Mentranskripsi…",
+    "start": "Mulai mendikte",
+    "stop": "Selesai mendikte",
+    "cancel": "Batal"
+  },
+  "output": {
+    "label": "Kirim teks ke",
+    "desktop": "Komputer",
+    "phone": "Hanya ponsel",
+    "desktopHint": "Diketik di posisi kursor di {{name}}.",
+    "phoneHint": "Ditampilkan di sini dan disalin ke papan klip.",
+    "notAllowedHint": "Ponsel ini tidak diizinkan mengetik di {{name}}. Untuk mengubahnya, aktifkan Boleh Mengetik di Sini untuk ponsel ini di Handy Remote pada komputer."
+  },
+  "transcripts": {
+    "empty": "Hasil dikte Anda muncul di sini.",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "share": "Bagikan",
+    "pasted": "Diketik di komputer Anda",
+    "notPasted": "Tidak diketik di komputer Anda",
+    "clear": "Hapus"
+  },
+  "notices": {
+    "noSpeech": "Tidak ada yang terdengar.",
+    "micDenied": "Handy memerlukan mikrofon. Izinkan di pengaturan ponsel Anda.",
+    "micUnavailable": "Mikrofon tidak dapat dimulai.",
+    "connectionLost": "Koneksi terputus, jadi rekaman itu tidak ditranskripsi.",
+    "busy": "Komputer Anda sedang sibuk dengan dikte lain.",
+    "no_model": "Belum ada model yang dipilih di Handy pada komputer Anda.",
+    "transcription_failed": "Komputer Anda tidak dapat mentranskripsinya.",
+    "paste_failed": "Komputer Anda tidak dapat mengetik teksnya, jadi teks hanya ada di sini.",
+    "too_long": "Rekaman mencapai batas panjang, jadi diselesaikan secara otomatis.",
+    "generic": "Terjadi kesalahan di komputer Anda."
+  },
+  "settings": {
+    "title": "Pengaturan",
+    "computer": "Komputer tersanding",
+    "version": "Handy {{version}}",
+    "unpair": "Lepas Sandingan",
+    "unpairConfirm": "Lepas sandingan dari {{name}}? Anda perlu memindai kode baru untuk mendikte lagi.",
+    "unpairNote": "Jika dapat dijangkau sekarang, {{name}} menghapus ponsel ini dari daftarnya. Jika tidak, lepas sandingannya di sana, di Handy Remote.",
+    "confirm": "Lepas Sandingan",
+    "cancel": "Batal",
+    "close": "Tutup"
+  },
+  "keyboard": {
+    "title": "Dikte di Aplikasi Apa Pun",
+    "intro": "Ada dua cara mendikte di mana pun Anda mengetik: gelembung mengambang yang muncul di samping kolom teks mana pun, dan keyboard dengan mikrofon sebagai pengganti tombol huruf. Dengan cara mana pun, ucapan Anda ditranskripsi di komputer Anda dan diketik ke kolom teks di ponsel. Siapkan salah satu atau keduanya.",
+    "steps": {
+      "microphone": {
+        "title": "Izinkan Mikrofon",
+        "description": "Agar gelembung dan keyboard dapat mendengar Anda. Pilih \"Saat aplikasi digunakan\"; \"Hanya kali ini\" tidak bertahan lama.",
+        "action": "Izinkan"
+      },
+      "localNetwork": {
+        "title": "Izinkan Perangkat di Sekitar",
+        "description": "Agar ponsel dapat menjangkau komputer Anda di jaringan Anda.",
+        "action": "Izinkan"
+      },
+      "enable": {
+        "title": "Aktifkan Keyboard Handy",
+        "description": "Aktifkan Handy di daftar yang terbuka dan konfirmasi kedua permintaan Android, lalu kembali ke sini. Android memperingatkan bahwa keyboard dapat mengumpulkan apa yang Anda ketik. Keyboard Handy hanya mengirim suara Anda, dan hanya ke komputer Anda sendiri.",
+        "action": "Buka Pengaturan Keyboard"
+      },
+      "select": {
+        "title": "Beralih ke Keyboard Handy",
+        "description": "Pilih Handy di daftar keyboard.",
+        "action": "Pilih Keyboard"
+      },
+      "bubble": {
+        "title": "Aktifkan Gelembung Mengambang",
+        "description": "Aktifkan Handy Bubble di pengaturan aksesibilitas yang terbuka, di bagian aplikasi terinstal atau yang didownload, lalu kembali ke sini. Android memperingatkan bahwa layanan ini dapat melihat dan mengontrol layar. Handy menggunakannya hanya untuk mengetahui bahwa Anda berada di kolom teks dan untuk mengetik hasil dikte Anda.",
+        "action": "Buka Pengaturan Aksesibilitas",
+        "helpTitle": "Tombolnya berwarna abu-abu?",
+        "help": "Android membatasi pengaturan ini untuk aplikasi yang diinstal dari file. Ketuk tombol abu-abu itu sekali agar Android menampilkan pemberitahuannya, lalu buka Info Aplikasi, ketuk tiga titik di kanan atas, dan pilih \"Izinkan setelan terbatas\".",
+        "helpAction": "Buka Info Aplikasi"
+      }
+    },
+    "tryLabel": "Coba",
+    "tryPlaceholder": "Ketuk di sini, lalu ketuk mikrofon",
+    "switchHint": "Tombol keyboard di keyboard Handy membawa Anda kembali ke keyboard biasa. Untuk beralih ke Handy dari keyboard lain, gunakan tombol keyboard atau tombol globe di keyboard tersebut.",
+    "done": "Selesai",
+    "later": "Nanti Saja",
+    "back": "Kembali",
+    "settingsRow": "Gelembung dan Keyboard",
+    "new": "Baru",
+    "bubbleHint": "Ketuk gelembung untuk mulai mendikte dan ketuk lagi untuk selesai, atau tahan selagi Anda berbicara. Menahannya saat dikte berlangsung akan membatalkan. Seret ke tempat yang Anda suka; gelembung akan menempel di sisi terdekat.",
+    "settingsBubbleOn": "Gelembung aktif",
+    "settingsBubbleOff": "Gelembung nonaktif",
+    "settingsKeyboardOn": "Keyboard aktif",
+    "settingsKeyboardOff": "Keyboard nonaktif"
+  }
+}
